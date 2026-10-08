@@ -1,0 +1,8 @@
+{
+  "name": "brand-capture",
+  "version": "0.1.0",
+  "description": "One-time brand setup: scans a brand's site and writes BRAND.md, BRAND-VOICE.md and BRAND-QUESTIONS.md that every other skill reads.",
+  "author": { "name": "Nyla", "email": "michael@nyla.app" },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": ["brand","brand-voice","onboarding"]
+}

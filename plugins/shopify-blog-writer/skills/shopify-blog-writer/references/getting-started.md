@@ -116,5 +116,5 @@ Nothing is written until you answer. A week with no good idea is a quiet week wi
 - **Add a skill for everyone:** Add > Upload a skill (a .zip with a SKILL.md). It's available to all members straight away, on by default, and members can switch it off.
 - **Only some teams:** on Enterprise, bundle the skills in a plugin and assign it to a group.
 - **Connectors:** enabling one makes it available to everyone in the organization.
-- **Brand file:** one `BRAND.md` per store, written by brand-capture, read by every other skill. Keep each store in its own folder. Lookup order: project root, your home directory, the central brand directory, then memory and connected knowledge (see `references/brand-context.md`).
+- **Brand file:** one `BRAND.md` per store, written by brand-capture, read by every other skill. Keep each store in its own folder. Lookup order: project root, your home directory, the central brand directory, then memory and connected knowledge (see brand-capture `references/brand-context.md`).
 - **Updates:** re-upload a skill to update it for everyone.
