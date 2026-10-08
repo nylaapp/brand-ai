@@ -5,6 +5,10 @@ description: "Brand-agnostic autopilot that decides WHEN a Shopify store should 
 
 # Shopify Blog Autopilot
 
+## Effort (read before starting)
+
+Weekly check-in: about 5 to 10 minutes and $1 to $2 with the deep web sources, under $0.50 without them (store events, ledger and occasions only). Drafting a post adds the blog writer's own effort. Estimate, not yet measured. Stop and report if a scan passes 20 minutes or $4.
+
 Decide **whether, what and when** a Shopify store should publish, then hand off to `shopify-blog-writer` to do the writing. This skill never writes the post itself: it's the editor-in-chief, and the writer skill is the staff writer. Keeping them apart means the rubric can change without breaking the writing workflow, and the writer still works on its own when the user asks for a post directly.
 
 ```
