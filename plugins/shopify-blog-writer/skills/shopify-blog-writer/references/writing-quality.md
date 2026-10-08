@@ -9,7 +9,7 @@ Every post is built around **one first-hand asset** only the brand has: a founde
 
 ## 2. Have a point of view
 Record a `stance` in the brief: the position the post takes and who it is *not* for ("we stopped recommending X because…", "most guides say Y; in our experience Z"). Use mild opinions and trade-offs. Skip the hedge-everything tone ("it depends on many factors").
-- The stance comes from brand.md, the user, or first-hand material. Don't make one up. If there is none, ask (guided) or use a placeholder (automated) and say so.
+- The stance comes from BRAND.md, the user, or first-hand material. Don't make one up. If there is none, ask (guided) or use a placeholder (automated) and say so.
 - Regulated or health topics: a point of view never overrides claim limits or sources.
 
 ## 3. Be specific

@@ -1,6 +1,6 @@
 # House style: matching the brand's existing blog posts
 
-A new post can look out of place next to the brand's other posts: the featured image sits in a different spot, headings follow a different pattern, and the length is far off. The user chooses how much to match. brand.md's **Blog** section gives the typical post (length, headings, byline, CTA style). The scan below fills in what that section doesn't say, from the live blog.
+A new post can look out of place next to the brand's other posts: the featured image sits in a different spot, headings follow a different pattern, and the length is far off. The user chooses how much to match. BRAND.md's **Blog** section gives the typical post (length, headings, byline, CTA style). The scan below fills in what that section doesn't say, from the live blog.
 
 ## 1. The user's choice
 
@@ -18,9 +18,9 @@ Record as `house_style` in the fields JSON: `match`, `match-layout`, or `best-pr
 
 Defaults when the user can't be asked: `match-layout` for the search and education intents, `match` for brand and promotion.
 
-## 2. Scan the live blog (nothing is saved to brand.md)
+## 2. Scan the live blog (nothing is saved to BRAND.md)
 
-Start from brand.md's Blog section. Then fetch 3–5 recent published posts, fresh each time because the blog changes and brand.md deliberately lists no posts: use `https://<store>/blogs/<blog-handle>.atom` (lists recent articles), the blog index page, or the Shopify connector (`articles` query). Open each post and note:
+Start from BRAND.md's Blog section. Then fetch 3–5 recent published posts, fresh each time because the blog changes and BRAND.md deliberately lists no posts: use `https://<store>/blogs/<blog-handle>.atom` (lists recent articles), the blog index page, or the Shopify connector (`articles` query). Open each post and note:
 
 | Aspect | What to capture |
 |---|---|
@@ -34,7 +34,7 @@ Start from brand.md's Blog section. Then fetch 3–5 recent published posts, fre
 | **Tags and categories** | Naming style; which tags are in use |
 | **Tone** | Formal or friendly; first person plural; reading level |
 
-Keep these notes in the run's brief. Don't write them to brand.md (only brand-capture writes it). If the live blog contradicts brand.md's Blog section, follow the live blog for this post and add a `brand-requests.md` line.
+Keep these notes in the run's brief. Don't write them to BRAND.md (only brand-capture writes it). If the live blog contradicts BRAND.md's Blog section, follow the live blog for this post and add a `BRAND-REQUESTS.md` line.
 
 ## 3. How to apply each option
 

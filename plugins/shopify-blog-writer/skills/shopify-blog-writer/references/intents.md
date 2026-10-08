@@ -23,7 +23,7 @@ Whatever the intent, the post ends with **one tangible next step** the reader ca
 - Claims need the most care here (care, safety, ingredients, health). Offer the fact-check.
 
 **Brand and journal**
-- Voice and first-hand detail matter most. Use brand.md and what the user provides; use `[[BRAND TO ADD: …]]` placeholders for real stories, quotes and photos. Never invent a founder story or customer result.
+- Voice and first-hand detail matter most. Use BRAND.md and what the user provides; use `[[BRAND TO ADD: …]]` placeholders for real stories, quotes and photos. Never invent a founder story or customer result.
 - Answer-first and FAQ are optional. A short, clear opening that says what the post is about is enough. Length can be shorter (600–1,500 words).
 - Still set the SEO fields, 1–3 product or collection links, and tags.
 

@@ -193,9 +193,9 @@ Shopify fills the article author with whoever is signed in, which would put a st
 
 **1. Pick the value: copy what the store's existing posts use.** In this order:
 1. **What the user said** in this request ("use Jane as the author", "post it under the founder"). It overrides everything below, for this post only.
-2. **The author on the blog's existing published posts.** Read the author of the 5 to 10 most recent posts in the target blog: connector `articles(first: 10, sortKey: PUBLISHED_AT, reverse: true, query: "blog_id:<id>") { nodes { title author { name } } }`; or the blog's `.atom` feed (`<author><name>`); or the byline shown on the live post pages. Use the name most of them share, copied exactly. If they rotate between several people with no clear majority, use the brand-level name that appears among them (or brand.md's byline) and say so in the summary.
-3. **brand.md** Blog → Byline (or Author → Default byline), when the blog has no published posts to copy.
-4. **The brand name** from brand.md front matter `brand`, or "The <Brand> Team", as the last resort.
+2. **The author on the blog's existing published posts.** Read the author of the 5 to 10 most recent posts in the target blog: connector `articles(first: 10, sortKey: PUBLISHED_AT, reverse: true, query: "blog_id:<id>") { nodes { title author { name } } }`; or the blog's `.atom` feed (`<author><name>`); or the byline shown on the live post pages. Use the name most of them share, copied exactly. If they rotate between several people with no clear majority, use the brand-level name that appears among them (or BRAND.md's byline) and say so in the summary.
+3. **BRAND.md** Blog → Byline (or Author → Default byline), when the blog has no published posts to copy.
+4. **The brand name** from BRAND.md front matter `brand`, or "The <Brand> Team", as the last resort.
 
 Never use the signed-in user's name or email, the store owner, a connector account name, or the source article's writer (for rewrites), unless the existing posts or the user's instruction say so. Don't ask the user: the existing posts already answer it. Record the chosen value and where it came from ("author: <name>, from the last 8 posts") in the fields JSON and the summary.
 

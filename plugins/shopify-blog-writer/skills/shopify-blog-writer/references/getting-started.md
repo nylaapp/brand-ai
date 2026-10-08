@@ -19,7 +19,7 @@ New here? Start with **shopify-blog-writer**. Add the others later.
 - [ ] **Use Claude Desktop (Cowork) for the full experience.** Chat can write a post, but saving drafts through your browser and scheduled runs need the desktop app.
 - [ ] **Shopify connection (recommended).** Connect the Shopify connector so Claude can save drafts straight into your store. Each person signs in to their own Shopify access.
 - [ ] **No connector?** Install Claude in Chrome and stay signed in to Shopify admin. The skill can fill in the blog editor for you. It never types your password.
-- [ ] **Your brand.md.** Set up the brand once with the **brand-capture** skill (about 10 to 25 minutes). It writes `brand.md` in your store's folder: voice, audience, claim limits, competitors, inspiration brands and how your blog looks. Then run **competitor-research** to add `competitors.md`. The blog writer reads both and never asks about the brand again. Each store has its own folder and its own brand.md.
+- [ ] **Your BRAND.md.** Set up the brand once with the **brand-capture** skill (about 10 to 25 minutes). It saves `BRAND.md` to the central brand directory (`$BRAND_AI_HOME/brands/<store>/`, default `~/.brand-ai/brands/<store>/`) and the skills also find it in your project folder or home directory: voice, audience, claim limits, competitors, inspiration brands and how your blog looks. Then run **competitor-research** to add `COMPETITORS.md`. The blog writer reads both and never asks about the brand again. Each store has its own folder and its own BRAND.md.
 
 ---
 
@@ -36,10 +36,10 @@ Claude asks a few quick questions first, once, before it starts:
 3. **Where should it go?** A hidden Shopify draft, or paste-ready HTML to post later.
 4. **How involved do you want to be?**
    - **Fully automated:** no more questions. It researches, writes and delivers, and lists anything it assumed.
-   - **Guided:** you choose which open questions to answer (products and links, your own insights) and where to review (outline, images, final post). It never re-asks what your request, earlier answers or your brand.md already say, such as voice, author, topic or keywords.
+   - **Guided:** you choose which open questions to answer (products and links, your own insights) and where to review (outline, images, final post). It never re-asks what your request, earlier answers or your BRAND.md already say, such as voice, author, topic or keywords.
 5. **Should it match your existing blog posts?** Match them, match the layout but go deeper for search ranking, or use best-practice format. (Asked only if your blog has at least 3 posts.)
 
-It never asks about your competitors, inspiration brands, claim limits, voice or author: those come from brand.md. If something is missing it adds a line to `brand-requests.md` for your brand owner. If there is no brand.md yet, it offers to run brand-capture first.
+It never asks about your competitors, inspiration brands, claim limits, voice or author: those come from BRAND.md. If something is missing it adds a line to `BRAND-REQUESTS.md` for your brand owner. If there is no BRAND.md yet, it offers to run brand-capture first.
 
 Then wait a few minutes. You get the post, with title, SEO title, meta description, URL handle, excerpt, tags, images, schema code and internal links, plus a short summary with a **list of placeholders** to fill.
 
@@ -73,7 +73,7 @@ Nothing is written until you answer. A week with no good idea is a quiet week wi
 
 1. Say: *"Set up shopify-blog-autopilot for [your store]."*
 2. Connect a folder when asked. It keeps your brand profile and a log of past posts there.
-3. Answer the setup questions. It uses your brand.md and finds most answers from your store.
+3. Answer the setup questions. It uses your BRAND.md and finds most answers from your store.
 4. It creates a weekly scheduled check-in (Monday 9:00 by default). New drafts appear in Shopify as **hidden**, tagged `autopilot`.
 
 **Good to know:**
@@ -116,5 +116,5 @@ Nothing is written until you answer. A week with no good idea is a quiet week wi
 - **Add a skill for everyone:** Add > Upload a skill (a .zip with a SKILL.md). It's available to all members straight away, on by default, and members can switch it off.
 - **Only some teams:** on Enterprise, bundle the skills in a plugin and assign it to a group.
 - **Connectors:** enabling one makes it available to everyone in the organization.
-- **Brand file:** one `brand.md` per store, written by brand-capture, read by every other skill. Keep each store in its own folder.
+- **Brand file:** one `BRAND.md` per store, written by brand-capture, read by every other skill. Keep each store in its own folder. Lookup order: project root, your home directory, the central brand directory, then memory and connected knowledge (see `references/brand-context.md`).
 - **Updates:** re-upload a skill to update it for everyone.

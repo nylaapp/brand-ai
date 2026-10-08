@@ -12,7 +12,7 @@ Contents: 1. Content brief · 2. Body HTML conventions · 3. Fields JSON · 4. S
 **Brand:** <Brand> — <one-line what/for whom>   **Date:** <YYYY-MM-DD>
 **Post intent:** <education | brand | search | promotion> (chosen by user | inferred: why)
 **Media:** <own uploads | stock | both>   **Format:** <match | match-layout | best-practice> (length target <min–max> words)
-**Brand facts:** brand.md rev <n> (<status>, <last_updated>) for <store>; competitors.md (<researched date>) or "none; assumptions below"
+**Brand facts:** BRAND.md rev <n> (<status>, <last_updated>) for <store>; COMPETITORS.md (<researched date>) or "none; assumptions below"
 **Assumptions:** <anything you had to assume; "none" if all confirmed>
 
 ## Keywords and search intent
