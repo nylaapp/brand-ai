@@ -1,0 +1,117 @@
+# Blog Autopilot — brand profile
+# One file per brand: blog-autopilot/<brand-slug>/brand-profile.yaml
+# The skill is brand-agnostic; everything store-specific lives here.
+# Fields marked "discovered" are filled during setup from the store itself. Correct anything wrong.
+# Anything you leave as a default keeps working. Delete a section to disable it.
+
+version: 1
+
+# How the autopilot works with you
+approval: "ask_first"                 # ask_first (default): send a check-in and draft only after you say yes | auto_draft: draft hidden posts without asking
+
+brand:
+  name: "<Brand name>"                 # exact spelling used in posts
+  slug: "<brand-slug>"                 # folder name, lowercase-kebab
+  store_url: "https://<store-domain>"  # discovered
+  one_liner: "<Brand> is a <what> that makes <products> for <who>."  # used verbatim for entity clarity
+  categories:                          # core topic clusters the brand can credibly own (discovered from collections)
+    - "<category 1>"
+    - "<category 2>"
+  knowledge_file: ""                  # path to the central brand file (e.g. brand.md). It is the source of truth for the fields below; they are only used if no file exists
+  voice: "clear, warm, expert, second person"   # or 3 adjectives, or a reference page URL
+  words_to_avoid: []
+  author:
+    name: "The <Brand> Team"
+    bio: "[[BRAND TO ADD: one-line author credentials]]"
+  claims_restrictions: []              # e.g. "no medical claims", "don't say 'sustainable' without certification"
+  excluded_topics: []                  # topics never to write about, matched against keyword/title/cluster (case-insensitive substring)
+
+shopify:
+  blog_handle: "news"                  # discovered: the blog posts go into
+  cta_default: "collection"            # collection | email_signup | product
+  default_collection_handle: ""        # discovered: fallback CTA target
+
+markets:                               # drives the occasion calendar, spelling and currency
+  primary: "<XX>"                      # ISO country code, discovered from the shop; no default is assumed
+  others: []                           # e.g. ["CA", "GB", "AU"]
+  language: "<xx-XX>"                  # discovered / confirmed in setup: the language posts and reports are written in
+  currency: "<XXX>"                    # discovered from the shop
+
+sources:                               # enable only what exists; missing data is skipped, not guessed
+  shopify_store: true                  # products, collections, inventory, analytics, existing articles
+  search_console:
+    enabled: false
+    property: ""                       # this store's Search Console property (Domain or URL-prefix); used by the post-publish audit
+    inputs_dir: "inputs/gsc"           # drop Search Console CSV exports here (see references/triggers.md)
+    max_age_days: 35                   # exports older than this are flagged as stale and ignored
+  reviews:
+    enabled: false
+    inputs_dir: "inputs/reviews"       # review app CSV export (Judge.me, Yotpo, Okendo, Loox…)
+  helpdesk:
+    enabled: false
+    inputs_dir: "inputs/helpdesk"      # ticket export (Gorgias, Zendesk, Shopify Inbox…)
+  competitors:
+    enabled: false
+    list:                              # 3–5 is plenty
+      - name: "<Competitor>"
+        domain: "<competitor.com>"
+        feed: "https://<competitor.com>/blogs/news.atom"   # Shopify blogs expose /blogs/<handle>.atom; else a sitemap or RSS URL
+  trends:
+    enabled: true                      # web search on the brand's categories; no account needed
+    seed_terms: []                     # optional extra terms to watch
+  tracked_questions: []                # optional: questions to spot-check in search results for brand citations (monthly)
+
+occasions:
+  use_defaults: true                   # the default calendar for the markets above (references/occasions.md)
+  exclude: []                          # default occasions to ignore, by id, e.g. ["valentines_day"]
+  custom:                              # brand or niche dates, e.g. anniversaries, niche awareness days, lunar-calendar holidays
+    # - id: "brand_anniversary"
+    #   name: "<Brand> birthday sale"
+    #   date: "2027-03-14"             # a fixed date, or "rule: MM-DD" to repeat yearly
+    #   lead_days: 42
+    #   post_types: ["brand", "transactional"]
+
+defaults:                              # used when the check-in reply doesn't say otherwise
+  media: "stock"                       # stock | own | both
+  format: "match-layout"               # match | match-layout | best-practice
+
+content_mix:                           # target share by intent; under-represented intents get a small score bonus
+  informational: 0.40
+  commercial: 0.30
+  transactional: 0.15
+  post_purchase_brand: 0.15
+
+thresholds:
+  write: 65                            # score ≥ write → eligible to draft now
+  backlog: 45                          # backlog ≤ score < write → keep for later
+  periodic_min: 55                     # minimum score for the "don't go quiet" rule
+  gsc_striking_min_impressions: 100    # per export period
+  gsc_decay_drop_pct: 25               # clicks drop that flags a post for refresh
+  voc_min_mentions: 3                  # recurring-question threshold within the lookback window
+  trend_min_evidence: 2                # independent sources needed before a trend counts
+
+limits:
+  max_posts_per_week: 2                # rolling 7 days; counts ledger and autopilot-tagged articles
+  max_posts_per_run: 1
+  cluster_cooldown_days: 21            # no two autopilot posts in the same cluster within this window
+  backlog_expiry_days: 60
+
+periodic:
+  max_gap_days: 14                     # if nothing has been drafted for this long, promote the best backlog item
+
+scan:
+  deep_every_days: 7                 # credit-heavy web scans (trends, competitor feeds, AI check) at most this often
+
+schedule:
+  cron: "0 9 * * 1"                    # weekly, Monday 9:00 local (the check-in)
+  timezone: "local"
+  checkin_expire_days: 14              # an unanswered check-in lapses after this many days (ask_first mode)
+
+audit:                                 # optional overrides for the shopify-post-publish-audit skill; delete to use its defaults
+  report_language: ""                  # blank = markets.language
+  # title_length: [50, 60]
+  # meta_length: [140, 160]
+  # word_count: [1200, 2500]
+  # product_links: [2, 4]
+  # related_post_links: [2, 3]
+  # check_days: [14, 28]
