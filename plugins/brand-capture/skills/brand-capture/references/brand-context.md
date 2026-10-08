@@ -1,6 +1,6 @@
 # Brand context resolution
 
-How every skill in this repo finds a store's brand files (`BRAND.md`, `BRAND-VOICE.md`, `COMPETITORS.md`, `BRAND-QUESTIONS.md`, `BRAND-REQUESTS.md`). Check every source below, in order, before asking the user to generate anything.
+The canonical lookup and save rules, owned by brand-capture and followed by every skill in this repo. How they find a store's brand files (`BRAND.md`, `BRAND-VOICE.md`, `COMPETITORS.md`, `BRAND-QUESTIONS.md`, `BRAND-REQUESTS.md`). Check every source below, in order, before asking the user to generate anything.
 
 ## 1. Pick the brand slug
 

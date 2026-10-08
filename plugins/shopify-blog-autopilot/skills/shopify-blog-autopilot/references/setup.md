@@ -11,7 +11,7 @@ The profile and ledger must live somewhere that persists between runs.
 
 ## 2. Discover the profile
 
-First look for the brand's brand file through the fallback chain in `shopify-blog-writer` `references/brand-context.md`: project root, user local environment, central brand directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then memory, CLAUDE.md and connected knowledge. Only if none is found, offer brand-capture and save its output to the central brand directory. If one exists, take identity, voice, competitors, inspiration brands and claim limits from it and set `brand.knowledge_file`; don't scan or ask again. Then copy `assets/brand-profile.template.yaml` to `brand-profile.yaml` and fill in what you can find:
+First look for the brand's brand file through the fallback chain in brand-capture `references/brand-context.md`: project root, user local environment, central brand directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then memory, CLAUDE.md and connected knowledge. Only if none is found, offer brand-capture and save its output to the central brand directory. If one exists, take identity, voice, competitors, inspiration brands and claim limits from it and set `brand.knowledge_file`; don't scan or ask again. Then copy `assets/brand-profile.template.yaml` to `brand-profile.yaml` and fill in what you can find:
 
 | Field | How to find it |
 |---|---|
