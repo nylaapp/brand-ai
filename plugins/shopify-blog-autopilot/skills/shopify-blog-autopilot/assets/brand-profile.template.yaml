@@ -17,7 +17,7 @@ brand:
   categories:                          # core topic clusters the brand can credibly own (discovered from collections)
     - "<category 1>"
     - "<category 2>"
-  knowledge_file: ""                  # path to the central brand file (e.g. brand.md). It is the source of truth for the fields below; they are only used if no file exists
+  knowledge_file: ""                  # path to the brand file (e.g. ~/.brand-ai/brands/<slug>/BRAND.md; leave empty to use the lookup chain). It is the source of truth for the fields below; they are only used if no file exists
   voice: "clear, warm, expert, second person"   # or 3 adjectives, or a reference page URL
   words_to_avoid: []
   author:

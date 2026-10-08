@@ -1,6 +1,6 @@
 # Setup questions
 
-Setup gives the user control over the post's purpose, media, format, how involved they are, and where it ends up. It happens once, **before any research**. Brand facts are never asked here: they come from the store's brand.md (Step 0b in SKILL.md).
+Setup gives the user control over the post's purpose, media, format, how involved they are, and where it ends up. It happens once, **before any research**. Brand facts are never asked here: they come from the store's BRAND.md (Step 0b in SKILL.md).
 
 Use AskUserQuestion (max 4 questions per call). Put sensible defaults first and mark them "(Recommended)" where one clearly fits.
 
@@ -40,10 +40,10 @@ Use AskUserQuestion (max 4 questions per call). Put sensible defaults first and 
 **Q5 — Format** — only if the blog has at least 3 published posts. Wording and options: `house-style.md` §1.
 
 **Brand and topic** — in plain text, only for what's missing:
-- Which store, only if it isn't clear from the request or the connected folder (skip if brand.md or the conversation already has it)
+- Which store, only if it isn't clear from the request or the connected folder (skip if BRAND.md or the conversation already has it)
 - The topic, or "suggest topics"
 
-Then **identify the store and load its brand.md** (Step 0b in SKILL.md). Competitors, inspiration brands, claim limits, voice and author are never asked: they are in brand.md. The only brand-related question allowed is "which store is this for?" when several clients are present and the request doesn't say. If brand.md is missing, Step 0b applies: stop and offer brand-capture; don't interrogate the user. If brand.md is `draft`, mention in one line that some lines are unconfirmed and which ones you rely on.
+Then **identify the store and load its BRAND.md** (Step 0b in SKILL.md). Competitors, inspiration brands, claim limits, voice and author are never asked: they are in BRAND.md. The only brand-related question allowed is "which store is this for?" when several clients are present and the request doesn't say. If BRAND.md is missing, Step 0b applies: stop and offer brand-capture; don't interrogate the user. If BRAND.md is `draft`, mention in one line that some lines are unconfirmed and which ones you rely on.
 
 **If the draft goes through the browser**, check right away that the browser is signed in to the right store's Shopify admin (`publishing.md`, Option 1B). If not, ask the user to sign in themselves; if they can't, switch to HTML.
 
@@ -55,15 +55,15 @@ These setup questions are the only required ones. Nothing else is asked after th
 
 One AskUserQuestion call with two multi-select questions:
 
-**The no-repeat rule.** Never ask, in any mode, what is already established: in the user's request, in an earlier setup answer, in brand.md, or implied by the intent. Check those first; ask only the gap, and only once. Specifically, guided mode has **no** voice, tone, author, topic or keyword question:
-- Voice, tone, author and brand facts come from brand.md (or the defaults in §4).
+**The no-repeat rule.** Never ask, in any mode, what is already established: in the user's request, in an earlier setup answer, in BRAND.md, or implied by the intent. Check those first; ask only the gap, and only once. Specifically, guided mode has **no** voice, tone, author, topic or keyword question:
+- Voice, tone, author and brand facts come from BRAND.md (or the defaults in §4).
 - The topic was already asked in setup (call B) or given in the request. If the user chose "suggest topics", offer 3–5 researched options as a choice, not as a menu group.
 - Keywords come from research and are shown in the brief; the user changes them at the brief checkpoint if they want. If they supply a keyword list or Search Console data, use it.
 The user can still change any of these unprompted ("use a different tone this time", "target this keyword"); then follow their instruction.
 
 Guided mode is a guide, not a permission prompt: don't ask "do you want to be involved?". Offer concrete options (topics, outlines, images) and ask for a choice.
 
-**Q-A — "Which of these do you want to weigh in on?"** (only groups not already answered or established; anything not picked uses brand.md, discovered facts or defaults)
+**Q-A — "Which of these do you want to weigh in on?"** (only groups not already answered or established; anything not picked uses BRAND.md, discovered facts or defaults)
 
 | Option | Questions asked if picked |
 |---|---|
@@ -84,10 +84,10 @@ Ask the chosen groups' questions in as few calls as possible, each with a defaul
 - Intent: inferred from the topic (`intents.md`), stated in the summary
 - Media: pick free stock photos
 - Format: `match-layout` for education and search, `match` for brand and promotion; `best-practice` if the blog has fewer than 3 posts (when the post count can't be checked, use the intent default)
-- Author: brand.md's Blog byline or Author, else "The [Brand] Team" with a placeholder bio (never asked in guided mode)
-- Voice: brand.md Voice and Terminology, else matched to the store's home and about pages and flagged as an assumption, else clear, warm, expert, second person
-- Market: brand.md `markets`, else the shop's country; never assume one
-- Disclaimer: brand.md's required blog disclaimer, verbatim, if it names one
+- Author: BRAND.md's Blog byline or Author, else "The [Brand] Team" with a placeholder bio (never asked in guided mode)
+- Voice: BRAND.md Voice and Terminology, else matched to the store's home and about pages and flagged as an assumption, else clear, warm, expert, second person
+- Market: BRAND.md `markets`, else the shop's country; never assume one
+- Disclaimer: BRAND.md's required blog disclaimer, verbatim, if it names one
 - Blog handle: the store's existing blog, else `news`
 - Topic (if "suggest topics" in automated mode): the strongest researched option by brand fit and visible demand
 - Links: real products, collections and posts found on the store; leave out any link you couldn't verify
@@ -97,7 +97,7 @@ Ask the chosen groups' questions in as few calls as possible, each with a defaul
 
 ## 5. Discovering facts from the store
 
-For store facts brand.md doesn't cover (current products, collections, posts), fetch them fresh for this run only; log brand gaps in `brand-requests.md`:
+For store facts BRAND.md doesn't cover (current products, collections, posts), fetch them fresh for this run only; log brand gaps in `BRAND-REQUESTS.md`:
 
 | URL | What it gives you |
 |---|---|
