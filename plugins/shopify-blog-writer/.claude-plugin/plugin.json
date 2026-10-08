@@ -1,0 +1,8 @@
+{
+  "name": "shopify-blog-writer",
+  "version": "0.1.0",
+  "description": "Research and write SEO/AEO-optimized Shopify blog posts and deliver them as hidden drafts or paste-ready HTML.",
+  "author": { "name": "Nyla", "email": "michael@nyla.app" },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": ["shopify","blog","seo","aeo","content"]
+}
