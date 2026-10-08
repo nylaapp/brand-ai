@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+*.local.json
+.claude/settings.local.json
+
+# Logs and temp
+*.log
+*.tmp
