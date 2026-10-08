@@ -1,0 +1,9 @@
+{
+  "name": "shopify-blog-autopilot",
+  "version": "0.1.0",
+  "description": "Decide when a Shopify store should publish or refresh a blog post, score opportunities, and hand briefs to the writer.",
+  "author": { "name": "Nyla", "email": "michael@nyla.app" },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": ["shopify","blog","autopilot","seo","content-calendar"],
+  "dependencies": ["shopify-blog-writer"]
+}

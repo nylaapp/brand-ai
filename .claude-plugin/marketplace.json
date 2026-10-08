@@ -1,0 +1,10 @@
+{
+  "name": "brand-ai",
+  "owner": { "name": "Nyla", "email": "michael@nyla.app" },
+  "metadata": { "description": "Brand-agnostic AI skills for Shopify content, packaged as plugins." },
+  "plugins": [
+    { "name": "shopify-blog-writer", "source": "./plugins/shopify-blog-writer", "description": "Research and write SEO/AEO-optimized Shopify blog posts.", "version": "0.1.0" },
+    { "name": "shopify-blog-rewrite", "source": "./plugins/shopify-blog-rewrite", "description": "Rewrite existing articles in a store's brand voice and post as hidden drafts.", "version": "0.1.0" },
+    { "name": "shopify-blog-autopilot", "source": "./plugins/shopify-blog-autopilot", "description": "Decide when and what to blog from store, SEO and seasonal signals.", "version": "0.1.0" }
+  ]
+}
