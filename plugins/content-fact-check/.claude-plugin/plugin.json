@@ -1,0 +1,8 @@
+{
+  "name": "content-fact-check",
+  "version": "0.1.0",
+  "description": "Independent fact-checker for blog and marketing copy, with guardrails for regulated claims.",
+  "author": { "name": "Nyla", "email": "michael@nyla.app" },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": ["fact-check","compliance","content"]
+}

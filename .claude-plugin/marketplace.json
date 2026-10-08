@@ -1,10 +1,54 @@
 {
   "name": "brand-ai",
-  "owner": { "name": "Nyla", "email": "michael@nyla.app" },
-  "metadata": { "description": "Brand-agnostic AI skills for Shopify content, packaged as plugins." },
+  "owner": {
+    "name": "Nyla",
+    "email": "michael@nyla.app"
+  },
+  "metadata": {
+    "description": "Brand-agnostic AI skills for brand setup, research and Shopify content, packaged as plugins."
+  },
   "plugins": [
-    { "name": "shopify-blog-writer", "source": "./plugins/shopify-blog-writer", "description": "Research and write SEO/AEO-optimized Shopify blog posts.", "version": "0.1.0" },
-    { "name": "shopify-blog-rewrite", "source": "./plugins/shopify-blog-rewrite", "description": "Rewrite existing articles in a store's brand voice and post as hidden drafts.", "version": "0.1.0" },
-    { "name": "shopify-blog-autopilot", "source": "./plugins/shopify-blog-autopilot", "description": "Decide when and what to blog from store, SEO and seasonal signals.", "version": "0.1.0" }
+    {
+      "name": "shopify-blog-writer",
+      "source": "./plugins/shopify-blog-writer",
+      "description": "Research and write SEO/AEO-optimized Shopify blog posts.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "shopify-blog-rewrite",
+      "source": "./plugins/shopify-blog-rewrite",
+      "description": "Rewrite existing articles in a store's brand voice and post as hidden drafts.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "shopify-blog-autopilot",
+      "source": "./plugins/shopify-blog-autopilot",
+      "description": "Decide when and what to blog from store, SEO and seasonal signals.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "brand-capture",
+      "source": "./plugins/brand-capture",
+      "description": "One-time brand setup: scans a site and writes BRAND.md, BRAND-VOICE.md and BRAND-QUESTIONS.md that every other skill reads.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "competitor-research",
+      "source": "./plugins/competitor-research",
+      "description": "Deep, dated research on a client's named competitors, written to COMPETITORS.md.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "content-fact-check",
+      "source": "./plugins/content-fact-check",
+      "description": "Fact-check blog and marketing copy with guardrails for regulated claims.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "accessibility-audit",
+      "source": "./plugins/accessibility-audit",
+      "description": "Lighthouse accessibility scoring for Shopify themes with additive fixes and re-scoring.",
+      "version": "0.1.0"
+    }
   ]
 }
