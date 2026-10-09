@@ -30,7 +30,7 @@
       "name": "brand-capture",
       "source": "./plugins/brand-capture",
       "description": "One-time brand setup: scans a site and writes BRAND.md, BRAND-VOICE.md and BRAND-QUESTIONS.md that every other skill reads.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "competitor-research",

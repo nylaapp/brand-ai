@@ -7,6 +7,7 @@ Keep it short: the person reading it decides what to send the client and what to
 
 **Saved:** <path to BRAND.md> · rev <n> · <draft | approved> · <lines> lines · validator <OK | n warnings>
 **Voice file:** <path to BRAND-VOICE.md> · rev <n> · <lines> lines
+**Design file:** <path to design.md, or "existing: <path>"> · rev <n> · <lines> lines · measured <date and viewports, or "scan CSS only">
 **Client copy:** <path to BRAND.html, which includes the voice> (send it with the questions, or after approval)
 **Next step:** <send the <n> questions to <approver> | apply the answers | nothing pending>
 **Run:** <minutes> min · model <name, effort> · <n> pages fetched

@@ -1,6 +1,6 @@
 ---
 name: brand-capture
-description: One-time brand setup for a new client. Scans the brand's public website (About, story, mission and values pages, careers and news, locations, products with prices, types and colors, site colors and fonts, blog style, social links, disclaimers), asks four short setup questions (top competitors, non-competitive inspiration brands, who approves things to make sure they're on brand, anything never to say or claim), then writes BRAND.md (the single source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand sounds, kept in its own file), a readable BRAND.html copy for the client, and at most four follow-up questions. Finally points the project's agent files and skills at BRAND.md. Works for any kind of store or business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "capture the brand", "set up the brand file", "create BRAND.md", "onboard a new client", "brand setup", or applies a client's answers to brand questions; and whenever another skill needs BRAND.md and it doesn't exist.
+description: One-time brand setup for a new client. Scans the brand's public website (About, story, mission and values pages, careers and news, locations, products with prices, types and colors, site colors and fonts, blog style, social links, disclaimers), asks four short setup questions (top competitors, non-competitive inspiration brands, who approves things to make sure they're on brand, anything never to say or claim), then writes BRAND.md (the single source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand sounds, kept in its own file), design.md (the brand's visual system as measured values: palette, type, spacing, corners, components, imagery), a readable BRAND.html copy for the client, and at most four follow-up questions. Finally points the project's agent files and skills at BRAND.md. Works for any kind of store or business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "capture the brand", "set up the brand file", "create BRAND.md", "onboard a new client", "brand setup", or applies a client's answers to brand questions; and whenever another skill needs BRAND.md and it doesn't exist.
 ---
 
 # Brand capture
@@ -10,7 +10,7 @@ scan it, don't interview the client. Four things a website can't say are asked u
 scan can't settle becomes at most four follow-up questions.
 
 ```
-0. Locate → 1. Four setup questions → 2. Scan → 3. Read and judge → 4. Write BRAND.md, BRAND-VOICE.md + questions
+0. Locate → 1. Four setup questions → 2. Scan → 3. Read and judge → 4. Write BRAND.md, BRAND-VOICE.md, design.md + questions
 → 5. Validate → 6. Client copy (BRAND.html) → 7. Link the project → 8. Report
 ```
 
@@ -53,6 +53,7 @@ each other's files.
 | `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, conflicts, choosing the 4 questions, claim rules by category, competitors |
 | `references/brand-template.md` | Step 4: the exact layout of BRAND.md (other skills depend on its headings) |
 | `references/voice-template.md` | Step 4: the exact layout of BRAND-VOICE.md (the validator checks its headings) |
+| `references/design-template.md` | Step 4: the layout of design.md, and where its values come from |
 | `references/client-questions.md` | Step 4: the layout of BRAND-QUESTIONS.md, with worked examples |
 | `references/report-template.md` | Step 8 |
 | `references/brand-contract.md` | When someone asks how other skills should use BRAND.md |
@@ -81,6 +82,9 @@ each other's files.
   write neither: it becomes a Q-id (`discovery.md` §3a).
 - **A `(client)` line is never overwritten by a scan.** Client answers outrank the site.
 - **Don't duplicate other docs.** design.md owns visual values; repo skills own procedures. BRAND.md links them.
+- **design.md is measured, not imagined.** Every value comes from the live site, the scan or the theme settings,
+  or is labelled `(inferred)` or left out. Never invent a hex, size, radius or hover state to fill a table. An
+  existing design.md (the client's or the repo's) is never overwritten: it is the source, and BRAND.md points to it.
 - **Read only on the web.** Public pages, robots.txt honoured, fixed caps. Never sign in, never submit forms.
   Follow the host repo's own device and browser rules.
 - **Scratch stays out of the repo.** The scan JSON and the evidence folder go to a temp or scratch folder.
@@ -92,16 +96,22 @@ each other's files.
 2. **Look for existing files first**, following `references/brand-context.md` (project root, user local environment,
    central brand directory, then memory, CLAUDE.md and connected knowledge). **Where BRAND.md goes:** the central
    brand directory, `$BRAND_AI_HOME/brands/<slug>/` (default `~/.brand-ai/brands/<slug>/`), so every project and
-   tool finds it. Write BRAND.md, BRAND-VOICE.md, BRAND-QUESTIONS.md and BRAND-REQUESTS.md there, uppercase names.
-   If the project root has `design.md`, mention the central path in the report; copy files into the project only
-   if the person asks. With no filesystem (a chat), you'll hand the files over for download.
+   tool finds it. Write BRAND.md, BRAND-VOICE.md, BRAND-QUESTIONS.md and BRAND-REQUESTS.md there, uppercase names, and design.md
+   (lowercase, as other docs already refer to it).
+   If the project root already has `design.md`, it is the visual source: don't generate another (Step 4). Mention the
+   central path in the report; copy files into the project only if the person asks. With no filesystem (a chat), you'll hand the files over for download.
 3. **Mode:**
-   - **new:** no BRAND.md yet. Full run; it writes BRAND.md and BRAND-VOICE.md.
+   - **new:** no BRAND.md yet. Full run; it writes BRAND.md, BRAND-VOICE.md and design.md.
+   - **add-design:** BRAND.md exists but no design.md does (`design_doc: none`, or the key is missing). Run Steps 2,
+     3 (visual part only), 4 (design.md), 5 and 6, then set `design_doc: design.md` in BRAND.md, replace its Visual
+     identity with the pointer and summary, add a Visual identity row to Sources, bump `revision` and add a Change
+     log row (Mode `add-design`, Sections: Visual identity, Sources). Nothing else in BRAND.md changes.
    - **apply-answers:** BRAND.md exists and the client's answers to BRAND-QUESTIONS.md (or the setup questions)
      have arrived. Change only the answered lines, label them `(client, <date>)`, mark each question
      `Answered <date>: <answer> (from <who>)`, bump `revision`, add a Change log row, and re-run Steps 5 to 6.
      A voice line goes in BRAND-VOICE.md: bump that file's `revision` and Change log too, and add a Voice row to
-     BRAND.md's Change log so BRAND.md's revision moves with it.
+     BRAND.md's Change log so BRAND.md's revision moves with it. A visual answer goes in design.md the same way
+     (its own revision and Change log, plus a Visual identity row in BRAND.md's).
      Set `status: approved` with `approved_by` and `approved_on` only when the approver says the file is right.
      Open lines in `BRAND-REQUESTS.md` are not answers: leave them alone unless the client's message confirms one;
      then apply it like an answer and mark the line `done <date>`. Unconfirmed requests can go to the client as
@@ -172,13 +182,21 @@ verbatim and the client's "never say" answer first; visual identity (or a pointe
 each brand the client named, about a minute each. Deep research (pricing, offers, content cadence) is the
 competitor-research skill's job; BRAND.md only points to `COMPETITORS.md` (front matter `competitors_doc`), which that skill writes.
 
-## Step 4: Write BRAND.md and BRAND-QUESTIONS.md
+## Step 4: Write BRAND.md, BRAND-VOICE.md, design.md and BRAND-QUESTIONS.md
 
 - **BRAND.md:** follow `references/brand-template.md` exactly: same front-matter keys and `##` headings, in
   order. Status `draft`, revision 1. Aim for 150 to 220 lines; every line should earn its place. Its Voice section is
   only the pointer and the three words.
 - **BRAND-VOICE.md:** next to BRAND.md, following `references/voice-template.md` exactly. Same status as BRAND.md,
   revision 1, 40 to 70 lines. `voice_doc: BRAND-VOICE.md` in BRAND.md's front matter is what links the two.
+- **design.md:** next to BRAND.md, following `references/design-template.md`. Same status as BRAND.md, revision 1.
+  **Skip it if a design.md already exists** in the project or the central folder: set `design_doc` to it and write
+  Visual identity as a pointer plus a 3 to 5 line summary that agrees with it. Otherwise measure first: with a
+  browser tool, read computed values from the live site at 1440 and 390 (headings, body, nav, buttons and their hover
+  states, inputs, images, section padding, container width); add the scan's `visual` block and the theme's colour
+  and font settings. With no browser tool, use the scan and CSS only, say so in `measured:`, and label guesses
+  `(inferred)`. Set `design_doc: design.md` in BRAND.md, whose Visual identity is the pointer plus the summary.
+  Font families named TRIAL or DEMO get a ⚠️ in Assets and a question in BRAND-QUESTIONS.md.
 - **BRAND-QUESTIONS.md:** follow `references/client-questions.md`. **At most 4 questions for the client**,
   chosen with `discovery.md` §3b; every other open item goes under "Held for later" for the reviewer.
 
@@ -188,7 +206,8 @@ competitor-research skill's job; BRAND.md only points to `COMPETITORS.md` (front
 python3 scripts/validate_brand.py BRAND.md --evidence <scratch>/evidence --questions BRAND-QUESTIONS.md
 ```
 
-It checks BRAND.md and, through `voice_doc`, BRAND-VOICE.md. Exit 0 is required before saving (warnings go in the
+It checks BRAND.md and, through `voice_doc`, BRAND-VOICE.md. Check design.md by hand: the front-matter keys match
+the template, every value is measured or labelled, and BRAND.md's Visual identity summary agrees with it. Exit 0 is required before saving (warnings go in the
 report). Fix and re-run on errors. Always pass
 `--evidence`: a quote it can't find in the saved pages is unverified, so save that page (`--extra-url`) or drop
 the quote, and report any warning that remains.
@@ -201,7 +220,8 @@ python3 scripts/brand_html.py BRAND.md --questions BRAND-QUESTIONS.md
 
 Writes `BRAND.html` next to BRAND.md: one self-contained page the client can open in any browser, share or print
 to PDF. While in draft it opens with the questions for them. It includes the content of BRAND-VOICE.md under Voice,
-so the client reads the whole voice in one place. Re-run it after every change to BRAND.md or BRAND-VOICE.md.
+so the client reads the whole voice in one place. design.md is shared as the file itself (it is a reference for
+designers and developers, not for sign-off). Re-run it after every change to BRAND.md or BRAND-VOICE.md.
 
 ## Step 7: Link the project to BRAND.md
 
@@ -219,9 +239,9 @@ CLAUDE.md are not part of the theme, so theme pushes never send them to the stor
 
 | Where you run | BRAND.md lives | Also do |
 |---|---|---|
-| Claude Code, Codex (a repo) | repo root | Suggest committing BRAND.md, BRAND-VOICE.md, BRAND-QUESTIONS.md and the links (don't commit unless asked) |
-| Cowork (a project with a local folder) | the project's folder | Ask the person to paste into the project's Instructions: "Brand facts live in BRAND.md in this folder (its voice is in BRAND-VOICE.md next to it); read both before writing anything customers will see." |
-| Claude or ChatGPT project, or a plain chat (no folder) | handed over for download | Ask the person to add BRAND.md and BRAND-VOICE.md to the project's files and paste the same instruction line into the project instructions |
+| Claude Code, Codex (a repo) | repo root | Suggest committing BRAND.md, BRAND-VOICE.md, design.md, BRAND-QUESTIONS.md and the links (don't commit unless asked) |
+| Cowork (a project with a local folder) | the project's folder | Ask the person to paste into the project's Instructions: "Brand facts live in BRAND.md in this folder (its voice is in BRAND-VOICE.md and its look in design.md, next to it); read them before writing anything customers will see." |
+| Claude or ChatGPT project, or a plain chat (no folder) | handed over for download | Ask the person to add BRAND.md, BRAND-VOICE.md and design.md to the project's files and paste the same instruction line into the project instructions |
 
 ## Step 8: Report
 
