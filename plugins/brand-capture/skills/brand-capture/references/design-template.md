@@ -36,13 +36,17 @@ The front matter is flat `key: value` lines (no nesting, no quotes). Dates are `
 
 ```markdown
 ---
+design_md_schema: 1.0
 brand: <same as BRAND.md `brand`>
 parent_doc: BRAND.md
+brand_md_revision: <the BRAND.md `revision` this file was last checked against>
 status: <draft | approved, same as BRAND.md>
 revision: <1, 2, 3 ... +1 on every write>
+captured: <YYYY-MM-DD of the first capture>
 last_updated: <YYYY-MM-DD of the latest write>
 measured: <YYYY-MM-DD and viewports, e.g. "2026-10-09 at 1440 and 390", or "not measured: scan CSS only">
 source: <e.g. "brand-capture scan of https://example.com plus browser measurement">
+captured_by: brand-capture 1.2.0
 ---
 
 # <Brand> — Visual design guide

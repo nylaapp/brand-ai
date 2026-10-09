@@ -29,12 +29,16 @@ The front matter is flat `key: value` lines (no nesting, no quotes). Dates are `
 
 ```markdown
 ---
+voice_md_schema: 1.0
 brand: <same as BRAND.md `brand`>
 parent_doc: BRAND.md
+brand_md_revision: <the BRAND.md `revision` this file was last checked against>
 status: <draft | approved, same as BRAND.md>
 revision: <1, 2, 3 ... +1 on every write>
+captured: <YYYY-MM-DD of the first capture>
 last_updated: <YYYY-MM-DD of the latest write>
 source: <where it came from, e.g. "brand-capture 1.2.0 scan of https://example.com" or "moved from the Voice section of BRAND.md rev 1">
+captured_by: brand-capture 1.2.0
 ---
 
 # <Brand> brand voice

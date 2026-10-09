@@ -13,11 +13,23 @@ Rules for the agent:
 - Offer choices whenever the evidence allows (A/B/C plus "other"). Quote both sides of a conflict with where each
   appears. Plain language: no file names, section names or ids in the question text itself.
 - Everything else goes under "Held for later" with its evidence, for the reviewer. It is never sent as a list.
+- The front matter is flat `key: value` lines like BRAND.md's. Keep `questions_sent` and `questions_held` equal to the
+  entries in each part, and move `brand_md_revision` whenever BRAND.md's revision moves.
 - When an answer arrives, mark the entry `Answered <date>: <answer> (from <who>)`; never delete entries.
 
 ---
 
 ```markdown
+---
+questions_md_schema: 1.0
+brand: <same as BRAND.md `brand`>
+brand_md_revision: <the BRAND.md `revision` these questions belong to>
+generated: <YYYY-MM-DD>
+questions_sent: <number of questions for the client, 0 to 4>
+questions_held: <number under "Held for later">
+captured_by: brand-capture 1.2.0
+---
+
 # <Brand>: brand file questions (<YYYY-MM-DD>)
 
 ## Questions for <Brand>
