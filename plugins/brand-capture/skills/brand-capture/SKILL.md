@@ -82,11 +82,6 @@ each other's files.
   write neither: it becomes a Q-id (`discovery.md` §3a).
 - **A `(client)` line is never overwritten by a scan.** Client answers outrank the site.
 - **Don't duplicate other docs.** design.md owns visual values; repo skills own procedures. BRAND.md links them.
-- **Every file this skill writes starts with flat front matter**, in the same style as COMPETITORS.md: a
-  `<file>_md_schema` key first, then `brand`, `brand_md_revision` and the dates. BRAND.md, BRAND-VOICE.md, design.md,
-  BRAND-QUESTIONS.md and BRAND-REQUESTS.md all have it (layouts in the references). Whenever BRAND.md's `revision`
-  moves, set `brand_md_revision` in each sibling file you checked or changed; a sibling you didn't check keeps its old
-  number, which is how a stale file shows.
 - **design.md is measured, not imagined.** Every value comes from the live site, the scan or the theme settings,
   or is labelled `(inferred)` or left out. Never invent a hex, size, radius or hover state to fill a table. An
   existing design.md (the client's or the repo's) is never overwritten: it is the source, and BRAND.md points to it.

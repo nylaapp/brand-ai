@@ -38,22 +38,7 @@ profile or memory. `design.md` (when BRAND.md names it) is the source for visual
 ## 5. Never write BRAND.md or BRAND-VOICE.md
 Only brand-capture writes BRAND.md and BRAND-VOICE.md, and only when the client asks. When you hit a gap, a conflict with the live
 site, or the user says something that should hold for all future work ("we never say anti-aging", "add X as a
-competitor"), append one line to `BRAND-REQUESTS.md` next to BRAND.md. If the file is missing, create it starting with this front matter
-(flat `key: value` lines, dates `YYYY-MM-DD`), then the line:
-
-```
----
-requests_md_schema: 1.0
-brand: <BRAND.md `brand`>
-brand_md_revision: <BRAND.md `revision` when the file was created>
-created: <YYYY-MM-DD>
-last_updated: <YYYY-MM-DD of the latest line added>
----
-
-# <Brand>: change requests for BRAND.md
-```
-
-Every later append moves `last_updated`. The line format:
+competitor"), append one line to `BRAND-REQUESTS.md` next to BRAND.md (create it if missing):
 
 `- YYYY-MM-DD | <skill or person> | <BRAND.md section; "Voice" for anything in BRAND-VOICE.md> | <the change and why> | <evidence or "said by <name>"> | open`
 
