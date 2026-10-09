@@ -1,9 +1,19 @@
 {
   "name": "shopify-blog-rewrite",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Rewrite an existing article in a Shopify store's own brand voice, fact-check it, and post it as a hidden draft.",
-  "author": { "name": "Nyla", "email": "michael@nyla.app" },
+  "author": {
+    "name": "Nyla",
+    "email": "michael@nyla.app"
+  },
   "repository": "https://github.com/nylaapp/brand-ai",
-  "keywords": ["shopify","blog","rewrite","brand-voice"],
-  "dependencies": ["shopify-blog-writer"]
+  "keywords": [
+    "shopify",
+    "blog",
+    "rewrite",
+    "brand-voice"
+  ],
+  "dependencies": [
+    "shopify-blog-writer"
+  ]
 }

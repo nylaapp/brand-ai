@@ -1,6 +1,6 @@
 ---
 name: "shopify-blog-rewrite"
-description: "Brand-agnostic. Rewrite an existing, already-written blog article (Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog'. For writing a post from a topic, use shopify-blog-writer instead."
+description: "Brand-agnostic. Rewrite an existing, already-written blog article (a URL, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
 ---
 
 # Shopify Blog Rewrite
@@ -30,7 +30,32 @@ If `shopify-blog-writer` isn't installed, say so and fall back to HTML delivery 
 
 ## Step 1: Intake and store
 
-Accept any of: a Google Doc or Drive file (Drive connector: fetch by link or search by title), a `.docx` (convert with `pandoc` or python-docx, keeping headings, lists, tables and links), a `.txt`/`.md` file, or pasted text. Keep the original in `<store folder>/blog-runs/<date>-<handle>/source.<ext>` so the human can compare.
+Accept any of: **an article URL** (see "Source from a URL" below), a Google Doc or Drive file (Drive connector: fetch by link or search by title), a `.docx` (convert with `pandoc` or python-docx, keeping headings, lists, tables and links), a `.txt`/`.md` file, or pasted text. Keep the original in `<store folder>/blog-runs/<date>-<handle>/source.<ext>` (`source.md` for a URL) so the human can compare.
+
+### Source from a URL
+
+When the request contains a link to an article (and not a Google Doc or Drive link, which use the Drive connector):
+
+1. **Check whose article it is before fetching.** If the URL is on the store's own domain, or the person says it is
+   theirs or their client's (an old post, a guest post, an agency draft hosted on a staging site), go ahead. If it
+   is another company's published article (a competitor, a publisher, a stranger's blog), don't rewrite it into the
+   store's blog as original content: say that it would be a copy of someone else's work, and ask for confirmation
+   that the person owns it or has written permission. Unattended, return `delivery: stopped` with the reason.
+2. **Fetch it** with your web fetch tool; if the text comes back empty, partial or script-rendered, read the page
+   with a browser tool. Never sign in, never solve a CAPTCHA or click through a bot check; if the page is paywalled
+   or blocked, say so and ask for the text instead.
+3. **Extract the article only:** title, byline and date (for the report, not the body), headings, paragraphs, lists,
+   tables, links, and image `src` plus `alt`. Drop navigation, cookie banners, share buttons, related-post lists,
+   comments, newsletter forms and the source site's own author box, CTA and disclaimer.
+4. **Save it** as `source.md` with the first line `URL: <url> (fetched <date>)`, so every claim can be traced back.
+5. **Source brand names and links:** the source's own brand name, location, phone and booking links are
+   placeholders to resolve in Step 2b, not text to keep; internal links to the source site are listed in the report
+   and replaced with verified store URLs or removed. Source images are not copied or hot-linked: list them in
+   "Missing input you could add" with their alt text, so the store supplies its own.
+6. **More than one URL**, or a link to a blog index or category page: ask which article, or run them one at a time
+   as separate drafts.
+7. **If the URL is an article on this store's own blog** and the person wants it updated rather than replaced, say
+   that the rewrite will be a new hidden draft; the original is left untouched and they swap them when ready.
 
 If the pasted text starts with field lines (for example `SEO title:`, `Meta description:`, `Suggested handle:`, `Excerpt:`, `Disclaimer:`), split them off as fields; they are not body copy. A trailing `Disclaimer:` line in the source is replaced by the brand's own disclaimer (Step 3), not kept in the body.
 
@@ -46,7 +71,7 @@ Ask once, with AskUserQuestion, only what the request didn't already say:
 
 Capture topic, target blog (default from BRAND.md, or the best fit among the store's blogs), any keyword the user cares about, and an author only if the user names one. Don't ask about voice, author, tone, brand name or disclaimer: voice comes from BRAND-VOICE.md and BRAND.md, the brand name and disclaimer from BRAND.md, and the author from the store's existing posts.
 
-If the source is very short, or clearly isn't a blog article (a landing page, a product description), say what it is and ask whether to proceed.
+If the source is very short, or clearly isn't a blog article (a landing page, a product page, a category page, a product description), say what it is and ask whether to proceed.
 
 ## Step 2: Load the brand's voice
 

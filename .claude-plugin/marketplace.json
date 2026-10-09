@@ -18,7 +18,7 @@
       "name": "shopify-blog-rewrite",
       "source": "./plugins/shopify-blog-rewrite",
       "description": "Rewrite existing articles in a store's brand voice and post as hidden drafts.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "shopify-blog-autopilot",
