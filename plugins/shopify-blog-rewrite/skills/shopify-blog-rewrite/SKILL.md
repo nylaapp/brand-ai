@@ -1,6 +1,6 @@
 ---
 name: "shopify-blog-rewrite"
-description: "Brand-agnostic. Rewrite an existing, already-written blog article (a URL, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
+description: "Brand-agnostic. Rewrite an existing, already-written blog article (a URL or a whole blog, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
 ---
 
 # Shopify Blog Rewrite
@@ -50,10 +50,11 @@ When the request contains a link to an article (and not a Google Doc or Drive li
 4. **Save it** as `source.md` with the first line `URL: <url> (fetched <date>)`, so every claim can be traced back.
 5. **Source brand names and links:** the source's own brand name, location, phone and booking links are
    placeholders to resolve in Step 2b, not text to keep; internal links to the source site are listed in the report
-   and replaced with verified store URLs or removed. Source images are not copied or hot-linked: list them in
-   "Missing input you could add" with their alt text, so the store supplies its own.
-6. **More than one URL**, or a link to a blog index or category page: ask which article, or run them one at a time
-   as separate drafts.
+   and replaced with verified store URLs or removed. Source images follow "Source images" below: copied into the
+   store's own Shopify Files only when ownership or permission is confirmed (item 1), otherwise listed in "Missing
+   input you could add" with their alt text so the store supplies its own. Never hot-linked either way.
+6. **More than one URL**, or a link to a blog index, category page or a whole site: see "Source from a whole blog or
+   site" below.
 7. **If the URL is an article on this store's own blog** and the person wants it updated rather than replaced, say
    that the rewrite will be a new hidden draft; the original is left untouched and they swap them when ready.
 
@@ -72,6 +73,54 @@ Ask once, with AskUserQuestion, only what the request didn't already say:
 Capture topic, target blog (default from BRAND.md, or the best fit among the store's blogs), any keyword the user cares about, and an author only if the user names one. Don't ask about voice, author, tone, brand name or disclaimer: voice comes from BRAND-VOICE.md and BRAND.md, the brand name and disclaimer from BRAND.md, and the author from the store's existing posts.
 
 If the source is very short, or clearly isn't a blog article (a landing page, a product page, a category page, a product description), say what it is and ask whether to proceed.
+
+### Source images
+
+Only when ownership or written permission is confirmed (Source from a URL, item 1). Without it, no image is copied.
+
+1. **Collect** each image in the article body and the featured or social image (`og:image`), at the largest size the
+   page offers (the `srcset` or full-size URL, not the thumbnail). Skip icons, logos, avatars, tracking pixels and
+   images from third parties that are plainly stock (watermarked or credited to a stock agency): list those instead.
+2. **Upload to the store's Shopify Files**, never hot-link: `fileCreate` with the image URL as `originalSource` and a
+   descriptive `filename` and `alt` (`shopify-blog-writer/references/publishing.md`, "Step B"); poll until `READY`;
+   swap each `src` for the Shopify CDN URL. Keep the source's alt text if it describes the image, rewrite it if it
+   names the source brand.
+3. **Look at each image before using it.** One with the source brand's logo, name, phone number or before/after
+   claims visible in it is flagged in the report as "needs a replacement" and not used in the draft; a patient or
+   client photo is used only if the person confirms a photo release exists. Don't edit or crop images to remove marks.
+4. **Record** every image in the report: source URL, Shopify file, alt text, used or flagged and why. Set the first
+   suitable image as the featured image if the post has none.
+5. If a download or upload fails, leave a visible `[[USER MEDIA: <description>]]` slot, as publishing.md describes, and
+   carry on with the text.
+
+### Source from a whole blog or site
+
+When the link is a homepage, a blog index, a category page, a sitemap or a feed, or the request says "all the posts":
+
+1. **Ownership gate first, for the whole site.** Same rule as a single article (Source from a URL, item 1), asked
+   once for the whole site, in plain words: "Is this site yours, your client's or part of your group, or do you have
+   written permission to reuse its articles?" If it belongs to a competitor or any unrelated company, stop: say that
+   copying and rewriting a whole blog (and its images) would be taking someone else's work, and offer what is fine
+   instead: write original posts on the same topics with `shopify-blog-writer`, or rewrite a few of their ideas from
+   scratch. Unattended, return `delivery: stopped`.
+2. **Discover the posts.** In this order: the blog's `.atom` or RSS feed, `/sitemap.xml` (and its post sitemap), the
+   blog index with pagination, then a browser tool for script-rendered lists. Keep only articles (not product,
+   service, location or category pages). Note title, URL, date and any category for each.
+3. **Show the list and confirm before fetching anything else:** count, titles and dates, plus the ones you'd skip
+   (duplicates, thin pages under about 300 words, pages not about the target store's category, anything the target
+   blog already has by title or handle). Default to the **10 newest** per run; the person can raise it. Larger
+   batches run in groups of 10 with a stop between groups.
+4. **One article, one draft.** Run the normal rewrite (Steps 1b to 7) for each as its own hidden draft, one at a
+   time, each with its own `blog-runs/<date>-<handle>/` folder. Load the brand voice once (Step 2) and reuse it
+   across the batch. Stagger the posts' publish dates only if the person asks; drafts are never published here.
+5. **Don't let a batch lower the bar.** Every article still gets the full quality gate, claim checks and fact-check
+   (Steps 4 and 5). If one fails the gate or its source can't be read, mark it `needs attention` and carry on with
+   the next; never stop the batch for one article, never skip its checks to save time.
+6. **Same-topic posts:** when two source articles cover the same topic, keep the stronger and list the other as a
+   skipped duplicate, so the store doesn't end up with near-identical posts.
+7. **One batch summary** at the end: a table with source URL, new title, handle, draft preview link, images used and
+   flagged, claims removed, and status (`ready for review`, `needs attention`, `skipped`), then the totals. The
+   per-article reports stay in each run folder.
 
 ## Step 2: Load the brand's voice
 
