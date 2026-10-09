@@ -65,13 +65,19 @@ If the pasted text starts with field lines (for example `SEO title:`, `Meta desc
 
 Ask once, with AskUserQuestion, only what the request didn't already say:
 
-1. **Depth**, because the right answer changes by article:
-   - *Voice only* (suggested default): keep headings, order, facts and roughly the same length; change wording, tone, rhythm and terminology.
-   - *Voice plus light SEO tune-up*: also turn headings into real questions, add an answer-first opening, an FAQ and internal links where missing. Never add facts to do it.
-2. **Review**: show the change report and wait for approval before posting, or post straight to a hidden draft.
-3. **Brand-specific claims (only if the source has any that BRAND.md does not support):** quote the sentence and offer "soften it (recommended)" or "keep it, I confirm it's true". See Step 2b.
+1. **Rewrite tier. Always ask this first**, unless the person already named a tier. Offer the four tiers as the options (`references/rewrite-tiers.md`), each with its one-line "use when", and mark Reword as the suggested default:
+   - *Match*: keep the sentences and structure; change voice, terms, CTA and disclaimer. For your own or a client's article.
+   - *Reword* (suggested): rewrite every sentence in the brand's voice; same sections and points.
+   - *Restructure*: new outline, headings, opening and close; same facts. For permitted third-party material.
+   - *Reimagine*: new angle and article written from the facts alone; the most distinct from the source.
+   For a batch, ask once for the whole run. Never skip this question or pick a tier silently, even when the article is the store's own.
+2. **SEO tune-up** (a separate choice from the tier):
+   - *None* (suggested default): keep the tier's structure; no new headings, FAQ or links.
+   - *Light SEO tune-up*: also turn headings into real questions, add an answer-first opening, an FAQ and internal links where missing. Never add facts to do it. At Restructure and Reimagine the new outline already allows this, so it is only a reminder of intent.
+3. **Review**: show the change report and wait for approval before posting, or post straight to a hidden draft.
+4. **Brand-specific claims (only if the source has any that BRAND.md does not support):** quote the sentence and offer "soften it (recommended)" or "keep it, I confirm it's true". See Step 2b.
 
-Capture the **rewrite tier** (Match, Reword, Restructure or Reimagine; `references/rewrite-tiers.md`; default Reword), topic, target blog (default from BRAND.md, or the best fit among the store's blogs), any keyword the user cares about, and an author only if the user names one. Don't ask about voice, author, tone, brand name or disclaimer: voice comes from BRAND-VOICE.md and BRAND.md, the brand name and disclaimer from BRAND.md, and the author from the store's existing posts.
+Capture the topic, target blog (default from BRAND.md, or the best fit among the store's blogs), any keyword the user cares about, and an author only if the user names one. Don't ask about voice, author, tone, brand name or disclaimer: voice comes from BRAND-VOICE.md and BRAND.md, the brand name and disclaimer from BRAND.md, and the author from the store's existing posts.
 
 If the source is very short, or clearly isn't a blog article (a landing page, a product page, a category page, a product description), say what it is and ask whether to proceed.
 
