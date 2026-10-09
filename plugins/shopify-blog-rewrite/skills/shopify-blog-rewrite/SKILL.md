@@ -1,6 +1,6 @@
 ---
 name: "shopify-blog-rewrite"
-description: "Brand-agnostic. Rewrite an existing, already-written blog article (a URL or a whole blog, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
+description: "Brand-agnostic. Rewrite at four depths (Match, Reword, Restructure, Reimagine) an existing, already-written blog article (a URL or a whole blog, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
 ---
 
 # Shopify Blog Rewrite
@@ -9,7 +9,7 @@ Turn a finished article someone else wrote into a post that sounds like the stor
 
 This skill is brand-agnostic. It contains no brand names, voice rules or terminology. Everything about the brand comes from that store's `BRAND.md` and its live blog, so the same skill serves every client.
 
-The job is a **voice transplant, not a content rewrite**. The source article's facts, claims and argument belong to whoever wrote and approved them. A rewrite that quietly "improves" a claim ("reduces wrinkles" becoming "erases wrinkles") creates accuracy, legal and trust risk, which matters most for regulated brands (health, beauty, supplements, food). Change how it sounds; never change what it says without flagging it.
+The job is a **voice transplant, not a content rewrite**, at every tier: the facts and claims never change, only how far the wording and structure move (`references/rewrite-tiers.md`). The source article's facts, claims and argument belong to whoever wrote and approved them. A rewrite that quietly "improves" a claim ("reduces wrinkles" becoming "erases wrinkles") creates accuracy, legal and trust risk, which matters most for regulated brands (health, beauty, supplements, food). Change how it sounds; never change what it says without flagging it.
 
 A good rewrite reads as if the brand's own writer wrote it from the start. A regular reader of the blog should not be able to tell it came from a template, a freelancer or another brand.
 
@@ -23,6 +23,7 @@ This skill reuses `shopify-blog-writer` for brand loading, house style, QA and d
 |---|---|
 | 1 and 2 | `shopify-blog-writer` SKILL.md **Step 0b** (identify the store, find and read its BRAND.md) and `references/house-style.md` §2 (scan the live blog) |
 | 3 | `references/writing-quality.md` (specifics, point of view, voice) |
+| 3 | `references/rewrite-tiers.md`, `scripts/overlap_check.py` (tier definitions and the overlap check) |
 | 6 | `references/seo-standards.md`, `references/output-templates.md` (fields JSON, HTML conventions), `scripts/check_post.py` |
 | 7 | `references/publishing.md` (connector 1A / browser 1B, preview link, HTML option 2) |
 
@@ -70,7 +71,7 @@ Ask once, with AskUserQuestion, only what the request didn't already say:
 2. **Review**: show the change report and wait for approval before posting, or post straight to a hidden draft.
 3. **Brand-specific claims (only if the source has any that BRAND.md does not support):** quote the sentence and offer "soften it (recommended)" or "keep it, I confirm it's true". See Step 2b.
 
-Capture topic, target blog (default from BRAND.md, or the best fit among the store's blogs), any keyword the user cares about, and an author only if the user names one. Don't ask about voice, author, tone, brand name or disclaimer: voice comes from BRAND-VOICE.md and BRAND.md, the brand name and disclaimer from BRAND.md, and the author from the store's existing posts.
+Capture the **rewrite tier** (Match, Reword, Restructure or Reimagine; `references/rewrite-tiers.md`; default Reword), topic, target blog (default from BRAND.md, or the best fit among the store's blogs), any keyword the user cares about, and an author only if the user names one. Don't ask about voice, author, tone, brand name or disclaimer: voice comes from BRAND-VOICE.md and BRAND.md, the brand name and disclaimer from BRAND.md, and the author from the store's existing posts.
 
 If the source is very short, or clearly isn't a blog article (a landing page, a product page, a category page, a product description), say what it is and ask whether to proceed.
 
@@ -110,7 +111,7 @@ When the link is a homepage, a blog index, a category page, a sitemap or a feed,
    (duplicates, thin pages under about 300 words, pages not about the target store's category, anything the target
    blog already has by title or handle). Default to the **10 newest** per run; the person can raise it. Larger
    batches run in groups of 10 with a stop between groups.
-4. **One article, one draft.** Run the normal rewrite (Steps 1b to 7) for each as its own hidden draft, one at a
+4. **One tier for the whole batch**, chosen once and named in the batch summary. **One article, one draft.** Run the normal rewrite (Steps 1b to 7) for each as its own hidden draft, one at a
    time, each with its own `blog-runs/<date>-<handle>/` folder. Load the brand voice once (Step 2) and reuse it
    across the batch. Stagger the posts' publish dates only if the person asks; drafts are never published here.
 5. **Don't let a batch lower the bar.** Every article still gets the full quality gate, claim checks and fact-check
@@ -164,7 +165,10 @@ Record every replacement in the change report (`[Brand Name]` → `<name>` ×N, 
 
 ## Step 3: Rewrite (three passes)
 
-Read `shopify-blog-writer/references/writing-quality.md` first. Then do three passes, not one. A single pass tends to keep the template's sentences and only change words.
+Read `shopify-blog-writer/references/writing-quality.md` and `references/rewrite-tiers.md` first. The chosen tier sets how
+far the source's wording and structure change: Match and Reword follow the passes below; **Restructure** builds a new
+outline between Pass 1 and Pass 2; **Reimagine** replaces Pass 2 with the fact sheet method in the tiers file. The
+rules about facts and claims below hold at every tier. Then do three passes, not one. A single pass tends to keep the template's sentences and only change words.
 
 **Pass 1: Map the source.** Before changing a word, list for each section: its job (what the reader should learn or do), every claim it makes, every term that has a brand equivalent, and every placeholder. This is the inventory you will check the rewrite against.
 
@@ -215,9 +219,11 @@ The principles behind the passes, and why:
 | Opening and closing | Opening follows the brand's pattern; CTA uses the brand's wording and a verified URL |
 | Disclaimer | The brand's disclaimer appears once, exactly as written; the source's is gone unless asked |
 | Meaning | Every claim traces to the source (Pass 1 inventory); nothing new added |
+| Overlap | `scripts/overlap_check.py` passes the chosen tier's limits (Match is reported only); a failing sentence is rewritten, not waved through |
 
 Then write `<handle>-rewrite-report.md` and show a short version in chat:
 
+- **Tier used** and the overlap numbers (shared 5-word phrases, longest shared run, verbatim sentences), with the line "wording check only, not a clearance to reuse the source"
 - The voice card (one line each), `Brand facts: BRAND.md rev <n>` and `Voice: BRAND-VOICE.md rev <n>` (when read)
 - What changed in kind (tone, terminology swaps, sentences tightened, structure unchanged or the heading changes), with word counts before and after
 - **Placeholder replacements** (token → value ×N, or removed and why)
