@@ -125,8 +125,9 @@ Full specification: BRAND-VOICE.md (it wins on any question of tone; Terminology
 | <Beauty Bank®> | <Beauty Bank> | <registered mark, keep ®> |
 
 ## Visual identity
-*If a design doc exists: "Full specification: design.md (it wins on any visual value)." plus a 3 to 5 line summary
-that agrees with it. Otherwise:*
+*Brand-capture writes design.md next to this file, so normally: "Full specification: design.md (it wins on any visual
+value)." plus a 3 to 5 line summary that agrees with it (palette in one line, the type pairing, the rounding rule,
+the imagery rule). Only when design.md could not be made, list:*
 - **Palette:** <hex, role> list
 - **Typography:** <family, role> list; flag TRIAL licences
 - **Imagery:** <photo style, subjects, treatment>
