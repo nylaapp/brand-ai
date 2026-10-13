@@ -1,6 +1,6 @@
 ---
 name: "shopify-blog-rewrite"
-description: "Brand-agnostic. Rewrite at four depths (Match, Reword, Restructure, Reimagine) an existing, already-written blog article (a URL or a whole blog, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
+description: "Brand-agnostic. Rewrite at four depths (Match, Reword, Restructure, Reimagine) an existing, already-written blog article (a URL, a series of articles from a site in tracked batches, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
 ---
 
 # Shopify Blog Rewrite
@@ -24,6 +24,7 @@ This skill reuses `shopify-blog-writer` for brand loading, house style, QA and d
 | 1 and 2 | `shopify-blog-writer` SKILL.md **Step 0b** (identify the store, find and read its BRAND.md) and `references/house-style.md` §2 (scan the live blog) |
 | 3 | `references/writing-quality.md` (specifics, point of view, voice) |
 | 3 | `references/rewrite-tiers.md`, `scripts/overlap_check.py` (tier definitions and the overlap check) |
+| Series | `scripts/discover_posts.py`, `scripts/transfer_tracker.py` (find the articles; the CSV tracker and settings) |
 | 6 | `references/seo-standards.md`, `references/output-templates.md` (fields JSON, HTML conventions), `scripts/check_post.py` |
 | 7 | `references/publishing.md` (connector 1A / browser 1B, preview link, HTML option 2) |
 
@@ -54,8 +55,11 @@ When the request contains a link to an article (and not a Google Doc or Drive li
    and replaced with verified store URLs or removed. Source images follow "Source images" below: copied into the
    store's own Shopify Files only when ownership or permission is confirmed (item 1), otherwise listed in "Missing
    input you could add" with their alt text so the store supplies its own. Never hot-linked either way.
-6. **More than one URL**, or a link to a blog index, category page or a whole site: see "Source from a whole blog or
-   site" below.
+6. **One article or a series?** When the link is a single article and its site publishes other articles (a blog, news or
+   journal section), ask once with AskUserQuestion: "Rewrite just this article, or transfer a series of articles
+   from <site>?" Options: *Just this article* (suggested: carry on with the steps below) and *A series from this site*
+   (go to "Series transfer"). A link to a blog index, category page, sitemap, feed or homepage is already a series: go to
+   "Series transfer" without asking. Several pasted URLs are a chosen series made of exactly those URLs.
 7. **If the URL is an article on this store's own blog** and the person wants it updated rather than replaced, say
    that the rewrite will be a new hidden draft; the original is left untouched and they swap them when ready.
 
@@ -100,34 +104,73 @@ Only when ownership or written permission is confirmed (Source from a URL, item 
 5. If a download or upload fails, leave a visible `[[USER MEDIA: <description>]]` slot, as publishing.md describes, and
    carry on with the text.
 
-### Source from a whole blog or site
+### Series transfer
 
-When the link is a homepage, a blog index, a category page, a sitemap or a feed, or the request says "all the posts":
+A series is a list of articles from one site, rewritten a batch at a time with one set of settings, with progress kept
+in a CSV so the work can stop and resume. Two scripts do the bookkeeping: `scripts/discover_posts.py` (finds the
+articles) and `scripts/transfer_tracker.py` (the CSV and the settings). Never edit the CSV by hand while a run is
+going; use the script, then `validate` if a person edited it.
 
-1. **Ownership gate first, for the whole site.** Same rule as a single article (Source from a URL, item 1), asked
-   once for the whole site, in plain words: "Is this site yours, your client's or part of your group, or do you have
-   written permission to reuse its articles?" If it belongs to a competitor or any unrelated company, stop: say that
-   copying and rewriting a whole blog (and its images) would be taking someone else's work, and offer what is fine
-   instead: write original posts on the same topics with `shopify-blog-writer`, or rewrite a few of their ideas from
-   scratch. Unattended, return `delivery: stopped`.
-2. **Discover the posts.** In this order: the blog's `.atom` or RSS feed, `/sitemap.xml` (and its post sitemap), the
-   blog index with pagination, then a browser tool for script-rendered lists. Keep only articles (not product,
-   service, location or category pages). Note title, URL, date and any category for each.
-3. **Show the list and confirm before fetching anything else:** count, titles and dates, plus the ones you'd skip
-   (duplicates, thin pages under about 300 words, pages not about the target store's category, anything the target
-   blog already has by title or handle). Default to the **10 newest** per run; the person can raise it. Larger
-   batches run in groups of 10 with a stop between groups.
-4. **One tier for the whole batch**, chosen once and named in the batch summary. **One article, one draft.** Run the normal rewrite (Steps 1b to 7) for each as its own hidden draft, one at a
-   time, each with its own `blog-runs/<date>-<handle>/` folder. Load the brand voice once (Step 2) and reuse it
-   across the batch. Stagger the posts' publish dates only if the person asks; drafts are never published here.
-5. **Don't let a batch lower the bar.** Every article still gets the full quality gate, claim checks and fact-check
-   (Steps 4 and 5). If one fails the gate or its source can't be read, mark it `needs attention` and carry on with
-   the next; never stop the batch for one article, never skip its checks to save time.
-6. **Same-topic posts:** when two source articles cover the same topic, keep the stronger and list the other as a
-   skipped duplicate, so the store doesn't end up with near-identical posts.
-7. **One batch summary** at the end: a table with source URL, new title, handle, draft preview link, images used and
-   flagged, claims removed, and status (`ready for review`, `needs attention`, `skipped`), then the totals. The
-   per-article reports stay in each run folder.
+**Where it lives.** `<store folder>/blog-runs/transfer-<site-domain>-<YYYY-MM-DD>/` holds `discovered.json`,
+`transfer-tracker.csv` and `transfer-config.json`; each article still gets its own `blog-runs/<date>-<handle>/` folder.
+If the project's own rules say where reports and spreadsheets go, follow them.
+
+1. **Ownership gate first, once for the whole site** (Source from a URL, item 1), in plain words: "Is this site yours,
+   your client's or part of your group, or do you have written permission to reuse its articles?" A competitor's or
+   any unrelated company's site stops here: say that copying and rewriting a whole blog (and its images) is taking
+   someone else's work, and offer original posts on the same topics with `shopify-blog-writer`. Unattended, return
+   `delivery: stopped`. Record the answer in the config (`--ownership`).
+2. **Resume or start.** If the folder already has a `transfer-tracker.csv`, run
+   `python3 scripts/transfer_tracker.py summary --dir <folder>` and ask: continue where it stopped (`resume`, then go to
+   step 6) or start a new list.
+3. **Get the list of every article.** `python3 scripts/discover_posts.py <url> --out <folder>/discovered.json`. It tries the
+   WordPress API, the RSS or Atom feed, then the sitemaps, reads public pages only and honours robots.txt. If it finds
+   nothing (exit 3: the site blocks scripts or builds its blog with JavaScript), read the blog index with a browser tool
+   and page through it, saving the URLs to the same JSON. Sitemap dates are "last modified", not published, so order by
+   the date read from each article. Show the person the count, the categories and a few titles.
+4. **Ask the settings once** (AskUserQuestion, up to four questions per call, a second call if needed):
+   - **Rewrite tier** (Match, Reword, Restructure, Reimagine; Reword suggested). Same tier for the whole series.
+   - **SEO tune-up** (None suggested, or Light).
+   - **Batch size**: 5 (suggested), 10 or 25 articles at a time.
+   - **After each batch**: *review the batch before drafts are created* (suggested), *create hidden drafts straight away and
+     show me after each batch*, or *local files only, nothing in Shopify*.
+   - **Target blog**: one blog for every article, or map each article's category to a blog (when the store has several).
+   - **Which articles**: all of them, the newest N, chosen categories, or a list the person picks.
+   Then record it: `python3 scripts/transfer_tracker.py init --dir <folder> --site <url> --urls-json <folder>/discovered.json
+   --tier <tier> --seo <none|light> --review <review_each_batch|draft_straight|local_files_only> --batch-size <n>
+   --target-blog <handle|map> --ownership "<who confirmed, when>"` and `queue --dir <folder> (--all | --newest N | --ids ...)`.
+   Skip an article with `set <id> --status skipped --skip-reason "<why>"`: a duplicate of a post the target blog already
+   has (same title or handle), a page under about 300 words, an article about a different subject than the store, a
+   second article on the same topic (keep the stronger one).
+5. **Confirm the plan in one message** before the first batch: how many will be done, how many skipped and why, the
+   settings, and the number of batches. Wait for a yes.
+6. **Run a batch.** `python3 scripts/transfer_tracker.py next --dir <folder>` hands out the next articles and marks them
+   `in_progress`. Load the brand voice once for the whole run (Step 2). For each article, fetch it (Source from a URL,
+   items 2 to 5, and Source images when permitted), then run Steps 2b to 7 with the saved settings: do not ask the intake
+   questions again. **After each article, not at the end of the batch,** update its row:
+   `set <id> --status <ready_for_review|drafted|needs_attention> --field handle=... --field new_title=... --field run_folder=...
+   --field shopify_article_id=... --field preview_url=... --field overlap_pct=... --field claims_removed=...
+   --field images_used=... --field images_flagged=... --field notes=...`. An interrupted run then loses at most one article.
+7. **Every article still passes the full quality gate, claim checks, overlap check and fact-check** (Steps 4 and 5). If one
+   fails or its source can't be read, mark it `needs_attention` with the reason in `notes` and carry on; never stop the
+   batch for one article, and never skip its checks to save time. Hidden drafts only; nothing is ever published here.
+8. **End of every batch:** show a table (id, source URL, new title, handle, overlap, claims removed, images used and
+   flagged, status) and `summary`. Then follow the "after each batch" setting: *review* means the person reads the batch,
+   edits are applied verbatim, and only then are the hidden drafts created (rows move to `drafted`); the other two
+   settings have already created drafts or files. **Stop between batches** and ask: run the next batch (N articles left),
+   change the settings for the rest, or stop here. Settings changed mid-series (`init` again with the new flags) apply to
+   later batches only; earlier rows keep the tier they were done with. Run on without stopping only if the person said so
+   in plain words, and still stop on the first `needs_attention`.
+9. **Resume.** In a new session, `resume --dir <folder>` puts any `in_progress` rows back in the queue; a row whose run
+   folder already holds a finished rewrite is checked and marked, not redone.
+10. **Finish** with `summary` and `validate` and give the CSV path. Report totals by status, what needs attention, what is
+    still queued, and where each article's report is. Offer the content-fact-check and approver review for the whole set.
+
+**CSV columns:** `id, source_url, source_title, source_date, category, status, skip_reason, batch, tier, seo_tune_up,
+target_blog, handle, new_title, run_folder, shopify_article_id, preview_url, overlap_pct, claims_removed, images_used,
+images_flagged, notes, updated_at`. **Statuses:** `discovered` (found, not chosen), `queued`, `in_progress`,
+`ready_for_review` (rewritten, waiting for the person), `drafted` (hidden draft created, or files saved in
+local-files-only mode), `needs_attention`, `skipped` (always with a reason).
 
 ## Step 2: Load the brand's voice
 
