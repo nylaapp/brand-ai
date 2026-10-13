@@ -16,7 +16,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
 
-ALLOWED_CLASS = re.compile(r"^(aya-blog-|post-cta|post-faq)")  # classes the store's own articles use; learned from samples below
+ALLOWED_CLASS = re.compile(r"^(post-cta|post-faq)")  # the shopify-blog-writer defaults; the store's own classes are learned from its samples
 
 
 class Scan(HTMLParser):
