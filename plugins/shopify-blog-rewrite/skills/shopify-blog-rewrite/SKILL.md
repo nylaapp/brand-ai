@@ -1,6 +1,6 @@
 ---
 name: "shopify-blog-rewrite"
-description: "Brand-agnostic. Rewrite at four depths (Match, Reword, Restructure, Reimagine) an existing, already-written blog article (a URL, a series of articles from a site in tracked batches, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
+description: "Brand-agnostic. Rewrite at four depths (Match, Reword, Restructure, Reimagine) an existing, already-written blog article (a URL, a series of articles from a site in tracked batches, with the article images moved to the store's own CDN, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
 ---
 
 # Shopify Blog Rewrite
@@ -25,6 +25,7 @@ This skill reuses `shopify-blog-writer` for brand loading, house style, QA and d
 | 3 | `references/writing-quality.md` (specifics, point of view, voice) |
 | 3 | `references/rewrite-tiers.md`, `scripts/overlap_check.py` (tier definitions and the overlap check) |
 | Series | `scripts/discover_posts.py`, `scripts/transfer_tracker.py` (find the articles; the CSV tracker and settings) |
+| Images | `references/media-transfer.md`, `scripts/extract_media.py`, `scripts/upload_staged.py` (extract the source media, upload it to the Shopify CDN, place it in the layout) |
 | 6 | `references/seo-standards.md`, `references/output-templates.md` (fields JSON, HTML conventions), `scripts/check_post.py` |
 | 7 | `references/publishing.md` (connector 1A / browser 1B, preview link, HTML option 2) |
 
@@ -87,22 +88,27 @@ If the source is very short, or clearly isn't a blog article (a landing page, a 
 
 ### Source images
 
-Only when ownership or written permission is confirmed (Source from a URL, item 1). Without it, no image is copied.
+Only when ownership or written permission is confirmed (Source from a URL, item 1). Without it, no image is copied: the
+report lists the source images with their alt text so the store can supply its own. With it, the images are extracted,
+checked, uploaded to the store's own Shopify CDN, and used both inside the post, in the store's own layout, and as the
+article's blog image. The full procedure, GraphQL operations and rules are in `references/media-transfer.md`; the short form:
 
-1. **Collect** each image in the article body and the featured or social image (`og:image`), at the largest size the
-   page offers (the `srcset` or full-size URL, not the thumbnail). Skip icons, logos, avatars, tracking pixels and
-   images from third parties that are plainly stock (watermarked or credited to a stock agency): list those instead.
-2. **Upload to the store's Shopify Files**, never hot-link: `fileCreate` with the image URL as `originalSource` and a
-   descriptive `filename` and `alt` (`shopify-blog-writer/references/publishing.md`, "Step B"); poll until `READY`;
-   swap each `src` for the Shopify CDN URL. Keep the source's alt text if it describes the image, rewrite it if it
-   names the source brand.
-3. **Look at each image before using it.** One with the source brand's logo, name, phone number or before/after
-   claims visible in it is flagged in the report as "needs a replacement" and not used in the draft; a patient or
-   client photo is used only if the person confirms a photo release exists. Don't edit or crop images to remove marks.
-4. **Record** every image in the report: source URL, Shopify file, alt text, used or flagged and why. Set the first
-   suitable image as the featured image if the post has none.
-5. If a download or upload fails, leave a visible `[[USER MEDIA: <description>]]` slot, as publishing.md describes, and
-   carry on with the text.
+1. **Extract** with `python3 scripts/extract_media.py --url <article> --out <run folder>/media.json --download <run folder>/media`
+   (or `--html` for a page saved from a browser tool). It keeps the real article images at their largest size, skips logos,
+   icons, tracking pixels, sidebars and duplicates, and lists videos and embeds without downloading them.
+2. **Look at each image** before using it (open the file). A source brand's logo, name or phone number in the picture, a
+   before and after photo, a watermark, or an identifiable person without a confirmed photo release is flagged and left out,
+   never edited or cropped to hide it. Images under 400 px wide are inline-only, never the blog image.
+3. **Upload each kept image** through the Shopify connector with a staged upload (`stagedUploadsCreate`, then
+   `scripts/upload_staged.py`, then `fileCreate`), wait until the file is `READY`, and take its CDN URL. Never hot-link the
+   source site. Use stable filenames (`<handle>-<n>-<what-it-shows>.<ext>`) and fresh alt text.
+4. **Place them in the store's layout:** copy the markup, size and position pattern of the store's newest published article
+   (for example `<figure><img src alt width height loading="lazy"></figure>`), keep each image beside the content it
+   illustrated, and set the article's `image` field (the blog image) when the store's posts use one: the lead image, in the
+   same file as the body image if the store's pattern does both. If the project has its own multi-image or gallery rule, it
+   wins.
+5. **Record and report** every image: source URL, Shopify file, CDN URL, alt text, where it was placed, or why it was
+   flagged. A download or upload that fails leaves a visible `[[USER MEDIA: <description>]]` slot and the text carries on.
 
 ### Series transfer
 
@@ -146,7 +152,8 @@ If the project's own rules say where reports and spreadsheets go, follow them.
    settings, and the number of batches. Wait for a yes.
 6. **Run a batch.** `python3 scripts/transfer_tracker.py next --dir <folder>` hands out the next articles and marks them
    `in_progress`. Load the brand voice once for the whole run (Step 2). For each article, fetch it (Source from a URL,
-   items 2 to 5, and Source images when permitted), then run Steps 2b to 7 with the saved settings: do not ask the intake
+   items 2 to 5), extract and upload its images when permitted (Source images; reuse a file already in
+   `uploaded-media.json`), then run Steps 2b to 7 with the saved settings: do not ask the intake
    questions again. **After each article, not at the end of the batch,** update its row:
    `set <id> --status <ready_for_review|drafted|needs_attention> --field handle=... --field new_title=... --field run_folder=...
    --field shopify_article_id=... --field preview_url=... --field overlap_pct=... --field claims_removed=...
@@ -291,13 +298,16 @@ Rewording can quietly change meaning, especially on health, safety and "best" or
 
 ## Step 6: SEO fields and QA
 
-Using `shopify-blog-writer`'s `output-templates.md`, fill title, SEO title (50 to 60 characters), meta description (140 to 155), handle, excerpt, tags (reuse the store's existing naming), author, blog, and alt text for images the source includes. Resolve placeholders in these fields too (Step 2b), and lightly match the excerpt and meta description to the brand's voice without changing their meaning. Run `python <shopify-blog-writer>/scripts/check_post.py <post>.html --fields <post>-fields.json`, fix FAILs, and confirm the body has no `[[…]]` or other placeholder text. **SEO must survive the rewrite.** Unless the user chose the SEO tune-up, keep the source's primary keyword, headings, and title and meta fields; if a heading or keyword placement had to change, list it in the report. Check the primary keyword is still in the title, first 100 words and a heading. Record `source_file`, `rewrite_depth`, `house_style` and `placeholders_resolved` in the fields JSON. If the source has no images, list a shot list as missing input instead of searching for stock, unless the user asks. Checker FAILs that can only be fixed by adding new facts or unverified URLs (related links, citations, tags you can't match to the store, "last updated") are not forced: list them in the report as missing input.
+Using `shopify-blog-writer`'s `output-templates.md`, fill title, SEO title (50 to 60 characters), meta description (140 to 155), handle, excerpt, tags (reuse the store's existing naming), author, blog, and alt text for images the source includes. Resolve placeholders in these fields too (Step 2b), and lightly match the excerpt and meta description to the brand's voice without changing their meaning. Run `python <shopify-blog-writer>/scripts/check_post.py <post>.html --fields <post>-fields.json`, fix FAILs, and confirm the body has no `[[…]]` or other placeholder text. **SEO must survive the rewrite.** Unless the user chose the SEO tune-up, keep the source's primary keyword, headings, and title and meta fields; if a heading or keyword placement had to change, list it in the report. Check the primary keyword is still in the title, first 100 words and a heading. Record `source_file`, `rewrite_depth`, `house_style` and `placeholders_resolved` in the fields JSON. When images were transferred, also record `image` (CDN url and alt text, the blog image), `image_pattern` (how the store lays out images) and `media_manifest` (the path of `media.json`). If the source has no images, list a shot list as missing input instead of searching for stock, unless the user asks. Checker FAILs that can only be fixed by adding new facts or unverified URLs (related links, citations, tags you can't match to the store, "last updated") are not forced: list them in the report as missing input.
 
 ## Step 7: Deliver a hidden draft (or the HTML fallback)
 
 Follow `shopify-blog-writer/references/publishing.md`: connector (1A) if available, else a signed-in browser (1B), else HTML (option 2). Rules that matter:
 
 - **Hidden always.** `isPublished: false`. Never publish.
+- **Images go first.** Upload the media (Source images) before the article is created, so the body can carry the CDN URLs and
+  `image: {url, altText}` is set on creation (the blog image). After creating the draft, read it back and confirm the body
+  figures, the `image` field and every `src` pointing at the store's CDN, none at the source site.
 - **Test the connection before building anything.** For the connector, make one cheap read first (for example `get-shop-info`). If it fails, treat the connector as unavailable (see Fallback). Don't build mutations against a connector that has not answered.
 - Confirm the connected store is the one the BRAND.md belongs to before any write. Check for a handle or keyword clash first and never overwrite another article.
 - **Browser delivery:** don't type long body HTML key by key into the editor's HTML view; it can freeze the page. Set the body through the editor's own API (for example the rich-text editor's set-content call), then read it back and confirm the heading count, the disclaimer and that no stray text landed in it. Type short fields (title, excerpt, meta description, handle) one at a time and take a screenshot after each, because a page re-render can send keystrokes to the wrong place. If a tab freezes, open a fresh tab, and check afterwards that the frozen tab did not save a stray empty draft; if it did, tell the user (never delete it yourself).
@@ -318,7 +328,7 @@ Use the fallback whenever the Shopify draft is blocked, whatever the reason:
 What to do:
 
 1. **Don't stop to ask, and don't loop.** Try the next method once (connector, then signed-in browser), then fall back. Never ask the person for credentials or 2FA codes, and never bypass a block another way.
-2. **Deliver option 2 from `publishing.md`** in `blog-runs/<date>-<handle>/`: `<handle>.html` (body only, starts at `<h2>`, disclaimer included), `<handle>-fields.json`, `<handle>-shopify-fields.md` (the fields in the order of Shopify's blog post editor, with the author, blog, tags and "Visibility: Hidden until reviewed"), `<handle>-rewrite-report.md`, `source.*` and the voice card. The same Step 4 quality gate and Step 6 QA apply; the fallback is a delivery change, never a quality shortcut.
+2. **Deliver option 2 from `publishing.md`** in `blog-runs/<date>-<handle>/`: `<handle>.html` (body only, starts at `<h2>`, disclaimer included), `<handle>-fields.json`, `<handle>-shopify-fields.md` (the fields in the order of Shopify's blog post editor, with the author, blog, tags and "Visibility: Hidden until reviewed"), `<handle>-rewrite-report.md`, `source.*` and the voice card. Keep the downloaded images and `media.json` in the run folder and list them in the fields sheet (file, alt text, where each goes, which one is the blog image) so they can be uploaded to Files by hand: no Shopify, no CDN upload. The same Step 4 quality gate and Step 6 QA apply; the fallback is a delivery change, never a quality shortcut.
 3. **Tell the person why, in the first line of the summary,** in plain words (for example "Not posted to Shopify: the Shopify connector is not signed in."), and say what would enable the draft next time (connect Shopify in connector settings, or sign in to Shopify admin in a browser the operator confirms is their own). If a handle clash caused it, flag it as a possible keyword clash too.
 4. **Use the HTML summary wording:** "First draft ready for your review (HTML, not posted to Shopify). Paste `<handle>.html` into the Shopify blog post editor's HTML view and fill the fields from `<handle>-shopify-fields.md`, keep it hidden, then edit and publish when you're happy." Do not give preview or admin links, because none exist.
 5. **If the user asked for "straight to draft",** the fallback is still the go-ahead's outcome: finish the HTML delivery without asking.
