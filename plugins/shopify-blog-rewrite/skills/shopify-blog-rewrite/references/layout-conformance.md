@@ -1,5 +1,7 @@
 # Layout conformance: the rewrite must look like the store's own articles
 
+This file is the working detail of the rule at the top of SKILL.md: **the destination store's blog conventions always win**. Where the project has its own blog rules, they come first; the store's published articles come second (below); the writer's defaults are the last resort.
+
 A rewrite that only matches the brand's *words* is half done. It must also match how the store's own articles are built: the same
 opening element, the same image markup, the same closing block, the same allowed tags. Otherwise it renders differently from its
 neighbours, loses the theme's styling, or leaves a visible gap (for example no image where every other article opens with one).

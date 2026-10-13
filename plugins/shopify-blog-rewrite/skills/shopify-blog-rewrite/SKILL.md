@@ -13,6 +13,17 @@ The job is a **voice transplant, not a content rewrite**, at every tier: the fac
 
 A good rewrite reads as if the brand's own writer wrote it from the start. A regular reader of the blog should not be able to tell it came from a template, a freelancer or another brand.
 
+## The rule: the destination store's blog conventions always win
+
+A rewrite is built for the store it is going **to**, so it follows that store's blog formatting convention whenever the store has one: its layout and formatting, not only its voice. The source article's own formatting (the reference site's heading style, image placement, layout, CSS classes, captions, CTA boxes, disclaimer, byline) is never carried over as it is. The same source rewritten for two stores gets two layouts.
+
+- **What counts as a convention:** how articles open (a lead image or not), image markup, size and hosting, heading levels and how many, use of lists, tables and callouts, the closing block (disclaimer or CTA), the byline and author, tags, publication and date rules, template, handle format, typical length, and which blog a topic belongs in.
+- **Where to find it, in this order:** (1) the destination project's own blog rules: a blog skill, `AGENTS.md`, a workflow document, or the theme's stylesheet rules for article content: these win; (2) the destination store's **published articles** (`references/layout-conformance.md`); (3) BRAND.md's Blog section; (4) only when none of these exists, the defaults in `shopify-blog-writer` (`output-templates.md`).
+- **Write it down:** list what you found, and where each item came from, in `conventions.md` in the run folder, and check the draft against it before delivery. Report every deviation, with its reason, in the change report. A series keeps one conventions sheet per destination blog.
+- **When the source has something the store has no rule for** (a gallery, a table, an embedded video, a pull quote): if the project defines a rule for it, follow it, and if the project requires a developer-mapped layout, stop and ask instead of flattening it. Otherwise keep the content in plain, semantic HTML in the store's style and say so in the report.
+- **When no convention exists at all** (a new blog, fewer than two published articles, no project rules): say so in the first line of the report, use the writer defaults, and ask the person to confirm the layout on the first draft before more are made.
+
+
 ```
 1. Intake + store → 2. Load brand voice → 2b. Resolve placeholders and brand names → 3. Rewrite (three passes) → 4. Quality gate + change report → 5. Fact-check → 6. SEO fields + QA → 7. Hidden Shopify draft (or HTML fallback)
 ```
@@ -67,7 +78,7 @@ When the request contains a link to an article (and not a Google Doc or Drive li
 
 If the pasted text starts with field lines (for example `SEO title:`, `Meta description:`, `Suggested handle:`, `Excerpt:`, `Disclaimer:`), split them off as fields; they are not body copy. A trailing `Disclaimer:` line in the source is replaced by the brand's own disclaimer (Step 3), not kept in the body.
 
-**Which store?** From the request, the connected Shopify store, or the folder you're in. With several clients and no clear answer, ask "which store?". It is the only brand question this skill asks. A BRAND.md for a different store counts as missing.
+**Which store?** The destination store is the one the post will be created in: from the request, the connected Shopify store, or the folder you're in. Its blog conventions (the rule above) apply from this point on. With several clients and no clear answer, ask "which store?". It is the only brand question this skill asks. A BRAND.md for a different store counts as missing.
 
 Ask once, with AskUserQuestion, only what the request didn't already say:
 
@@ -286,6 +297,7 @@ Then write `<handle>-rewrite-report.md` and show a short version in chat:
 - What changed in kind (tone, terminology swaps, sentences tightened, structure unchanged or the heading changes), with word counts before and after
 - **Placeholder replacements** (token → value ×N, or removed and why)
 - **Claim flags:** each sentence making a brand, health, result, safety, regulatory, performance or comparison claim, quoted from the source, with what you did (kept, softened, removed) and why
+- **Layout:** the destination store's conventions followed and where each came from (`conventions.md`), the `layout_check.py` result, and any deviation with its reason
 - **Terminology swaps** (source term → brand term)
 - **Missing input you could add**
 - Anything in the source that looks wrong or outdated that you did not change
