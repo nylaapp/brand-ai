@@ -10,6 +10,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content skills.
 /plugin install competitor-research@brand-ai
 /plugin install content-fact-check@brand-ai
 /plugin install accessibility-audit@brand-ai
+/plugin install content-seo-audit@brand-ai
 /plugin install shopify-blog-writer@brand-ai
 /plugin install shopify-blog-rewrite@brand-ai
 /plugin install shopify-blog-autopilot@brand-ai
@@ -23,6 +24,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content skills.
 | competitor-research | Dated competitor and inspiration research: writes COMPETITORS.md | brand-capture |
 | content-fact-check | Verify claims in copy, with regulated-claim guardrails | none |
 | accessibility-audit | Lighthouse accessibility scoring and additive fixes for Shopify themes | none |
+| content-seo-audit | Audit a live blog post (schema, PageSpeed, on-page) and track Search Console rankings at 2 and 4 weeks | none (pairs with shopify-blog-writer) |
 | shopify-blog-writer | Research and write SEO/AEO blog posts, deliver as hidden drafts | brand-capture |
 | shopify-blog-rewrite | Rewrite an existing article in a store's brand voice | shopify-blog-writer |
 | shopify-blog-autopilot | Decide when and what to blog, then hand off to the writer | shopify-blog-writer, brand-capture |

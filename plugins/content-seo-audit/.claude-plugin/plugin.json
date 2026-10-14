@@ -1,0 +1,8 @@
+{
+  "name": "content-seo-audit",
+  "version": "0.1.0",
+  "description": "Post-publish SEO and AEO audit for live Shopify blog posts, then Search Console ranking follow-ups at 2 and 4 weeks.",
+  "author": { "name": "Nyla", "email": "michael@nyla.app" },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": ["seo","aeo","audit","content"]
+}
