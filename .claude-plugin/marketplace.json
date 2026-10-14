@@ -49,6 +49,12 @@
       "source": "./plugins/accessibility-audit",
       "description": "Lighthouse accessibility scoring for Shopify themes with additive fixes and re-scoring.",
       "version": "0.1.0"
+    },
+    {
+      "name": "content-seo-audit",
+      "source": "./plugins/content-seo-audit",
+      "description": "Audit live Shopify blog posts (schema, PageSpeed, on-page checks) and track Search Console rankings at 2 and 4 weeks.",
+      "version": "0.1.0"
     }
   ]
 }
