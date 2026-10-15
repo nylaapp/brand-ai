@@ -55,6 +55,12 @@
       "source": "./plugins/content-seo-audit",
       "description": "Audit live Shopify blog posts (schema, PageSpeed, on-page checks) and track Search Console rankings at 2 and 4 weeks.",
       "version": "0.1.0"
+    },
+    {
+      "name": "analytics",
+      "source": "./plugins/analytics",
+      "description": "Analytics partner: tagging and full audits across privacy states, setup from issue list to verified fixes, quick and zero-based tag cleanup, and guardrails with drift watch.",
+      "version": "0.1.0"
     }
   ]
 }
