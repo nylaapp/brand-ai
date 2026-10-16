@@ -11,13 +11,24 @@ spellings to use), **Claim limits** (what can never be promised or said, disclai
 **Brand architecture** (which name goes where) and **Inspiration brands**. Where this file and BRAND.md disagree,
 BRAND.md wins.
 
-**Origin labels** are the same as in BRAND.md: `(from site)`, `(repo)`, `(client)`, `(inferred)`, `(suggested)`. A
-`(client)` line is never overwritten by a scan. Unlike BRAND.md, this file holds **no** `[[CLIENT TO CONFIRM]]`
-placeholders: an unknown is a question in BRAND.md and `BRAND-QUESTIONS.md`, and the voice line waits (is left out)
-until it is answered. The validator fails a placeholder here.
+**Origin labels** are the same as in BRAND.md: `(from site)`, `(repo)`, `(client)`, `(client doc: <short title>,
+p. N)`, `(inferred)`, `(suggested)`. A `(client)` line is never overwritten by a scan. Unlike BRAND.md, this file
+holds **no** `[[CLIENT TO CONFIRM]]` placeholders: an unknown is a question in BRAND.md and `BRAND-QUESTIONS.md`, and
+the voice line waits (is left out) until it is answered. The validator fails a placeholder here.
+
+**When the client has a voice guide** (or a brand book with a voice chapter), it leads: its words replace the
+three words, its principles fill How it sounds, its approved expressions fill Signature phrases (grouped as the guide
+groups them, wording exact, any number), its examples fill Do / don't. Site lines stay only where they agree.
+Follow `client-documents.md`. Three **optional sections** may then be added, in this order between "Words and
+habits to avoid" and "Rules that stay in BRAND.md", and only from the guide, never from a site scan:
+`## Tone by purpose` (purpose, tone to bring forward, how), `## By channel` (channel, how) and
+`## Before it goes out` (the guide's writing steps and pre-publish checks).
 
 **Budget:** aim for 40 to 70 lines. The validator warns above 90 lines or 1,200 words and fails above 140 lines or
-2,000 words. Never copy from the site at length: short verbatim quotes only, each from a saved page.
+2,000 words. With any optional section the budget is larger: aim for 80 to 120 lines; it warns above 130 lines or
+1,800 words and fails above 180 lines or 2,600 words. Condense the guide, don't paste it: keep its rules and
+examples, drop its explanations of why. Never copy from the site at length: short verbatim quotes only, each from a
+saved page.
 
 **Status and revision** follow BRAND.md: `draft` until the client approves both files together, and `revision`
 goes up by one on every write, with a row in this file's Change log (and a row in BRAND.md's Change log, Sections:
@@ -34,7 +45,7 @@ parent_doc: BRAND.md
 status: <draft | approved, same as BRAND.md>
 revision: <1, 2, 3 ... +1 on every write>
 last_updated: <YYYY-MM-DD of the latest write>
-source: <where it came from, e.g. "brand-capture 1.2.0 scan of https://example.com" or "moved from the Voice section of BRAND.md rev 1">
+source: <where it came from, e.g. "brand-capture 1.3.0 scan of https://example.com", "moved from the Voice section of BRAND.md rev 1" or "client voice guide <title> received YYYY-MM-DD, plus site phrases">
 ---
 
 # <Brand> brand voice
@@ -65,6 +76,22 @@ on examples, not adjectives.*
 <words, claims-by-tone and habits the brand steers away from; each from evidence (words competitors use that the
 brand never does, tone it clearly avoids) or labelled (inferred). When the site has two registers, say which one new
 writing follows.>
+
+## Tone by purpose
+*Optional: only when the client's guide has it. Delete the heading otherwise.*
+| Purpose | Tone to bring forward | How |
+|---|---|---|
+| <what the message is for> | <two words from the guide> | <one line> |
+
+## By channel
+*Optional: only when the client's guide has it.*
+| Channel | How |
+|---|---|
+| <website, social, email, paid, events, in store, customer care> | <one line> |
+
+## Before it goes out
+*Optional: only when the client's guide has it. The guide's writing steps in one or two lines, then its checks as
+a short list.*
 
 ## Rules that stay in BRAND.md
 Word choice that is a naming or compliance rule, not a matter of tone, is kept in `BRAND.md`:

@@ -26,8 +26,10 @@ BLOCK = re.compile(re.escape(START) + r".*?" + re.escape(END) + r"[ \t]*(?:\r?\n
 SKILL_GLOBS = [".claude/skills/*/SKILL.md", ".agents/skills/*/SKILL.md", "skills/*/SKILL.md",
                ".claude/commands/*.md", ".claude/agents/*.md"]
 AGENT_FILES = ["AGENTS.md", "CLAUDE.md"]
-OWN_FILES = {"brand.md", "brand-voice.md", "brand-questions.md", "brand-requests.md", "competitors.md", "readme.md", "changelog.md",
-             "license.md", "contributing.md", "code_of_conduct.md", "security.md"}
+# Compared against lowercased file names, so older lowercase captures (brand.md) and newer uppercase ones (BRAND.md)
+# both match.
+OWN_FILES = {"brand.md", "brand-voice.md", "brand-questions.md", "brand-requests.md", "competitors.md", "readme.md",
+             "changelog.md", "license.md", "contributing.md", "code_of_conduct.md", "security.md"}
 OWN_SKILLS = {"brand-capture", "competitor-research"}
 SKIP_DIRS = {".git", "node_modules", "vendor", "dist", "build", ".venv", "venv", "__pycache__", ".next", ".cache"}
 # Words that show a file guides writing customer-facing words; one point per distinct word found.
@@ -153,7 +155,7 @@ def status_of(root, item):
         current = BLOCK.search(text)
         newline = "\r\n" if "\r\n" in text else "\n"
         return "linked" if current and current.group(0).rstrip() == block_text(newline).rstrip() else "outdated link"
-    if "brand.md" in text.lower():
+    if "brand.md" in text.lower():  # BRAND.md, or brand.md from an older capture (the same file on Windows and macOS)
         return "mentions BRAND.md"
     return "would add"
 

@@ -3,7 +3,7 @@
 Keep it short: the person reading it decides what to send the client and what to approve.
 
 ```markdown
-# brand-capture · <Brand> · <new | apply-answers | split-voice> · <YYYY-MM-DD>
+# brand-capture · <Brand> · <new | apply-answers | apply-documents | split-voice> · <YYYY-MM-DD>
 
 **Saved:** <path to BRAND.md> · rev <n> · <draft | approved> · <lines> lines · validator <OK | n warnings>
 **Voice file:** <path to BRAND-VOICE.md> · rev <n> · <lines> lines
@@ -34,6 +34,16 @@ in BRAND.md.>
 | Page type | Read | URL(s) | Notes |
 |---|---|---|---|
 
+## Client documents (only when the client gave any; `client-documents.md` §8)
+| Document | Dated | Pages | Read how | sha8 |
+|---|---|---|---|---|
+
+- **What changed:** <section: before → after, one line each>
+- **Left out as illustration:** <mockup prices, offers, counts, names not used>
+- **For the design doc owner:** <visual items the documents add or contradict>
+- **Conflicts with the site or repo:** <each with its Q-id>
+
+
 ## Linked to BRAND.md
 | File | Status |
 |---|---|
@@ -44,5 +54,6 @@ instructions" when the run was in Cowork or a Claude project>
 <pages blocked by robots or errors; client-rendered pages read without a browser; anything skipped>
 
 ## Next
-- Deep competitor research: run the competitor-research skill to write COMPETITORS.md (about <n> min).
+- Deep competitor research: run the competitor-research skill to write COMPETITORS.md (about <n> min); when
+  COMPETITORS.md already exists and only the client's side changed, its client-refresh mode.
 ```

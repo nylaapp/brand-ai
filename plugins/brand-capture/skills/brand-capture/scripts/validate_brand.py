@@ -7,8 +7,9 @@ Standard library only. Usage:
 
 Exit codes: 0 valid (warnings allowed), 1 errors found, 2 file missing or unreadable, 3 older schema
 (rebuild it with a new brand-capture run). Errors block saving; warnings go in the run report.
-Quotes are checked against the evidence only on lines that cite the site ("(from site)" or a URL);
-lines labelled (client...), (repo...) or (example) are skipped.
+Quotes are checked against the evidence only on lines that cite the site ("(from site)" or a URL) or a client
+document ("(client doc: ...)"); lines labelled (client), (repo...) or (example) are skipped. Site quotes are looked
+up in the saved pages, document quotes in the saved document texts (evidence files named doc-*.txt).
 
 When BRAND.md names a `voice_doc` (BRAND-VOICE.md), that file sits next to BRAND.md and is validated too: the
 Voice section in BRAND.md must then be a short pointer. Without `voice_doc` the older layout (Voice written out
@@ -39,9 +40,15 @@ NO_PENDING_WHEN_APPROVED = ["Brand architecture", "Claim limits"]
 VOICE_KEYS = ["brand", "parent_doc", "status", "revision", "last_updated", "source"]
 VOICE_HEADINGS = ["In three words", "How it sounds", "Signature phrases", "Do / don't",
                   "Words and habits to avoid", "Rules that stay in BRAND.md", "Change log"]
+# Optional sections, only when the client's own voice guide supplies them; they sit in this order between
+# "Words and habits to avoid" and "Rules that stay in BRAND.md".
+VOICE_OPTIONAL = ["Tone by purpose", "By channel", "Before it goes out"]
+VOICE_ORDER = VOICE_HEADINGS[:5] + VOICE_OPTIONAL + VOICE_HEADINGS[5:]
 VOICE_FILE = re.compile(r"[A-Za-z0-9._-]+\.md")   # a plain file name next to BRAND.md, never a path
 VOICE_POINTER_MAX = 8                              # non-empty lines allowed in BRAND.md's Voice when voice_doc is set
 VOICE_LINES_WARN, VOICE_LINES_FAIL, VOICE_WORDS_WARN, VOICE_WORDS_FAIL = 90, 140, 1200, 2000
+# A voice file built from a client's voice guide (any optional section present) gets a larger budget.
+VOICE_GUIDE_LINES_WARN, VOICE_GUIDE_LINES_FAIL, VOICE_GUIDE_WORDS_WARN, VOICE_GUIDE_WORDS_FAIL = 130, 180, 1800, 2600
 DO_DONT = re.compile(r"^\s*-\s*Do:.*Don't:", re.M)
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 PLACEHOLDER_ANY = re.compile(r"\[\[CLIENT TO CONFIRM[^\]]*\]\]")
@@ -49,9 +56,13 @@ PLACEHOLDER_OK = re.compile(r"\[\[CLIENT TO CONFIRM: (Q-\d{2,3}) \| [^\]]{5,}\]\
 HTML_OK = r"/?(?:a|b|i|u|p|br|em|strong|small|sup|sub|span|div|ul|ol|li|img|figure|figcaption|h[1-6])\b"
 TEMPLATE_LEFTOVER = re.compile(r"<(?!https?://|mailto:|" + HTML_OK + r")[A-Za-z0-9][^<>\n]{2,}>"
                                r"|^\*[A-Z][^*\n]+\*$", re.M)
-QUOTE = re.compile(r"[\"\u201c]([^\"\u201c\u201d\n]{12,400})[\"\u201d]")
-SOURCED = re.compile(r"\(from site|https?://")          # lines whose quotes must match the evidence
-NOT_FROM_SITE = re.compile(r"\((client|repo|example)\b")  # quotes that never come from a web page
+# Quote marks are paired in order, so a short quote's closing mark is never read as the next quote's opening one;
+# quote_warnings() then checks only quotes of QUOTE_MIN characters or more.
+QUOTE = re.compile(r"[\"\u201c]([^\"\u201c\u201d\n]{0,400})[\"\u201d]")
+QUOTE_MIN = 12
+SOURCED = re.compile(r"\(from site|https?://")          # lines whose quotes must match the saved pages
+NOT_FROM_SITE = re.compile(r"\((client(?! doc)|repo|example)\b")  # quotes that never come from a web page
+DOC_CITED = re.compile(r"\bclient doc\b")                 # lines whose quotes must match a saved document text
 LINES_WARN, LINES_FAIL, WORDS_WARN, WORDS_FAIL = 220, 300, 3500, 5000
 MAX_SENT = 4  # follow-up questions sent to the client; the rest wait under '## Held for later'
 POST_URL = re.compile(r"https?://[^\s)|>]+/(?:blogs?|news|journal|articles?)/[^\s)|>/]+/[^\s)|>]+")
@@ -97,20 +108,35 @@ def sections(body):
 
 
 def corpus_of(evidence):
-    """All saved page text, normalised, so quotes can be looked up in it."""
-    return " ".join(norm(p.read_text(encoding="utf-8", errors="replace"))
-                    for p in Path(evidence).rglob("*") if p.is_file() and p.suffix in (".txt", ".md", ".json"))
+    """Saved text, normalised, as (site pages, client documents), so quotes can be looked up in it.
+
+    Client documents are the evidence files whose names start with `doc-` (client-documents.md §2)."""
+    site, docs = [], []
+    for p in Path(evidence).rglob("*"):
+        if p.is_file() and p.suffix in (".txt", ".md", ".json"):
+            (docs if p.name.startswith("doc-") else site).append(norm(p.read_text(encoding="utf-8", errors="replace")))
+    return " ".join(site), " ".join(docs)
 
 
 def quote_warnings(body, corpus, label=""):
-    """Warnings for quotes on site-cited lines that the saved pages don't contain."""
+    """Warnings for quotes on site- or document-cited lines that the saved evidence doesn't contain.
+
+    A line is checked only when every source it cites was saved (a line citing both the site and a document needs
+    both), so a missing pool never produces false warnings; validate() says once which pool was missing."""
+    site, docs = corpus
     out = []
     for line in body.splitlines():
-        if not SOURCED.search(line) or NOT_FROM_SITE.search(line):
+        site_cited = bool(SOURCED.search(line)) and not NOT_FROM_SITE.search(line)
+        doc_cited = bool(DOC_CITED.search(line))
+        if not (site_cited or doc_cited) or (site_cited and not site) or (doc_cited and not docs):
             continue
+        pools = ([site] if site_cited else []) + ([docs] if doc_cited else [])
         for m in QUOTE.finditer(line):
-            if norm(m.group(1)) not in corpus:
-                out.append(f"{label}quote not found in the evidence: \"{m.group(1)[:60]}\"")
+            if len(m.group(1).strip()) < QUOTE_MIN:
+                continue
+            if not any(norm(m.group(1)) in pool for pool in pools):
+                where = "the saved document texts" if not site_cited else "the evidence"
+                out.append(f"{label}quote not found in {where}: \"{m.group(1)[:60]}\"")
     return out
 
 
@@ -148,15 +174,17 @@ def validate_voice(path, brand_front, corpus=None):
         errors.append("revision must be a whole number")
 
     order, secs = sections(body)
-    if order != VOICE_HEADINGS:
+    expected = [h for h in VOICE_ORDER if h in VOICE_HEADINGS or h in order]
+    guide = any(h in order for h in VOICE_OPTIONAL)
+    if order != expected:
         missing = [h for h in VOICE_HEADINGS if h not in order]
-        extra = [h for h in order if h not in VOICE_HEADINGS]
+        extra = [h for h in order if h not in VOICE_ORDER]
         if missing:
             errors.append("missing sections: " + ", ".join(missing))
         if extra:
             errors.append("unknown sections (rename or remove): " + ", ".join(extra))
         if not missing and not extra:
-            errors.append("sections are out of order; expected: " + ", ".join(VOICE_HEADINGS))
+            errors.append("sections are out of order; expected: " + ", ".join(expected))
 
     if PLACEHOLDER_ANY.search(text):
         errors.append("no [[CLIENT TO CONFIRM]] placeholders in this file: open items live in BRAND.md and "
@@ -179,12 +207,15 @@ def validate_voice(path, brand_front, corpus=None):
         warnings.append("last Change log date differs from last_updated")
 
     lines, words = info["lines"], info["words"]
-    if lines > VOICE_LINES_FAIL or words > VOICE_WORDS_FAIL:
-        errors.append(f"too long: {lines} lines, {words} words (limit {VOICE_LINES_FAIL} lines, "
-                      f"{VOICE_WORDS_FAIL} words)")
-    elif lines > VOICE_LINES_WARN or words > VOICE_WORDS_WARN:
-        warnings.append(f"long: {lines} lines, {words} words (target {VOICE_LINES_WARN} lines, "
-                        f"{VOICE_WORDS_WARN} words)")
+    if guide:
+        l_warn, l_fail, w_warn, w_fail = (VOICE_GUIDE_LINES_WARN, VOICE_GUIDE_LINES_FAIL,
+                                          VOICE_GUIDE_WORDS_WARN, VOICE_GUIDE_WORDS_FAIL)
+    else:
+        l_warn, l_fail, w_warn, w_fail = VOICE_LINES_WARN, VOICE_LINES_FAIL, VOICE_WORDS_WARN, VOICE_WORDS_FAIL
+    if lines > l_fail or words > w_fail:
+        errors.append(f"too long: {lines} lines, {words} words (limit {l_fail} lines, {w_fail} words)")
+    elif lines > l_warn or words > w_warn:
+        warnings.append(f"long: {lines} lines, {words} words (target {l_warn} lines, {w_warn} words)")
     if corpus is not None:
         warnings += quote_warnings(body, corpus)
     return errors, warnings, info
@@ -240,6 +271,12 @@ def validate(path, evidence=None, questions=None):
             errors.append("sections are out of order; expected: " + ", ".join(HEADINGS))
 
     corpus = corpus_of(evidence) if evidence else None
+    if corpus is not None:
+        if not corpus[0]:
+            warnings.append("no site pages in the evidence folder: quotes cited to the site were not checked")
+        if not corpus[1] and DOC_CITED.search(text):
+            warnings.append("no document texts (doc-*.txt) in the evidence folder: quotes cited to client "
+                            "documents were not checked")
     voice_name = front.get("voice_doc", "")
     if voice_name and voice_name.lower() != "none":
         if not VOICE_FILE.fullmatch(voice_name):

@@ -1,6 +1,6 @@
 ---
 name: competitor-research
-description: Deep research on the competitors and inspiration brands a client named in BRAND.md, written to COMPETITORS.md next to it. Compares where each competitor operates against the client (shared cities, neighbourhoods, channels or marketplaces), what it sells and at what prices, its pricing model (flat prices, packages, bundles, memberships, subscriptions), offers and referral programs, how often it publishes content and who writes it, how it positions itself, and what each inspiration brand does well. Ends with concrete openings for the client. Dated research, re-run every few months; never changes BRAND.md. Works for any kind of business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "research the competitors", "competitor analysis", "build COMPETITORS.md", "how do we compare", "refresh the competitor research", or when brand-capture offers it after setup.
+description: Deep research on the competitors and inspiration brands a client named in BRAND.md, written to COMPETITORS.md next to it. Compares where each competitor operates against the client (shared cities, neighbourhoods, channels or marketplaces), what it sells and at what prices, its pricing model (flat prices, packages, bundles, memberships, subscriptions), offers and referral programs, how often it publishes content and who writes it, how it positions itself, and what each inspiration brand does well. Ends with concrete openings for the client. Also reads market material the client provides (competitive analyses, battlecards, strategy decks, a brand book's positioning), and has a quick client-refresh mode that brings the client's side of COMPETITORS.md up to date after BRAND.md changes, without re-researching competitors. Dated research, re-run every few months; never changes BRAND.md. Works for any kind of business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "research the competitors", "competitor analysis", "build COMPETITORS.md", "how do we compare", "refresh the competitor research", "update COMPETITORS.md for the new brand file", when the client sends a competitive analysis or market deck, or when brand-capture offers it after setup or after applying client documents.
 ---
 
 # Competitor research
@@ -10,9 +10,15 @@ does, where it overlaps the client, how it prices and promotes, how it publishes
 client. BRAND.md says who the brand is; COMPETITORS.md says what the market around it looks like this quarter.
 
 ```
-0. Read BRAND.md → 1. Plan the comparison → 2. Research each brand → 3. Compare and find openings
-→ 4. Write COMPETITORS.md → 5. Report
+0. Read BRAND.md (+ client documents) → 1. Plan the comparison → 2. Research each brand
+→ 3. Compare and find openings → 4. Write COMPETITORS.md → 5. Report
 ```
+
+Two modes:
+- **full** (default): the whole flow above. A new COMPETITORS.md, or a refresh when the research is due.
+- **client-refresh:** COMPETITORS.md exists, its research is younger than `next_review`, and BRAND.md has moved on
+  (its `revision` is higher than COMPETITORS.md's `brand_md_revision`), for example after brand-capture applied the
+  client's brand documents. Only the client's side changes; see Step 0.
 
 ## Effort (read before starting)
 
@@ -26,13 +32,14 @@ Occasional and high value: run it on the strongest model available, at high effo
 | Budget on the strongest model | about USD 2 | about USD 4 |
 
 Measured on AYA (2 competitors, 2 inspirations) on 2026-10-02: about 2 minutes of research and writing on top of
-same-day scans, plus 4 page reads. Cost is an estimate from token counts at API list prices, not a bill. Stop and
+same-day scans, plus 4 page reads. A client-refresh run reads BRAND.md and COMPETITORS.md and makes no web requests:
+a few minutes, well under USD 1. Cost is an estimate from token counts at API list prices, not a bill. Stop and
 tell the person if a run passes 30 minutes or USD 10. Re-run every 3 months, or before a strategy meeting; prices and
 offers go stale within weeks.
 
 | File | Read at |
 |---|---|
-| `references/research-guide.md` | Steps 1 to 3: what to compare for each kind of business, where to find it, how to judge it |
+| `references/research-guide.md` | Steps 1 to 3: what to compare for each kind of business, where to find it, how to judge it; §6 client documents |
 | `references/competitors-template.md` | Step 4: the layout of COMPETITORS.md |
 
 ## Rules
@@ -51,6 +58,12 @@ offers go stale within weeks.
   Follow the host repo's device and browser rules.
 - **It's for any business.** Compare what matters for the client's kind of business (`research-guide.md` §1); a
   clinic is compared on locations and treatment prices, an online store on catalog, price bands and shipping.
+- **Client documents are the client's view, not the market's.** A competitive analysis or battlecard the client
+  sends is a lead to check, dated by the document: verify each competitor fact on the live site before stating it,
+  and label what you couldn't check `(client doc: <title>, p. N; not verified)`. Competitors a document names that
+  BRAND.md doesn't list are not researched; they go in the report as a question for the client
+  (`research-guide.md` §6). The client's own positioning reaches this skill through BRAND.md, not from the documents
+  directly.
 
 ## Step 0: Read BRAND.md
 
@@ -60,6 +73,22 @@ From BRAND.md take: `brand`, `site`, `category`, `markets`, `currency`, `regulat
 points, locations or reach); Brand architecture (locations); Catalog (what they sell, price bands, topics);
 Competitors and Inspiration brands (names, sites, feeds, overlap). Note its `revision` for the header.
 If a COMPETITORS.md already exists, read it: the new run replaces it, and the report says what changed.
+
+**Client documents:** if the person gave you documents with market content (a competitive analysis, battlecards, a
+strategy or pitch deck, market research), read them with `research-guide.md` §6 before planning. A brand book or
+voice guide matters here only through BRAND.md: if BRAND.md's Sources don't list it yet, offer brand-capture's
+apply-documents mode first.
+
+**client-refresh mode.** Don't research competitors and don't change any competitor fact or its date. Read the
+new BRAND.md and update only what comes from it:
+1. The client's column in Side by side (and any row that compares the client, such as positioning or voice).
+2. Summary bullets and Openings that rest on client facts that changed: re-judge them, keep their evidence, and use
+   the client's new documents as evidence where BRAND.md cites them (mockups only as "direction", never as facts).
+3. Front matter: `brand_md_revision` to the new revision and `client_refreshed` to today; keep `researched` and
+   `next_review`. Add a dated line to the header note saying the client's side was refreshed from BRAND.md rev N.
+4. The client's row in Sources.
+Then skip to Step 5. If the research is past `next_review`, or the client's markets, locations or catalog changed
+enough to change who overlaps whom, say so and offer a full run instead.
 
 ## Step 1: Plan the comparison
 
@@ -105,4 +134,5 @@ lines. Keep the client's facts as BRAND.md states them; don't restate BRAND.md s
 About ten lines: where COMPETITORS.md was saved, the three most useful findings, the openings, anything you
 couldn't read (blocked pages, client-rendered prices), the run time and model, and the suggested next review date.
 If you found something BRAND.md should hold (a competitor's site moved, a new location of the client's), list
-it as a BRAND-REQUESTS.md line instead of changing BRAND.md.
+it as a BRAND-REQUESTS.md line instead of changing BRAND.md. A client-refresh report says which lines changed and
+why, in a few lines.

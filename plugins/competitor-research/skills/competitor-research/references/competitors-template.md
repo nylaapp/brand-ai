@@ -3,6 +3,10 @@
 Keep the front-matter keys and the `##` headings in this order. Replace each `<...>` and delete the guidance in
 *italics*. Flat `key: value` front matter; dates `YYYY-MM-DD`. Aim for 120 to 250 lines.
 
+`client_refreshed` is blank after a full run. A client-refresh run sets it and `brand_md_revision`, and leaves
+`researched` and `next_review` alone, because the competitor facts weren't re-checked. Facts taken from a client
+document carry `(client doc: <title>, p. N)`, plus `not verified` when the live site didn't confirm them.
+
 ---
 
 ```markdown
@@ -12,9 +16,10 @@ brand: <brand, as in BRAND.md>
 brand_md_revision: <the BRAND.md revision this run read>
 researched: <YYYY-MM-DD>
 next_review: <YYYY-MM-DD, about 3 months later>
+client_refreshed: <YYYY-MM-DD of the last client-refresh run, or blank>
 competitors: <names, comma-separated>
 inspirations: <names, comma-separated>
-researched_by: competitor-research 1.0
+researched_by: competitor-research 1.1
 ---
 
 # <Brand>: competitors and inspiration (<YYYY-MM-DD>)
@@ -74,4 +79,6 @@ researched_by: competitor-research 1.0
 | Brand | Pages read | Seen on |
 |---|---|---|
 | <name> | <urls or "scan + 6 pages"> | <YYYY-MM-DD> |
+| <Brand> | <BRAND.md rev N> | <YYYY-MM-DD> |
+| <client document, if any> | <client doc: title, date printed, pages used> | <date received> |
 ```

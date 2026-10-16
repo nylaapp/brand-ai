@@ -13,7 +13,12 @@ Rules for the agent:
 - Offer choices whenever the evidence allows (A/B/C plus "other"). Quote both sides of a conflict with where each
   appears. Plain language: no file names, section names or ids in the question text itself.
 - Everything else goes under "Held for later" with its evidence, for the reviewer. It is never sent as a list.
-- When an answer arrives, mark the entry `Answered <date>: <answer> (from <who>)`; never delete entries.
+- When an answer arrives, mark the entry `Answered <date>: <answer> (from <who>)`; never delete entries. A client
+  document that states the fact outside a mockup also answers it: `Answered <date>: <answer> (from <document>,
+  p. N)`. A mockup that only repeats one side is added to the entry as evidence, not as an answer
+  (`client-documents.md` §3).
+- New items found after a round was sent (for example from documents the client sent later) get the next ids and go
+  under "Held for later", unless the reviewer asks for a new round.
 
 ---
 

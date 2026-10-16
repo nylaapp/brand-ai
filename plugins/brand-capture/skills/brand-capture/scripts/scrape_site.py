@@ -53,8 +53,8 @@ if hasattr(sys.stdout, "reconfigure"):  # Windows consoles default to a legacy c
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 SCHEMA_VERSION = "1.1"
-TOOL = "brand-capture/scrape_site.py 1.2.0"
-UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36 brand-capture/1.2.0"
+TOOL = "brand-capture/scrape_site.py 1.3.0"
+UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36 brand-capture/1.3.0"
 MAX_REQUESTS = 160
 TEXT_CAP = 5000
 
@@ -1593,12 +1593,36 @@ def open_items(root):
     return requests_open, questions_open
 
 
+CLIENT_DOC_EXT = {".pdf", ".docx", ".doc", ".pptx", ".ppt", ".key", ".pages", ".odt", ".rtf"}
+# A keyword must start a word ("Brand Book", "AYABrandBook"), so "invoice" and "milestone" don't match.
+CLIENT_DOC_NAME = re.compile(r"(?<![a-z])(?i:brand|guideline|voice|tone|style|playbook|identity|messaging|"
+                             r"positioning|persona|manifesto|strategy|claims)")
+CLIENT_DOC_DIRS = re.compile(r"^(brand|brand[-_ ]?docs?|brand[-_ ]?assets|docs?|documents|guidelines|client[-_ ]?docs?)$",
+                             re.I)
+
+
+def client_docs(root, limit=20):
+    """Brand documents the client may have left in the project (a brand book, a voice guide), for
+    client-documents.md. Looks at the root and one level into folders named like brand/, docs/ or guidelines/."""
+    root = Path(root)
+    if not root.is_dir():
+        return []
+    places = [root] + [d for d in root.iterdir() if d.is_dir() and CLIENT_DOC_DIRS.match(d.name)]
+    found = []
+    for place in places:
+        for p in sorted(place.iterdir()):
+            if p.is_file() and p.suffix.lower() in CLIENT_DOC_EXT and CLIENT_DOC_NAME.search(p.stem):
+                found.append({"file": str(p.relative_to(root)).replace("\\", "/"), "bytes": p.stat().st_size})
+    return found[:limit]
+
+
 def scan_repo(root, brand=None):
     root = Path(root)
     out = {"path": str(root.resolve()), "docs": [], "shopify": {}}
     out["brand_md"] = brand_md_front(root)
     out["requests_open"], out["questions_open"] = open_items(root)
     out["brand_mentions"] = brand_mentions(root, brand)
+    out["client_docs"] = client_docs(root)
     present = {p.name.lower(): p.name for p in root.iterdir() if p.is_file()} if root.is_dir() else {}
     for name in ["brand.md", "brand-voice.md", "design.md", "brand-guidelines.md", "brand-intake.md", "style-guide.md",
                  "readme.md", "agents.md", "claude.md"]:

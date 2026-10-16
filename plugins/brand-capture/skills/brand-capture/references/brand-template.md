@@ -8,8 +8,10 @@ and `##` headings, so keep every key and every heading, in this order, even when
 (how it sounds, signature phrases, do / don't pairs, words to avoid) goes in `BRAND-VOICE.md` next to BRAND.md, laid
 out as in `voice-template.md`. Terminology and Claim limits stay here, because they are naming and compliance rules.
 
-**Origin labels** (on any line that isn't plainly sourced): `(from site)`, `(repo)`, `(client)`, `(inferred)`,
-`(suggested)`. A line labelled `(client)` was confirmed by the customer and must never be overwritten by a scan.
+**Origin labels** (on any line that isn't plainly sourced): `(from site)`, `(repo)`, `(client)`,
+`(client doc: <short title>, p. N)`, `(inferred)`, `(suggested)`. A line labelled `(client)` was confirmed by the
+customer and must never be overwritten by a scan. A `(client doc ...)` line comes from a document the client gave
+(a brand book, a voice guide): it leads on identity and voice, not on live facts (`client-documents.md`).
 
 **Unknowns** use one form only, with a stable id that also appears in `BRAND-QUESTIONS.md`:
 `[[CLIENT TO CONFIRM: Q-07 | the question the client must answer]]`. Never write a bare `[[CLIENT TO CONFIRM]]`.
@@ -48,7 +50,7 @@ approved_by: <name and role of the client approver, blank while draft>
 approved_on: <YYYY-MM-DD, blank while draft>
 captured: <YYYY-MM-DD of the first capture>
 last_updated: <YYYY-MM-DD of the latest write>
-captured_by: brand-capture 1.2.0
+captured_by: brand-capture 1.3.0
 ---
 
 # <Brand> brand file
@@ -74,7 +76,10 @@ captured_by: brand-capture 1.2.0
 ## Identity
 - **One-liner:** <Brand> is a <what> that <does what> for <whom>.
 - **Tagline:** "<verbatim>" (from site)
-- **Positioning:** <1 to 2 sentences, quoting the site where possible>
+- **Positioning:** <1 to 2 sentences, quoting the site where possible; a client document's positioning statement
+  comes first when there is one>
+- **Strategic shifts / Personality:** *only when a client document states them; one line each, labelled
+  (client doc ...). Delete otherwise.*
 - **What sets us apart:** <2 to 4 bullets, each traceable to a source>
 - **Proof points:** <years, customers served, awards, press; each with its source URL; conflicting numbers stay out
   until confirmed>
@@ -183,6 +188,7 @@ the imagery rule). Only when design.md could not be made, list:*
 |---|---|---|---|
 | Identity, Story | <urls> | <first 8 chars of sha256 per page> | <YYYY-MM-DD> |
 | Voice (detail in BRAND-VOICE.md) | <urls read for voice> | <first 8 chars of sha256 per page> | <YYYY-MM-DD> |
+| <sections it fed> | <client doc: full title (date printed, n pages, file name); one row per document, only if any> | <first 8 chars of the file's sha256> | <date received> |
 
 ## Change log
 | Rev | Date | Mode | Requested by | Sections | Summary |
@@ -205,3 +211,4 @@ number other skills cite still moves whenever the voice does.
 | Voice detail: how it sounds, signature phrases, do / don't pairs, words to avoid | `BRAND-VOICE.md` (layout in `voice-template.md`); BRAND.md keeps only the pointer and the three words |
 | Follow-up questions and the client's answers | `BRAND-QUESTIONS.md`; BRAND.md keeps only the answered value, labelled `(client)` |
 | Change requests from skills or people | `BRAND-REQUESTS.md` (append-only) |
+| The client's brand documents themselves, and their mockups' prices, offers and counts | The documents stay with the client (or in the project folder if the person wants them there); BRAND.md keeps the statements, labelled `(client doc ...)`, and a Sources row per document |

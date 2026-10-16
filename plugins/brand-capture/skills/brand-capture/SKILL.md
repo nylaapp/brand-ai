@@ -1,17 +1,19 @@
 ---
 name: brand-capture
-description: One-time brand setup for a new client. Scans the brand's public website (About, story, mission and values pages, careers and news, locations, products with prices, types and colors, site colors and fonts, blog style, social links, disclaimers), asks four short setup questions (top competitors, non-competitive inspiration brands, who approves things to make sure they're on brand, anything never to say or claim), then writes BRAND.md (the single source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand sounds, kept in its own file), design.md (the brand's visual system as measured values: palette, type, spacing, corners, components, imagery), a readable BRAND.html copy for the client, and at most four follow-up questions. Finally points the project's agent files and skills at BRAND.md. Works for any kind of store or business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "capture the brand", "set up the brand file", "create BRAND.md", "onboard a new client", "brand setup", or applies a client's answers to brand questions; and whenever another skill needs BRAND.md and it doesn't exist.
+description: One-time brand setup for a new client. Scans the brand's public website (About, story, mission and values pages, careers and news, locations, products with prices, types and colors, site colors and fonts, blog style, social links, disclaimers) and any brand documents the client provides (brand book or guidelines, voice and tone guide, style guide, messaging framework, playbook), asks four short setup questions (top competitors, non-competitive inspiration brands, who approves things to make sure they're on brand, anything never to say or claim), then writes BRAND.md (the single source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand sounds, kept in its own file), design.md (the brand's visual system as measured values: palette, type, spacing, corners, components, imagery), a readable BRAND.html copy for the client, and at most four follow-up questions. Finally points the project's agent files and skills at BRAND.md. Works for any kind of store or business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "capture the brand", "set up the brand file", "create BRAND.md", "onboard a new client", "brand setup", or applies a client's answers to brand questions; when the client sends a brand book, brand guidelines, a voice or tone guide or a style guide ("update BRAND.md from these", "here's our brand book"); and whenever another skill needs BRAND.md and it doesn't exist.
 ---
 
 # Brand capture
 
-Build `BRAND.md` once, at a client's setup, so no skill ever asks about the brand again. The website is the source:
-scan it, don't interview the client. Four things a website can't say are asked up front, in one message. What the
-scan can't settle becomes at most four follow-up questions.
+Build `BRAND.md` once, at a client's setup, so no skill ever asks about the brand again. The website is the source,
+together with any brand documents the client gives you (a brand book, a voice guide): scan and read them, don't
+interview the client. Four things a website can't say are asked up front, in one message. What the scan can't settle
+becomes at most four follow-up questions. Documents that arrive later update the file in the apply-documents mode.
 
 ```
-0. Locate → 1. Four setup questions → 2. Scan → 3. Read and judge → 4. Write BRAND.md, BRAND-VOICE.md, design.md + questions
-→ 5. Validate → 6. Client copy (BRAND.html) → 7. Link the project → 8. Report
+0. Locate → 1. Four setup questions → 2. Scan (+ save client documents) → 3. Read and judge
+→ 4. Write BRAND.md, BRAND-VOICE.md, design.md + questions → 5. Validate → 6. Client copy (BRAND.html)
+→ 7. Link the project → 8. Report
 ```
 
 ## Effort (read before starting)
@@ -48,9 +50,15 @@ expect a noticeable share of one 5-hour window. Stop and tell the person if the 
 the cost passes USD 10: something is looping. Never run two captures in the same folder at once: they overwrite
 each other's files.
 
+**Client documents** add reading time: about 1 minute per 10 text pages, more for pages read from images. The
+apply-documents mode on AYA's 93-page brand book plus a 5-page voice guide (2026-10-09) was mostly reading and
+rewriting BRAND-VOICE.md; plan on 20 to 40 minutes and about 100,000 to 150,000 tokens of context for a document set
+that size (an estimate from that run, not a benchmark). Same model and effort as a capture.
+
 | File | Read at |
 |---|---|
 | `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, conflicts, choosing the 4 questions, claim rules by category, competitors |
+| `references/client-documents.md` | Whenever the client gives you documents (any mode): saving their text, fact or mockup, what outranks what, where each part goes, labels |
 | `references/brand-template.md` | Step 4: the exact layout of BRAND.md (other skills depend on its headings) |
 | `references/voice-template.md` | Step 4: the exact layout of BRAND-VOICE.md (the validator checks its headings) |
 | `references/design-template.md` | Step 4: the layout of design.md, and where its values come from |
@@ -81,6 +89,9 @@ each other's files.
 - **Never invent** founders, dates, awards, prices, results, certifications or names. When two sources disagree,
   write neither: it becomes a Q-id (`discovery.md` §3a).
 - **A `(client)` line is never overwritten by a scan.** Client answers outrank the site.
+- **Client documents lead on identity and voice, not on live facts.** A brand book or voice guide replaces inferred
+  and site-implied identity and voice lines; locations, prices, offers and people stay as the live site shows them.
+  Mockups and example layouts inside a document are never a source of facts (`client-documents.md` §3 and §4).
 - **Don't duplicate other docs.** design.md owns visual values; repo skills own procedures. BRAND.md links them.
 - **design.md is measured, not imagined.** Every value comes from the live site, the scan or the theme settings,
   or is labelled `(inferred)` or left out. Never invent a hex, size, radius or hover state to fill a table. An
@@ -116,6 +127,21 @@ each other's files.
      Open lines in `BRAND-REQUESTS.md` are not answers: leave them alone unless the client's message confirms one;
      then apply it like an answer and mark the line `done <date>`. Unconfirmed requests can go to the client as
      questions in the next round.
+   - **apply-documents:** BRAND.md exists and the client has sent brand documents (a brand book or guidelines, a
+     voice or tone guide, a style guide, a messaging framework, a playbook). Read `references/client-documents.md`
+     first and follow it:
+     1. Save each document's text as evidence (`doc-<slug>.txt`, §2) and note what each one is and how old.
+     2. Change only what the documents state (§3 to §5). Identity and voice lines from a document replace
+        `(inferred)` and site-implied lines; live facts stay unless a document settles an open question outside a
+        mockup; new conflicts get Q-ids under "Held for later" (§7).
+     3. When a document is a voice guide, rebuild BRAND-VOICE.md from it (optional sections allowed,
+        `voice-template.md`), keeping site phrases that agree with it. Otherwise edit only the affected lines.
+     4. Label every new or confirmed line `(client doc: <short title>, p. N)`, add one Sources row per document, and
+        keep `status` as it is: a document is not an approval.
+     5. Bump `revision` in each file you changed, with Change log rows (Mode `apply-documents`), then run Steps 5
+        and 6 with `--evidence` pointing at the folder that holds the document texts.
+     No new web research, except opening the live page a document fact would change. In the report, follow §8 and
+     offer competitor-research's client-refresh mode when COMPETITORS.md exists.
    - **BRAND.md exists and the request is anything else:** don't rewrite it. A change of direction (a rebrand, a
      new name) is a new capture: rename the old file `BRAND-<YYYY-MM-DD>.md` and run **new**. Other change
      requests go to `BRAND-REQUESTS.md`, and are applied in an apply-answers run only once the client confirms
@@ -141,6 +167,12 @@ meanwhile. Then ask, in one message, with your environment's question tool if it
 > 2. **Who are 2 or 3 brands you admire that don't compete with you?** Any industry: for tone, look, or how they talk to customers.
 > 3. **Who in your company needs to approve things to make sure they're on brand?** Name and role. "Nobody yet" is a fine answer.
 > 4. **Is there anything we should never say or claim about your brand or products?** Words, claims or topics. "Nothing" is fine.
+>
+> If you have a brand book, voice guide or style guide, attach it too (optional).
+
+The last line is an offer, not a fifth question: nothing is chased if no document comes. If the scan's
+`repo.client_docs` lists brand-like files in the project, ask instead whether to use them. Documents that arrive
+are read in Step 3 with `references/client-documents.md`.
 
 Unanswered or skipped questions become the first follow-up questions (they count toward the 4). If the person answers on behalf of the client (an agency kickoff), record who in the
 Change log.
@@ -163,6 +195,9 @@ brand docs already in the repo.
 **Pages the reading checklist needs that the scan didn't pick:** run the scan again with `--extra-url <url>` for
 each one (repeatable; about a minute), so their text is saved as evidence. Quotes may only come from saved pages.
 
+**Client documents:** save each one's text into the same evidence folder as `doc-<slug>.txt`
+(`client-documents.md` §2), so quotes from them are checked like quotes from pages.
+
 **If the script can't read the site:** exit code 2 means the home page couldn't be fetched (no network, or the
 site refuses scripts with HTTP 401 or 403); exit code 3 means it got a bot check ("verifying your browser") instead
 of the page. Sandboxes that block network (Codex's default, ChatGPT, Claude chat): ask once to allow network for
@@ -176,7 +211,8 @@ If nothing works, stop and say what failed. Never write BRAND.md from memory.
 Read `references/discovery.md` and complete its §2a reading checklist. Then fill each part of the template:
 story in the brand's own words; voice with real examples (for BRAND-VOICE.md); names and brand architecture from every source;
 catalog topics and price bands; claim limits for the categories the scan found, with the site's disclaimers
-verbatim and the client's "never say" answer first; visual identity (or a pointer to design.md).
+verbatim and the client's "never say" answer first; visual identity (or a pointer to design.md). When the client
+gave documents, they lead identity and voice; place each part with `client-documents.md` §5.
 
 **Competitors and inspirations: light research only** (`discovery.md` §6): site, feed, one line and overlap for
 each brand the client named, about a minute each. Deep research (pricing, offers, content cadence) is the
@@ -209,8 +245,8 @@ python3 scripts/validate_brand.py BRAND.md --evidence <scratch>/evidence --quest
 It checks BRAND.md and, through `voice_doc`, BRAND-VOICE.md. Check design.md by hand: the front-matter keys match
 the template, every value is measured or labelled, and BRAND.md's Visual identity summary agrees with it. Exit 0 is required before saving (warnings go in the
 report). Fix and re-run on errors. Always pass
-`--evidence`: a quote it can't find in the saved pages is unverified, so save that page (`--extra-url`) or drop
-the quote, and report any warning that remains.
+`--evidence`: a quote it can't find in the saved pages or document texts is unverified, so save that page
+(`--extra-url`) or document text, or drop the quote, and report any warning that remains.
 
 ## Step 6: Client copy
 
@@ -247,7 +283,8 @@ CLAUDE.md are not part of the theme, so theme pushes never send them to the stor
 
 Follow `references/report-template.md`: where everything was saved, the 3 or 4 most useful findings, the questions
 sent and held, what the agency (not the client) should fix, what was linked, and the run time. End by offering
-the competitor-research skill for COMPETITORS.md.
+the competitor-research skill for COMPETITORS.md (after an apply-documents run on a file that already has one:
+its client-refresh mode).
 
 When another skill called this one, return to it as soon as BRAND.md is validated, with one line on what's still
 to confirm.
