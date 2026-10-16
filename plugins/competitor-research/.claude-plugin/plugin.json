@@ -1,6 +1,6 @@
 {
   "name": "competitor-research",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deep, dated research on a client's named competitors and inspiration brands, written to COMPETITORS.md.",
   "author": { "name": "Nyla", "email": "michael@nyla.app" },
   "repository": "https://github.com/nylaapp/brand-ai",

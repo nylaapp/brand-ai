@@ -74,10 +74,12 @@ points, locations or reach); Brand architecture (locations); Catalog (what they 
 Competitors and Inspiration brands (names, sites, feeds, overlap). Note its `revision` for the header.
 If a COMPETITORS.md already exists, read it: the new run replaces it, and the report says what changed.
 
-**Client documents:** if the person gave you documents with market content (a competitive analysis, battlecards, a
-strategy or pitch deck, market research), read them with `research-guide.md` §6 before planning. A brand book or
-voice guide matters here only through BRAND.md: if BRAND.md's Sources don't list it yet, offer brand-capture's
-apply-documents mode first.
+**Client documents:** documents with market content (a competitive analysis, battlecards, a strategy or pitch deck,
+market research) come from the person, or from the place BRAND.md's `brand_docs` names (a folder or a shared drive;
+skip it when the value is `none` or `uploaded ...`). Ask once: "Check <brand_docs> for market documents?" (Yes /
+Skip). Read them in place, never copying them into the project, with `research-guide.md` §6 before planning. A
+brand book or voice guide matters here only through BRAND.md: if BRAND.md's Sources don't list it yet, offer
+brand-capture's apply-documents mode first.
 
 **client-refresh mode.** Don't research competitors and don't change any competitor fact or its date. Read the
 new BRAND.md and update only what comes from it:

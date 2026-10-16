@@ -34,7 +34,9 @@ in BRAND.md.>
 | Page type | Read | URL(s) | Notes |
 |---|---|---|---|
 
-## Client documents (only when the client gave any; `client-documents.md` §8)
+## Client documents (only when there were any; `client-documents.md` §8)
+Where from: <brand_docs value>. Skipped: <already read, not brand guidance, or private; or "none">
+
 | Document | Dated | Pages | Read how | sha8 |
 |---|---|---|---|---|
 

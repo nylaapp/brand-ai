@@ -29,14 +29,14 @@
     {
       "name": "brand-capture",
       "source": "./plugins/brand-capture",
-      "description": "One-time brand setup: scans a site and writes BRAND.md, BRAND-VOICE.md and BRAND-QUESTIONS.md that every other skill reads.",
-      "version": "0.2.0"
+      "description": "One-time brand setup: scans a site and the client's brand documents where they keep them (a folder or a shared drive), then writes BRAND.md, BRAND-VOICE.md, design.md and BRAND-QUESTIONS.md that every other skill reads.",
+      "version": "0.3.0"
     },
     {
       "name": "competitor-research",
       "source": "./plugins/competitor-research",
-      "description": "Deep, dated research on a client's named competitors, written to COMPETITORS.md.",
-      "version": "0.1.0"
+      "description": "Deep, dated research on a client's named competitors, written to COMPETITORS.md. Reads the client's market documents too.",
+      "version": "0.2.0"
     },
     {
       "name": "content-fact-check",

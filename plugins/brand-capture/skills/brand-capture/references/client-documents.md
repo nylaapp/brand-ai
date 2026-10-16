@@ -1,6 +1,6 @@
 # Client documents: brand books, voice guides and other brand material
 
-Contents: 1. When documents come in · 2. Make the text checkable · 3. Fact or illustration · 4. What outranks what ·
+Contents: 1. Where documents come from · 2. Make the text checkable · 3. Fact or illustration · 4. What outranks what ·
 5. Where each part goes · 6. Labels and Sources · 7. Questions · 8. Report · 9. Worked example (AYA)
 
 A client's own documents (a brand book or brand guidelines, a voice and tone guide, a messaging or positioning
@@ -10,13 +10,17 @@ older than the site and full of mockups, so they are not a source for live facts
 it goes and how to label it. It applies to any business: a jewellery brand's style guide is read the same way as a
 clinic's brand book.
 
-## 1. When documents come in
+## 1. Where documents come from
 
-- **At setup (mode new):** the person attaches them, or the scan lists them in `repo.client_docs` (brand-like files in
-  the project root or in a `brand/`, `docs/` or `guidelines/` folder). Ask once "Use these N documents?" before
-  reading files the person didn't hand you, then read them in Step 3 next to the scan.
-- **After setup (mode apply-documents):** the client sends documents for a file that already exists. SKILL.md Step 0
-  says what changes and what doesn't.
+- **At setup (mode new):** from the place the person names in SKILL.md Step 1 (a folder, a shared drive through its
+  connector, or files they upload), or the brand-like files the scan found in the project (`repo.client_docs`) when
+  the person picks them. Read them in Step 3 next to the scan.
+- **After setup (mode apply-documents):** the client sends documents, or asks you to check the place BRAND.md's
+  `brand_docs` names again; only new or changed documents are read. SKILL.md Step 0 says what changes and what
+  doesn't.
+- **Read in place.** Open each document where it is. Never move, rename, edit or delete it, and never copy it into
+  the project. If the folder or drive can't be reached from here, offer SKILL.md Step 1's options instead of
+  guessing.
 - A document someone pastes as text counts the same as a file. Record who sent it and when.
 
 ## 2. Make the text checkable
@@ -27,18 +31,17 @@ Save each document's text in the evidence folder so the validator can check quot
 - First lines: `DOC: <title as printed>`, `DATED: <date printed on it, or undated>`,
   `RECEIVED: <YYYY-MM-DD> from <who>`, `FILE: <file name> · sha256 <first 8 characters>`. Then the text, with a
   `[p. N]` line at each page break so labels can cite pages.
-- **How to get the text:** PDF: `pdftotext <file> <out>.txt` when poppler is installed (Git for Windows ships it in
-  `/mingw64/bin`); pages are separated by form feeds. Use the default reading order, not `-layout`: layout mode
-  interleaves side-by-side columns, so sentences from designed pages come out broken and quotes can't be checked.
-  Otherwise use your file-reading tool page by page. Word: your document tool, or the text of
-  `word/document.xml` inside the .docx. Slides: slide text and speaker notes. Pages that are only images (logos,
-  photos, mockups with baked-in text): look at them with your file or image tool and write what you read, marked
-  `[read from image]`. Say in the report which pages were read that way.
+- **How to read:** with whatever reads the file best here (your file-reading tool, the connector, a text tool
+  already installed). Keep each page's reading order: side-by-side columns one after the other, never interleaved
+  line by line, or quotes won't check. Slides include speaker notes. Pages that are only images (logos, photos,
+  mockups with baked-in text): look at them and write what you read, marked `[read from image]`, and say in the
+  report which pages were read that way. A file that can't be opened here: ask the person to export it as PDF or
+  upload it, or skip it.
 - **Long documents:** read the contents page, then every page with words on it. Brand books spend many pages on
   logo and photo examples; skim those for rules, don't skip them.
-- **Privacy:** never upload a client document to a converter, search engine or any third-party site. Keep the
-  original files out of the repo unless the person asks: they are often large, and brand books often say their
-  images aren't licensed (§3).
+- **Privacy:** never upload a client document to a converter, search engine or any third-party site, and never copy
+  the originals into the project: they stay where the client keeps them (brand books often say their images aren't
+  licensed, §3). The saved texts live only in the scratch evidence folder.
 
 ## 3. Fact or illustration
 
@@ -119,7 +122,8 @@ scan. They raise BRAND-VOICE.md's budget (`voice-template.md`).
 ## 8. Report
 
 Add to the run report (`report-template.md`):
-- **Documents read:** title, date printed, pages, how read (text, or which pages from images), sha8.
+- **Documents read:** where from (`brand_docs`); per document: title, date printed, pages, how read (text, or which
+  pages from images), sha8. Also which were skipped: already read, not brand guidance, or private.
 - **What changed:** section by section, before and after, one line each.
 - **Left out as illustration:** the mockup facts you didn't use, so the reviewer can check them.
 - **For the design doc owner:** visual items the document adds or contradicts.

@@ -20,7 +20,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content skills.
 
 | Plugin | What it does | Requires |
 |---|---|---|
-| brand-capture | One-time brand setup: writes BRAND.md, BRAND-VOICE.md, BRAND-QUESTIONS.md | none |
+| brand-capture | One-time brand setup from the site and the client's brand documents (read where they keep them): writes BRAND.md, BRAND-VOICE.md, design.md, BRAND-QUESTIONS.md | none |
 | competitor-research | Dated competitor and inspiration research: writes COMPETITORS.md | brand-capture |
 | content-fact-check | Verify claims in copy, with regulated-claim guardrails | none |
 | accessibility-audit | Lighthouse accessibility scoring and additive fixes for Shopify themes | none |

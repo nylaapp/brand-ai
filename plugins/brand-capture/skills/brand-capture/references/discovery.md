@@ -225,4 +225,4 @@ Added by scanner 1.1 (`schema_version: "1.1"`):
 | `repo.brand_md` | Front matter of an existing BRAND.md (schema, revision, status, dates, `voice_doc`) for Step 0's mode choice: an empty `voice_doc` on an existing BRAND.md means the voice is still written out inside it (split-voice mode) |
 | `repo.requests_open`, `repo.questions_open` | Open lines in BRAND-REQUESTS.md and unanswered questions in BRAND-QUESTIONS.md |
 | `repo.brand_mentions` | Repo files that mention the brand name three or more times: places where brand facts live outside BRAND.md (§6a) |
-| `repo.client_docs` | Brand-like documents (PDF, Word, slides) in the project root or a `brand/`, `docs/` or `guidelines/` folder: ask once whether to use them, then read them with `client-documents.md` |
+| `repo.client_docs` | Brand-like documents in the project root or a `brand/`, `docs/` or `guidelines/` folder: offered as an option in SKILL.md Step 1's brand documents step, then read with `client-documents.md` |

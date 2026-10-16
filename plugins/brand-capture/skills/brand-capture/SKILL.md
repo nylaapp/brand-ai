@@ -1,17 +1,18 @@
 ---
 name: brand-capture
-description: One-time brand setup for a new client. Scans the brand's public website (About, story, mission and values pages, careers and news, locations, products with prices, types and colors, site colors and fonts, blog style, social links, disclaimers) and any brand documents the client provides (brand book or guidelines, voice and tone guide, style guide, messaging framework, playbook), asks four short setup questions (top competitors, non-competitive inspiration brands, who approves things to make sure they're on brand, anything never to say or claim), then writes BRAND.md (the single source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand sounds, kept in its own file), design.md (the brand's visual system as measured values: palette, type, spacing, corners, components, imagery), a readable BRAND.html copy for the client, and at most four follow-up questions. Finally points the project's agent files and skills at BRAND.md. Works for any kind of store or business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "capture the brand", "set up the brand file", "create BRAND.md", "onboard a new client", "brand setup", or applies a client's answers to brand questions; when the client sends a brand book, brand guidelines, a voice or tone guide or a style guide ("update BRAND.md from these", "here's our brand book"); and whenever another skill needs BRAND.md and it doesn't exist.
+description: One-time brand setup for a new client. Scans the brand's public website (About, story, mission and values pages, careers and news, locations, products with prices, types and colors, site colors and fonts, blog style, social links, disclaimers) and the client's brand documents where they already keep them (a folder, a shared drive such as Google Drive, or files they upload; brand book or guidelines, voice and tone guide, style guide, messaging framework, playbook), asks four short setup questions (top competitors, non-competitive inspiration brands, who approves things to make sure they're on brand, anything never to say or claim), then writes BRAND.md (the single source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand sounds, kept in its own file), design.md (the brand's visual system as measured values: palette, type, spacing, corners, components, imagery), a readable BRAND.html copy for the client, and at most four follow-up questions. Finally points the project's agent files and skills at BRAND.md. Works for any kind of store or business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "capture the brand", "set up the brand file", "create BRAND.md", "onboard a new client", "brand setup", or applies a client's answers to brand questions; when the client sends a brand book, brand guidelines, a voice or tone guide or a style guide ("update BRAND.md from these", "here's our brand book"), or asks to check their brand documents again ("anything new in our brand folder?", "update the brand from our Drive"); and whenever another skill needs BRAND.md and it doesn't exist.
 ---
 
 # Brand capture
 
 Build `BRAND.md` once, at a client's setup, so no skill ever asks about the brand again. The website is the source,
-together with any brand documents the client gives you (a brand book, a voice guide): scan and read them, don't
-interview the client. Four things a website can't say are asked up front, in one message. What the scan can't settle
-becomes at most four follow-up questions. Documents that arrive later update the file in the apply-documents mode.
+together with the client's brand documents (a brand book, a voice guide) read where they already keep them: scan and
+read, don't interview the client. Four things a website can't say are asked up front, in one message, then one
+optional yes or no about brand documents. What the scan can't settle becomes at most four follow-up questions.
+Documents added later update the file in the apply-documents mode.
 
 ```
-0. Locate → 1. Four setup questions → 2. Scan (+ save client documents) → 3. Read and judge
+0. Locate → 1. Setup questions (+ brand documents, optional) → 2. Scan (+ save document texts) → 3. Read and judge
 → 4. Write BRAND.md, BRAND-VOICE.md, design.md + questions → 5. Validate → 6. Client copy (BRAND.html)
 → 7. Link the project → 8. Report
 ```
@@ -58,7 +59,7 @@ that size (an estimate from that run, not a benchmark). Same model and effort as
 | File | Read at |
 |---|---|
 | `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, conflicts, choosing the 4 questions, claim rules by category, competitors |
-| `references/client-documents.md` | Whenever the client gives you documents (any mode): saving their text, fact or mockup, what outranks what, where each part goes, labels |
+| `references/client-documents.md` | Whenever there are client documents (any mode): reading them where they live, saving their text, fact or mockup, what outranks what, where each part goes, labels |
 | `references/brand-template.md` | Step 4: the exact layout of BRAND.md (other skills depend on its headings) |
 | `references/voice-template.md` | Step 4: the exact layout of BRAND-VOICE.md (the validator checks its headings) |
 | `references/design-template.md` | Step 4: the layout of design.md, and where its values come from |
@@ -92,6 +93,9 @@ that size (an estimate from that run, not a benchmark). Same model and effort as
 - **Client documents lead on identity and voice, not on live facts.** A brand book or voice guide replaces inferred
   and site-implied identity and voice lines; locations, prices, offers and people stay as the live site shows them.
   Mockups and example layouts inside a document are never a source of facts (`client-documents.md` §3 and §4).
+- **Client documents stay where the client keeps them.** Read them in place; never move, rename, edit or delete
+  them, never copy them into the project, never upload them anywhere. Their text goes only to the scratch evidence
+  folder, and BRAND.md keeps the statements with page citations plus `brand_docs`, which says where to look next time.
 - **Don't duplicate other docs.** design.md owns visual values; repo skills own procedures. BRAND.md links them.
 - **design.md is measured, not imagined.** Every value comes from the live site, the scan or the theme settings,
   or is labelled `(inferred)` or left out. Never invent a hex, size, radius or hover state to fill a table. An
@@ -128,20 +132,26 @@ that size (an estimate from that run, not a benchmark). Same model and effort as
      then apply it like an answer and mark the line `done <date>`. Unconfirmed requests can go to the client as
      questions in the next round.
    - **apply-documents:** BRAND.md exists and the client has sent brand documents (a brand book or guidelines, a
-     voice or tone guide, a style guide, a messaging framework, a playbook). Read `references/client-documents.md`
-     first and follow it:
+     voice or tone guide, a style guide, a messaging framework, a playbook), or asks you to check their documents
+     again. Read `references/client-documents.md` first and follow it:
+     0. **Where from:** the files the person sent, or the place BRAND.md's `brand_docs` names. With a saved place,
+        ask "Check <brand_docs> for new or changed documents?" (Yes / Use a different place / Not now). With no
+        saved place, or one you can't reach from here, ask Step 1's two document questions. Read only documents
+        that aren't in the Sources table yet or have changed since (a newer date or version, or a different
+        fingerprint when you can compute one), and say which you skipped as already read.
      1. Save each document's text as evidence (`doc-<slug>.txt`, §2) and note what each one is and how old.
      2. Change only what the documents state (§3 to §5). Identity and voice lines from a document replace
         `(inferred)` and site-implied lines; live facts stay unless a document settles an open question outside a
         mockup; new conflicts get Q-ids under "Held for later" (§7).
      3. When a document is a voice guide, rebuild BRAND-VOICE.md from it (optional sections allowed,
         `voice-template.md`), keeping site phrases that agree with it. Otherwise edit only the affected lines.
-     4. Label every new or confirmed line `(client doc: <short title>, p. N)`, add one Sources row per document, and
-        keep `status` as it is: a document is not an approval.
+     4. Label every new or confirmed line `(client doc: <short title>, p. N)`, add one Sources row per document, set
+        `brand_docs` if the place is new or changed, and keep `status` as it is: a document is not an approval.
      5. Bump `revision` in each file you changed, with Change log rows (Mode `apply-documents`), then run Steps 5
         and 6 with `--evidence` pointing at the folder that holds the document texts.
      No new web research, except opening the live page a document fact would change. In the report, follow §8 and
-     offer competitor-research's client-refresh mode when COMPETITORS.md exists.
+     offer competitor-research: its client-refresh mode when COMPETITORS.md exists, and a full run when the
+     documents hold market material (a competitive analysis, battlecards, a market deck).
    - **BRAND.md exists and the request is anything else:** don't rewrite it. A change of direction (a rebrand, a
      new name) is a new capture: rename the old file `BRAND-<YYYY-MM-DD>.md` and run **new**. Other change
      requests go to `BRAND-REQUESTS.md`, and are applied in an apply-answers run only once the client confirms
@@ -156,7 +166,7 @@ that size (an estimate from that run, not a benchmark). Same model and effort as
      Sources). Confirm every moved line appears unchanged in BRAND-VOICE.md, then run Steps 5 to 6. Nothing is
      researched or reworded.
 
-## Step 1: Start the scan, then ask the four setup questions
+## Step 1: Start the scan, then ask the setup questions
 
 Launch Step 2's scan first, in the background if your environment allows it (in Claude Code, run it as a
 background command): a question tool usually waits for the answer, so a scan started after asking would sit idle
@@ -167,15 +177,45 @@ meanwhile. Then ask, in one message, with your environment's question tool if it
 > 2. **Who are 2 or 3 brands you admire that don't compete with you?** Any industry: for tone, look, or how they talk to customers.
 > 3. **Who in your company needs to approve things to make sure they're on brand?** Name and role. "Nobody yet" is a fine answer.
 > 4. **Is there anything we should never say or claim about your brand or products?** Words, claims or topics. "Nothing" is fine.
->
-> If you have a brand book, voice guide or style guide, attach it too (optional).
-
-The last line is an offer, not a fifth question: nothing is chased if no document comes. If the scan's
-`repo.client_docs` lists brand-like files in the project, ask instead whether to use them. Documents that arrive
-are read in Step 3 with `references/client-documents.md`.
 
 Unanswered or skipped questions become the first follow-up questions (they count toward the 4). If the person answers on behalf of the client (an agency kickoff), record who in the
 Change log.
+
+### Brand documents (optional)
+
+Right after the four answers, one yes or no question. Give choices as options in your question tool, or as a short
+numbered list the person can answer with a number. It isn't a fifth setup question: "No" ends it, and it never
+becomes a follow-up.
+
+> **Do you have a place where you keep your brand documents, such as a brand book, style guide or voice guide?**
+> Yes · No
+
+**No:** `brand_docs: none`; continue. **Yes:**
+
+> **Where are they stored?**
+> 1. A folder on this computer
+> 2. A shared drive (Google Drive, OneDrive, SharePoint, Dropbox)
+> 3. I'll upload them here
+
+Add a 4th option, "The N brand documents in this project", when the scan's `repo.client_docs` found some. Then:
+
+- **Folder:** ask for its path (or to drag the folder in). If this environment can't open it, offer: allow access
+  / upload the files here / skip.
+- **Shared drive:** ask which folder (name or link) and read it with that drive's connector. No connector here?
+  Offer: connect it now (in this tool's connector settings) / use the drive's synced folder on this computer /
+  upload the files here / skip.
+- **Upload:** read what they attach.
+
+Look at what's there and take the documents that describe the brand or its market: brand book or guidelines, voice
+or tone guide, style guide, messaging or positioning, strategy deck, personas, approved claims, competitive
+analysis. Leave out assets (logos, photos, fonts, videos) and private files that aren't brand guidance (contracts,
+invoices, staff or customer lists). If more than about 15 documents qualify, or it's unclear which do, list them
+and ask: Read these · Let me pick · Skip documents.
+
+Remember the place as `brand_docs` (Step 4): the person's own words plus the path or link you used, for example
+`Google Drive > Marketing > Brand (connector)`, `folder ~/Clients/Acme/Brand`, `uploaded <YYYY-MM-DD>` or `none`
+(no colon followed by a space inside the value), never the file contents. The documents are read in Step 3 with
+`references/client-documents.md`.
 
 ## Step 2: Scan the site
 
@@ -222,7 +262,7 @@ competitor-research skill's job; BRAND.md only points to `COMPETITORS.md` (front
 
 - **BRAND.md:** follow `references/brand-template.md` exactly: same front-matter keys and `##` headings, in
   order. Status `draft`, revision 1. Aim for 150 to 220 lines; every line should earn its place. Its Voice section is
-  only the pointer and the three words.
+  only the pointer and the three words. `brand_docs` is the place from Step 1.
 - **BRAND-VOICE.md:** next to BRAND.md, following `references/voice-template.md` exactly. Same status as BRAND.md,
   revision 1, 40 to 70 lines. `voice_doc: BRAND-VOICE.md` in BRAND.md's front matter is what links the two.
 - **design.md:** next to BRAND.md, following `references/design-template.md`. Same status as BRAND.md, revision 1.
@@ -284,7 +324,7 @@ CLAUDE.md are not part of the theme, so theme pushes never send them to the stor
 Follow `references/report-template.md`: where everything was saved, the 3 or 4 most useful findings, the questions
 sent and held, what the agency (not the client) should fix, what was linked, and the run time. End by offering
 the competitor-research skill for COMPETITORS.md (after an apply-documents run on a file that already has one:
-its client-refresh mode).
+its client-refresh mode), and say when the brand documents included market material it will read.
 
 When another skill called this one, return to it as soon as BRAND.md is validated, with one line on what's still
 to confirm.

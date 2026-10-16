@@ -42,6 +42,7 @@ regulated: <no | yes: <categories>>
 design_doc: <design.md | none>
 voice_doc: BRAND-VOICE.md
 competitors_doc: COMPETITORS.md
+brand_docs: <where the client keeps brand documents, in their words plus the path or link used, e.g. Google Drive > Marketing > Brand (connector), folder ~/Clients/Acme/Brand, uploaded <YYYY-MM-DD>, or none>
 search_console_property: <property, or blank>
 brand_approver: <name and role from setup question 3, or [[CLIENT TO CONFIRM: Q-.. | who approves things to make sure they're on brand]]>
 status: <draft | approved>
@@ -50,7 +51,7 @@ approved_by: <name and role of the client approver, blank while draft>
 approved_on: <YYYY-MM-DD, blank while draft>
 captured: <YYYY-MM-DD of the first capture>
 last_updated: <YYYY-MM-DD of the latest write>
-captured_by: brand-capture 1.3.0
+captured_by: brand-capture 1.4.0
 ---
 
 # <Brand> brand file
@@ -211,4 +212,4 @@ number other skills cite still moves whenever the voice does.
 | Voice detail: how it sounds, signature phrases, do / don't pairs, words to avoid | `BRAND-VOICE.md` (layout in `voice-template.md`); BRAND.md keeps only the pointer and the three words |
 | Follow-up questions and the client's answers | `BRAND-QUESTIONS.md`; BRAND.md keeps only the answered value, labelled `(client)` |
 | Change requests from skills or people | `BRAND-REQUESTS.md` (append-only) |
-| The client's brand documents themselves, and their mockups' prices, offers and counts | The documents stay with the client (or in the project folder if the person wants them there); BRAND.md keeps the statements, labelled `(client doc ...)`, and a Sources row per document |
+| The client's brand documents themselves, and their mockups' prices, offers and counts | The documents stay where the client keeps them, never copied into the project; BRAND.md keeps the statements, labelled `(client doc ...)`, a Sources row per document, and `brand_docs` saying where they are |
