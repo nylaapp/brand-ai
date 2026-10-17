@@ -1,6 +1,6 @@
 {
   "name": "analytics",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Analytics partner for client sites: audit (tagging and full, across privacy states), setup (critical path from issue list to verified fixes), cleanup (quick and zero-based deep) and guardrails (dependency register, change checks, drift watch), sharing one ANALYTICS.md per client.",
   "author": { "name": "Nyla", "email": "michael@nyla.app" },
   "repository": "https://github.com/nylaapp/brand-ai",

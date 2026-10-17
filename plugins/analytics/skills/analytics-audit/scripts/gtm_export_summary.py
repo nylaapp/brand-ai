@@ -121,6 +121,9 @@ META_INIT_RE = re.compile(r"fbq\(\s*['\"]init['\"]\s*,\s*['\"](\d{10,20})['\"]")
 TIKTOK_RE = re.compile(r"ttq\.load\(\s*['\"]([A-Z0-9]{15,25})['\"]")
 CLARITY_RE = re.compile(r"clarity\.ms/tag/['\"]?\+?\s*['\"]?([a-z0-9]{8,12})|clarity['\"]\s*,\s*['\"]script['\"]\s*,\s*['\"]([a-z0-9]{8,12})['\"]")
 SRC_RE = re.compile(r"(?:src\s*=\s*['\"]|\.src\s*=\s*['\"]|['\"])(https?:)?//([a-z0-9.-]+\.[a-z]{2,})(/[^'\"\s]*)?", re.I)
+# A navigation, not a read: `location = x`, `location.href = x` (also pathname, search, host...),
+# `location.replace(x)`, `location.assign(x)`. Reading `location.href` is not flagged.
+REDIRECT_RE = re.compile(r"\blocation(?:\.(?:href|pathname|search|host|hostname|protocol|port))?\s*=(?!=)|\blocation\.(?:replace|assign)\s*\(")
 
 
 def load(path):
@@ -372,7 +375,7 @@ def summarise(cv):
             continue
         code = str(params(t).get("html", ""))
         risky = [w for w, pat in (("document.write", r"document\.write"), ("eval", r"\beval\("),
-                                   ("redirect", r"location\.(href|replace|assign)"), ("sync script", r"<script[^>]+src=(?![^>]*async)"))
+                                   ("redirect", REDIRECT_RE), ("sync script", r"<script[^>]+src=(?![^>]*async)"))
                  if re.search(pat, code)]
         if risky:
             flags.append(("Custom HTML risk", t.get("name"), ", ".join(risky)))

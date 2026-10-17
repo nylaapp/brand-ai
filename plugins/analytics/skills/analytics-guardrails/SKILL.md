@@ -29,7 +29,7 @@ Follow analytics-audit `references/analytics-file.md` (accepts the legacy name `
 
 Follow `references/dependency-register.md`.
 
-1. **Freshness.** `python scripts/drift_snapshot.py <site urls>` shows the live GTM version. Use an export of that version; if the person's export is older, ask for the current one and mark the register stale until it arrives.
+1. **Freshness.** `python scripts/drift_snapshot.py <site urls> --dir <snapshots folder>` shows the live GTM version. Use an export of that version; if the person's export is older, ask for the current one and mark the register stale until it arrives. Meanwhile `python ../analytics-audit/scripts/gtm_public_rules.py GTM-XXXX` reads the live build: check each register row against the live conditions by tag number, and cite "public gtm.js vN" as the source.
 2. **Container dependencies.** `python ../analytics-audit/scripts/gtm_export_summary.py <export.json>` lists every trigger condition and variable that reads the site. For a refresh, also `--diff <old export> <new export>` and revisit only the rows touched.
 3. **Other sources:** custom pixel code (custom events the site must publish), site code (`dataLayer.push`, `Shopify.analytics.publish`, data attributes), third-party domain contracts (a booking engine's `purchase` push and its keys).
 4. **Check reality** for each dependency in the site code and on live pages, with evidence and date.
@@ -48,7 +48,7 @@ Follow `references/change-check.md`.
 
 Follow `references/drift-watch.md`.
 
-1. Run `python scripts/drift_snapshot.py <2 to 4 urls> --dir <client folder>/analytics-snapshots`. The first run is the baseline; later runs print what changed.
+1. Run `python scripts/drift_snapshot.py <2 to 4 urls> --dir <snapshots folder>`, using the folder the client file's front matter names (`snapshots`; default `analytics-snapshots/` next to ANALYTICS.md; add the field if it is missing). The first run is the baseline; later runs print what changed.
 2. For each change, report it in plain words with the action from the drift table (new export and diff, find a new install point, identify a new host, run a theme-switch check).
 3. Optional with GA4 access: the weekly data checks (event volumes vs trailing average, page views per session, duplicate transactions, new hostnames).
 4. Offer to schedule it (weekly by default; daily around a launch) with the environment's scheduler. A scheduled run only reads and reports.

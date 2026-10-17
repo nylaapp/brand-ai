@@ -11,6 +11,7 @@ owner_site: name, company
 sources:
   - GTM-XXXXXXX export vN (YYYY-MM-DD)
   - page source and HAR captures (YYYY-MM-DD)
+snapshots: analytics-snapshots/   # drift_snapshot.py --dir; next to this file, outside any deploy path
 ---
 
 # Example Co: analytics
@@ -37,6 +38,8 @@ What the business counts, most important first. Tier 1 breaking is stop-ship.
 | ID | Destination or tool | IDs | Installed via | Loads on | Consent gate | Evidence | Status |
 |---|---|---|---|---|---|---|---|
 | S-1 | GA4 | G-XXXXXXX | e.g. Google & YouTube app pixel | all pages + checkout | consent mode | page source YYYY-MM-DD | live |
+
+Destinations reached by more than one path: (each destination with its paths, or "none found")
 
 Install points checked: theme code [ ] · app embeds [ ] · web pixels (app and custom) [ ] · tag manager [ ] · server-side [ ] · checkout / thank-you [ ] · third-party domains (booking, payments) [ ]
 

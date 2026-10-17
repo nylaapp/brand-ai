@@ -8,7 +8,7 @@ Severity: **S1** Tier 1 event wrong or missing, or a legal exposure · **S2** Ti
 
 **FC-01 Same destination installed twice** (S1 if purchases, else S2)
 - Symptom: page views or purchases about double; GA4 above the platform; two `page_view` hits per page.
-- Detect: the same ID in two install points (`shopify_pixels.py` "Same ID in a pixel and in page code", `gtm_export_summary.py` "same Google tag configured twice", inventory `google_tag_manager` keys); two hits with the same event and page in `decode_hits.py`.
+- Detect: the same ID in two install points (`shopify_pixels.py` "Same ID in a pixel and in page code" or "inside GTM", the inventory's `sameIdTwoPaths`, `gtm_export_summary.py` "same Google tag configured twice", `gtm_public_rules.py --ids` compared with the pixel list); two hits with the same event and page in `decode_hits.py`. A second path can be hidden today by another bug (for example the container's page view never fires, FC-30): report it anyway, because fixing the other bug turns the double count on.
 - Fix: choose one path per destination (on Shopify, the Google & YouTube app for Google, the Meta app for Meta, unless there is a reason not to); remove or pause the other; re-test.
 
 **FC-02 Purchase without a unique transaction id, or re-fired on reload** (S1)
@@ -22,6 +22,11 @@ Severity: **S1** Tier 1 event wrong or missing, or a legal exposure · **S2** Ti
 **FC-04 Event id regenerated on every read** (S2)
 - Detect: `gtm_export_summary.py` "unstable value" flag (Custom JS with `Math.random` or time).
 - Fix: generate once per event (dataLayer key set at push time, or a template that caches per event).
+
+**FC-32 Event id that repeats across pages or visitors** (S2)
+- Symptom: browser and server copies pair up, but the platform merges unrelated events or reports low deduplicated counts.
+- Detect: event ids built from a per-page counter, such as `evt_{{gtm.uniqueEventId}}` or a variable that reads `gtm.uniqueEventId` alone (in an export; `gtm_public_rules.py` shows it as `Event ID (per page) (gtm.uniqueEventId)`). The counter restarts on every page, so `evt_12` exists for every visitor; dedup windows then match events that are not the same.
+- Fix: an id unique per event (a random id generated once at push time and reused by both paths, or the order or booking id for conversions); keep it stable between the pixel and the server copy.
 
 ## Platform and install point
 
@@ -40,6 +45,21 @@ Severity: **S1** Tier 1 event wrong or missing, or a legal exposure · **S2** Ti
 **FC-08 Trigger waits for a dataLayer event nobody pushes** (S2)
 - Detect: custom-event triggers whose event never appears in the inventory's dataLayer events on the relevant pages (common after a platform migration).
 - Fix: rebuild on events the platform provides (Shopify standard events in a pixel), or agree and add the push; retire the dead trigger.
+
+**FC-30 Base page views tied to a previous platform's dataLayer event** (S1 when conversions or audiences depend on page views, else S2)
+- The sharpest FC-08 case: the main page view (GA4 `page_view`, Meta PageView, often helper tags such as campaign-cookie writers) fires on a custom event such as `page_view` that the old site pushed, instead of on the built-in page view. The Google tag usually has `send_page_view` off. On the new platform or theme nothing fires and nothing errors.
+- Detect: in the export or `gtm_public_rules.py`, page-view tags whose firing rule is `{{Event}} equals "<custom name>"` rather than `gtm.js`, and a Google tag with `send_page_view=false`; the inventory's dataLayer events on the new site lack that name. Check every host: the old site may still push it while the new theme or preview does not.
+- Fix: decide the page-view path first (FC-01: a platform app may already send page views), then either retrigger the tags on the built-in page view or add one agreed push per page; verify one `page_view` per page in a HAR.
+
+**FC-29 Two containers sharing one dataLayer** (S3, S2 if conversions are affected)
+- Typical on third-party pages (booking engines, payment or donation pages) where the vendor loads its own container next to the client's. Both read the default `window.dataLayer`, so the vendor's gtag `event` commands and custom events reach the client's Google tags and triggers (unplanned events, possible double conversions), and the client's pushes reach the vendor's container.
+- Detect: two `GTM-` keys in the inventory's GTM list or `gtmContainers` on one page; `gtagTargets` addressing IDs the client does not own, or vendor event names (often prefixed) in the client's GA4; `gtm_public_rules.py` on each container shows what each one listens to.
+- Fix: find the second container's owner; ask the vendor to use its own dataLayer name, or filter the client's triggers to the events it should act on; record the vendor contract in the dependency register.
+
+**FC-31 Site script intercepts link clicks and navigates in JavaScript** (S2)
+- A site-wide script (a redirect helper, a booking-flow router, a page-transition library) cancels the native click and changes `location` itself. Link-click triggers with "Check validation" on skip clicks whose default action was prevented (`preventDefault`), `stopPropagation` hides the click from tag-manager listeners altogether, and a fast JavaScript navigation can leave the page before tags send; out-click and CTA conversions undercount. Rewriting the URL on click (for example an old host to a new one) also changes what Click URL conditions see.
+- Detect: in site code, click listeners on `a` elements that call `preventDefault` and then set `location`; in a test, the link-click trigger does not fire in GTM Preview while the page navigates.
+- Fix: let the link navigate natively and do the rewrite in the `href` itself, or push an agreed dataLayer event before navigating and trigger on it; add the interception to the dependency register.
 
 **FC-18 Tracking tied to a theme that is about to change** (S2)
 - Detect: hardcoded tags in the live theme that the new theme lacks, or the reverse (`drift_snapshot.py` shows the live theme; diff theme code before publishing).

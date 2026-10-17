@@ -18,8 +18,11 @@ Usage:
 
 Standard library only. Reads public pages; no sign-in, no clicks, no forms.
 Pages that render tags with JavaScript only (a GTM container adding scripts)
-show those scripts in a browser inventory, not here; the GTM version check
-covers changes inside the container.
+show those scripts in a browser inventory, not here, so script hosts are
+reported as "(static source only)"; the GTM version check covers changes
+inside the container. A Shopify `?preview_theme_id=` URL fetched without a
+browser session is served by the published theme: the run warns instead of
+filing it under the wrong theme.
 """
 import argparse
 import glob
@@ -34,6 +37,7 @@ UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like 
 ID_RE = re.compile(r"\b(G-[A-Z0-9]{6,12}|GT-[A-Z0-9]{6,10}|AW-\d{6,12}|MC-[A-Z0-9]{6,12}|GTM-[A-Z0-9]{5,9})\b")
 SRC_RE = re.compile(r"<script[^>]+src=[\"']([^\"']+)[\"']", re.I)
 THEME_RE = re.compile(r"Shopify\.theme\s*=\s*(\{[^}]*\})")
+PREVIEW_RE = re.compile(r"[?&]preview_theme_id=(\d+)")
 
 
 def fetch(url):
@@ -100,16 +104,24 @@ def snapshot(urls, extra_gtm):
                 hosts.add(m.group(1).lower())
         ids = sorted(set(ID_RE.findall(html)))
         containers.update(i for i in ids if i.startswith("GTM-"))
-        theme = None
+        theme, theme_id = None, None
         tm = THEME_RE.search(html)
         if tm:
             try:
                 t = json.loads(tm.group(1))
+                theme_id = str(t.get("id"))
                 theme = f"{t.get('name')} (id {t.get('id')}, {t.get('schema_name')} {t.get('schema_version')})"
             except ValueError:
                 theme = tm.group(1)[:120]
-        snap["pages"][url] = {"final_url": final, "script_hosts": sorted(hosts), "ids": ids,
-                              "shopify_theme": theme, "pixels": pixel_list(html)}
+        page = {"final_url": final, "script_hosts": sorted(hosts), "ids": ids,
+                "shopify_theme": theme, "pixels": pixel_list(html)}
+        # Without a browser session a preview URL is served by the PUBLISHED theme; say so instead of filing it silently.
+        want = PREVIEW_RE.search(url)
+        if want and theme_id != want.group(1):
+            page["preview_warning"] = (f"asked for preview theme {want.group(1)}, served by {theme or 'no Shopify theme'}: "
+                                       "theme code here is the published theme's (pixels are store-wide); "
+                                       "check the preview with a browser inventory")
+        snap["pages"][url] = page
     for c in sorted(containers):
         snap["gtm"][c] = gtm_version(c)
     return snap
@@ -178,9 +190,12 @@ def main():
             if "error" in p:
                 print(f"{url}: ERROR {p['error']}")
             else:
-                print(f"{url}: {len(p['script_hosts'])} script hosts, IDs {', '.join(p['ids']) or 'none'}, "
+                # Static source only: tags a tag manager or loader injects at runtime are not counted here.
+                print(f"{url}: {len(p['script_hosts'])} script hosts (static source only), IDs {', '.join(p['ids']) or 'none'}, "
                       f"{'theme ' + p['shopify_theme'] if p['shopify_theme'] else 'not Shopify'}, "
                       f"{len(p['pixels']) if p['pixels'] is not None else 0} pixels")
+                if p.get("preview_warning"):
+                    print(f"  WARNING: {p['preview_warning']}")
     if changes is not None:
         if changes:
             print("\nDRIFT:")

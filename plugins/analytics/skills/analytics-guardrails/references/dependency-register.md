@@ -7,6 +7,7 @@ Tracking breaks silently when the site changes something a tag was quietly relyi
 | Source | Gives you | How |
 |---|---|---|
 | Tag manager export | Every trigger condition and variable that reads the site | `python ../analytics-audit/scripts/gtm_export_summary.py export.json` > "Site dependencies" and "Variables that read the page" |
+| Live public build (no export, or a stale one) | Each live tag by number with its firing and blocking conditions, IDs and paused state; no names | `python ../analytics-audit/scripts/gtm_public_rules.py GTM-XXXX`; mark rows built this way "public gtm.js vN" and confirm with an export later |
 | Shopify custom pixels | Custom event names the theme must publish; fields they read | Read each custom pixel's code in Settings > Customer events (person's screenshot or paste) |
 | Site code | `dataLayer.push`, `Shopify.analytics.publish`, `gtag(`/`fbq(` calls, data attributes tags read | Search the repo |
 | Third-party domains | Events a vendor pushes (booking engine `purchase`, payment confirmation) and the keys tags read from them | Container triggers on those hosts; a test capture on the vendor's pages |
@@ -26,14 +27,14 @@ Tracking breaks silently when the site changes something a tag was quietly relyi
 Group by kind: links and hosts, visible text, URLs and hostnames, forms, dataLayer events and keys, DOM selectors and attributes, cookies and globals, third-party contracts.
 
 Things that look harmless and break tags:
-- turning a link into a `<button>` or a JavaScript navigation (Just Links triggers only see `<a href>`; `preventDefault` or `stopPropagation` hides the click),
+- turning a link into a `<button>` or a JavaScript navigation (Just Links triggers only see `<a href>`; `preventDefault` or `stopPropagation` hides the click; a site script that intercepts link clicks and redirects in JavaScript does the same for every link it catches, FC-31),
 - adding visually hidden text inside a CTA for accessibility (it changes Click Text; `aria-label` does not),
 - translating or A/B testing CTA wording,
 - moving a page, changing a handle or slug, adding a redirect or a tracking wrapper to a link,
 - changing a form to show success in place instead of redirecting (or the reverse),
 - changing domain, subdomain or the primary host (hostname rules, cookie domains, linker lists),
 - publishing a different theme (theme code and app embeds change; pixels do not),
-- a platform migration (old dataLayer events vanish).
+- a platform migration (old dataLayer events vanish, sometimes including the event the base page view waits for, FC-30).
 
 ## 3. Rules
 
