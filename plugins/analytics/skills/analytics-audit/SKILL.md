@@ -19,7 +19,7 @@ If the project has its own instructions file (AGENTS.md, CLAUDE.md) with analyti
 - **Evidence for every claim.** Each inventory row and finding cites what showed it (page source, a decoded request, an export line, a screenshot) and the date. Observed facts and inferences are labelled differently. "Not checked" is a valid answer; a guess is not.
 - **Never sign in for anyone** or type credentials or 2FA codes. If a tool needs access, ask the person to sign in or to export what is needed.
 - **No real orders, bookings or form submissions** without the owner's explicit OK for that specific test (see `references/privacy-matrix.md` section 4). Never type real customer data.
-- **Test traffic is data in the client's account.** Keep live tests short, and say when and from where you tested.
+- **Test traffic is data in the client's account.** On live sites capture dry (`privacy_matrix.cjs --dry`): collection requests are answered locally, so no test hit reaches any account. Any live test stays short, and the report says when and from where you tested.
 - **No personal data or secrets** in reports or ANALYTICS.md. Tag IDs are fine; tokens, emails and customer details are not. HAR files stay in the scratch folder.
 - **Not legal advice.** Report what fires in each privacy state; compliance calls belong to the client's counsel.
 
@@ -58,7 +58,7 @@ Work outward from what visitors' browsers actually load.
 
 ## 3. Tagging audit: judge what exists
 
-For each inventory row and each container finding, decide: keep, fix, or question. Use `references/findings-catalog.md` to name what you see (FC codes) and set severity. Typical tagging-audit findings: a destination installed twice, tags that cannot see what they wait for (GTM in a sandbox, dead dataLayer events, base page views waiting for a previous platform's push), stale site dependencies, consent defaults missing, leftovers, unowned tags, GA4 defaults.
+For each inventory row and each container finding, decide: keep, fix, or question. Use `references/findings-catalog.md` to name what you see (FC codes) and set severity. Typical tagging-audit findings: a destination installed twice, an app's gtag commands sharing the container's dataLayer (FC-33), tags that cannot see what they wait for (GTM in a sandbox, dead dataLayer events, base page views waiting for a previous platform's push), stale site dependencies, consent defaults missing, leftovers, unowned tags, GA4 defaults.
 
 **Tracking plan (section 1 of ANALYTICS.md).** If it is empty, draft it from the business type and what the container already measures, marked as a draft for the client to confirm. If it exists but disagrees with the live container (events renamed, paused or removed since it was written), do not edit it: record a finding for the difference and add a question for `analytics-setup`, which owns the plan.
 
@@ -67,9 +67,9 @@ A tagging audit stops here: write the report (step 6) with "what exists" and "wh
 ## 4. Full audit: prove the core events
 
 1. **Confirm the tracking plan** with the person: the core events by tier, which destinations should receive each, and the key parameters. Without an agreed list there is nothing to test against.
-2. **Run the privacy matrix** (`references/privacy-matrix.md`). Automated: `node scripts/privacy_matrix.cjs --url <page> [--url ...] --states fresh,accept,reject,gpc,blocked --out <scratch>/matrix [--steps journey.json] [--proxy <region proxy>]` (needs Playwright in a scratch folder). By hand: a fresh browser profile per state, DevTools Network open with "Preserve log", then Save all as HAR. Cover each region type the store serves, or mark it not tested.
-3. **Trigger each core event** in the states that matter (at least accept and reject; all states for Tier 1), using the journey steps or by hand. Purchases and bookings only with the owner's approved test method.
-4. **Decode what left the browser**: `python scripts/decode_hits.py <state>/capture.har` per state. It lists each event per vendor with account, page, transaction or event id, value and Google consent state, separates blocked attempts, and flags repeats. Compare with the expectations table in the privacy-matrix reference.
+2. **Run the privacy matrix** (`references/privacy-matrix.md`). Automated: `node scripts/privacy_matrix.cjs --dry --scenarios journeys.json --states fresh,accept,reject,gpc,blocked --out <scratch>/matrix [--proxy <region proxy>]` (needs Playwright in a scratch folder; `--url` pages work too). **Use `--dry` on live sites:** every collection request is answered locally and logged in full, so nothing reaches the client's accounts. The browser hides the automation flag by default, because some pixels send nothing otherwise. By hand: a fresh browser profile per state, DevTools Network open with "Preserve log", then Save all as HAR (live hits; keep it short). Cover each region type the store serves, or mark it not tested.
+3. **Trigger each core event** in the states that matter (at least accept and reject; all states for Tier 1) with one labelled scenario per journey, each in a fresh profile. Clicks are dispatched on the element and a link's navigation is answered locally, so tag-manager link listeners fire as for a person and the page stays; test each booking or checkout landing with its own `goto` to the URL the CTA points to (a landing that redirects is recorded, FC-35). Purchases and bookings only with the owner's approved test method.
+4. **Decode what left the browser**: `python scripts/decode_hits.py <state>/hits.har --by-step` per state shows what each step sent (and steps that sent nothing); `--by-source` names the install point behind each hit (frame, GA4 endpoint, GTM container marker, Meta event id prefix, Shopify app endpoints) and lists events a destination got from more than one source in the same step (FC-01, FC-33), and hits whose page address is a pixel sandbox (FC-34). Google mirrors and Merchant Center are listed apart, never as GA4 events. Compare with the expectations table in the privacy-matrix reference.
 5. **Confirm on the receiving side** where you can: GA4 realtime (`run_realtime_report`) or DebugView, Google Ads conversion diagnostics, Meta Test Events and deduplication, TikTok Events Manager. Without access, ask the person for a screenshot taken during your test window.
 6. **Data checks (Level 3)**: run the data checks in `references/ga4-checks.md` (duplicate transactions, platform gap, hostnames, self-referrals, channel health, landing pages, event hygiene, page views per session, PII).
 7. Record each event and state as: sent once, sent twice, not sent, sent cookieless, or not tested.
@@ -99,7 +99,7 @@ Access level reached, browser state, and what could not be checked; the top find
 - [ ] Every destination checked for a second path, including IDs inside tag-manager containers; multi-path line written
 - [ ] Drift snapshot saved in the client's snapshots folder
 - [ ] Full audit: tracking plan agreed; matrix run per state and region type, or marked not tested
-- [ ] Full audit: every core event decoded per state; receiving side confirmed or listed as not confirmed
+- [ ] Full audit: captured dry on live sites (or live hits listed with time and place); every core event decoded per state and attributed to its install point; receiving side confirmed or listed as not confirmed
 - [ ] Findings have evidence, severity, catalog code, effect and owner
 - [ ] Report written; ANALYTICS.md updated with dates and sources
 - [ ] Nothing changed on the site or any account; no personal data stored

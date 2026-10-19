@@ -44,6 +44,10 @@ Facts checked 2026-10-15 against Shopify and Google documentation unless marked 
 7. Theme-level `dataLayer` events from a previous platform (Magento, a custom site) that GTM still waits for, including the base page view itself (FC-30).
 8. The same GA4 or Meta ID in an app pixel and inside the GTM container the theme loads: `shopify_pixels.py` and the inventory's `sameIdTwoPaths` read the container's public `gtm.js` to catch it.
 9. ScriptTags from apps nobody remembers installing: they load on every theme and survive a theme switch.
+10. The Google & YouTube app and a theme GTM container sharing `window.dataLayer`: the app's `gtag('event', 'page_view')` and ecommerce events trigger the container's tags too, so destinations get two hits and the container depends on the app (FC-33).
+11. A full GTM container inside a custom pixel: its Google tag and base tags send from the sandbox iframe, with the sandbox URL as the page address, on every page and on checkout (FC-34).
+
+**Telling the paths apart in a capture.** App pixels send from workers owned by the page, so their hits show the top page as frame; custom pixels send from an iframe on the store's own host at `/web-pixels@.../custom/...`. The Google & YouTube app's GA4 hits go to Google's endpoint without a GTM marker; the Meta app's event ids start with `sh-`; the TikTok app posts to `/api/v2/shopify_pixel`. `decode_hits.py --by-source` applies these rules.
 
 ## WordPress and WooCommerce
 
@@ -75,6 +79,7 @@ Booking engines, payment pages, donation forms, scheduling tools and separate ch
 
 - Confirm who loads tags there (the vendor's setting, a container, nothing) and which events they push (`purchase`, custom names).
 - A vendor page can run its own container next to the client's. Two containers on one page share the default `dataLayer`, so the vendor's gtag `event` commands can reach the client's Google tags and the client's pushes reach the vendor's (FC-29). Run `gtm_public_rules.py` on each container to see what it does.
+- Generic entry URLs (a booking engine's or checkout's start page with nothing selected) can fire "started" tags and then redirect the visitor away (FC-35). Visit each URL that calls to action point to with its own journey step.
 - Cross-domain: the linker domain list (GTM conversion linker and the GA4 data stream's "Configure your domains") must include every hop; `_gl` must survive redirects.
 - Unwanted referrals: payment gateways and booking hosts listed so they do not steal the session source.
 - The dataLayer contract with that vendor (event name, keys, value fields) belongs in the dependency register like any theme dependency.
