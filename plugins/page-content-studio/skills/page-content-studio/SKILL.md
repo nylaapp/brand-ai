@@ -64,6 +64,25 @@ directory, then memory/connected knowledge). This skill depends on brand-capture
   without BRAND.md if the Site Editor would rather not wait; say so plainly and flag that
   anything copy-related should wait for brand-capture to run.
 
+Resolve each file separately, as brand-capture's lookup does, and handle a partial set
+explicitly rather than treating it as all-or-nothing:
+
+| `BRAND.md` | `BRAND-VOICE.md` | What to do |
+|---|---|---|
+| found | found | Normal path. |
+| found | missing | Structure, settings and existing-copy edits proceed. For new or rewritten copy, use only the voice facts inside `BRAND.md`, say plainly that voice guidance is missing, and offer brand-capture to fill it. |
+| missing | found | Treat as missing: voice without claim limits and naming rules is not enough for brand-facing copy. Offer brand-capture; the structural-change exception above still applies. |
+| missing | missing | As "Not found" above. |
+
+**Visual spec.** `BRAND.md`'s `design_doc` key points to `design.md` (lowercase, written by
+brand-capture) -- the brand's palette, type, spacing, corners and component values. When
+it exists, it is the source for every visual value in Step 3b and wins over BRAND.md on
+visual values (BRAND.md still wins on names, voice and claims). Use values marked
+`(from site)` as measured; treat `(inferred)` ones as unconfirmed and flag them rather than
+building on them silently. If there is no `design.md`, fall back to the store repo's own
+visual spec or the theme's settings, and say which one you used. Never invent a hex,
+font, size or radius to fill a gap.
+
 Separately, theme-engineering rules (where changes go, naming, file ownership, section
 conventions, verification gates) live in that specific store's own repo -- usually
 `AGENTS.md` or `CLAUDE.md` at its root, not in this marketplace repo. Read it fully, and
@@ -142,8 +161,9 @@ Then go to Step 4.
    read computed values (container, padding, gaps, font, size, weight, colors, radius) --
    don't eyeball them. Capture hover/focus/disabled states of buttons and links. If no
    rendered view is possible, say plainly it's blocked and name what failed; don't guess.
-3. No reference: take values from BRAND.md/BRAND-VOICE.md and whatever visual spec the
-   store repo has, and go to the next step.
+3. No reference: take copy facts from BRAND.md/BRAND-VOICE.md and visual values from
+   `design.md` (Step 0), falling back to the store repo's own visual spec, and go to the
+   next step.
 4. For each region of the page, choose in this order: (1) an existing section that already
    fits, (2) the same section with one small new setting, (3) a native base-theme
    section/block, (4) a new section -- only when the layout is genuinely different. One
