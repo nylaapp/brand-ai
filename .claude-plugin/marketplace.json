@@ -55,6 +55,18 @@
       "source": "./plugins/content-seo-audit",
       "description": "Audit live Shopify blog posts (schema, PageSpeed, on-page checks) and track Search Console rankings at 2 and 4 weeks.",
       "version": "0.1.0"
+    },
+    {
+      "name": "cro-review-mining",
+      "source": "./plugins/cro-review-mining",
+      "description": "Mine a store's existing product reviews into pain-point/praise categories, root-cause/impact/metric tables, and A/B test ideas, written to REVIEW-MINING.md.",
+      "version": "0.1.0"
+    },
+    {
+      "name": "page-content-studio",
+      "source": "./plugins/page-content-studio",
+      "description": "Create and update Shopify page content and layout -- homepage, landing pages, general pages -- in one skill.",
+      "version": "0.1.0"
     }
   ]
 }
