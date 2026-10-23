@@ -227,6 +227,71 @@ Evidence: Baymard checkout survey. CA1: total cost including shipping and tax is
 before checkout (A). CA2: no account required (18% of abandoners cited it) (A). CA3: the
 checkout form is short; Baymard's ideal is about 12 to 14 form elements (A).
 
+## Which checks matter most for each goal
+
+From the Step 1a goal, weigh these checks first when ranking shortfalls. Other shortfalls
+are still reported, tagged off-goal, and listed last.
+
+| Goal | Check IDs to weigh first |
+|---|---|
+| Get bookings or enquiries | U1, U2, U5, U8, U12, HP2, HP10, HP12, HP13, LC1, LC5, SV2, SV4, CT1 to CT5 |
+| Sell products | U3, HP3, HP4, HP8, CP1 to CP6, PD1 to PD5, CA1 to CA3, PL1 |
+| Promote an offer or launch | U3, U5, HP6, HP11, HP12, LP1 to LP5 |
+| Build trust | U4, U9, U10, HP10, AB1 to AB6, SV2, SV3, U3 |
+| Inform or answer questions | U1, U6, U7, FQ1 to FQ4, PL1 to PL2 |
+| Fix something broken or outdated | The checks that match the described problem, plus U7 and U11 |
+
+## Follow-up questions by page type (Step 1a, Round 2)
+
+Ask two or three, as multiple choice with "not sure". The answers decide which checks
+apply and which fixes are safe.
+
+| Page type | Ask |
+|---|---|
+| Homepage | The one action that counts most (name its link). Which offers are active right now, and which one leads? Catalog, service, or both? |
+| Landing page | Where does the traffic come from, and what does that ad or link promise? Offer dates and terms? Which single action ends the page? |
+| Collection | Which filters do shoppers use most? Default sort? Are sold-out items hidden? |
+| Product | Shipping cost and delivery estimate, and the return policy, in facts the page can state. Which reviews are real and linkable? |
+| About | Who can be named, and which credentials can be shown? Which claims have a source? Is there real photography of people? |
+| Contact | Which channels are staffed, their hours, and the real response time? Is there a phone number to show? |
+| FAQ or help | Which questions come up most often, and from which source? Where do shoppers expect the answer? |
+| Location | Address, hours, parking, local team, and the booking link for this site |
+| Service or treatment | Provider names and credentials, price or range, downtime, and which result claims are allowed |
+
+## Where each fix lives
+
+A shortfall is reported even when this theme cannot fix it. Tag each row with the owner so
+the Site Editor knows who acts; only theme rows can be picked for editing here.
+
+| Owner | Examples | What the skill does |
+|---|---|---|
+| This theme (templates, sections, CSS) | Section order, button link or label in a section setting, heading level, a new section | Can plan and edit on the draft theme |
+| Store admin content | Pages, products, navigation menus, metafields, policies | Point to the exact place in admin and the wording to change; do not edit unless the person asks |
+| Store settings | Consent banner behaviour, checkout, taxes and shipping, analytics | Report with the measured effect; the person or their admin changes it |
+| Third-party app or script | Pop-ups, review widgets, chat, booking widgets | Report with what it covers or breaks; the app's owner changes it |
+| Off-site destination | An offer page, booking site or partner page on another domain | Report what was observed (status, dates, terms); the owner of that site changes it |
+
+## Typical fixes for common shortfalls
+
+Candidates only; confirm each against the observed page and the Step 1a limits.
+
+| Shortfall | Typical fix | Usual effort |
+|---|---|---|
+| U1 / HP1: first screen doesn't say what the business does | Add one plain sentence to the hero eyebrow or subheading; needs brand-approved wording | S to M |
+| U2 / HP13: the primary action isn't in the first screen | Move the existing booking or buy section up, or give the hero a second button to the existing link | S (reorder) to M |
+| U5: an overlay covers the first screen or main button | Delay or shrink the overlay, or reposition it; usually a store setting or app | S, other owner |
+| U7: second h1, skipped heading levels | Change the section's heading-level setting | S |
+| U7: small tap targets | Add padding with matching negative margin so layout holds | S |
+| U10: unsourced numbers or superlatives | Source them, soften them, or remove them; run content-fact-check first | S |
+| U11: dead full-screen band | Remove it from the section list, add an action to it, or replace its image | S to M |
+| HP6: two offers compete above the fold | Decide which leads; the other moves lower or becomes secondary | S, needs a business decision |
+| HP10: proof sits far from the action | Move a rating, count or short quote next to the main button | S to M |
+| HP11 / LP5: offer terms missing or stale | Add a visible terms link and correct or remove stale dates, including on the destination page | S, often another owner |
+| HP12: many labels for one destination | Standardise on the tracked wording already in use | S, check analytics rules first |
+| AB3: no named people | New team section with real names, photos and credentials from the business | M, needs content |
+| CP2 / CP3: no applied-filter chips or mobile filter button | Theme filter settings or a small section change | M |
+| CT5: no stated response time | Add one line near the form | S |
+
 ## Sources
 
 - Baymard Institute, homepage UX benchmark (2021): https://baymard.com/blog/ecommerce-homepage-ux

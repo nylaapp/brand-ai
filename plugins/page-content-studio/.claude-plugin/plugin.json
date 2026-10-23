@@ -1,6 +1,6 @@
 {
   "name": "page-content-studio",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Create and update Shopify page content and layout -- homepage, landing pages, and general pages -- in one skill, for the Site Editor doing the asking.",
   "author": { "name": "Nyla", "email": "michael@nyla.app" },
   "repository": "https://github.com/nylaapp/brand-ai",

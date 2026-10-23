@@ -29,6 +29,11 @@ page is diagnosed (Step 1b) or planned (Step 3b). Say the grade when you cite a 
 research is named as research; B and H items are called common practice or a rule of
 thumb, never research.
 
+`references/observation-recipes.md` is how to observe a page so those checks rest on evidence:
+set a real viewport, confirm the theme id, scroll to load lazy images, note overlays over
+time, and the snippets for section inventory, link map, overlays, tap targets, images and
+claims. It also says what to do when access or data is blocked.
+
 ## Who this is for: the Site Editor
 
 The person asking is usually a **Site Editor** -- someone on the client's marketing,
@@ -157,9 +162,11 @@ Always allow "not sure" and "something else".
 4. **What must not change?** Claims or regulated wording, tracked booking or checkout
    links, brand rules, anything the Site Editor lists. These become hard limits.
 
-**Round 2 -- goal-specific follow-ups.** Ask the follow-up questions for the chosen goal,
-then use the matching row's checks and typical recommendations as the starting evidence
-list for Step 1b. Never present the "typical recommendations" as findings; they are
+**Round 2 -- goal-specific follow-ups.** Ask the follow-up questions for the chosen goal and
+the page-type questions in the playbook ("Follow-up questions by page type"), then use the
+matching row's checks and typical recommendations as the starting evidence list for Step
+1b. The playbook's goal table ("Which checks matter most for each goal") says which check
+IDs to weigh first. Never present the "typical recommendations" as findings; they are
 candidates to test against what is actually measured on this page.
 
 | Goal | Follow-up questions | What to check first | Typical recommendations (candidates only) |
@@ -191,8 +198,11 @@ candidates to test against what is actually measured on this page.
 The Site Editor shouldn't have to know which part of a page to touch. When they haven't
 decided, find the candidates yourself and recommend -- from evidence, never from taste.
 
-1. Load the page (live render or `shopify theme dev`, desktop and mobile) and list its
-   sections top to bottom in plain terms.
+1. Load the page (live render or `shopify theme dev`, desktop and mobile) following
+   `references/observation-recipes.md`, and list its sections top to bottom in plain terms.
+   If the page can't be loaded (password, sign-in, quota), follow that file's blocked-access
+   table: say so, mark render checks "Can't tell", and ask for what's needed -- never type
+   a password or credential for the person.
 2. **Gap analysis against the playbook.** Open the playbook section for this page type and
    the "Every page" checks. Mark each check Pass, Partial, Missing or Can't tell from what
    you observed on the render at desktop and mobile, recording the number, quote or position
@@ -217,13 +227,17 @@ decided, find the candidates yourself and recommend -- from evidence, never from
    with), `COMPETITORS.md` (what competitors' equivalent pages show or say that this one
    doesn't), and a visitor walkthrough at desktop and mobile -- what the first screen
    says, whether there is one clear action, trust cues, friction.
-5. **Pair them, then score.** A measured problem becomes a recommendation only when a
-   qualitative reason explains it (a failed playbook check is a qualitative reason when its
-   grade is A, and a weaker one when B or H) (for example, mobile conversion at half of desktop plus
-   a CTA that sits below three screens of text). Score each candidate:
+5. **Pair them, score them, and name who owns each fix.** A measured problem becomes a
+   recommendation only when a qualitative reason explains it (for example, mobile conversion
+   at half of desktop plus a CTA that sits below three screens of text). A failed playbook
+   check counts as that reason when its grade is A, and as a weaker one when B or H. Name
+   the owner of each fix -- this theme, store admin content, store settings, a third-party
+   app, or an off-site page (see the playbook's "Where each fix lives"). A shortfall the
+   theme can't fix is still reported, but only this-theme rows can be picked for editing
+   here; for the rest, say who acts and what to ask them. Score each candidate:
 
-   | # | Part of the page | Playbook check (ID, grade) | What could improve | Numbers (source) | Why (qualitative) | Impact | Effort | On-goal? | Also affects other pages? |
-   |---|---|---|---|---|---|---|---|---|---|
+   | # | Part of the page | Playbook check (ID, grade) | What could improve | Numbers (source) | Why (qualitative) | Impact | Effort | Owner of the fix | On-goal? | Also affects other pages? |
+   |---|---|---|---|---|---|---|---|---|---|---|
 
    Impact is high/medium/low from traffic x drop-off at that part of the page; effort is
    S/M/L using the Step 3a change types (setting value is S, new section is L). Rank by
