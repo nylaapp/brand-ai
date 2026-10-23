@@ -1,6 +1,6 @@
 ---
 name: page-content-studio
-description: Create a new Shopify page (homepage section, landing page, campaign/service/region page) or update something that already exists on one -- copy, an image, a section's settings, a section's layout, or which sections appear and in what order -- all in one skill. Brand-agnostic, built for the Site Editor: the marketing/content/ops person who asks for page changes but isn't necessarily a developer. Use whenever the user says "update the homepage", "make a landing page for X", "change this section", "fix the copy on", "swap the image on", "move this section up/down", "build a page for X", "recreate this page from the live site", or points at a live/preview URL and describes something to change or build -- or asks what on a page should be improved. Not for blog posts (use shopify-blog-writer/shopify-blog-rewrite) and not for accessibility audits (use accessibility-audit).
+description: Create a new Shopify page (homepage section, landing page, campaign/service/region page) or update something that already exists on one -- copy, an image, a section's settings, a section's layout, or which sections appear and in what order -- all in one skill. Brand-agnostic, built for the Site Editor: the marketing/content/ops person who asks for page changes but isn't necessarily a developer. Use whenever the user says "update the homepage", "make a landing page for X", "change this section", "fix the copy on", "swap the image on", "move this section up/down", "build a page for X", "recreate this page from the live site", or points at a live/preview URL and describes something to change or build -- or asks what on a page should be improved, or says what they want a page to achieve. Not for blog posts (use shopify-blog-writer/shopify-blog-rewrite) and not for accessibility audits (use accessibility-audit).
 ---
 
 # Page content studio
@@ -12,6 +12,7 @@ and `BRAND-VOICE.md` (see Step 0), never invented and never hardcoded here.
 
 ```
 0. Locate brand context -> 1. Understand the request in plain terms ->
+1a. Guided goal questions (what is the page for?) ->
 1b. (If they haven't decided what to change) Diagnose and recommend ->
 2. Resolve the real target -> 3. Find or plan what controls it ->
 4. Build or change it -> 5. Verify live -> 6. Push to draft, log, report
@@ -96,9 +97,11 @@ without it.
 Ask (short, plain-language, multiple-choice where possible) until these are answered --
 the Site Editor is describing what they *see*, not where it lives:
 
-- **Do they already know what to change?** If yes, carry on. If they're unsure or the
-  ask is open-ended ("improve the homepage," "what should we fix?"), do Step 1b before
-  Step 2 -- don't wait for them to decide, and don't guess.
+- **What is the page for, and do they already know what to change?** Run Step 1a (guided
+  goal questions) whenever the ask is open-ended or the goal isn't obvious. If they name
+  a specific change with a clear purpose ("swap the hero photo for the new one"), ask
+  only the one-line goal check in Step 1a and carry on. If they're unsure what to change,
+  Step 1a leads into Step 1b -- don't wait for them to decide, and don't guess.
 - **Which page, in their words?** A URL they can paste, or a description ("the
   homepage," "a new page for the Botox treatment"). You resolve this to an actual
   template -- don't assume `index` means the homepage; check.
@@ -113,6 +116,60 @@ the Site Editor is describing what they *see*, not where it lives:
 - **How urgent is this?** (e.g., a live typo right now) -- still go through draft staging
   and verification even under time pressure; say so if asked to skip it, and explain the
   risk of skipping rather than just refusing.
+
+## Step 1a: Guided goal questions -- ask what the page is for
+
+Most "improve this page" requests are really "help this page do a job". Find the job
+first, then recommend against it. Offer a few short multiple-choice questions (use the
+interactive question tool when available; otherwise a numbered list they can answer with
+a number). Plain language, one round at a time, no more than four questions per round.
+Always allow "not sure" and "something else".
+
+**Round 1 -- the page's job**
+
+1. **What should this page mainly do for your visitors?**
+   - Get people to book or enquire (appointments, consultations, quotes)
+   - Sell products (add to cart, buy)
+   - Promote an offer, launch or campaign
+   - Build trust (reviews, credentials, results, who you are)
+   - Inform or answer questions (education, SEO, support)
+   - Fix something that looks broken, outdated or off-brand
+   - Not sure yet
+2. **Who is it mostly for?** New visitors from search or ads / returning customers /
+   people on phones from social / not sure. Phone-first changes the advice: say so.
+3. **How much change are you open to?** Small tweak to one part / refresh a few
+   sections / rebuild the page. This sets the effort ceiling in Step 1b.
+4. **What must not change?** Claims or regulated wording, tracked booking or checkout
+   links, brand rules, anything the Site Editor lists. These become hard limits.
+
+**Round 2 -- goal-specific follow-ups.** Ask the follow-up questions for the chosen goal,
+then use the matching row's checks and typical recommendations as the starting evidence
+list for Step 1b. Never present the "typical recommendations" as findings; they are
+candidates to test against what is actually measured on this page.
+
+| Goal | Follow-up questions | What to check first | Typical recommendations (candidates only) |
+|---|---|---|---|
+| Book or enquire | Which single action counts (form, call, booking link)? Is there a booking link that analytics already tracks? | Where the first booking action sits on mobile and desktop, number of clicks to book, whether the booking path matches the tracked one, form or link friction | Move one clear booking action into the first screen, repeat it after proof sections, shorten the path to book, remove competing off-site CTAs from the top |
+| Sell products | Which products or collection matter most? Is the problem traffic, add-to-cart, or checkout? | Product and collection sections' position, price and review visibility, add-to-cart reachability on mobile, empty or sold-out items showing | Feature best sellers earlier, show ratings and prices on cards, add a clear shop path, reduce sections between hero and products |
+| Promote an offer or launch | What is the offer, its dates and terms? Where should it lead? | Offer visible in the first screen, dates and terms present, link target works, urgency stated honestly | One lead banner with the offer, one clear destination, expiry date and terms, remove stale promos |
+| Build trust | What proof exists (reviews, counts, credentials, before/after, press)? Which claims are allowed? | Review count and rating shown, quotes sourced, unsourced numbers, credentials visible, photo proof | Show rating plus count, attribute quotes, source or soften unsourced claims (offer content-fact-check), add real proof near the main action |
+| Inform or answer questions | What questions do visitors ask? What should they do after reading? | Heading structure, answer-first copy, FAQ presence, internal links, page speed, search impressions if available | Answer-first intro, scannable headings, FAQ block, next-step link, fix heading levels |
+| Fix what looks wrong | What exactly looks wrong, and on which device? Is there a reference of what right looks like? | Reproduce on the render at desktop and mobile, compare against `design.md`, check the section's settings before touching code | Settings-level fix first, then scoped CSS, only then section code; list anything else noticed as "flagged, not done" |
+| Not sure yet | Ask Round 1 question 2, then offer the two nearest goals with a one-line example each | Run Step 1b's full measurement | Rank across all goals and show which goal each candidate serves |
+
+**Using the answers**
+
+- Write the answers back in two lines ("Goal: book consultations. Audience: phone users
+  from search. Open to: refresh a few sections. Must not change: tracked booking links")
+  and get a yes before measuring.
+- In Step 1b, weigh impact by how close a candidate is to the **primary action** for the
+  chosen goal, and tag each row **on-goal** or **off-goal**. Off-goal rows are listed
+  last as "worth knowing", never ranked above on-goal ones.
+- Hard limits from question 4 override every recommendation: if a candidate would break
+  one, say so in the row instead of dropping it silently.
+- If the answers conflict with the evidence (they say "sell products" but the page has no
+  product section), say so plainly and ask which to follow.
+- Keep the answers for the QA log (`goal:` line).
 
 ## Step 1b: Help them decide what to change (only when they haven't)
 
@@ -142,12 +199,13 @@ decided, find the candidates yourself and recommend -- from evidence, never from
    qualitative reason explains it (for example, mobile conversion at half of desktop plus
    a CTA that sits below three screens of text). Score each candidate:
 
-   | # | Part of the page | What could improve | Numbers (source) | Why (qualitative) | Impact | Effort | Also affects other pages? |
-   |---|---|---|---|---|---|---|---|
+   | # | Part of the page | What could improve | Numbers (source) | Why (qualitative) | Impact | Effort | On-goal? | Also affects other pages? |
+   |---|---|---|---|---|---|---|---|---|
 
    Impact is high/medium/low from traffic x drop-off at that part of the page; effort is
    S/M/L using the Step 3a change types (setting value is S, new section is L). Rank by
-   impact over effort, keep it to about five rows, and label each row **finding**
+   impact over effort (impact weighted toward the Step 1a goal's primary action, rows
+   tagged on-goal or off-goal), keep it to about five rows, and label each row **finding**
    (measured and explained) or **suggestion** (judgement, missing numbers or no
    explanation) -- never present a suggestion as a finding.
 5. Ask which rows to do. Do nothing until they pick. Each picked row becomes a normal
