@@ -1,6 +1,6 @@
 ---
 name: page-content-studio
-description: Create a new Shopify page (homepage section, landing page, campaign/service/region page) or update something that already exists on one -- copy, an image, a section's settings, a section's layout, or which sections appear and in what order -- all in one skill. Brand-agnostic, built for the Site Editor: the marketing/content/ops person who asks for page changes but isn't necessarily a developer. Use whenever the user says "update the homepage", "make a landing page for X", "change this section", "fix the copy on", "swap the image on", "move this section up/down", "build a page for X", "recreate this page from the live site", or points at a live/preview URL and describes something to change or build. Not for blog posts (use shopify-blog-writer/shopify-blog-rewrite) and not for accessibility audits (use accessibility-audit).
+description: Create a new Shopify page (homepage section, landing page, campaign/service/region page) or update something that already exists on one -- copy, an image, a section's settings, a section's layout, or which sections appear and in what order -- all in one skill. Brand-agnostic, built for the Site Editor: the marketing/content/ops person who asks for page changes but isn't necessarily a developer. Use whenever the user says "update the homepage", "make a landing page for X", "change this section", "fix the copy on", "swap the image on", "move this section up/down", "build a page for X", "recreate this page from the live site", or points at a live/preview URL and describes something to change or build -- or asks what on a page should be improved. Not for blog posts (use shopify-blog-writer/shopify-blog-rewrite) and not for accessibility audits (use accessibility-audit).
 ---
 
 # Page content studio
@@ -12,6 +12,7 @@ and `BRAND-VOICE.md` (see Step 0), never invented and never hardcoded here.
 
 ```
 0. Locate brand context -> 1. Understand the request in plain terms ->
+1b. (If they haven't decided what to change) Diagnose and recommend ->
 2. Resolve the real target -> 3. Find or plan what controls it ->
 4. Build or change it -> 5. Verify live -> 6. Push to draft, log, report
 ```
@@ -95,6 +96,9 @@ without it.
 Ask (short, plain-language, multiple-choice where possible) until these are answered --
 the Site Editor is describing what they *see*, not where it lives:
 
+- **Do they already know what to change?** If yes, carry on. If they're unsure or the
+  ask is open-ended ("improve the homepage," "what should we fix?"), do Step 1b before
+  Step 2 -- don't wait for them to decide, and don't guess.
 - **Which page, in their words?** A URL they can paste, or a description ("the
   homepage," "a new page for the Botox treatment"). You resolve this to an actual
   template -- don't assume `index` means the homepage; check.
@@ -109,6 +113,52 @@ the Site Editor is describing what they *see*, not where it lives:
 - **How urgent is this?** (e.g., a live typo right now) -- still go through draft staging
   and verification even under time pressure; say so if asked to skip it, and explain the
   risk of skipping rather than just refusing.
+
+## Step 1b: Help them decide what to change (only when they haven't)
+
+The Site Editor shouldn't have to know which part of a page to touch. When they haven't
+decided, find the candidates yourself and recommend -- from evidence, never from taste.
+
+1. Load the page (live render or `shopify theme dev`, desktop and mobile) and list its
+   sections top to bottom in plain terms.
+2. **Measure it.** Run what can be run, ask for what can't, and record every number with
+   its source, date and device. Never estimate a number you could have measured.
+
+   | Run it yourself (when available) | Ask the Site Editor to export or share |
+   |---|---|
+   | Page speed and accessibility score on mobile and desktop (PageSpeed / Lighthouse, accessibility-audit) | Conversion rate, bounce/exit rate and CTA clicks for this page, by device (Shopify analytics or GA4) -- the Shopify connector's analytics query can pull some of this directly |
+   | Section inventory with each section's position and height on the live render | Scroll depth and per-section clicks (heatmap tool), session recordings |
+   | Theme check count for the page's template | Search Console impressions, clicks and position for the page |
+   | Baseline accessibility checks (one h1, alt text, contrast, tap targets) | Any on-site survey or support/ticket themes |
+   | Copy and claims read against `BRAND.md` / `BRAND-VOICE.md` / `design.md` | |
+
+   If a source is unavailable, say so in one line and carry on with the rest; a missing
+   number lowers confidence, it doesn't block the diagnosis.
+3. **Read the qualitative evidence:** `REVIEW-MINING.md` (what customers praise or struggle
+   with), `COMPETITORS.md` (what competitors' equivalent pages show or say that this one
+   doesn't), and a visitor walkthrough at desktop and mobile -- what the first screen
+   says, whether there is one clear action, trust cues, friction.
+4. **Pair them, then score.** A measured problem becomes a recommendation only when a
+   qualitative reason explains it (for example, mobile conversion at half of desktop plus
+   a CTA that sits below three screens of text). Score each candidate:
+
+   | # | Part of the page | What could improve | Numbers (source) | Why (qualitative) | Impact | Effort | Also affects other pages? |
+   |---|---|---|---|---|---|---|---|
+
+   Impact is high/medium/low from traffic x drop-off at that part of the page; effort is
+   S/M/L using the Step 3a change types (setting value is S, new section is L). Rank by
+   impact over effort, keep it to about five rows, and label each row **finding**
+   (measured and explained) or **suggestion** (judgement, missing numbers or no
+   explanation) -- never present a suggestion as a finding.
+5. Ask which rows to do. Do nothing until they pick. Each picked row becomes a normal
+   request and continues from Step 2, carrying its baseline number forward; unpicked rows
+   go in the QA log's "flagged, not done".
+6. **Close the loop.** For each picked row, name the number that should move and when to
+   re-check it (typically two to four weeks of traffic). This skill can't prove impact on
+   its own; say so, and suggest an A/B test where traffic allows.
+
+Keep this advisory: Step 1b never edits anything, and never widens a pick into extra
+changes.
 
 ## Step 2: Resolve the real target -- this decides the path
 
