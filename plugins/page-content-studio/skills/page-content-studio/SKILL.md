@@ -1,6 +1,6 @@
 ---
 name: page-content-studio
-description: Create a new Shopify page (homepage section, landing page, campaign/service/region page) or update something that already exists on one -- copy, an image, a section's settings, a section's layout, or which sections appear and in what order -- all in one skill. Brand-agnostic, built for the Site Editor: the marketing/content/ops person who asks for page changes but isn't necessarily a developer. Use whenever the user says "update the homepage", "make a landing page for X", "change this section", "fix the copy on", "swap the image on", "move this section up/down", "build a page for X", "recreate this page from the live site", or points at a live/preview URL and describes something to change or build -- or asks what on a page should be improved. Not for blog posts (use shopify-blog-writer/shopify-blog-rewrite) and not for accessibility audits (use accessibility-audit).
+description: Create a new Shopify page (homepage section, landing page, campaign/service/region page) or update something that already exists on one -- copy, an image, a section's settings, a section's layout, or which sections appear and in what order -- all in one skill. Brand-agnostic, built for the Site Editor: the marketing/content/ops person who asks for page changes but isn't necessarily a developer. Use whenever the user says "update the homepage", "make a landing page for X", "change this section", "fix the copy on", "swap the image on", "move this section up/down", "build a page for X", "recreate this page from the live site", or points at a live/preview URL and describes something to change or build -- or asks what on a page should be improved, or says what they want a page to achieve. Knows what each ecommerce page type (homepage, landing, collection, product, about, contact, FAQ, policy, location, service) is for and what a good one contains, and uses that to say where a page falls short. Not for blog posts (use shopify-blog-writer/shopify-blog-rewrite) and not for accessibility audits (use accessibility-audit).
 ---
 
 # Page content studio
@@ -12,10 +12,27 @@ and `BRAND-VOICE.md` (see Step 0), never invented and never hardcoded here.
 
 ```
 0. Locate brand context -> 1. Understand the request in plain terms ->
+1a. Guided goal questions (what is the page for?) ->
 1b. (If they haven't decided what to change) Diagnose and recommend ->
 2. Resolve the real target -> 3. Find or plan what controls it ->
 4. Build or change it -> 5. Verify live -> 6. Push to draft, log, report
 ```
+
+## The playbook: what each page type is for
+
+`references/page-type-playbook.md` holds, for every page type, its purpose, its primary
+action, and a checklist of what a good one contains, each check graded by evidence (A
+published research or a standard, B practitioner guidance, H house heuristic). It is what
+lets this skill say **where a page falls short** instead of waiting to be told, and what a
+new page should contain. Load the section for the page's type plus "Every page" whenever a
+page is diagnosed (Step 1b) or planned (Step 3b). Say the grade when you cite a check:
+research is named as research; B and H items are called common practice or a rule of
+thumb, never research.
+
+`references/observation-recipes.md` is how to observe a page so those checks rest on evidence:
+set a real viewport, confirm the theme id, scroll to load lazy images, note overlays over
+time, and the snippets for section inventory, link map, overlays, tap targets, images and
+claims. It also says what to do when access or data is blocked.
 
 ## Who this is for: the Site Editor
 
@@ -96,9 +113,15 @@ without it.
 Ask (short, plain-language, multiple-choice where possible) until these are answered --
 the Site Editor is describing what they *see*, not where it lives:
 
-- **Do they already know what to change?** If yes, carry on. If they're unsure or the
-  ask is open-ended ("improve the homepage," "what should we fix?"), do Step 1b before
-  Step 2 -- don't wait for them to decide, and don't guess.
+- **What is the page for, and do they already know what to change?** Run Step 1a (guided
+  goal questions) whenever the ask is open-ended or the goal isn't obvious. If they name
+  a specific change with a clear purpose ("swap the hero photo for the new one"), ask
+  only the one-line goal check in Step 1a and carry on. If they're unsure what to change,
+  Step 1a leads into Step 1b -- don't wait for them to decide, and don't guess.
+- **What type of page is it?** Homepage, landing page, collection, product, about,
+  contact, FAQ or help, policy, location, or service/treatment page -- resolve it from the
+  template and the page's job, and note whether the business is a catalog store, an
+  appointment/service business, or both (some playbook checks apply to only one).
 - **Which page, in their words?** A URL they can paste, or a description ("the
   homepage," "a new page for the Botox treatment"). You resolve this to an actual
   template -- don't assume `index` means the homepage; check.
@@ -114,14 +137,80 @@ the Site Editor is describing what they *see*, not where it lives:
   and verification even under time pressure; say so if asked to skip it, and explain the
   risk of skipping rather than just refusing.
 
+## Step 1a: Guided goal questions -- ask what the page is for
+
+Most "improve this page" requests are really "help this page do a job". Find the job
+first, then recommend against it. Offer a few short multiple-choice questions (use the
+interactive question tool when available; otherwise a numbered list they can answer with
+a number). Plain language, one round at a time, no more than four questions per round.
+Always allow "not sure" and "something else".
+
+**Round 1 -- the page's job**
+
+1. **What should this page mainly do for your visitors?**
+   - Get people to book or enquire (appointments, consultations, quotes)
+   - Sell products (add to cart, buy)
+   - Promote an offer, launch or campaign
+   - Build trust (reviews, credentials, results, who you are)
+   - Inform or answer questions (education, SEO, support)
+   - Fix something that looks broken, outdated or off-brand
+   - Not sure yet
+2. **Who is it mostly for?** New visitors from search or ads / returning customers /
+   people on phones from social / not sure. Phone-first changes the advice: say so.
+3. **How much change are you open to?** Small tweak to one part / refresh a few
+   sections / rebuild the page. This sets the effort ceiling in Step 1b.
+4. **What must not change?** Claims or regulated wording, tracked booking or checkout
+   links, brand rules, anything the Site Editor lists. These become hard limits.
+
+**Round 2 -- goal-specific follow-ups.** Ask the follow-up questions for the chosen goal and
+the page-type questions in the playbook ("Follow-up questions by page type"), then use the
+matching row's checks and typical recommendations as the starting evidence list for Step
+1b. The playbook's goal table ("Which checks matter most for each goal") says which check
+IDs to weigh first. Never present the "typical recommendations" as findings; they are
+candidates to test against what is actually measured on this page.
+
+| Goal | Follow-up questions | What to check first | Typical recommendations (candidates only) |
+|---|---|---|---|
+| Book or enquire | Which single action counts (form, call, booking link)? Is there a booking link that analytics already tracks? | Where the first booking action sits on mobile and desktop, number of clicks to book, whether the booking path matches the tracked one, form or link friction | Move one clear booking action into the first screen, repeat it after proof sections, shorten the path to book, remove competing off-site CTAs from the top |
+| Sell products | Which products or collection matter most? Is the problem traffic, add-to-cart, or checkout? | Product and collection sections' position, price and review visibility, add-to-cart reachability on mobile, empty or sold-out items showing | Feature best sellers earlier, show ratings and prices on cards, add a clear shop path, reduce sections between hero and products |
+| Promote an offer or launch | What is the offer, its dates and terms? Where should it lead? | Offer visible in the first screen, dates and terms present, link target works, urgency stated honestly | One lead banner with the offer, one clear destination, expiry date and terms, remove stale promos |
+| Build trust | What proof exists (reviews, counts, credentials, before/after, press)? Which claims are allowed? | Review count and rating shown, quotes sourced, unsourced numbers, credentials visible, photo proof | Show rating plus count, attribute quotes, source or soften unsourced claims (offer content-fact-check), add real proof near the main action |
+| Inform or answer questions | What questions do visitors ask? What should they do after reading? | Heading structure, answer-first copy, FAQ presence, internal links, page speed, search impressions if available | Answer-first intro, scannable headings, FAQ block, next-step link, fix heading levels |
+| Fix what looks wrong | What exactly looks wrong, and on which device? Is there a reference of what right looks like? | Reproduce on the render at desktop and mobile, compare against `design.md`, check the section's settings before touching code | Settings-level fix first, then scoped CSS, only then section code; list anything else noticed as "flagged, not done" |
+| Not sure yet | Ask Round 1 question 2, then offer the two nearest goals with a one-line example each | Run Step 1b's full measurement | Rank across all goals and show which goal each candidate serves |
+
+**Using the answers**
+
+- Write the answers back in two lines ("Goal: book consultations. Audience: phone users
+  from search. Open to: refresh a few sections. Must not change: tracked booking links")
+  and get a yes before measuring.
+- In Step 1b, weigh impact by how close a candidate is to the **primary action** for the
+  chosen goal, and tag each row **on-goal** or **off-goal**. Off-goal rows are listed
+  last as "worth knowing", never ranked above on-goal ones.
+- Hard limits from question 4 override every recommendation: if a candidate would break
+  one, say so in the row instead of dropping it silently.
+- If the answers conflict with the evidence (they say "sell products" but the page has no
+  product section), say so plainly and ask which to follow.
+- Keep the answers for the QA log (`goal:` line).
+
 ## Step 1b: Help them decide what to change (only when they haven't)
 
 The Site Editor shouldn't have to know which part of a page to touch. When they haven't
 decided, find the candidates yourself and recommend -- from evidence, never from taste.
 
-1. Load the page (live render or `shopify theme dev`, desktop and mobile) and list its
-   sections top to bottom in plain terms.
-2. **Measure it.** Run what can be run, ask for what can't, and record every number with
+1. Load the page (live render or `shopify theme dev`, desktop and mobile) following
+   `references/observation-recipes.md`, and list its sections top to bottom in plain terms.
+   If the page can't be loaded (password, sign-in, quota), follow that file's blocked-access
+   table: say so, mark render checks "Can't tell", and ask for what's needed -- never type
+   a password or credential for the person.
+2. **Gap analysis against the playbook.** Open the playbook section for this page type and
+   the "Every page" checks. Mark each check Pass, Partial, Missing or Can't tell from what
+   you observed on the render at desktop and mobile, recording the number, quote or position
+   that supports it. Missing and Partial are the page's shortfalls. This is how you find
+   what is wrong or still unfinished even when nobody names it; "Can't tell" is never a
+   shortfall. A page can pass every check and still underperform, so pair this with the
+   measurements below and say so.
+3. **Measure it.** Run what can be run, ask for what can't, and record every number with
    its source, date and device. Never estimate a number you could have measured.
 
    | Run it yourself (when available) | Ask the Site Editor to export or share |
@@ -134,26 +223,32 @@ decided, find the candidates yourself and recommend -- from evidence, never from
 
    If a source is unavailable, say so in one line and carry on with the rest; a missing
    number lowers confidence, it doesn't block the diagnosis.
-3. **Read the qualitative evidence:** `REVIEW-MINING.md` (what customers praise or struggle
+4. **Read the qualitative evidence:** `REVIEW-MINING.md` (what customers praise or struggle
    with), `COMPETITORS.md` (what competitors' equivalent pages show or say that this one
    doesn't), and a visitor walkthrough at desktop and mobile -- what the first screen
    says, whether there is one clear action, trust cues, friction.
-4. **Pair them, then score.** A measured problem becomes a recommendation only when a
-   qualitative reason explains it (for example, mobile conversion at half of desktop plus
-   a CTA that sits below three screens of text). Score each candidate:
+5. **Pair them, score them, and name who owns each fix.** A measured problem becomes a
+   recommendation only when a qualitative reason explains it (for example, mobile conversion
+   at half of desktop plus a CTA that sits below three screens of text). A failed playbook
+   check counts as that reason when its grade is A, and as a weaker one when B or H. Name
+   the owner of each fix -- this theme, store admin content, store settings, a third-party
+   app, or an off-site page (see the playbook's "Where each fix lives"). A shortfall the
+   theme can't fix is still reported, but only this-theme rows can be picked for editing
+   here; for the rest, say who acts and what to ask them. Score each candidate:
 
-   | # | Part of the page | What could improve | Numbers (source) | Why (qualitative) | Impact | Effort | Also affects other pages? |
-   |---|---|---|---|---|---|---|---|
+   | # | Part of the page | Playbook check (ID, grade) | What could improve | Numbers (source) | Why (qualitative) | Impact | Effort | Owner of the fix | On-goal? | Also affects other pages? |
+   |---|---|---|---|---|---|---|---|---|---|---|
 
    Impact is high/medium/low from traffic x drop-off at that part of the page; effort is
    S/M/L using the Step 3a change types (setting value is S, new section is L). Rank by
-   impact over effort, keep it to about five rows, and label each row **finding**
+   impact over effort (impact weighted toward the Step 1a goal's primary action, rows
+   tagged on-goal or off-goal), keep it to about five rows, and label each row **finding**
    (measured and explained) or **suggestion** (judgement, missing numbers or no
    explanation) -- never present a suggestion as a finding.
-5. Ask which rows to do. Do nothing until they pick. Each picked row becomes a normal
+6. Ask which rows to do. Do nothing until they pick. Each picked row becomes a normal
    request and continues from Step 2, carrying its baseline number forward; unpicked rows
    go in the QA log's "flagged, not done".
-6. **Close the loop.** For each picked row, name the number that should move and when to
+7. **Close the loop.** For each picked row, name the number that should move and when to
    re-check it (typically two to four weeks of traffic). This skill can't prove impact on
    its own; say so, and suggest an A/B test where traffic allows.
 
@@ -211,7 +306,9 @@ Then go to Step 4.
    read computed values (container, padding, gaps, font, size, weight, colors, radius) --
    don't eyeball them. Capture hover/focus/disabled states of buttons and links. If no
    rendered view is possible, say plainly it's blocked and name what failed; don't guess.
-3. No reference: take copy facts from BRAND.md/BRAND-VOICE.md and visual values from
+3. No reference: start from the playbook section for this page type: its must-have checks
+   decide which regions the page needs and in what order, with the primary action in the
+   first screen. Take copy facts from BRAND.md/BRAND-VOICE.md and visual values from
    `design.md` (Step 0), falling back to the store repo's own visual spec, and go to the
    next step.
 4. For each region of the page, choose in this order: (1) an existing section that already
@@ -276,7 +373,7 @@ is.
 
 ## Never
 
-Do not invent a brand fact that isn't in BRAND.md/BRAND-VOICE.md. Do not widen a
+Do not present a grade B or H playbook check as research, and do not quote a figure without its source and date. Do not mark a playbook check failed without having observed the page. Do not invent a brand fact that isn't in BRAND.md/BRAND-VOICE.md. Do not widen a
 content/settings fix into a code change when an existing setting would do. Do not touch a
 shared base-theme file or token without checking every usage it affects. Do not delete or
 rename a section/block file another page still references. Do not claim a visual check
