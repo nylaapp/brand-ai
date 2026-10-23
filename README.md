@@ -1,6 +1,6 @@
 # brand-ai
 
-Claude Code plugin marketplace for brand-agnostic Shopify content skills.
+Claude Code plugin marketplace for brand-agnostic Shopify content and analytics skills.
 
 ## Install
 
@@ -15,6 +15,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content skills.
 /plugin install shopify-blog-rewrite@brand-ai
 /plugin install shopify-blog-autopilot@brand-ai
 /plugin install page-content-studio@brand-ai
+/plugin install analytics@brand-ai
 ```
 
 ## Plugins
@@ -30,6 +31,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content skills.
 | shopify-blog-rewrite | Rewrite an existing article in a store's brand voice | shopify-blog-writer |
 | shopify-blog-autopilot | Decide when and what to blog, then hand off to the writer | shopify-blog-writer, brand-capture |
 | page-content-studio | Create or update Shopify page content and layout (homepage, landing pages, general pages) in one skill | brand-capture |
+| analytics | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
 
 ## Layout
 
@@ -39,9 +41,15 @@ plugins/<name>/.claude-plugin/plugin.json
 plugins/<name>/skills/<name>/SKILL.md
 ```
 
+The `analytics` plugin holds four skills in one plugin (`plugins/analytics/skills/analytics-*/`) because they share a file contract, references and scripts; the shared references and scripts live in `analytics-audit`.
+
 Validate with `claude plugin validate .`
 
 
 ## Brand files
 
 Brand skills read and write `BRAND.md`, `BRAND-VOICE.md`, `COMPETITORS.md`, `BRAND-QUESTIONS.md` and `BRAND-REQUESTS.md`. They look in the project root, then `~/` and `~/.claude/`, then the central directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then memory and connected knowledge, and only then offer to generate. Generated files are saved to the central directory. Full rules: `plugins/brand-capture/skills/brand-capture/references/brand-context.md`.
+
+## Analytics file
+
+The analytics skills keep one `ANALYTICS.md` per client site: tracking plan, stack inventory, consent setup, site dependency register, findings, rules, load policy, verification baseline, questions and changelog. Lookup: project root (also the legacy name `ANALYTICS_GUARDRAILS.md`), then `~/` and `~/.claude/`, then `$BRAND_AI_HOME/brands/<slug>/ANALYTICS.md`. Full rules: `plugins/analytics/skills/analytics-audit/references/analytics-file.md`. Scripts need Python 3 (standard library); the privacy matrix needs Node and Playwright; the cost benchmark needs Node and Chrome (Lighthouse via npx). GA4 checks can use Google's Analytics MCP server.

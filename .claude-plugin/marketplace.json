@@ -67,6 +67,12 @@
       "source": "./plugins/page-content-studio",
       "description": "Create and update Shopify page content and layout -- homepage, landing pages, general pages -- in one skill.",
       "version": "0.2.0"
+    },
+    {
+      "name": "analytics",
+      "source": "./plugins/analytics",
+      "description": "Analytics partner: tagging and full audits across privacy states, setup from issue list to verified fixes, quick and zero-based tag cleanup, and guardrails with drift watch.",
+      "version": "0.3.0"
     }
   ]
 }
