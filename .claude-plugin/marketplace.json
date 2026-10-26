@@ -65,8 +65,8 @@
     {
       "name": "page-content-studio",
       "source": "./plugins/page-content-studio",
-      "description": "Create and update Shopify page content and layout -- homepage, landing pages, general pages -- in one skill.",
-      "version": "0.5.0"
+      "description": "Audit pages against what each page type should do (page-audit, read-only), then change or build them on a draft theme (page-content-studio).",
+      "version": "0.6.0"
     },
     {
       "name": "analytics",

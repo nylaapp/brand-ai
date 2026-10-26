@@ -1,8 +1,9 @@
 # Page-type playbook
 
 What each kind of ecommerce page is for, what a good one contains, and the checks the skill
-uses to say where a page falls short. Load the section for the page's type (Step 1) and the
-"Every page" checks. Used in Step 1b (gap analysis) and Step 3b (planning a new page).
+uses to say where a page falls short. Load the section for the page's type (resolved in `intake.md`) and the
+"Every page" checks. Used by `page-audit` (gap analysis) and by `page-content-studio` when
+planning a new page (Step 3b).
 
 **Evidence grades.** Every check carries one. Never present a B or H check as research.
 
@@ -25,10 +26,10 @@ given where known. Quote them with their source and date, never as universal fac
 2. Observe the real rendered page at desktop and mobile; mark each check's status from what
    you saw, with the number, quote or position that supports it.
 3. A shortfall is a check marked Missing or Partial. Rank shortfalls by: closeness to the
-   page's primary action and the Step 1a goal, then evidence grade (A before B before H),
+   page's primary action and the goal from the intake questions, then evidence grade (A before B before H),
    then effort. List at most about five; park the rest as "also noticed".
 4. Label each row **finding** (observed, with an A-grade check or a measured number) or
-   **suggestion** (B/H-grade, or inferred). Hard limits from Step 1a override any fix.
+   **suggestion** (B/H-grade, or inferred). Hard limits from the intake questions override any fix.
 5. A page can pass every check and still underperform; the checklist finds common
    problems, it does not prove impact. Say so, and pair with analytics when available.
 
@@ -61,7 +62,7 @@ offers and send them to the right next step. Many visitors land elsewhere first,
 also orient someone arriving from search or social. (Baymard; NN/g)
 
 **Primary action.** Catalog store: start browsing (category, search, best sellers).
-Appointment business: book or enquire. Name it from the Step 1a goal.
+Appointment business: book or enquire. Name it from the intake goal.
 
 | ID | Check | Applies | Grade |
 |---|---|---|---|
@@ -229,7 +230,7 @@ checkout form is short; Baymard's ideal is about 12 to 14 form elements (A).
 
 ## Which checks matter most for each goal
 
-From the Step 1a goal, weigh these checks first when ranking shortfalls. Other shortfalls
+From the intake goal, weigh these checks first when ranking shortfalls. Other shortfalls
 are still reported, tagged off-goal, and listed last.
 
 | Goal | Check IDs to weigh first |
@@ -241,7 +242,7 @@ are still reported, tagged off-goal, and listed last.
 | Inform or answer questions | U1, U6, U7, FQ1 to FQ4, PL1 to PL2 |
 | Fix something broken or outdated | The checks that match the described problem, plus U7 and U11 |
 
-## Follow-up questions by page type (Step 1a, Round 2)
+## Follow-up questions by page type (intake round 2)
 
 Ask two or three, as multiple choice with "not sure". The answers decide which checks
 apply and which fixes are safe.
@@ -273,7 +274,7 @@ the Site Editor knows who acts; only theme rows can be picked for editing here.
 
 ## Typical fixes for common shortfalls
 
-Candidates only; confirm each against the observed page and the Step 1a limits.
+Candidates only; confirm each against the observed page and the limits from intake.
 
 | Shortfall | Typical fix | Usual effort |
 |---|---|---|
