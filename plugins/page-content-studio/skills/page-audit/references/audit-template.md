@@ -22,7 +22,8 @@ audited_by: page-audit <version>
 
 > What this file is: the evidence and ranked recommendations for the pages listed above.
 > It reports what was observed on <date>; it does not prove what will improve results.
-> Changes are made by page-content-studio, never by this audit.
+> Changes are made by page-update and page-build, checked by page-verify and pushed by
+> page-ship, never by this audit.
 
 ## 1. Brief
 **Homepage**

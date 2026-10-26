@@ -20,6 +20,8 @@ page in one entry).
   <none | list>; base-theme files edited: <none | list>
 - theme validation: <theme check result, before -> after>
 - render check: <templates/widths/color-schemes checked, what was confirmed, how>
+- change pack: <path>; verified by page-verify: <pass | pass with "Can't tell" items | not run>
+- pushed files: <list> -> theme <id, role>; pulled back and diffed: <identical | differences>
 - gates run: <list>
 - gates not run: <which, and why>
 
@@ -33,8 +35,10 @@ page in one entry).
 ### Deviations (new page with a reference only)
 - <property>: <difference>. Reason: <base-theme breakpoint | accessibility minimum | merchant content>
 
-final result: <pushed to draft | pushed live (approved by: <who, when>) | blocked (name
+final result: <pushed to draft | pushed live (approved by: <who, when, where given>) | reverted to baseline (see below) | blocked (name
 the tool and why)>
+
+For a revert, add: `- revert: <what was undone, why, baseline used (change pack, git commit or saved pull), proof (whole theme pulled back and compared), not restored: <...>`.
 ```
 
 Rules:

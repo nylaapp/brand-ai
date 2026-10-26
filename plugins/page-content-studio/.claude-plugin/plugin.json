@@ -1,7 +1,7 @@
 {
   "name": "page-content-studio",
-  "version": "0.6.0",
-  "description": "Audit, update and build Shopify pages for the Site Editor: page-audit (read-only gap analysis against what each page type should do, ranked, with owners) and page-content-studio (make a named change or build a page on a draft theme).",
+  "version": "0.7.0",
+  "description": "Page work for the Site Editor, split into focused skills: page-audit (read-only gap analysis), page-update, page-build, page-verify (read-only proof on the rendered page) and page-ship (the only one that pushes, with the go-live gate and revert), joined by a thin page-content-studio front door.",
   "author": {
     "name": "Nyla",
     "email": "michael@nyla.app"
@@ -15,7 +15,8 @@
     "content",
     "theme",
     "audit",
-    "cro"
+    "cro",
+    "verify"
   ],
   "dependencies": [
     "brand-capture"
