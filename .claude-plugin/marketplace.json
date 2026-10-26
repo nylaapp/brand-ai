@@ -73,6 +73,12 @@
       "source": "./plugins/analytics",
       "description": "Analytics partner: tagging and full audits across privacy states, setup from issue list to verified fixes, quick and zero-based tag cleanup, and guardrails with drift watch.",
       "version": "0.3.0"
+    },
+    {
+      "name": "store-conductor",
+      "source": "./plugins/store-conductor",
+      "description": "Master skill for a store: reads the brand files and every audit, builds one ranked plan from the client's goals, dispatches the specialist skills on a draft theme, verifies, and keeps STORE-PLAN.md.",
+      "version": "0.1.0"
     }
   ]
 }

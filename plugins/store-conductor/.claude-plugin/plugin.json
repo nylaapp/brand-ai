@@ -1,0 +1,9 @@
+{
+  "name": "store-conductor",
+  "version": "0.1.0",
+  "description": "Master skill for a Shopify store: reads the brand files and every audit, builds one ranked plan from the client's goals, dispatches the specialist skills in dependency order on a draft theme, verifies each batch, and keeps the plan in STORE-PLAN.md. It routes and records; it never edits a theme itself.",
+  "author": { "name": "Nyla", "email": "michael@nyla.app" },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": ["shopify", "orchestration", "roadmap", "audit", "theme", "store-plan"],
+  "dependencies": ["brand-capture", "page-content-studio"]
+}

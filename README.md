@@ -16,6 +16,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 /plugin install shopify-blog-autopilot@brand-ai
 /plugin install page-content-studio@brand-ai
 /plugin install analytics@brand-ai
+/plugin install store-conductor@brand-ai
 ```
 
 ## Plugins
@@ -32,6 +33,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 | shopify-blog-autopilot | Decide when and what to blog, then hand off to the writer | shopify-blog-writer, brand-capture |
 | page-content-studio | Two skills: `page-audit` (read-only gap analysis of a page against what its type should do, ranked with owners, saved to `PAGE-AUDIT.md`) and `page-content-studio` (make a named change or build a page on a draft theme) | brand-capture |
 | analytics | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
+| store-conductor | Master skill: reads the brand files and every audit, ranks the work from the client's goals, dispatches the specialist skills on a draft theme in dependency order, verifies, and keeps `STORE-PLAN.md`. Routes and records; never edits a theme itself | brand-capture, page-content-studio (others optional) |
 
 ## Layout
 
