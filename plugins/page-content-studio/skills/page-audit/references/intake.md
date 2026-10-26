@@ -2,8 +2,8 @@
 
 What to settle before auditing or changing a page. This file is the single source for brand
 and theme context, page and page-type resolution, and the guided goal questions. `page-audit`
-runs all three sections; `page-update`, `page-build` and `page-verify` point here for section 1
-and 2 and for the goal check in section 3.
+runs all three sections; `page-create`, `page-edit-content` and `page-edit-design` point here for
+section 1 and 2 and for the goal check in section 3.
 
 Keep it light: plain language, multiple choice where possible (use the interactive question
 tool when available, otherwise a numbered list answerable with a number), no more than four

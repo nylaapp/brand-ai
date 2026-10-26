@@ -3,7 +3,7 @@
 Restore a theme to its baseline and prove it. Use when the person asks to undo changes, a ship
 failed, or verification of a pushed change found a regression that can't be fixed quickly.
 
-A revert is a push, so everything in `page-ship` applies: scoped files only, no bare push, no live
+A revert is a push, so everything in `ship-to-draft.md` applies: scoped files only, no bare push, no live
 flag, and a revert of the **live** theme needs the same explicit yes as going live, recorded.
 
 ## 1. Find the baseline

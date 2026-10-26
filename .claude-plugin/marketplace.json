@@ -65,7 +65,7 @@
     {
       "name": "page-content-studio",
       "source": "./plugins/page-content-studio",
-      "description": "Page work in focused skills: audit (read-only), update, build, verify and ship (the only one that pushes, with the go-live gate), behind a thin front door.",
+      "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme.",
       "version": "0.7.0"
     },
     {

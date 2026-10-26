@@ -2,7 +2,7 @@
 
 What each kind of ecommerce page is for, what a good one contains, and the checks the skill
 uses to say where a page falls short. Load the section for the page's type (resolved in `intake.md`) and the
-"Every page" checks. Used by `page-audit` (gap analysis) and by `page-build` when
+"Every page" checks. Used by `page-audit` (gap analysis) and by `page-create` when
 planning a new page.
 
 **Evidence grades.** Every check carries one. Never present a B or H check as research.

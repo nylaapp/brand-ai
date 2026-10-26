@@ -8,7 +8,7 @@ page in one entry).
 ```
 ## <Page name> -- <what changed/was built, short> -- <YYYY-MM-DD>
 
-- kind: <new page | update: content | update: settings | update: section code | update: structure>
+- kind: <create: page | create: section | edit content | edit design>
 - requested: <what the Site Editor asked for, in their words>
 - goal (from the intake questions): <primary action, audience, change appetite, must-not-change limits>
 - observations: <viewport(s), date, theme id confirmed, what could not be observed and why>
@@ -20,7 +20,7 @@ page in one entry).
   <none | list>; base-theme files edited: <none | list>
 - theme validation: <theme check result, before -> after>
 - render check: <templates/widths/color-schemes checked, what was confirmed, how>
-- change pack: <path>; verified by page-verify: <pass | pass with "Can't tell" items | not run>
+- change pack: <path>; verified (verify step): <pass | pass with "Can't tell" items | not run>
 - pushed files: <list> -> theme <id, role>; pulled back and diffed: <identical | differences>
 - gates run: <list>
 - gates not run: <which, and why>

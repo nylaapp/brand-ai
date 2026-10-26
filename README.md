@@ -30,7 +30,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 | shopify-blog-writer | Research and write SEO/AEO blog posts, deliver as hidden drafts | brand-capture |
 | shopify-blog-rewrite | Rewrite an existing article in a store's brand voice | shopify-blog-writer |
 | shopify-blog-autopilot | Decide when and what to blog, then hand off to the writer | shopify-blog-writer, brand-capture |
-| page-content-studio | Page work in five focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-update`, `page-build`, `page-verify` (read-only proof on the rendered page) and `page-ship` (the only one that pushes; go-live gate and revert) | brand-capture |
+| page-content-studio | Page work in focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-create` (new pages and sections), `page-edit-content` (words, images, links) and `page-edit-design` (layout, order, style). Each verifies on the rendered page and pushes only to a draft theme | brand-capture |
 | analytics | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
 
 ## Layout

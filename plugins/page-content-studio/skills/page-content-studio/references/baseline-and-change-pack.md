@@ -1,11 +1,13 @@
 # Baseline and change pack
 
-The hand-off between `page-update` or `page-build` (which edit), `page-verify` (which checks)
-and `page-ship` (which pushes). `page-verify` owns this format; the others follow it.
+The record carried through one change. The editing skill (`page-create`, `page-edit-content` or
+`page-edit-design`) captures the baseline and starts it, the shared verify step (`verify.md`) adds
+the results, and the shared ship step (`ship-to-draft.md`) adds the ship record. This file owns
+the format.
 
 The **baseline** is what the page looked like before any edit, so "nothing else moved" can be
 proven. The **change pack** is one small file that carries the request, the baseline, the
-intended change, the files touched and the results from one skill to the next.
+intended change, the files touched and the results from one step to the next.
 
 ## Where it lives
 
@@ -28,7 +30,7 @@ slow scroll, overlays noted). Capture at desktop (1440x900) and mobile (375x812)
 | Heading outline and h1 count | Headings snippet | Catches a second h1 or a skipped level |
 | Link map for the links in scope (label, destination, position) | Link map snippet | Proves tracked links did not change |
 | Overlays seen at 1 s and about 15 s | Overlay snippet | Separates the change from consent or pop-up noise |
-| Files that will be edited, with a copy of each | Copy to the scratch folder as `baseline/` | Lets `page-ship` revert exactly |
+| Files that will be edited, with a copy of each | Copy to the scratch folder as `baseline/` | Lets the ship step revert exactly (`revert-mode.md`) |
 | For an update: the exact thing that will change | A screenshot or the text before | Proves the change happened |
 
 For a **new page**, the baseline is the list of existing templates and the same site-wide
@@ -45,7 +47,7 @@ rows: [<PAGE-AUDIT row IDs, or "none (named change)">]
 target_theme: <id, name, role>
 live_theme: <id, name>   # never touched without an explicit yes
 created: <YYYY-MM-DD>
-skill: page-update | page-build
+skill: page-create | page-edit-content | page-edit-design
 ---
 
 ## 1. Request
@@ -62,11 +64,11 @@ Baseline copies: <path to baseline/ folder>
 | File | Change | Lines +/- |
 |---|---|---|
 
-## 5. Verification (written by page-verify)
+## 5. Verification (written in the verify step)
 | Check | Result | Number or evidence | Viewport |
 |---|---|---|---|
 
-## 6. Ship record (written by page-ship)
+## 6. Ship record (written in the ship step)
 - Pushed: <date, files, theme id>. Pulled back and diffed: <identical | differences>.
 - Go-live: <not requested | approved by <who> on <date>, where given>.
 - QA log entry: <path or "in chat">.
@@ -74,9 +76,9 @@ Baseline copies: <path to baseline/ folder>
 
 ## 3. Who writes what
 
-- `page-update` and `page-build` write sections 1 to 4 and nothing else.
-- `page-verify` writes section 5 and nothing else. It never edits a theme file.
-- `page-ship` reads sections 1 to 5, writes section 6, and updates audit row status.
+- The editing skill writes sections 1 to 4 before and during the edit.
+- The verify step writes section 5 and never edits a theme file.
+- The ship step reads sections 1 to 5, writes section 6, and updates audit row status.
 - If sections 3 and 4 disagree with the files in the working copy, stop: the pack is stale.
   Re-capture or ask the person.
 - A pack is valid only for the theme and working copy named in its front matter. If the theme was
@@ -85,6 +87,6 @@ Baseline copies: <path to baseline/ folder>
 
 ## 4. What "verified" means
 
-A change is verified only when `page-verify` loaded the rendered page on the target theme at
+A change is verified only when the verify step loaded the rendered page on the target theme at
 desktop and mobile and every check in its section 5 table passed or is marked "Can't tell" with
 a reason that the person accepted. A source diff is never verification.
