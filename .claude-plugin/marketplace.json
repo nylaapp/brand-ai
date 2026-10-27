@@ -33,6 +33,12 @@
       "version": "0.2.0"
     },
     {
+      "name": "styles-builder",
+      "source": "./plugins/styles-builder",
+      "description": "Generate design.md (brand colors, type, spacing, radius, shadows, buttons, components) from a brand book or reference store, and apply it into the theme's settings.",
+      "version": "0.1.0"
+    },
+    {
       "name": "competitor-research",
       "source": "./plugins/competitor-research",
       "description": "Deep, dated research on a client's named competitors, written to COMPETITORS.md.",
