@@ -1,6 +1,6 @@
 ---
-name: "shopify-blog-rewrite"
-description: "Brand-agnostic. Rewrite at four depths (Match, Reword, Restructure, Reimagine) an existing, already-written blog article (a URL, a series of articles from a site in tracked batches, with the article images moved to the store's own CDN and the post built in the store's own article layout, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use shopify-blog-writer instead."
+name: "blog-rewriter"
+description: "Brand-agnostic. Rewrite at four depths (Match, Reword, Restructure, Reimagine) an existing, already-written blog article (a URL, a series of articles from a site in tracked batches, with the article images moved to the store's own CDN and the post built in the store's own article layout, Google Doc, .docx, .txt/.md or pasted text) in a Shopify store's own voice, fact-check it, and post it as a hidden draft with SEO fields and a preview link. If the Shopify connector or browser is unavailable or not signed in, falls back to paste-ready HTML plus a fields sheet and says why. Keeps the author's facts and structure; changes wording, tone, rhythm and terminology to match the store's BRAND.md and live blog, and fills placeholders like [Brand Name]. Use whenever the user has a pre-written article, template article, guest post, freelancer or agency draft, or old blog post and wants it 'in our voice', 'on brand', 'rewritten', 'tone matched', 'cleaned up and posted as a draft', or says 'rewrite this doc for the blog' or gives a link to an article to rewrite. For writing a post from a topic, use blog-generator instead."
 ---
 
 # Shopify Blog Rewrite
@@ -18,7 +18,7 @@ A good rewrite reads as if the brand's own writer wrote it from the start. A reg
 A rewrite is built for the store it is going **to**, so it follows that store's blog formatting convention whenever the store has one: its layout and formatting, not only its voice. The source article's own formatting (the reference site's heading style, image placement, layout, CSS classes, captions, CTA boxes, disclaimer, byline) is never carried over as it is. The same source rewritten for two stores gets two layouts.
 
 - **What counts as a convention:** how articles open (a lead image or not), image markup, size and hosting, heading levels and how many, use of lists, tables and callouts, the closing block (disclaimer or CTA), the byline and author, tags, publication and date rules, template, handle format, typical length, and which blog a topic belongs in.
-- **Where to find it, in this order:** (1) the destination project's own blog rules: a blog skill, `AGENTS.md`, a workflow document, or the theme's stylesheet rules for article content: these win; (2) the destination store's **published articles** (`references/layout-conformance.md`); (3) BRAND.md's Blog section; (4) only when none of these exists, the defaults in `shopify-blog-writer` (`output-templates.md`).
+- **Where to find it, in this order:** (1) the destination project's own blog rules: a blog skill, `AGENTS.md`, a workflow document, or the theme's stylesheet rules for article content: these win; (2) the destination store's **published articles** (`references/layout-conformance.md`); (3) BRAND.md's Blog section; (4) only when none of these exists, the defaults in `blog-generator` (`output-templates.md`).
 - **Write it down:** list what you found, and where each item came from, in `conventions.md` in the run folder, and check the draft against it before delivery. Report every deviation, with its reason, in the change report. A series keeps one conventions sheet per destination blog.
 - **When the source has something the store has no rule for** (a gallery, a table, an embedded video, a pull quote): if the project defines a rule for it, follow it, and if the project requires a developer-mapped layout, stop and ask instead of flattening it. Otherwise keep the content in plain, semantic HTML in the store's style and say so in the report.
 - **When no convention exists at all** (a new blog, fewer than two published articles, no project rules): say so in the first line of the report, use the writer defaults, and ask the person to confirm the layout on the first draft before more are made.
@@ -28,11 +28,11 @@ A rewrite is built for the store it is going **to**, so it follows that store's 
 1. Intake + store → 2. Load brand voice → 2b. Resolve placeholders and brand names → 3. Rewrite (three passes) → 4. Quality gate + change report → 5. Fact-check → 6. SEO fields + QA → 7. Hidden Shopify draft (or HTML fallback)
 ```
 
-This skill reuses `shopify-blog-writer` for brand loading, house style, QA and delivery, so the Shopify logic exists in one place. Read these from that skill's folder only when you reach the step:
+This skill reuses `blog-generator` for brand loading, house style, QA and delivery, so the Shopify logic exists in one place. Read these from that skill's folder only when you reach the step:
 
 | Step | Read |
 |---|---|
-| 1 and 2 | `shopify-blog-writer` SKILL.md **Step 0b** (identify the store, find and read its BRAND.md) and `references/house-style.md` §2 (scan the live blog) |
+| 1 and 2 | `blog-generator` SKILL.md **Step 0b** (identify the store, find and read its BRAND.md) and `references/house-style.md` §2 (scan the live blog) |
 | 3 | `references/writing-quality.md` (specifics, point of view, voice) |
 | 3 | `references/rewrite-tiers.md`, `scripts/overlap_check.py` (tier definitions and the overlap check) |
 | Series | `scripts/discover_posts.py`, `scripts/transfer_tracker.py` (find the articles; the CSV tracker and settings) |
@@ -41,7 +41,7 @@ This skill reuses `shopify-blog-writer` for brand loading, house style, QA and d
 | 6 | `references/seo-standards.md`, `references/output-templates.md` (fields JSON, HTML conventions), `scripts/check_post.py` |
 | 7 | `references/publishing.md` (connector 1A / browser 1B, preview link, HTML option 2) |
 
-If `shopify-blog-writer` isn't installed, say so and fall back to HTML delivery (body HTML plus a fields sheet).
+If `blog-generator` isn't installed, say so and fall back to HTML delivery (body HTML plus a fields sheet).
 
 ## Step 1: Intake and store
 
@@ -136,7 +136,7 @@ If the project's own rules say where reports and spreadsheets go, follow them.
 1. **Ownership gate first, once for the whole site** (Source from a URL, item 1), in plain words: "Is this site yours,
    your client's or part of your group, or do you have written permission to reuse its articles?" A competitor's or
    any unrelated company's site stops here: say that copying and rewriting a whole blog (and its images) is taking
-   someone else's work, and offer original posts on the same topics with `shopify-blog-writer`. Unattended, return
+   someone else's work, and offer original posts on the same topics with `blog-generator`. Unattended, return
    `delivery: stopped`. Record the answer in the config (`--ownership`).
 2. **Resume or start.** If the folder already has a `transfer-tracker.csv`, run
    `python3 scripts/transfer_tracker.py summary --dir <folder>` and ask: continue where it stopped (`resume`, then go to
@@ -195,7 +195,7 @@ local-files-only mode), `needs_attention`, `skipped` (always with a reason).
 
 Voice comes from three places, in this order of authority:
 
-1. **The store's brand-capture files**, found and confirmed exactly as `shopify-blog-writer` Step 0b and brand-capture `references/brand-context.md` describe (project root, user local environment, central brand directory, then central knowledge, memory and instructions, before any prompt): `BRAND.md` plus its voice guide `BRAND-VOICE.md` (named by `voice_doc` in BRAND.md's front matter; if there is no `voice_doc`, BRAND.md's own Voice section is the voice). Read the whole of `BRAND-VOICE.md` (how it sounds, signature phrases, do and don't pairs, words to avoid). From BRAND.md read Quick reference, Identity (one-liner, what sets us apart), Brand architecture (which name to use where), Terminology, Audience, Catalog, Claim limits, Blog (typical post, byline, CTA style, disclaimer), Story and Author, and front matter `brand`, `language` and `brand_approver`. Open `BRAND-QUESTIONS.md` only to look up a `[[CLIENT TO CONFIRM: Q-..]]` id you hit. If no BRAND.md is found in any of those locations, stop and offer `brand-capture`, saving to the central brand directory; without it "matching the tone" is a guess. Unattended, return `delivery: stopped` with the reason.
+1. **The store's brand-capture files**, found and confirmed exactly as `blog-generator` Step 0b and brand-capture `references/brand-context.md` describe (project root, user local environment, central brand directory, then central knowledge, memory and instructions, before any prompt): `BRAND.md` plus its voice guide `BRAND-VOICE.md` (named by `voice_doc` in BRAND.md's front matter; if there is no `voice_doc`, BRAND.md's own Voice section is the voice). Read the whole of `BRAND-VOICE.md` (how it sounds, signature phrases, do and don't pairs, words to avoid). From BRAND.md read Quick reference, Identity (one-liner, what sets us apart), Brand architecture (which name to use where), Terminology, Audience, Catalog, Claim limits, Blog (typical post, byline, CTA style, disclaimer), Story and Author, and front matter `brand`, `language` and `brand_approver`. Open `BRAND-QUESTIONS.md` only to look up a `[[CLIENT TO CONFIRM: Q-..]]` id you hit. If no BRAND.md is found in any of those locations, stop and offer `brand-capture`, saving to the central brand directory; without it "matching the tone" is a guess. Unattended, return `delivery: stopped` with the reason.
 2. **The live blog**: read 3 to 5 recent posts in the target blog (`/blogs/<handle>.atom`, the connector, or the admin if the feed is empty). Prefer the newest posts: they show the voice the brand writes in now, which may differ from older SEO-era posts. Note sentence length, openings, how the brand introduces itself, how the reader is addressed, use of questions, heading style, how technical terms are handled, list use, CTA wording and sign-off. BRAND-VOICE.md describes the voice; the posts show it in practice. Where they disagree, a `(client)`-marked rule in BRAND-VOICE.md or BRAND.md wins. Log the disagreement as one line in `BRAND-REQUESTS.md` next to the resolved BRAND.md instead of editing BRAND.md. **The same posts also give the layout:** save the store's newest published articles as `layout-samples.json` and learn how its articles are built (what opens the body, the image markup and host, the closing block, allowed tags and classes), as `references/layout-conformance.md` describes. The rewrite must follow that layout as well as the voice.
 
 Fewer than 3 published posts: use `BRAND-VOICE.md` and BRAND.md alone and say so.
@@ -233,7 +233,7 @@ Record every replacement in the change report (`[Brand Name]` → `<name>` ×N, 
 
 ## Step 3: Rewrite (three passes)
 
-Read `shopify-blog-writer/references/writing-quality.md` and `references/rewrite-tiers.md` first. The chosen tier sets how
+Read `blog-generator/references/writing-quality.md` and `references/rewrite-tiers.md` first. The chosen tier sets how
 far the source's wording and structure change: Match and Reword follow the passes below; **Restructure** builds a new
 outline between Pass 1 and Pass 2; **Reimagine** replaces Pass 2 with the fact sheet method in the tiers file. The
 rules about facts and claims below hold at every tier. Then do three passes, not one. A single pass tends to keep the template's sentences and only change words.
@@ -269,7 +269,7 @@ The principles behind the passes, and why:
 - **Keep links, tables, lists and image references** working. Don't invent URLs; mark any you couldn't verify in the report.
 - **The post title is the H1**, so the body starts at `<h2>`. Headings follow the brand's heading style (sentence case or title case, questions or statements) from its newest posts.
 - **Light SEO tune-up only:** add an answer-first paragraph (40 to 60 words), question-style headings, FAQs drawn from content already in the article, and internal links to verified store URLs. If an FAQ answer would need a new fact, leave it out.
-- **Author is whatever the store's existing posts use**, unless the user states another. Read the author of the latest 5 to 10 published posts in the target blog and copy the most common name exactly; fall back to BRAND.md's byline only if the blog has no posts. Never the signed-in user, staff member or operator, and not the source article's writer. Procedure and checks: `shopify-blog-writer/references/publishing.md`, "Author: never the signed-in user".
+- **Author is whatever the store's existing posts use**, unless the user states another. Read the author of the latest 5 to 10 published posts in the target blog and copy the most common name exactly; fall back to BRAND.md's byline only if the blog has no posts. Never the signed-in user, staff member or operator, and not the source article's writer. Procedure and checks: `blog-generator/references/publishing.md`, "Author: never the signed-in user".
 
 ## Step 4: Quality gate and change report
 
@@ -312,11 +312,11 @@ Rewording can quietly change meaning, especially on health, safety and "best" or
 
 ## Step 6: SEO fields and QA
 
-Using `shopify-blog-writer`'s `output-templates.md`, fill title, SEO title (50 to 60 characters), meta description (140 to 155), handle, excerpt, tags (reuse the store's existing naming), author, blog, and alt text for images the source includes. Resolve placeholders in these fields too (Step 2b), and lightly match the excerpt and meta description to the brand's voice without changing their meaning. Run `python <shopify-blog-writer>/scripts/check_post.py <post>.html --fields <post>-fields.json`, fix FAILs, and confirm the body has no `[[…]]` or other placeholder text. **SEO must survive the rewrite.** Unless the user chose the SEO tune-up, keep the source's primary keyword, headings, and title and meta fields; if a heading or keyword placement had to change, list it in the report. Check the primary keyword is still in the title, first 100 words and a heading. Run `python3 scripts/layout_check.py --samples <run folder>/layout-samples.json --draft <post>.html --image-set <yes|no>` and fix every FAIL (`references/layout-conformance.md`). Record `source_file`, `rewrite_depth`, `house_style` and `placeholders_resolved` in the fields JSON. When images were transferred, also record `image` (CDN url and alt text, the blog image), `image_pattern` (how the store lays out images) and `media_manifest` (the path of `media.json`). If the source has no images, list a shot list as missing input instead of searching for stock, unless the user asks. Checker FAILs that can only be fixed by adding new facts or unverified URLs (related links, citations, tags you can't match to the store, "last updated") are not forced: list them in the report as missing input.
+Using `blog-generator`'s `output-templates.md`, fill title, SEO title (50 to 60 characters), meta description (140 to 155), handle, excerpt, tags (reuse the store's existing naming), author, blog, and alt text for images the source includes. Resolve placeholders in these fields too (Step 2b), and lightly match the excerpt and meta description to the brand's voice without changing their meaning. Run `python <blog-generator>/scripts/check_post.py <post>.html --fields <post>-fields.json`, fix FAILs, and confirm the body has no `[[…]]` or other placeholder text. **SEO must survive the rewrite.** Unless the user chose the SEO tune-up, keep the source's primary keyword, headings, and title and meta fields; if a heading or keyword placement had to change, list it in the report. Check the primary keyword is still in the title, first 100 words and a heading. Run `python3 scripts/layout_check.py --samples <run folder>/layout-samples.json --draft <post>.html --image-set <yes|no>` and fix every FAIL (`references/layout-conformance.md`). Record `source_file`, `rewrite_depth`, `house_style` and `placeholders_resolved` in the fields JSON. When images were transferred, also record `image` (CDN url and alt text, the blog image), `image_pattern` (how the store lays out images) and `media_manifest` (the path of `media.json`). If the source has no images, list a shot list as missing input instead of searching for stock, unless the user asks. Checker FAILs that can only be fixed by adding new facts or unverified URLs (related links, citations, tags you can't match to the store, "last updated") are not forced: list them in the report as missing input.
 
 ## Step 7: Deliver a hidden draft (or the HTML fallback)
 
-Follow `shopify-blog-writer/references/publishing.md`: connector (1A) if available, else a signed-in browser (1B), else HTML (option 2). Rules that matter:
+Follow `blog-generator/references/publishing.md`: connector (1A) if available, else a signed-in browser (1B), else HTML (option 2). Rules that matter:
 
 - **Hidden always.** `isPublished: false`. Never publish.
 - **Images go first.** Upload the media (Source images) before the article is created, so the body can carry the CDN URLs and

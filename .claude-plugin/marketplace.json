@@ -9,22 +9,22 @@
   },
   "plugins": [
     {
-      "name": "shopify-blog-writer",
-      "source": "./plugins/shopify-blog-writer",
+      "name": "blog-generator",
+      "source": "./plugins/blog-generator",
       "description": "Research and write SEO/AEO-optimized Shopify blog posts.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
-      "name": "shopify-blog-rewrite",
-      "source": "./plugins/shopify-blog-rewrite",
+      "name": "blog-rewriter",
+      "source": "./plugins/blog-rewriter",
       "description": "Rewrite existing articles in a store's brand voice and post as hidden drafts.",
-      "version": "0.7.1"
+      "version": "0.8.0"
     },
     {
       "name": "shopify-blog-autopilot",
       "source": "./plugins/shopify-blog-autopilot",
       "description": "Decide when and what to blog from store, SEO and seasonal signals.",
-      "version": "0.1.0"
+      "version": "0.1.1"
     },
     {
       "name": "brand-capture",
@@ -48,7 +48,7 @@
       "name": "content-fact-check",
       "source": "./plugins/content-fact-check",
       "description": "Fact-check blog and marketing copy with guardrails for regulated claims.",
-      "version": "0.1.0"
+      "version": "0.1.1"
     },
     {
       "name": "accessibility-audit",
@@ -60,7 +60,7 @@
       "name": "content-seo-audit",
       "source": "./plugins/content-seo-audit",
       "description": "Audit live Shopify blog posts (schema, PageSpeed, on-page checks) and track Search Console rankings at 2 and 4 weeks.",
-      "version": "0.1.0"
+      "version": "0.1.1"
     },
     {
       "name": "cro-review-mining",
@@ -72,7 +72,7 @@
       "name": "page-content-studio",
       "source": "./plugins/page-content-studio",
       "description": "Audit pages against what each page type should do (page-audit, read-only), then change or build them on a draft theme (page-content-studio).",
-      "version": "0.6.0"
+      "version": "0.6.1"
     },
     {
       "name": "analytics",

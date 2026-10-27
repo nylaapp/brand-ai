@@ -4,12 +4,12 @@ Four skills that work together to plan, write, check and follow up on blog posts
 
 | Skill | What it does | Use it when |
 |---|---|---|
-| **shopify-blog-writer** | Researches, writes and delivers one SEO-ready blog post | You want a post written now |
+| **blog-generator** | Researches, writes and delivers one SEO-ready blog post | You want a post written now |
 | **content-fact-check** | Checks a post's claims (FDA and other regulatory wording, medical, ingredient, pregnancy, statistics) against official sources and suggests safer wording | Before publishing anything with health, beauty, treatment or product claims |
 | **shopify-blog-autopilot** | Looks at your store, search data, reviews and the calendar, then **asks you each week** whether to write the best idea | You want a regular posting rhythm without it posting on its own |
 | **shopify-post-publish-audit** | Checks a live post (schema, speed, indexing), then tracks Google rankings at 2 and 4 weeks | A post has just gone live |
 
-New here? Start with **shopify-blog-writer**. Add the others later.
+New here? Start with **blog-generator**. Add the others later.
 
 ---
 
@@ -27,7 +27,7 @@ New here? Start with **shopify-blog-writer**. Add the others later.
 
 Type something like:
 
-> Use shopify-blog-writer. Write a blog post for **[your store URL]** about **[topic]**.
+> Use blog-generator. Write a blog post for **[your store URL]** about **[topic]**.
 
 Claude asks a few quick questions first, once, before it starts:
 

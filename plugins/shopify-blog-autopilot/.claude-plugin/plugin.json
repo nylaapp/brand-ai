@@ -1,6 +1,6 @@
 {
   "name": "shopify-blog-autopilot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Decide when a Shopify store should publish or refresh a blog post, score opportunities, and hand briefs to the writer.",
   "author": {
     "name": "Nyla",
@@ -16,6 +16,6 @@
   ],
   "dependencies": [
     "brand-capture",
-    "shopify-blog-writer"
+    "blog-generator"
   ]
 }

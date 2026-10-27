@@ -1,6 +1,6 @@
 {
-  "name": "shopify-blog-rewrite",
-  "version": "0.7.1",
+  "name": "blog-rewriter",
+  "version": "0.8.0",
   "description": "Rewrite an existing article in a Shopify store's own brand voice, fact-check it, and post it as a hidden draft.",
   "author": {
     "name": "Nyla",
@@ -14,6 +14,6 @@
     "brand-voice"
   ],
   "dependencies": [
-    "shopify-blog-writer"
+    "blog-generator"
   ]
 }
