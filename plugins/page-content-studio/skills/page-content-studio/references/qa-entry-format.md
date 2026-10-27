@@ -10,10 +10,10 @@ page in one entry).
 
 - kind: <new page | update: content | update: settings | update: section code | update: structure>
 - requested: <what the Site Editor asked for, in their words>
-- goal (Step 1a): <primary action, audience, change appetite, must-not-change limits>
+- goal (from the intake questions): <primary action, audience, change appetite, must-not-change limits>
 - observations: <viewport(s), date, theme id confirmed, what could not be observed and why>
-- page type and playbook result (if Step 1b ran): <type>; <n> Pass / <n> Partial / <n> Missing / <n> Can't tell; shortfalls acted on: <check IDs>
-- baseline (if Step 1b ran): <metric = value (source, date, device)>; target to re-check: <metric, when>
+- page type and playbook result (if a page-audit ran): <type>; <n> Pass / <n> Partial / <n> Missing / <n> Can't tell; shortfalls acted on: <check IDs>
+- baseline (if a page-audit ran): <metric = value (source, date, device)>; target to re-check: <metric, when>
 - target: <page handle/URL> -> <template file> -> <section(s)/setting(s)>
 - source: <reference URL, or "new design (no reference)", or "n/a (update only)">
 - implementation: <file(s) touched>; sections used/added: <list>; new settings added:
