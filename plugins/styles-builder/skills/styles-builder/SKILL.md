@@ -7,9 +7,9 @@ description: Guide for creating or deepening design.md (the brand visual guide) 
 
 `page-content-studio` and `page-audit` take visual values from `design.md`, the brand's visual guide.
 When it is missing they fall back to the store repo's own visual spec or the theme's settings, and they
-never invent a value. This skill is for when that fallback isn't enough: it builds `design.md` from a
-brand book or a reference store, or deepens one that already exists, by extracting real design tokens
-from a source. Then it **applies the tokens into the theme's settings**, so every later page build
+never invent a value. This skill is for when that fallback isn't enough: on top of brand-capture's
+first pass, it builds `design.md` out from a brand book or a reference store by extracting real design
+tokens from a source. Then it **applies the tokens into the theme's settings**, so every later page build
 starts from the same values instead of re-deriving them section by section. Applying them to the theme
 is the part no other skill in this marketplace does.
 
@@ -18,9 +18,10 @@ It holds no brand facts of its own and is reusable across any Shopify theme repo
 ## What this skill is NOT
 
 - **Not `brand-capture`.** Brand identity — voice, story, claims, competitors, proper names — lives in
-  `BRAND.md` and `BRAND-VOICE.md` and is that skill's job. If `BRAND.md` doesn't exist yet, run
-  brand-capture first (or alongside this one) and don't duplicate its content here. This skill only owns
-  **visual** tokens: color, type, spacing, radius, shadow, buttons, components.
+  `BRAND.md` and `BRAND-VOICE.md` and is that skill's job, and this skill needs its files: if `BRAND.md`
+  doesn't exist yet, brand-capture runs first (Step 0), never alongside or after, and its content isn't
+  duplicated here. This skill only owns **visual** tokens: color, type, spacing, radius, shadow, buttons,
+  components.
 - **Not a ClickUp workflow.** This is theme-repo and live-store work only.
 - **Not ongoing page editing.** Once `design.md` exists, `page-content-studio` and `page-audit`
   read it for every subsequent build — this skill is run once per client (or once per rebrand), and again
@@ -28,23 +29,24 @@ It holds no brand facts of its own and is reusable across any Shopify theme repo
 
 ## How this fits with brand-capture
 
-Both skills can produce `design.md`, so know which one you are:
+brand-capture always runs first (Step 0): this skill doesn't start without `BRAND.md` and a first-pass
+`design.md`. Both skills write to `design.md`, so know which one does what:
 
 - **`brand-capture`** writes a first-pass `design.md` as part of brand setup: values measured on the live
   site (at 1440 and 390 wide), from the scan and from the theme's settings, labelled `(from site)` or
   `(inferred)`. It never overwrites a `design.md` that already exists; it adopts it and points
   `BRAND.md`'s `design_doc` key at it.
 - **This skill** goes further where that first pass can't: a brand book or style guide as the source, a
-  reference store, a rebrand or a brand with no live site yet, the full token set in Step 0.5 (named
+  reference store, a rebrand, the full token set in Step 0.5 (named
   color schemes, every button state, parity tolerances), and, only here, applying the tokens into the
   theme's `settings_schema.json` and `settings_data.json`.
 - **If a `design.md` already exists** (brand-capture's, the client's, or an earlier run of this skill), it
   is the starting point, not something to replace. Read it, show the user what would change, wait for a
   yes, and edit only the sections the new source affects (Step 0).
 - **Same file either way.** Use the same flat front matter and origin labels brand-capture uses (Step 3)
-  so the file reads the same whichever skill wrote it. Leave `BRAND.md` to brand-capture: if it exists
-  and its `design_doc` key doesn't point at the file yet, say so in the summary and have brand-capture
-  adopt the file instead of editing `BRAND.md` here.
+  so the file reads the same whichever skill wrote it. Leave `BRAND.md` to brand-capture: if its
+  `design_doc` key doesn't point at the file yet, say so in the summary and have brand-capture adopt the
+  file instead of editing `BRAND.md` here.
 
 ## Why this runs before any page gets built
 
@@ -59,7 +61,7 @@ than designed. This skill is the step that gives every later build the same valu
 1. **A brand book / style guide file** (PDF, Figma export, brand guidelines doc) — most reliable, use
    this first if available. Read it directly (pdf/figma/image tools as appropriate).
 2. **A reference live store URL** — an existing site (the client's current site, or a competitor/inspiration
-   named in `BRAND.md` if that file already exists) to extract computed values from.
+   named in `BRAND.md`) to extract computed values from.
 3. **Direct answers in chat** — only for values not covered by 1 or 2, e.g. the user states a specific hex
    code or confirms a font license.
 
@@ -68,13 +70,16 @@ spacing/button states in practice. When sources conflict, ask the user which win
 
 ## Step 0: Before starting
 
-1. Check whether `design.md` already exists, in the theme repo or in the brand's own folder where
-   brand-capture keeps `BRAND.md` (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`).
-   If it does, this is an update, not a fresh capture — read it first, show the user what would change,
-   wait for a yes, and only touch the sections the new source affects. Update it where it lives; with none
-   yet, write it at the theme repo root.
-2. Check whether `BRAND.md` exists. If not, mention that brand-capture can produce it, but don't
-   block on it — visual tokens can be captured independently.
+1. **brand-capture's files are required. Never skip this.** Check that `BRAND.md` and `design.md` both
+   exist, in the theme repo or in the brand's own folder where brand-capture keeps them
+   (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`). If either is missing, do not
+   start extracting and do not write a `design.md` of your own in its place: tell the user brand-capture
+   has to run first, run it (a full run writes both files; if `BRAND.md` exists and only `design.md` is
+   missing, it adds that one), and carry on only once both exist. If brand-capture isn't available in this
+   session, stop and say so.
+2. A `design.md` now exists, so this is an update, not a fresh capture — read it first, show the user what
+   would change, wait for a yes, and only touch the sections the new source affects. Update it where it
+   lives.
 3. Confirm which theme repo / branch this is for, and whether the user also wants tokens applied live into
    `config/settings_schema.json` and `config/settings_data.json`, or only written to `design.md` as reference.
    Default to **both** unless the user says otherwise, since a `design.md` with no theme applied just
@@ -299,7 +304,8 @@ kind of token, and treating them all the same way is the most common way this st
 ## Never
 
 Do not invent a color, font, spacing, radius, or shadow value with no source — mark it `unconfirmed`
-instead. Do not duplicate brand identity content that belongs in `BRAND.md`. Do not create a new theme
+instead. Do not start, or write a `design.md` of your own, when `BRAND.md` or brand-capture's `design.md` is
+missing: run brand-capture first. Do not duplicate brand identity content that belongs in `BRAND.md`. Do not create a new theme
 setting id where an existing one already covers the token. Do not remap a color scheme without checking
 its role combinations for contrast. Do not push to the live theme without explicit, chat-confirmed
 approval. Do not claim a visual check passed without having loaded the actual rendered theme.
