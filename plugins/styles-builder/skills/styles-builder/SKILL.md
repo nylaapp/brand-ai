@@ -1,31 +1,50 @@
 ---
 name: "styles-builder"
-description: Guide for creating design.md (the brand visual guide) in a Shopify theme repo from a brand book or a reference store, and applying its tokens into the theme's settings_schema.json and settings_data.json. Brand agnostic. Covers the full token set a theme needs before pages get built on it: typography, color schemes, spacing, corner radius, shadows, buttons and component states. Use whenever the user says "generate design tokens", "create design.md", "set up the brand's colors and fonts in the theme", "match the reference store's look", "build a style guide from this brand book", "what do we need before building pages", or whenever page-content-studio reports design.md is missing.
+description: Guide for creating or deepening design.md (the brand visual guide) in a Shopify theme repo from a brand book or a reference store, and applying its tokens into the theme's settings_schema.json and settings_data.json. Brand agnostic. Covers the full token set a theme needs before pages get built on it: typography, color schemes, spacing, corner radius, shadows, buttons and component states. Use whenever the user says "generate design tokens", "create design.md", "set up the brand's colors and fonts in the theme", "match the reference store's look", "build a style guide from this brand book", "what do we need before building pages", or when page-content-studio or page-audit had to fall back to theme settings because design.md is missing or too thin.
 ---
 
 # Styles Builder (brand agnostic)
 
-This skill fills the gap `page-content-studio` point at and neither
-fills: **`design.md`, the brand's visual guide, has no generator.** Those skills stop and ask the user
-for it, or refuse to invent brand values. This skill is how `design.md` gets made in the first place —
-by extracting real design tokens from a source, then applying them into the theme so every later page
-build starts from the same values instead of guessing them section by section.
+`page-content-studio` and `page-audit` take visual values from `design.md`, the brand's visual guide.
+When it is missing they fall back to the store repo's own visual spec or the theme's settings, and they
+never invent a value. This skill is for when that fallback isn't enough: it builds `design.md` from a
+brand book or a reference store, or deepens one that already exists, by extracting real design tokens
+from a source. Then it **applies the tokens into the theme's settings**, so every later page build
+starts from the same values instead of re-deriving them section by section. Applying them to the theme
+is the part no other skill in this marketplace does.
 
 It holds no brand facts of its own and is reusable across any Shopify theme repo and any client.
 
 ## What this skill is NOT
 
 - **Not `brand-capture`.** Brand identity — voice, story, claims, competitors, proper names — lives in
-  `brand.md`/`BRAND-VOICE.md` and is that skill's job. `brand-capture` deliberately keeps its own "Visual
-  identity" section shallow — a palette/typography/imagery/logo summary, with "Full specification:
-  design.md (it wins on any visual value)" once this skill has run — because going deeper there would
-  duplicate what this skill owns. If `brand.md` doesn't exist yet, run brand-capture first (or alongside
-  this one) and don't duplicate its content here. This skill only owns **visual** tokens: color,
-  type, spacing, radius, shadow, buttons, components.
+  `BRAND.md` and `BRAND-VOICE.md` and is that skill's job. If `BRAND.md` doesn't exist yet, run
+  brand-capture first (or alongside this one) and don't duplicate its content here. This skill only owns
+  **visual** tokens: color, type, spacing, radius, shadow, buttons, components.
 - **Not a ClickUp workflow.** This is theme-repo and live-store work only.
-- **Not ongoing page editing.** Once `design.md` exists, `page-content-studio`
+- **Not ongoing page editing.** Once `design.md` exists, `page-content-studio` and `page-audit`
   read it for every subsequent build — this skill is run once per client (or once per rebrand), and again
   only when the source material changes.
+
+## How this fits with brand-capture
+
+Both skills can produce `design.md`, so know which one you are:
+
+- **`brand-capture`** writes a first-pass `design.md` as part of brand setup: values measured on the live
+  site (at 1440 and 390 wide), from the scan and from the theme's settings, labelled `(from site)` or
+  `(inferred)`. It never overwrites a `design.md` that already exists; it adopts it and points
+  `BRAND.md`'s `design_doc` key at it.
+- **This skill** goes further where that first pass can't: a brand book or style guide as the source, a
+  reference store, a rebrand or a brand with no live site yet, the full token set in Step 0.5 (named
+  color schemes, every button state, parity tolerances), and, only here, applying the tokens into the
+  theme's `settings_schema.json` and `settings_data.json`.
+- **If a `design.md` already exists** (brand-capture's, the client's, or an earlier run of this skill), it
+  is the starting point, not something to replace. Read it, show the user what would change, wait for a
+  yes, and edit only the sections the new source affects (Step 0).
+- **Same file either way.** Use the same flat front matter and origin labels brand-capture uses (Step 3)
+  so the file reads the same whichever skill wrote it. Leave `BRAND.md` to brand-capture: if it exists
+  and its `design_doc` key doesn't point at the file yet, say so in the summary and have brand-capture
+  adopt the file instead of editing `BRAND.md` here.
 
 ## Why this runs before any page gets built
 
@@ -33,14 +52,14 @@ A theme has no visual identity of its own until something sets one. Build a page
 every section invents its own padding, its own button radius, its own shade of the brand color — small
 differences that don't show up section by section but add up to a site that looks hand-assembled rather
 than designed. This skill is the step that gives every later build the same values to pull from, so
-`page-content-studio` and `page-content-studio` are filling in content and layout, never guessing brand values.
+`page-content-studio` is filling in content and layout, never guessing brand values.
 
 ## Inputs (ask which the user has, in this order of preference)
 
 1. **A brand book / style guide file** (PDF, Figma export, brand guidelines doc) — most reliable, use
    this first if available. Read it directly (pdf/figma/image tools as appropriate).
 2. **A reference live store URL** — an existing site (the client's current site, or a competitor/inspiration
-   named in `brand.md` if that file already exists) to extract computed values from.
+   named in `BRAND.md` if that file already exists) to extract computed values from.
 3. **Direct answers in chat** — only for values not covered by 1 or 2, e.g. the user states a specific hex
    code or confirms a font license.
 
@@ -49,9 +68,12 @@ spacing/button states in practice. When sources conflict, ask the user which win
 
 ## Step 0: Before starting
 
-1. Check whether `design.md` already exists in the repo. If it does, this is an update, not a fresh capture
-   — read it first, show the user what would change, and only touch the sections the new source affects.
-2. Check whether `brand.md`/`BRAND.md` exists. If not, mention that brand-capture can produce it, but don't
+1. Check whether `design.md` already exists, in the theme repo or in the brand's own folder where
+   brand-capture keeps `BRAND.md` (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`).
+   If it does, this is an update, not a fresh capture — read it first, show the user what would change,
+   wait for a yes, and only touch the sections the new source affects. Update it where it lives; with none
+   yet, write it at the theme repo root.
+2. Check whether `BRAND.md` exists. If not, mention that brand-capture can produce it, but don't
    block on it — visual tokens can be captured independently.
 3. Confirm which theme repo / branch this is for, and whether the user also wants tokens applied live into
    `config/settings_schema.json` and `config/settings_data.json`, or only written to `design.md` as reference.
@@ -112,8 +134,8 @@ Read every page. Pull out, verbatim where stated:
 
 ### From a reference live store
 Do not eyeball rendered colors or guess font names from how text looks — measure them:
-- Capture desktop and mobile widths; scroll slowly so lazy content loads (same capture discipline as
-  `page-content-studio` Step 2).
+- Capture desktop and mobile widths (brand-capture measures at 1440 and 390); scroll slowly so lazy
+  content loads (same capture discipline as the reference capture in `page-content-studio` Step 3b).
 - Read **computed values** with `getComputedStyle` (or equivalent) for: background/text/border/link colors
   per distinct visual section (to infer named color schemes), font-family/size/weight/line-height/
   letter-spacing per heading level and body text, container max-width and section padding/gaps, button
@@ -136,15 +158,18 @@ file or reference store is available.
   sometimes drift from guidelines.
 - Never invent a value with no source. If something is missing from every source (e.g. no stated font
   license, no documented shadow), leave it explicitly marked `unconfirmed` in `design.md` rather than
-  filling in a plausible guess — `page-content-studio`'s font-transfer step depends on this being honest, and a
-  theme applying an `unconfirmed` value silently is how a guess becomes load-bearing.
+  filling in a plausible guess — `page-content-studio` checks a new font's licence with the Site Editor
+  before using it, and that check is only as honest as this file; a theme applying an `unconfirmed` value
+  silently is how a guess becomes load-bearing.
 - Flag anything inferred (a proposed scheme mapping, a measured-not-stated type scale) clearly as
-  `(inferred)`, matching brand-capture's convention for the same situation.
+  `(inferred)`, and anything measured on a live store as `(from site)`, matching brand-capture's origin
+  labels for the same situations.
 
 ## Step 3: Write design.md
 
-Follow the shape `page-content-studio` expects for a visual spec it can read (see its
-SKILL.md "Visual spec" section, which points `BRAND.md`'s `design_doc` key at this file), covering:
+`page-content-studio` and `page-audit` find this file through `BRAND.md`'s `design_doc` key and treat it
+as the source for every visual value, so write it the way brand-capture's `design.md` is written
+(lowercase name, same front matter and origin labels, below), covering:
 
 - **Colour palette** — every named scheme, which colours it contains, where each is used (background,
   text, border, accent, link, button).
@@ -167,9 +192,13 @@ SKILL.md "Visual spec" section, which points `BRAND.md`'s `design_doc` key at th
   spacing, color delta tolerance) — propose sensible defaults (e.g. ±4px spacing, ΔE < 2 for color) and
   ask the user to confirm or adjust.
 
-Status/revision header matching the convention other brand docs in this repo use, if one exists (check
-`brand.md`'s front matter for the pattern — it has a `design_doc` key for exactly this). Keep brand
-identity content (voice, claims, competitor names) out entirely — link to `brand.md` instead of repeating it.
+Front matter: the same flat `key: value` lines brand-capture's `design.md` uses (no nesting, no quotes):
+`brand`, `parent_doc: BRAND.md`, `status` (draft or approved, same as `BRAND.md`), `revision` (+1 on every
+write), `last_updated`, `measured` (date and viewports, or "not measured"), and `source` (the brand book
+file or reference store URL). Label a value `(from site)` when measured on a live store and `(inferred)`
+when proposed; values taken as stated from a brand book are covered by `source`. Leave any `(client)` line
+as the user wrote it. Keep brand identity content (voice, claims, competitor names) out entirely — link to
+`BRAND.md` instead of repeating it.
 
 ## Step 4: Apply to the theme
 
@@ -237,7 +266,7 @@ kind of token, and treating them all the same way is the most common way this st
   values the brand's own scale would plausibly need, not platform maximums — a reviewer two years from now
   should be able to tell from the schema's bounds roughly what this brand's scale looks like.
 - Never hardcode a token into Liquid/CSS where a theme setting already exists to hold it — this is the
-  same rule page-content-studio enforces, and it applies doubly here since this skill is what makes
+  same rule `page-content-studio` enforces, and it applies doubly here since this skill is what makes
   those settings exist in the first place.
 - If a brand font isn't already in Shopify's font library, follow the repo's font-transfer steps in
   `AGENTS.md`, including the licence question to the user — do not silently substitute a lookalike font,
@@ -264,12 +293,13 @@ kind of token, and treating them all the same way is the most common way this st
   store URL) and what was applied vs. only documented.
 - Final summary, short: what `design.md` now contains, what was and wasn't applied to the live theme
   settings, anything left `unconfirmed` that the user should resolve, any contrast issues found and how
-  they were resolved, and whether this is on draft/preview or live.
+  they were resolved, whether `BRAND.md` points at the file through `design_doc` (if not, have
+  brand-capture adopt it), and whether this is on draft/preview or live.
 
 ## Never
 
 Do not invent a color, font, spacing, radius, or shadow value with no source — mark it `unconfirmed`
-instead. Do not duplicate brand identity content that belongs in `brand.md`. Do not create a new theme
+instead. Do not duplicate brand identity content that belongs in `BRAND.md`. Do not create a new theme
 setting id where an existing one already covers the token. Do not remap a color scheme without checking
 its role combinations for contrast. Do not push to the live theme without explicit, chat-confirmed
 approval. Do not claim a visual check passed without having loaded the actual rendered theme.
