@@ -10,6 +10,7 @@ page in one entry).
 
 - kind: <new page | update: content | update: settings | update: section code | update: structure>
 - requested: <what the Site Editor asked for, in their words>
+- goal (Step 1a): <primary action, audience, change appetite, must-not-change limits>
 - baseline (if Step 1b ran): <metric = value (source, date, device)>; target to re-check: <metric, when>
 - target: <page handle/URL> -> <template file> -> <section(s)/setting(s)>
 - source: <reference URL, or "new design (no reference)", or "n/a (update only)">
