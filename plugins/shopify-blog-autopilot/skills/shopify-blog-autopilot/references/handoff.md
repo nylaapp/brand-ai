@@ -1,4 +1,4 @@
-# Handoff to shopify-blog-writer, and the ledger
+# Handoff to blog-generator, and the ledger
 
 ## 1. The autopilot brief
 
@@ -47,7 +47,7 @@ Default intent when the user hasn't chosen: store events and occasions → `prom
 
 ## 2. Invoking the writer
 
-Invoke the `shopify-blog-writer` skill with a message like:
+Invoke the `blog-generator` skill with a message like:
 
 > Write a Shopify blog post from this autopilot brief: `<path>`. Run in the mode the brief states (fully automated or guided) with **Shopify draft** delivery (hidden). The brief answers the setup questions. Add the tags listed in the brief. When done, report the article ID, handle, admin location, QA result and placeholders.
 

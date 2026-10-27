@@ -1,6 +1,6 @@
 ---
 name: "shopify-post-publish-audit"
-description: Post-publish SEO and AEO audit for Shopify blog posts. Checks the live page (structured data / Rich Results, PageSpeed Insights, title, meta, H1, leftover placeholders, indexing), then tracks real Search Console rankings about 2 and 4 weeks later. Use this whenever a Shopify blog post has just been published or made Visible, when the user says "I published the post", "check my new blog post", "audit the live post", "did the post get indexed", "how is the blog post doing in Google", or when a scheduled daily blog check fires. Use it even if the user does not say SEO. Works for any Shopify store or brand. Pairs with shopify-blog-writer, which writes the post; this skill checks it after it goes live.
+description: Post-publish SEO and AEO audit for Shopify blog posts. Checks the live page (structured data / Rich Results, PageSpeed Insights, title, meta, H1, leftover placeholders, indexing), then tracks real Search Console rankings about 2 and 4 weeks later. Use this whenever a Shopify blog post has just been published or made Visible, when the user says "I published the post", "check my new blog post", "audit the live post", "did the post get indexed", "how is the blog post doing in Google", or when a scheduled daily blog check fires. Use it even if the user does not say SEO. Works for any Shopify store or brand. Pairs with blog-generator, which writes the post; this skill checks it after it goes live.
 ---
 
 # Shopify post-publish audit

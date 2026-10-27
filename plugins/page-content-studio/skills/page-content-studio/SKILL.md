@@ -11,7 +11,7 @@ description: >-
   for X", "build a page for X", "recreate this page from the live site", or points at a live or
   preview URL and describes something to change. When the ask is open-ended -- "improve the
   homepage", "what's wrong with this page", "what should we fix" -- it hands off to page-audit
-  first. Not for blog posts (use shopify-blog-writer or shopify-blog-rewrite) and not for
+  first. Not for blog posts (use blog-generator or blog-rewriter) and not for
   accessibility audits (use accessibility-audit).
 ---
 

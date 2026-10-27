@@ -1,6 +1,6 @@
 ---
 name: "shopify-blog-autopilot"
-description: "Brand-agnostic autopilot that decides WHEN a Shopify store should get a new or refreshed blog post and what it should cover. It scans store events (new products, restocks, rising sellers), Search Console exports, review and helpdesk exports, competitor blog feeds, trends and a lead-time occasion calendar, scores opportunities with a rubric, applies guardrails (dedupe, cannibalization, cooldowns, weekly cap), then by default checks in with the user (weekly) and drafts only after they say yes, handing the brief to shopify-blog-writer as a hidden draft; optional auto-draft. Each brand keeps its own profile. Use whenever the user wants blog posts created on a schedule or when something happens, e.g. \"run my blog autopilot\", \"weekly blog check-in\", \"should we post this week?\", \"set up automatic blog posts\", \"what should we blog about next\", a scheduled blog-scan firing, or any request to trigger or prioritize Shopify blog content from store, SEO, competitor or seasonal signals."
+description: "Brand-agnostic autopilot that decides WHEN a Shopify store should get a new or refreshed blog post and what it should cover. It scans store events (new products, restocks, rising sellers), Search Console exports, review and helpdesk exports, competitor blog feeds, trends and a lead-time occasion calendar, scores opportunities with a rubric, applies guardrails (dedupe, cannibalization, cooldowns, weekly cap), then by default checks in with the user (weekly) and drafts only after they say yes, handing the brief to blog-generator as a hidden draft; optional auto-draft. Each brand keeps its own profile. Use whenever the user wants blog posts created on a schedule or when something happens, e.g. \"run my blog autopilot\", \"weekly blog check-in\", \"should we post this week?\", \"set up automatic blog posts\", \"what should we blog about next\", a scheduled blog-scan firing, or any request to trigger or prioritize Shopify blog content from store, SEO, competitor or seasonal signals."
 ---
 
 # Shopify Blog Autopilot
@@ -9,7 +9,7 @@ description: "Brand-agnostic autopilot that decides WHEN a Shopify store should 
 
 Weekly check-in: about 5 to 10 minutes and $1 to $2 with the deep web sources, under $0.50 without them (store events, ledger and occasions only). Drafting a post adds the blog writer's own effort. Estimate, not yet measured. Stop and report if a scan passes 20 minutes or $4.
 
-Decide **whether, what and when** a Shopify store should publish, then hand off to `shopify-blog-writer` to do the writing. This skill never writes the post itself: it's the editor-in-chief, and the writer skill is the staff writer. Keeping them apart means the rubric can change without breaking the writing workflow, and the writer still works on its own when the user asks for a post directly.
+Decide **whether, what and when** a Shopify store should publish, then hand off to `blog-generator` to do the writing. This skill never writes the post itself: it's the editor-in-chief, and the writer skill is the staff writer. Keeping them apart means the rubric can change without breaking the writing workflow, and the writer still works on its own when the user asks for a post directly.
 
 ```
 Load brand profile → Gather signals → Build candidates → Score → Guardrails → Decide → Check in → Hand off → Log
@@ -30,7 +30,7 @@ Read each one when you reach the step that needs it.
 | `references/scoring-rubric.md` | Steps 4–5: factors, weights, thresholds, guardrails, worked examples |
 | `references/occasions.md` | Step 2: the default occasion calendar and how lead times work |
 | `references/checkin.md` | Step 5b: the ask-first check-in message, replies, pending check-ins |
-| `references/handoff.md` | Step 6: the brief contract with `shopify-blog-writer`, tagging and ledger format |
+| `references/handoff.md` | Step 6: the brief contract with `blog-generator`, tagging and ledger format |
 | `references/automation-options.md` | Only if the user wants faster-than-daily events (free, optional upgrades) |
 | `scripts/occasions.py` | Step 2: computes upcoming occasions and whether their lead-time window is open |
 | `scripts/gsc_signals.py` | Step 2: turns Search Console CSV exports into striking-distance, decay and gap candidates |
@@ -134,8 +134,8 @@ If `approval` is `ask_first` (the default), don't hand off yet. Read `references
 Read `references/handoff.md`. For each `write` decision:
 
 1. Build the **autopilot brief**: target keyword and intent, post type, action, the evidence, products to feature, deadline, and the brand's voice, author and constraints from the profile. The format is in `handoff.md`.
-2. Invoke the `shopify-blog-writer` skill with the brief. In `auto_draft` mode, or when the user chose "write it for me", the brief says **fully automated** with **Shopify draft delivery** (hidden), and the writer asks nothing. If the user chose "do it together", the brief says **guided**, and the writer asks only what the brief doesn't answer. Pass the tags `autopilot` and `autopilot-<trigger>` so later runs can count and trace autopilot posts.
-3. If `shopify-blog-writer` isn't available, save the brief to `runs/<date>-<handle>-brief.md`, flag it in the report, and stop.
+2. Invoke the `blog-generator` skill with the brief. In `auto_draft` mode, or when the user chose "write it for me", the brief says **fully automated** with **Shopify draft delivery** (hidden), and the writer asks nothing. If the user chose "do it together", the brief says **guided**, and the writer asks only what the brief doesn't answer. Pass the tags `autopilot` and `autopilot-<trigger>` so later runs can count and trace autopilot posts.
+3. If `blog-generator` isn't available, save the brief to `runs/<date>-<handle>-brief.md`, flag it in the report, and stop.
 4. If the writer falls back to HTML delivery (for example because the connector is missing), record that in the ledger and report. The post still counts against the weekly cap, since review effort is the real limit.
 5. **Collect the review checklist.** The writer adds the tag `needs-review` to the draft and returns the path to `<handle>-review-checklist.md` (placeholders to fill, claims to verify, links to click, images to check). Record the path in the ledger topic (`review_checklist`) and carry it into the report. If the writer didn't return one, say so in the report under "Needs your attention" instead of skipping silently.
 
