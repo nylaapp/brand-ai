@@ -1,8 +1,8 @@
 # Optional: starter content and section styling
 
 Two optional steps for a new theme whose pre-built section templates still carry the theme's demo look.
-Both are off unless the user asked for them in Step 0, and each can run alone. Both work on a **draft
-theme only**.
+Both are off unless the user asked for them in Step 0, and each can run alone. Both work on the theme settled in Step 0 (`theme-target.md`): a draft is recommended, and the live theme
+needs the assurance described there.
 
 ## Before either one
 In Step 0, ask: do you want (a) brand placeholder images, (b) brand styling on the existing section
@@ -32,7 +32,7 @@ from the first build.
 6. **Show first.** A table: template, section, setting, what is there now, the image proposed, its source
    and rights. Get a yes, then set only those settings.
 7. **Record** each placement in `design.md` under "Placeholders": image, where used, source, rights, approver.
-8. **Verify** on the rendered draft at desktop and mobile: images load, nothing is badly stretched or
+8. **Verify** on the rendered theme at desktop and mobile: images load, nothing is badly stretched or
    cropped, and section heights match the baseline unless a new image legitimately changed one (say which).
 
 ## 7b. Brand styling on existing section templates
@@ -55,4 +55,4 @@ named templates.
 ## Never
 Do not upload to the store's Files without an explicit yes naming file, source, size and rights. Do not
 place an image the client didn't supply or approve. Do not replace a chosen image. Do not touch templates
-the user didn't name. Do not change copy, section order or section count. Do not push to the live theme.
+the user didn't name. Do not change copy, section order or section count. Do not edit or push to the live theme without the yes before the edit and again before the push (`theme-target.md`).

@@ -32,7 +32,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 | blog-rewriter | Rewrite an existing article in a store's brand voice | blog-generator |
 | shopify-blog-autopilot | Decide when and what to blog, then hand off to the writer | blog-generator, brand-capture |
 | styles-builder | Generate design.md (colors, type, spacing, radius, shadows, buttons, components) from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates | brand-capture |
-| page-content-studio | Page work in focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-create` (new pages and sections), `page-edit-content` (words, images, links) and `page-edit-design` (layout, order, style). Each verifies on the rendered page and pushes only to a draft theme | brand-capture |
+| page-content-studio | Page work in focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-create` (new pages and sections), `page-edit-content` (words, images, links) and `page-edit-design` (layout, order, style). Each verifies on the rendered page and pushes only the touched files to the theme you chose | brand-capture |
 | analytics | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
 
 ## Layout
@@ -51,6 +51,10 @@ Validate with `claude plugin validate .`
 ## Brand files
 
 Brand skills read and write `BRAND.md`, `BRAND-VOICE.md`, `COMPETITORS.md`, `BRAND-QUESTIONS.md` and `BRAND-REQUESTS.md`. They look in the project root, then `~/` and `~/.claude/`, then the central directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then memory and connected knowledge, and only then offer to generate. Generated files are saved to the central directory. Full rules: `plugins/brand-capture/skills/brand-capture/references/brand-context.md`.
+
+## Theme target
+
+Skills that can change theme files (`page-create`, `page-edit-content`, `page-edit-design`, `styles-builder`, `accessibility-audit`, and `analytics-setup` and `analytics-cleanup` when they touch theme code) ask once which theme to work on, a draft or the live theme, and remember the answer in `THEME-TARGET.md` next to `BRAND.md` (or in the central directory), so the next skill reuses it without asking. Name a different theme at any time to switch. The file records the theme only, never permission: for the live theme, each skill asks for an explicit yes before any edit and again before the push, every run. Read-only skills (audits) never need the question. Full rules, identical in each plugin that changes themes: `references/theme-target.md` (in `page-content-studio`, `styles-builder`, `accessibility-audit` and `analytics-setup`).
 
 ## Analytics file
 

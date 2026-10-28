@@ -14,6 +14,7 @@ page in one entry).
 - observations: <viewport(s), date, theme id confirmed, what could not be observed and why>
 - page type and playbook result (if a page-audit ran): <type>; <n> Pass / <n> Partial / <n> Missing / <n> Can't tell; shortfalls acted on: <check IDs>
 - baseline (if a page-audit ran): <metric = value (source, date, device)>; target to re-check: <metric, when>
+- theme: <id, name, role>; chosen: <remembered | asked this run>; live-theme assurance: <n/a (draft or preview) | yes before the edit and yes before the push, each: who, when, where given>
 - target: <page handle/URL> -> <template file> -> <section(s)/setting(s)>
 - source: <reference URL, or "new design (no reference)", or "n/a (update only)">
 - implementation: <file(s) touched>; sections used/added: <list>; new settings added:
@@ -46,8 +47,8 @@ Rules:
 - `pushed to draft` / `pushed live` need the before/after (or reference/build) table
   filled with *measured* values -- actual text read from the rendered DOM, actual computed
   style, actual setting value -- not "looks right" or "matches."
-- `pushed live` requires naming who approved it and when, in chat, not inferred from
-  silence.
+- `pushed live` (a push to the live theme, or publishing a draft) requires naming who approved it and when, in chat,
+  not inferred from silence: the yes before the edit and the yes before the push.
 - A visible difference noticed but not addressed counts as a defect unless it's listed
   under "out of scope / flagged."
 - `blocked` only when no browser/render path is truly available. Say which tool failed.

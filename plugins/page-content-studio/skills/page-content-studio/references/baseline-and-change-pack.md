@@ -45,7 +45,7 @@ change_pack_schema: 1.0
 page: <homepage | about | ...>
 rows: [<PAGE-AUDIT row IDs, or "none (named change)">]
 target_theme: <id, name, role>
-live_theme: <id, name>   # never touched without an explicit yes
+live_theme: <id, name>   # needs an explicit yes before any edit and again before any push
 created: <YYYY-MM-DD>
 skill: page-create | page-edit-content | page-edit-design
 ---
@@ -59,6 +59,7 @@ Baseline copies: <path to baseline/ folder>
 
 ## 3. Intended change
 <exact edits: file, setting or lines, before and after>
+Approval: <who agreed to this exact change, when, where given; on the live theme this is the yes before the edit>
 
 ## 4. Files touched
 | File | Change | Lines +/- |
@@ -70,7 +71,8 @@ Baseline copies: <path to baseline/ folder>
 
 ## 6. Ship record (written in the ship step)
 - Pushed: <date, files, theme id>. Pulled back and diffed: <identical | differences>.
-- Go-live: <not requested | approved by <who> on <date>, where given>.
+- Live-theme assurance: <not needed (draft or preview) | before the edit: <who, when, where given>; before the push: <who, when, where given>>.
+- Publishing a draft over the live theme: <not requested | approved by <who> on <date>, where given>.
 - QA log entry: <path or "in chat">.
 ```
 

@@ -31,8 +31,8 @@ broken now, but not that nothing moved earlier. Ask what the change was meant to
 ## 2. Observe the page
 
 Load the target theme's page at desktop (1440x900) and mobile (375x812): a real viewport, theme id
-confirmed, a slow scroll for lazy content, overlays noted. Confirm you are on the target theme and
-not the live one.
+confirmed, a slow scroll for lazy content, overlays noted. Confirm the page reports the target
+theme's id. If the target is the live theme, say so; observing it is read-only and changes nothing.
 
 ## 3. Run the checks
 
@@ -61,7 +61,7 @@ A baseline captured at different widths than you can observe makes a check "Can'
 Write section 5 of the change pack: each check, its result, number and viewport. Then report in
 plain words:
 
-- **Verdict:** safe to put on the draft, or not, and why.
+- **Verdict:** safe to put on the target theme, or not, and why.
 - **The numbers:** before and after for the changed thing, the section inventory result, the
   `theme check` count, and anything "Can't tell" with its reason.
 - **What it does not prove:** that the change will improve results, and anything not observable
@@ -74,6 +74,6 @@ step. Never ship a change whose verdict is not safe.
 
 | Verdict | Next |
 |---|---|
-| Every check passed, or "Can't tell" with a reason the person accepted | Ship to the draft (`ship-to-draft.md`) |
+| Every check passed, or "Can't tell" with a reason the person accepted | Ship to the target theme (`ship-to-draft.md`) |
 | A check failed | Back to the editing step with the failing check and numbers |
 | The baseline is stale, or the theme was edited in the admin | Re-capture the baseline, then verify again |

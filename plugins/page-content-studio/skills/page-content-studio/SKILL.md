@@ -1,17 +1,16 @@
 ---
 name: page-content-studio
 description: >-
-  The front door for Shopify page work. Use when a request spans several jobs ("improve the
-  homepage and apply the top fixes", "audit it and fix what matters", "change the headline and
-  restyle the section"), when it isn't clear which job is wanted, or when someone only wants an
-  existing change checked on the rendered page, pushed to a draft theme, or reverted. It decides the
-  job and hands it to the right skill: page-audit (find where a page falls short, read-only),
-  page-create (something new: a page, a section, a section type), page-edit-content (change the
-  words, images or links of something that exists) or page-edit-design (change the layout, order,
-  spacing, colour or style of something that exists), and chains them in order. For a request that
-  clearly names one job, those skills trigger directly. Brand-agnostic, built for the Site Editor.
-  Not for blog posts (use blog-generator or blog-rewriter) and not for accessibility
-  audits (use accessibility-audit).
+  The front door for Shopify page work. Use when a request spans several jobs ("improve the homepage
+  and apply the top fixes", "audit it and fix what matters", "change the headline and restyle the
+  section"), when it isn't clear which job is wanted, or when someone only wants an existing change
+  checked on the rendered page, pushed to the chosen theme, or reverted. It decides the job and
+  hands it to the right skill: page-audit (find where a page falls short, read-only), page-create
+  (something new: a page, a section, a section type), page-edit-content (change the words, images or
+  links of something that exists) or page-edit-design (change the layout, order, spacing, colour or
+  style of something that exists), and chains them in order. For a request that clearly names one
+  job, those skills trigger directly. Brand-agnostic, built for the Site Editor. Not for blog posts
+  (use blog-generator or blog-rewriter) and not for accessibility audits (use accessibility-audit).
 ---
 
 # Page content studio
@@ -27,13 +26,14 @@ invented.
 | Skill | Job | Writes to a theme? |
 |---|---|---|
 | `page-audit` | Find where a page falls short against what its type should do; rank fixes with owners; keep `PAGE-AUDIT.md` | No, read-only |
-| `page-create` | Make something **new**: a page, a section on a page, or a new section type | Local working copy, then a draft theme |
-| `page-edit-content` | Change what something that **exists says or shows**: words, images, links, alt text, SEO fields | Local working copy, then a draft theme |
-| `page-edit-design` | Change how something that **exists looks or is arranged**: layout, order, spacing, colour, type, styles, responsive behaviour | Local working copy, then a draft theme |
+| `page-create` | Make something **new**: a page, a section on a page, or a new section type | Local working copy, then the chosen theme |
+| `page-edit-content` | Change what something that **exists says or shows**: words, images, links, alt text, SEO fields | Local working copy, then the chosen theme |
+| `page-edit-design` | Change how something that **exists looks or is arranged**: layout, order, spacing, colour, type, styles, responsive behaviour | Local working copy, then the chosen theme |
 
 Each editing skill ends with the same steps, defined once in this folder: capture a baseline, verify
-on the rendered page, push only the touched files to a draft theme and pull them back as proof, and
-stop at the go-live gate.
+on the rendered page, push only the touched files to the chosen theme (a draft unless the person
+chose the live theme) and pull them back as proof. The live theme is confirmed with the person
+before any edit and again before the push.
 
 ## Which job is this?
 
@@ -54,17 +54,27 @@ stop at the go-live gate.
 its style is design. Swapping an image is content; changing its size, crop or position is design. Adding
 a new section, or a new page, is create, even when it only reuses an existing section type.
 
-Invoke the chosen skill with the Skill tool, passing the page, the theme (draft or preview) and anything
-already known. Don't answer its questions for the person.
+Invoke the chosen skill with the Skill tool, passing the page, the theme and anything already known.
+Don't answer its questions for the person.
+
+## Which theme?
+
+For any job that writes to a theme, settle the theme once, before handing off, with
+`references/theme-target.md`: use the theme the person already chose in this conversation or recorded in
+`THEME-TARGET.md` and say so in one line; if there is none, ask once which draft or live theme to work on
+(recommend a draft) and remember it for every skill that follows. Don't ask again unless the person names
+a different theme. The live theme needs the person's explicit yes before any edit and again before the
+push, every run; that is never remembered. `page-audit` only reads, so it uses the remembered theme if
+there is one and never needs the question.
 
 ## The chain
 
 ```
 page-audit  ->  (the person picks rows)  ->  page-create | page-edit-content | page-edit-design
                                                          |
-                                       baseline -> edit working copy -> verify -> ship to draft
+                                       baseline -> edit working copy -> verify -> ship to chosen theme
                                                          |
-                                               go live only on an explicit, recorded yes
+                                               live theme: a yes before any edit and again before the push
 ```
 
 1. **Audit** when the person hasn't decided what to change. It writes `PAGE-AUDIT.md` with ranked rows;
@@ -78,8 +88,9 @@ step, stop after it.
 
 ## Rules that hold for every step
 
-- **Draft or preview only.** Nothing reaches the live theme without an explicit yes in chat that names
-  the theme, recorded in the change pack and the QA entry (`references/ship-to-draft.md`).
+- **The theme the person chose, asked once.** A draft is recommended. Nothing reaches the live theme without an
+  explicit yes in chat that names it, before the first edit and again before the push, recorded in the change
+  pack and the QA entry (`references/theme-target.md`, `references/ship-to-draft.md`).
 - **Only verified changes are pushed, and only the touched files.** No bare pushes.
 - **Only picked rows are acted on.** A recommendation nobody chose stays an open row.
 - **Never type a password or credential** for the person; blocked access is reported and handed back.
@@ -96,8 +107,9 @@ step, stop after it.
 |---|---|
 | `references/baseline-and-change-pack.md` | What to capture before any edit, and the one-file record carried through a change |
 | `references/verify.md` | The checks that prove a change on the rendered page |
-| `references/ship-to-draft.md` | Pushing to a draft, pull-back proof, the log, the go-live gate |
-| `references/revert-mode.md` | Restoring a draft to its baseline and proving it |
+| `references/theme-target.md` | Which theme to work on: ask once, remember it, protect the live theme |
+| `references/ship-to-draft.md` | Pushing to the chosen theme, pull-back proof, the log, publishing a draft to live |
+| `references/revert-mode.md` | Restoring a theme to its baseline and proving it |
 | `references/qa-entry-format.md` | The QA log entry |
 | `../page-audit/references/` | Intake and goal questions, the page-type playbook, observation recipes, the `PAGE-AUDIT.md` format |
 
@@ -109,5 +121,6 @@ Each skill points to the files it needs, so any of them can be used on its own.
       requests excepted)
 - [ ] A mixed request was split into one change per skill, content before design
 - [ ] The person knows where they are in the chain and what comes next
-- [ ] Nothing was pushed except verified files to a draft; the live theme was not touched
+- [ ] The theme was settled once and reused; nothing was pushed except verified files to it; if it was the live
+      theme, the person said yes before the edit and again before the push
 - [ ] No credential was typed or passed on

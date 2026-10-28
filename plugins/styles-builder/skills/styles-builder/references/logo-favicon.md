@@ -24,12 +24,12 @@ Logo and favicon settings are image pickers, and an image picker can only point 
 1. Check Files for an existing upload (read-only).
 2. If there is none, there are two routes: the user uploads it in the theme editor, or, with their explicit
    yes naming the file, source, size and rights, you upload it to Files. Uploading is a store-level change.
-3. Set the picker settings on a draft theme, and set the logo heights from the measured numbers.
+3. Set the picker settings on the theme settled in Step 0 (`theme-target.md`), and set the logo heights from the measured numbers.
 4. If the theme falls back to a file in its own assets when no logo is set, that is a repo choice: follow
    the repo's rules and note it in `design.md`. Don't add a fallback of your own.
 
 ## Verify
-On the draft preview, fresh load, desktop and mobile: the logo renders at the measured height with no
+On the chosen theme's preview, fresh load, desktop and mobile: the logo renders at the measured height with no
 layout shift, the inverse logo shows where it should, and the favicon appears in the browser tab. Browsers
 cache favicons, so check in a fresh private window. Record file names, dimensions, source and rights in
 `design.md`.

@@ -4,7 +4,8 @@ Restore a theme to its baseline and prove it. Use when the person asks to undo c
 failed, or verification of a pushed change found a regression that can't be fixed quickly.
 
 A revert is a push, so everything in `ship-to-draft.md` applies: scoped files only, no bare push, no live
-flag, and a revert of the **live** theme needs the same explicit yes as going live, recorded.
+flag, and a revert of the **live** theme needs the live-theme assurance in `theme-target.md` section 5 (an
+explicit yes naming the theme and the files), recorded.
 
 ## 1. Find the baseline
 

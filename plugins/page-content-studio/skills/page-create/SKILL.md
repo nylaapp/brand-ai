@@ -7,33 +7,36 @@ description: >-
   playbook's must-haves, primary action in the first screen), reuses existing sections before
   building anything new, shows a plain-language plan for a yes, then builds it in a local working
   copy, verifies it on the rendered page including the theme editor's controls, and pushes only the
-  new and touched files to a draft theme. Can recreate a page from a live reference URL by capturing
-  measured values, never from a text-only fetch. Brand-agnostic, written for the Site Editor. Use for
-  "build a page for X", "make a landing page for the new treatment", "create a region page", "add a
-  testimonials section to the homepage", "build a new section for team members", "recreate this page
-  from the live site". Not for changing words, images or links on something that exists (use
-  page-edit-content), changing layout or style of something that exists (page-edit-design),
-  open-ended "improve this page" (page-audit), blog posts (blog-generator) or accessibility audits
-  (accessibility-audit).
+  new and touched files to the theme the person chose (a draft unless they say live). Can recreate a
+  page from a live reference URL by capturing measured values, never from a text-only fetch.
+  Brand-agnostic, written for the Site Editor. Use for "build a page for X", "make a landing page
+  for the new treatment", "create a region page", "add a testimonials section to the homepage",
+  "build a new section for team members", "recreate this page from the live site". Not for changing
+  words, images or links on something that exists (use page-edit-content), changing layout or style
+  of something that exists (page-edit-design), open-ended "improve this page" (page-audit), blog
+  posts (blog-generator) or accessibility audits (accessibility-audit).
 ---
 
 # Page create
 
-Make something **new**: a page, a section on a page, or a new kind of section. It is planned from what
-that kind of page needs, built from existing pieces first, and made in a local working copy. The skill
-proves the result on the rendered page and puts only the new and touched files on a draft theme. Going
-live is a separate, explicit step.
+Make something **new**: a page, a section on a page, or a new kind of section. It is planned from
+what that kind of page needs, built from existing pieces first, and made in a local working copy.
+The skill proves the result on the rendered page and puts only the new and touched files on the
+theme the person chose (a draft unless they say live). The live theme needs their explicit yes
+before any edit and again before the push.
 
 ```
 1. Context -> 2. Understand what is being created -> 3. Reference or playbook ->
 4. Plan (approval) -> 5. Capture the baseline -> 6. Build in the working copy ->
-7. Verify -> 8. Ship to the draft -> 9. Hand back
+7. Verify -> 8. Ship to the theme -> 9. Hand back
 ```
 
 ## Rules
 
-- **Working copy first, draft theme only.** Never push from the working copy except through the ship
-  step, and never to the live theme without an explicit, recorded yes (`ship-to-draft.md`).
+- **Working copy first, on the theme the person chose.** Never push from the working copy except
+  through the ship step. The theme is asked once and remembered (`theme-target.md`); a draft is
+  recommended. The live theme needs an explicit yes before the first edit and again before the push,
+  every run (`theme-target.md`, `ship-to-draft.md`).
 - **Reuse first.** For every region choose, in order: an existing section that fits; the same section
   with one small new setting; a native base-theme section or block; a new section only when the layout
   is genuinely different. One section per visual region; blocks are for repeated items inside a region.
@@ -54,10 +57,18 @@ live is a separate, explicit step.
 ## Who this is for
 
 A Site Editor on the marketing, content or operations side. Plain language, explain a term once,
-narrate before acting, flag trade-offs in plain terms, and explain draft versus live the first time it
-comes up: nothing visitors see changes until they say go.
+narrate before acting, flag trade-offs in plain terms, and explain draft versus live the first time
+it comes up: on a draft, nothing visitors see changes until they say go; on the live theme, edits
+show to visitors as soon as they are pushed.
 
 ## 1. Context
+
+**Theme first.** Before anything else, settle which theme this runs on, with
+`../page-content-studio/references/theme-target.md`: use the theme already chosen in this
+conversation or remembered in `THEME-TARGET.md` and say so in one line, or ask once which draft or
+the live theme to work on and remember the answer for every other skill. Don't ask again unless the
+person names a different theme. If it is the live theme, section 5 of that file applies: an explicit
+yes before the first edit and again before the push.
 
 Follow section 1 of `../page-audit/references/intake.md`: resolve the brand files and `design.md`,
 handle a partial set, and read the store repo's own rules (`AGENTS.md` or `CLAUDE.md`), including how
@@ -74,8 +85,8 @@ visual spec or the theme's settings; never invent a hex, font, size or radius.
   3 (page type, business type, the goal and who it is for, limits).
 - **Is there a reference** to match (a live URL, inspiration, existing brand pages), or is it from
   scratch?
-- **Which theme?** A draft or preview; record id and role. Get a working copy (pull the draft theme
-  first, per the store repo's workflow, so admin-side edits aren't lost).
+- **Which theme?** Settled in step 1; record its id and role. Get a working copy (pull the theme first,
+  per the store repo's workflow, so admin-side edits aren't lost).
 
 **From an audit.** If the request is a row ID or points at a `PAGE-AUDIT.md` (rules in
 `../page-audit/references/audit-file.md`), read the rows marked `picked` that call for something new and
@@ -97,8 +108,9 @@ the brand files and visual values from `design.md`.
 ## 4. Plan
 
 For each region choose from the reuse order in the rules. Show the person a plain-language table:
-region, which section it will use, whether it needs a new setting or a new section, and why. Get a yes
-before building.
+region, which section it will use, whether it needs a new setting or a new section, and why. Get a
+yes before building. If the theme is live, the plan names it (name and id) and this is where the
+live-theme assurance is asked (`theme-target.md` section 5): an explicit yes before building.
 
 **If a new section type is needed**, plan it explicitly and follow the store repo's rules for adding one:
 
@@ -138,13 +150,15 @@ other breakpoints and colour schemes hold (check 6), values come from the spec (
 that already existed moved (check 2). Any failure goes back to step 6; nothing ships on a failed check.
 Never say a page "matches" a reference without a measured parity table.
 
-## 8. Ship to the draft
+## 8. Ship to the chosen theme
 
-Run `../page-content-studio/references/ship-to-draft.md`: check nobody edited the touched files since
-the baseline, push only the new and touched files to the draft theme, pull them back as proof, re-check
-the preview, write the QA entry (`../page-content-studio/references/qa-entry-format.md`), and set any
-audit rows to `done`. Going live happens only if the person asks, and only with their explicit,
-recorded yes. To undo, use `../page-content-studio/references/revert-mode.md`.
+Run `../page-content-studio/references/ship-to-draft.md`: check nobody edited the touched files
+since the baseline, push only the new and touched files to the chosen theme, pull them back as
+proof, re-check the preview, write the QA entry
+(`../page-content-studio/references/qa-entry-format.md`), and set any audit rows to `done`. On the
+live theme, the second yes (the exact files and change) comes before the push. Publishing a draft
+over the live theme happens only if the person asks, with an explicit, recorded yes. To undo, use
+`../page-content-studio/references/revert-mode.md`.
 
 ## 9. Hand back
 
@@ -161,5 +175,6 @@ in the store admin and choosing the template, publishing). Say whether it is on 
 - [ ] Baseline captured before the first edit; change pack started
 - [ ] No hardcoded colours, fonts or text; numbers inside schema ranges; images blank where unconfirmed; placeholders obvious
 - [ ] Verified at desktop and mobile including the editor controls; nothing existing moved
-- [ ] Pushed only to a draft, only the new and touched files, pulled back identical; nothing live without a recorded yes
+- [ ] Theme settled once (remembered or asked); pushed only to it, only the new and touched files, pulled back
+      identical; if live, a yes before the edit and again before the push
 - [ ] No credential typed; the person knows what they still must supply

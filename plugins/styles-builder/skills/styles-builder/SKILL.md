@@ -88,6 +88,14 @@ This skill builds on brand-capture's two files and never replaces them. If eithe
 brand-capture itself**, waits for it to finish, and only then carries on. It doesn't ask the user to go
 and run it, and it doesn't start extracting tokens in the meantime.
 
+**Theme first.** Before 0a, settle which theme this run applies tokens to, following
+`references/theme-target.md`: use the theme the person already chose in this conversation or recorded in
+`THEME-TARGET.md` and say so in one line, or ask once which draft or the live theme to work on and
+remember the answer for every other skill. Don't ask again unless the person names a different theme.
+Writing `design.md` changes no theme, so a person who wants `design.md` only can say so; ask for a theme
+again the first time something would change one. If the theme is live, section 5 of that file applies:
+an explicit yes before the first edit and again before the push.
+
 ### 0a Look for the files
 
 Use brand-capture's lookup (`references/brand-context.md` in that plugin): the theme repo or project
@@ -151,9 +159,10 @@ exactly what is missing; never fill the gap with a `design.md` written here.
 1. A `design.md` now exists, so this is an update, not a fresh capture: read it first, show the user what
    would change, wait for a yes, and only touch the sections the new source affects. Update it where it
    lives.
-2. Confirm which theme repo / branch this is for, and whether the user also wants tokens applied live into
-   `config/settings_schema.json` and `config/settings_data.json`, or only written to `design.md` as
-   reference. Default: write `design.md` and apply the tokens to a draft theme through the theme's settings
+2. Confirm the theme settled at the start of Step 0 and its repo / branch, and whether the user also wants
+   tokens applied into `config/settings_schema.json` and `config/settings_data.json` on it, or only written
+   to `design.md` as reference. Default: write `design.md` and apply the tokens to that theme (a draft is
+   recommended) through the theme's settings
    and the brand stylesheet, never by editing a base file, because a `design.md` with no theme applied
    recreates the gap this skill exists to close.
 3. Ask which optional steps they want: 7a brand placeholder images and 7b brand styling on the existing section templates (both default to no), and which templates, per `references/starter-content.md`. Anything not asked for is skipped.
@@ -417,8 +426,8 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
 - Add one `@font-face` per file in the repo's stylesheet (family, weight, style, `font-display: swap`,
   a `woff2` source through the theme's asset URL), then point the `--font-*` tokens at the family.
   Don't hardcode the family anywhere a token already holds it.
-- Edit a draft theme only, and push only the touched files. Never push to the live theme without the
-  user's explicit, chat-confirmed approval.
+- Edit only the theme settled in Step 0, and push only the touched files. On the live theme, ask for the yes
+  before the edit and again before the push (`references/theme-target.md`).
 - Verify on the rendered page, not the file: the computed font-family and weight on a heading and on
   body text, each font file returning HTTP 200, no flash of unstyled text on a fresh load, mobile too,
   and the `theme check` count unchanged.
@@ -441,9 +450,9 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
 
 ## Step 6: Push, log, summarize
 
-- Push only to an unpublished/draft/preview theme, scoped to the exact files touched. Never push to the
-  live theme without the user's explicit go-ahead, confirmed in chat — same rule as every other theme-repo
-  skill in this roster.
+- Push only to the theme settled in Step 0, scoped to the exact files touched. If it is the live theme, ask
+  the second yes now, naming the theme and the exact files (the first was asked before the first edit).
+  Same rule as every other theme-affecting skill in this roster (`references/theme-target.md`).
 - Log an entry in the repo's QA log if one exists, noting the source (brand book file name, or reference
   store URL) and what was applied vs. only documented.
 - Final summary, short: what `design.md` now contains, what was and wasn't applied to the live theme
@@ -454,7 +463,7 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
 
 ## Step 7 (optional): Starter content and section styling
 
-Only if the user asked for it in Step 0. Follow `references/starter-content.md`: 7a places brand images as placeholders in the starting theme's existing sections, and 7b applies the brand's spacing, colour schemes, radius and padding to the existing section templates. Both are draft-theme only, limited to the templates the user named, show a table first, and verify against a baseline. Uploading images to the store's Files needs the user's explicit yes. Template JSON is written by the theme editor too: follow `references/theme-code-standards.md` before changing it.
+Only if the user asked for it in Step 0. Follow `references/starter-content.md`: 7a places brand images as placeholders in the starting theme's existing sections, and 7b applies the brand's spacing, colour schemes, radius and padding to the existing section templates. Both run on the theme settled in Step 0 (the live theme needs the assurance in `references/theme-target.md`), limited to the templates the user named, show a table first, and verify against a baseline. Uploading images to the store's Files needs the user's explicit yes. Template JSON is written by the theme editor too: follow `references/theme-code-standards.md` before changing it.
 
 ## Never
 
@@ -463,8 +472,7 @@ instead. Do not start, or write a `design.md` of your own, when `BRAND.md` or br
 missing: run brand-capture first, yourself, and wait for it to finish. Do not answer brand-capture's setup
 questions for the user, and do not run it below the setting it asks for. Do not duplicate brand identity content that belongs in `BRAND.md`. Do not create a new theme
 setting id where an existing one already covers the token. Do not remap a color scheme without checking
-its role combinations for contrast. Do not push to the live theme without explicit, chat-confirmed
-approval. Do not claim a visual check passed without having loaded the actual rendered theme. Do not download a
+its role combinations for contrast. Do not edit or push to the live theme without the person's yes before the edit and again before the push (`references/theme-target.md`); do not ask which theme again once it is settled, unless they name another. Do not claim a visual check passed without having loaded the actual rendered theme. Do not download a
 font without the user's explicit yes naming the file, source, size and licence. Do not download one that
 isn't free to self-host from its official source, and do not use a lookalike without the user's recorded
 approval. Do not upload anything to the store's Files area without the user's explicit yes naming the file, source, size and rights. Do not place an image the client didn't supply or approve, or replace one the client chose. Do not change section settings outside the templates the user named, and do not change copy, section order or section count. Do not edit a file the starting theme owns to change a styling value an override can do. Fence and register any unavoidable edit. Do not rename, reorder or delete existing setting ids.

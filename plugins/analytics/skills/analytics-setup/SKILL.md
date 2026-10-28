@@ -22,7 +22,7 @@ If the project has its own instructions file (AGENTS.md, CLAUDE.md), read it fir
 - **Consent is the client's legal decision.** Propose settings and mappings; the client (and their counsel) decides regions, categories and banner wording. Not legal advice.
 - **Never sign in for anyone**, type credentials or 2FA codes, or accept terms on their behalf.
 - **No real orders, bookings or form submissions** without the owner's OK for that test and an agreed test method; never real customer data.
-- **Theme and site code follow the project's rules** (for a Shopify theme: prefer new files, mark and log any edit to a core file, push only to the dev or preview theme the project names).
+- **Theme and site code follow the project's rules** (for a Shopify theme: prefer new files, mark and log any edit to a core file). Which theme the code goes on is asked once and remembered (`references/theme-target.md`), settled the first time a change touches theme code, not before; a draft or dev theme is recommended, and the live theme needs the owner's explicit yes before the edit and again before the push.
 
 ## 1. Intake
 
@@ -50,7 +50,7 @@ For each approved item, in order:
 
 1. Prepare the rollback (P12) and say what it is.
 2. Make the change with the matching playbook in `references/fix-playbooks.md` (P1 one path per destination, P2 remove a duplicate, P3 Shopify purchases, P4 storefront events for pixels, P5 consent, P6 GTM changes, P7 cross-domain, P8 lead and booking signals, P9 dataLayer pushes, P10 stale trigger conditions, P11 deduplication).
-   - Changes we make: site or theme code (on a branch or duplicate theme, following the project's rules).
+   - Changes we make: site or theme code, on the theme settled with `references/theme-target.md` (asked once, at the first theme-code change; a draft is recommended), following the project's rules.
    - Changes the owner makes: GTM publishes, ad accounts, Shopify settings, consent. Give them exact, numbered steps naming each object and value, and wait for them to confirm.
 3. Verify right away (step 6) before the next item. If verification fails, roll back first, then investigate.
 

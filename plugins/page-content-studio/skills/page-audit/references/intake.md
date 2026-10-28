@@ -63,8 +63,10 @@ with), `COMPETITORS.md`, and an existing `PAGE-AUDIT.md` (see `audit-file.md`).
   playbook checks apply to only one.
 - **New or existing?** If they're not sure, it is settled by checking the store; never ask
   them to know the difference between a template and a section.
-- **Which theme?** Name the exact theme id you will observe. Confirm it is the one meant,
-  and that it is a draft or preview rather than the live theme unless they say otherwise.
+- **Which theme?** Use the remembered theme if there is one (section 1 of
+  `../../page-content-studio/references/theme-target.md`); otherwise ask once, as that file describes.
+  Observing any theme, the live one included, is read-only, so it needs no live-theme assurance. Name the
+  exact theme id you observed.
 
 ## 3. Guided goal questions: what is the page for?
 
