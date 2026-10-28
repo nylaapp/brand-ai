@@ -8,8 +8,8 @@ and `##` headings, so keep every key and every heading, in this order, even when
 (how it sounds, signature phrases, do / don't pairs, words to avoid) goes in `BRAND-VOICE.md` next to BRAND.md, laid
 out as in `voice-template.md`. Terminology and Claim limits stay here, because they are naming and compliance rules.
 
-**Origin labels** (on any line that isn't plainly sourced): `(from site)`, `(repo)`, `(client)`, `(inferred)`,
-`(suggested)`. A line labelled `(client)` was confirmed by the customer and must never be overwritten by a scan.
+**Origin labels** (on any line that isn't plainly sourced): `(from site)`, `(from brand book)`, `(repo)`, `(client)`,
+`(inferred)`, `(suggested)`. A line labelled `(client)` was confirmed by the customer and must never be overwritten by a scan.
 
 **Unknowns** use one form only, with a stable id that also appears in `BRAND-QUESTIONS.md`:
 `[[CLIENT TO CONFIRM: Q-07 | the question the client must answer]]`. Never write a bare `[[CLIENT TO CONFIRM]]`.
@@ -28,7 +28,7 @@ brand_md_schema: 1.1
 brand: <the default name to use in copy, exactly as the brand writes it>
 legal_name: <legal entity if published, else [[CLIENT TO CONFIRM: Q-01 | legal entity name]]>
 parent_brand: <parent company or group, or blank>
-site: <https://public-site-that-was-scanned>
+site: <https://public-site-that-was-scanned, or `none` when the brand has no site yet>
 store: <shop.myshopify.com, or blank>
 other_domains: <booking or checkout domains that belong to the brand, comma-separated, or blank>
 platform: <shopify (online store) | shopify (headless) | wordpress | ... from the scan>
@@ -48,7 +48,7 @@ approved_by: <name and role of the client approver, blank while draft>
 approved_on: <YYYY-MM-DD, blank while draft>
 captured: <YYYY-MM-DD of the first capture>
 last_updated: <YYYY-MM-DD of the latest write>
-captured_by: brand-capture 1.2.0
+captured_by: brand-capture 1.3.0
 ---
 
 # <Brand> brand file
@@ -183,6 +183,7 @@ the imagery rule). Only when design.md could not be made, list:*
 |---|---|---|---|
 | Identity, Story | <urls> | <first 8 chars of sha256 per page> | <YYYY-MM-DD> |
 | Voice (detail in BRAND-VOICE.md) | <urls read for voice> | <first 8 chars of sha256 per page> | <YYYY-MM-DD> |
+| Brand book (when given) | <file names or links> | <first 8 chars of sha256 of each text copy> | <YYYY-MM-DD> |
 
 ## Change log
 | Rev | Date | Mode | Requested by | Sections | Summary |

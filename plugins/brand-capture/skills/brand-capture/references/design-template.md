@@ -18,6 +18,9 @@ BRAND-VOICE.md. Build procedures, section-by-section theme instructions and QA l
    authoritative for colour roles when present.
 3. **The site's CSS and screenshots**, read by eye for rules the numbers can't show (square vs rounded images, no
    shadows, band layout).
+4. **A brand book's stated values** (hex, type, spacing, logo rules), labelled `(from brand book)`. These are stated,
+   not measured. Where the live site measures differently, record both and ask which is current; with no site yet,
+   they are the only source.
 
 A value you could not measure is labelled `(inferred)` or left out. **Never invent** a hex, size, radius, font or
 hover behaviour to fill a table. Put anything that cannot be settled in BRAND-QUESTIONS.md like any other open item
@@ -27,7 +30,7 @@ hover behaviour to fill a table. Put anything that cannot be settled in BRAND-QU
 accordions has no Accordion entry). Keep every rule that a designer would otherwise get wrong: the counterintuitive
 ones (what is rounded and what is square, what hover does, which family does which job) earn the most space.
 
-**Origin labels** are the same as in BRAND.md. Use `(from site)` for measured values and `(inferred)` for the rest;
+**Origin labels** are the same as in BRAND.md. Use `(from site)` for measured values, `(from brand book)` for values a brand book states, and `(inferred)` for the rest;
 `(client)` lines are never overwritten by a re-scan.
 
 The front matter is flat `key: value` lines (no nesting, no quotes). Dates are `YYYY-MM-DD`.
@@ -41,7 +44,7 @@ parent_doc: BRAND.md
 status: <draft | approved, same as BRAND.md>
 revision: <1, 2, 3 ... +1 on every write>
 last_updated: <YYYY-MM-DD of the latest write>
-measured: <YYYY-MM-DD and viewports, e.g. "2026-10-09 at 1440 and 390", or "not measured: scan CSS only">
+measured: <YYYY-MM-DD and viewports, e.g. "2026-10-09 at 1440 and 390", or "not measured: scan CSS only", or "not measured: stated by the brand book (no live site)">
 source: <e.g. "brand-capture scan of https://example.com plus browser measurement">
 ---
 

@@ -34,7 +34,7 @@ parent_doc: BRAND.md
 status: <draft | approved, same as BRAND.md>
 revision: <1, 2, 3 ... +1 on every write>
 last_updated: <YYYY-MM-DD of the latest write>
-source: <where it came from, e.g. "brand-capture 1.2.0 scan of https://example.com" or "moved from the Voice section of BRAND.md rev 1">
+source: <where it came from, e.g. "brand-capture 1.3.0 scan of https://example.com", "brand-capture 1.3.0 reading of the brand book <file name>" or "moved from the Voice section of BRAND.md rev 1">
 ---
 
 # <Brand> brand voice

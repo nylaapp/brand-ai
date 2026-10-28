@@ -28,9 +28,9 @@ GLANCE = [("site", "Website"), ("category", "Category"), ("markets", "Markets"),
 HIDE_SECTIONS = {"Sources"}
 HIDE_VOICE_SECTIONS = {"Rules that stay in BRAND.md", "Change log"}   # notes for agents, not for the client
 VOICE_FILE = re.compile(r"[A-Za-z0-9._-]+\.md")
-LABELS = {"from site": "from your site", "client": "from you", "repo": "from our files", "inferred": "our reading",
+LABELS = {"from site": "from your site", "from brand book": "from your brand book", "client": "from you", "repo": "from our files", "inferred": "our reading",
           "suggested": "our suggestion", "example": "example"}
-LABEL = re.compile(r"\((from site|client|repo|inferred|suggested|example)([^()]*)\)")
+LABEL = re.compile(r"\((from site|from brand book|client|repo|inferred|suggested|example)([^()]*)\)")
 CONFIRM = re.compile(r"\[\[CLIENT TO CONFIRM: (Q-\d{2,3}) \| ([^\]]+)\]\]")
 MD_LINK = re.compile(r"\[([^\]\n]+)\]\((https?://[^)\s]+)\)")
 AUTOLINK = re.compile(r"(?<![\w\"'=/>])(https?://[^\s)<|]+[^\s)<|.,;:])")

@@ -5,6 +5,7 @@ Keep it short: the person reading it decides what to send the client and what to
 ```markdown
 # brand-capture · <Brand> · <new | apply-answers | split-voice> · <YYYY-MM-DD>
 
+**Worked from:** <site URL(s) · brand book(s) by file name or link · or "none provided: asked, the person said <answer>">
 **Saved:** <path to BRAND.md> · rev <n> · <draft | approved> · <lines> lines · validator <OK | n warnings>
 **Voice file:** <path to BRAND-VOICE.md> · rev <n> · <lines> lines
 **Design file:** <path to design.md, or "existing: <path>"> · rev <n> · <lines> lines · measured <date and viewports, or "scan CSS only">
@@ -41,7 +42,8 @@ in BRAND.md.>
 instructions" when the run was in Cowork or a Claude project>
 
 ## Not done
-<pages blocked by robots or errors; client-rendered pages read without a browser; anything skipped>
+<pages blocked by robots or errors; client-rendered pages read without a browser; brand-book pages or documents not read, or
+mentioned but not shared yet; "no brand book provided"; "sources not confirmed"; anything skipped>
 
 ## Next
 - Deep competitor research: run the competitor-research skill to write COMPETITORS.md (about <n> min).
