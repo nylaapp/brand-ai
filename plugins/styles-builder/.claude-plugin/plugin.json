@@ -1,6 +1,6 @@
 {
   "name": "styles-builder",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Create design.md (the brand visual guide) from a brand book or reference store, apply its tokens and the starter setup (logo, favicon, motion, input fields, variant pickers) into the theme's settings, and optionally brand the starting theme's section templates.",
   "author": {
     "name": "Nyla",

@@ -1,7 +1,7 @@
 {
   "name": "competitor-research",
-  "version": "0.1.0",
-  "description": "Deep, dated research on a client's named competitors and inspiration brands, written to COMPETITORS.md.",
+  "version": "0.2.0",
+  "description": "Deep, dated research on a client's named competitors and inspiration brands, written to COMPETITORS.md in the draft theme's folder with the brand files.",
   "author": { "name": "Nyla", "email": "michael@nyla.app" },
   "repository": "https://github.com/nylaapp/brand-ai",
   "keywords": ["competitors","research","brand"],
