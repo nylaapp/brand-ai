@@ -5,12 +5,15 @@ description: >-
   a brand book or a reference store, and applying its tokens into the theme's settings_schema.json
   and settings_data.json. Brand agnostic. Covers the full token set a theme needs before pages get
   built on it: typography, color schemes, spacing, corner radius, shadows, buttons and component
-  states. If BRAND.md or design.md aren't available yet, it runs brand-capture first and waits for
-  it to finish. Use whenever the user says "generate design tokens", "create design.md", "set up
-  the brand's colors and fonts in the theme", "match the reference store's look", "build a style
-  guide from this brand book", "what do we need before building pages", or when
-  page-content-studio or page-audit had to fall back to theme settings because design.md is
-  missing or too thin.
+  states. It also sets up the essentials a new theme needs to start building: logo and favicon,
+  motion, input fields, variant pickers and swatches, and, if asked, brand placeholder images and
+  brand styling on the starting theme's section templates. If BRAND.md or design.md aren't
+  available yet, it runs brand-capture first and waits for it to finish. Use whenever the user
+  says "generate design tokens", "create design.md", "set up the brand's colors and fonts in the
+  theme", "match the reference store's look", "build a style guide from this brand book", "what do
+  we need before building pages", "set up the logo and favicon", "get the theme ready to build
+  on", or when page-content-studio or page-audit had to fall back to theme settings because
+  design.md is missing or too thin.
 ---
 
 # Styles Builder (brand agnostic)
@@ -150,8 +153,10 @@ exactly what is missing; never fill the gap with a `design.md` written here.
    lives.
 2. Confirm which theme repo / branch this is for, and whether the user also wants tokens applied live into
    `config/settings_schema.json` and `config/settings_data.json`, or only written to `design.md` as
-   reference. Default to **both** unless the user says otherwise, since a `design.md` with no theme applied
-   just recreates the gap this skill exists to close.
+   reference. Default: write `design.md` and apply the tokens to a draft theme through the theme's settings
+   and the brand stylesheet, never by editing a base file, because a `design.md` with no theme applied
+   recreates the gap this skill exists to close.
+3. Ask which optional steps they want: 7a brand placeholder images and 7b brand styling on the existing section templates (both default to no), and which templates, per `references/starter-content.md`. Anything not asked for is skipped.
 
 ## Step 0.5: The initial token set — what "ready to build on" means
 
@@ -187,6 +192,11 @@ things that need a settled, sourced value. Treat this as the checklist for Step 
   for; a reference store with one styled form field is evidence, one styled anything-else is not.
 - **Imagery** — aspect ratios by use (hero, card, product gallery), crop behaviour, and whether images
   get a consistent treatment (corner radius, border, duotone, grayscale on hover).
+- **Logo and favicon** — the logo files (primary, and an inverse version if the brand uses a light logo on dark), the display height on desktop and mobile, clear space and minimum size if the brand book states them, and a square favicon. See `references/logo-favicon.md`.
+- **Motion** — whether the brand uses any (page transitions, hover effects on cards and images, button transitions, add-to-cart feedback, scroll reveals), with durations and easing where it does and an explicit "no animation" where it doesn't. See `references/motion.md`.
+- **Input fields** — background, text, border colour and width, radius, height and padding, placeholder colour, focus ring, error state and labels, plus checkboxes, radios and selects if the brand styles them.
+- **Variant pickers and swatches** — pill or button style, radius and border; default, hover, selected, selected-hover and unavailable states; swatch shape and size; whether variant images show.
+- **Everything else the theme exposes** — badges, prices, cart and drawers, product cards, popovers, search, icons. Walk the theme's own settings groups (`references/starter-setup.md`) and say which are set, which stay at the theme default with the brand's agreement, and which stay at the default with no evidence.
 
 This list is what makes Step 1's extraction systematic instead of "grab whatever's easy to see." Work
 through it in order; it's also the order `design.md`'s sections should follow (Step 3).
@@ -220,6 +230,7 @@ Do not eyeball rendered colors or guess font names from how text looks — measu
 - Identify each font from the page, not from how it looks: the computed `font-family` stack, the
   `@font-face` rules (family name, weight, style, source host) and any font-service stylesheet link.
   Record the weights and styles actually used.
+- Also measure: the logo's rendered height and file at desktop and mobile; the favicon links in the page head; transitions and hover effects (see `references/motion.md`); a real form's input styles in every state; and, on a product page with variants, every variant-picker and swatch state.
 - If no rendered view is possible, say so plainly and name what failed — do not guess values from a
   text-only fetch, exactly as `page-content-studio` requires for its own captures.
 
@@ -263,6 +274,11 @@ as the source for every visual value, so write it the way brand-capture's `desig
 - **Components** — form inputs, badges, dividers and any other element the brand treats consistently.
 - **Imagery** — aspect ratios by use (hero, card, PDP gallery, etc.), crop behaviour, corner radius,
   consistent treatment (duotone, border, shadow).
+- **Logo and favicon** — files, dimensions, display heights, minimum size and clear space, source and rights.
+- **Motion** — each effect with where, duration, easing and source, or an explicit "No animation".
+- **Input fields** — every measured property and state.
+- **Variant pickers and swatches** — every state, shape, radius and border.
+- **Placeholders** (only if Step 7a ran) — image, where used, source, rights, approver.
 - **Shared styling contract** — the rule that sections of the same page family (e.g. all PLP card grids,
   all hero banners) must share these values, so future builds stay consistent without re-deriving them.
 - **Parity tolerances** — how close a rebuilt page must measure to a reference (pixel/percent tolerance on
@@ -305,9 +321,9 @@ kind of token, and treating them all the same way is the most common way this st
   `step` you set — a radius range with no sane max will happily accept a value that breaks the button's
   layout, so set bounds that reflect the brand's actual scale, not arbitrary ones; second, the Liquid
   setting and the CSS variable it feeds can drift out of sync if a section's CSS hardcodes a value instead
-  of reading the custom property — when applying tokens to an existing theme, grep for hardcoded px radius/
-  shadow/spacing values in section CSS and replace them with the token reference, don't just add the new
-  setting alongside the old hardcoded value.
+  of reading the custom property. Don't fix that by editing the section: override it with a scoped rule in
+  the brand stylesheet (see `references/theme-code-standards.md`), and edit the base file only if nothing
+  else works, fenced and registered.
 - **Typography is font-picker only.** The `font_picker` setting type draws from Shopify's font library —
   it can't point at an arbitrary custom font file. If the brand's typeface isn't in Shopify's library, it
   has to be uploaded as a custom theme asset and referenced via `@font-face` in the theme's CSS, which
@@ -326,6 +342,7 @@ kind of token, and treating them all the same way is the most common way this st
    existing radius range, an existing color scheme slot). Reusing an existing ID means every section
    already wired to it picks up the new brand value for free; adding a parallel new ID means you now have
    to go find and update every place that should use it, and anything missed quietly keeps the old look.
+4. Read `references/theme-code-standards.md`.
 
 ### Mapping tokens in
 
@@ -338,7 +355,7 @@ kind of token, and treating them all the same way is the most common way this st
   `range` settings) in `settings_schema.json`/`settings_data.json`. Keep the number of distinct weights
   actually enabled small — each additional weight/family Shopify's font library serves is extra page
   weight; a brand book listing six weights of one family doesn't mean the theme should load all six if the
-  site only uses two of them in practice.
+  site only uses two of them in practice. See `references/theme-code-standards.md` for writing these files.
 - **Spacing, radius, shadows, buttons** → same reuse-first rule. Set `range` `min`/`max`/`step` to bound
   values the brand's own scale would plausibly need, not platform maximums — a reviewer two years from now
   should be able to tell from the schema's bounds roughly what this brand's scale looks like.
@@ -348,6 +365,18 @@ kind of token, and treating them all the same way is the most common way this st
 - If a brand font isn't already in the theme or Shopify's font library, follow "Sourcing a font that
   isn't in the theme or Shopify's library" below. Never substitute a lookalike silently, and flag the
   font in `design.md` as an asset-based font, not a `font_picker` value.
+
+### Logo and favicon
+
+Follow `references/logo-favicon.md`. The pickers only take files from the store's Files area, so an upload is a store-level change that needs the user's explicit yes naming file, source, size and rights. Set the logo heights from measured numbers.
+
+### Motion
+
+Follow `references/motion.md`. Use the theme's own animation settings first, turn them off for a brand with no animation, and always honour reduced motion.
+
+### Input fields, variant pickers and swatches
+
+Find the theme's own settings for them (ids differ by theme version; `references/starter-setup.md`), set them from the measured states, and check contrast for every state in every colour scheme, including selected and unavailable variants.
 
 ### Sourcing a font that isn't in the theme or Shopify's library
 
@@ -406,6 +435,7 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
   scheme, not just the one the homepage happens to use.
 - Check at least one narrow mobile width (375px or similar) specifically for spacing and button radius —
   CSS overrides for these tend to break first at narrow widths, not on desktop.
+- Favicon in a fresh private window's tab; logo at both heights with no layout shift; motion with reduced motion on; input focus and error states; every variant-picker state, including selected and unavailable.
 - Re-run `shopify theme check` (or the repo's equivalent) and compare against the baseline from before this
   change — flag anything that changed count.
 
@@ -420,7 +450,11 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
   settings, anything left `unconfirmed` that the user should resolve, any contrast issues found and how
   they were resolved, whether brand-capture had to run in this session (its mode and where its files are), whether
   `BRAND.md` points at the file through `design_doc` (if not, have brand-capture adopt it), which fonts were installed as theme assets (from where,
-  under which licence), and whether this is on draft/preview or live.
+  under which licence), which of logo, favicon, motion, inputs and variant pickers were set and which groups stayed at the theme default, whether 7a or 7b ran (what was placed or changed, source and rights), which starting-theme files, if any, were edited and where they are registered, the "Implementing this in the theme" section written in `design.md`, and whether this is on draft/preview or live.
+
+## Step 7 (optional): Starter content and section styling
+
+Only if the user asked for it in Step 0. Follow `references/starter-content.md`: 7a places brand images as placeholders in the starting theme's existing sections, and 7b applies the brand's spacing, colour schemes, radius and padding to the existing section templates. Both are draft-theme only, limited to the templates the user named, show a table first, and verify against a baseline. Uploading images to the store's Files needs the user's explicit yes. Template JSON is written by the theme editor too: follow `references/theme-code-standards.md` before changing it.
 
 ## Never
 
@@ -433,4 +467,4 @@ its role combinations for contrast. Do not push to the live theme without explic
 approval. Do not claim a visual check passed without having loaded the actual rendered theme. Do not download a
 font without the user's explicit yes naming the file, source, size and licence. Do not download one that
 isn't free to self-host from its official source, and do not use a lookalike without the user's recorded
-approval.
+approval. Do not upload anything to the store's Files area without the user's explicit yes naming the file, source, size and rights. Do not place an image the client didn't supply or approve, or replace one the client chose. Do not change section settings outside the templates the user named, and do not change copy, section order or section count. Do not edit a file the starting theme owns to change a styling value an override can do. Fence and register any unavoidable edit. Do not rename, reorder or delete existing setting ids.
