@@ -217,6 +217,9 @@ Do not eyeball rendered colors or guess font names from how text looks — measu
 - Note which colors repeat together as a set — that's a "scheme" even if the reference site never names it
   as one. Name schemes descriptively (e.g. "Light", "Dark/Inverse", "Accent") unless the user has names
   already in mind.
+- Identify each font from the page, not from how it looks: the computed `font-family` stack, the
+  `@font-face` rules (family name, weight, style, source host) and any font-service stylesheet link.
+  Record the weights and styles actually used.
 - If no rendered view is possible, say so plainly and name what failed — do not guess values from a
   text-only fetch, exactly as `page-content-studio` requires for its own captures.
 
@@ -247,7 +250,8 @@ as the source for every visual value, so write it the way brand-capture's `desig
 - **Colour palette** — every named scheme, which colours it contains, where each is used (background,
   text, border, accent, link, button).
 - **Typography** — families (heading/body/accent), scale per role, weights, casing conventions, font
-  licence status per family.
+  licence status per family. For an asset-based font: file names, weights and styles, source URL,
+  licence name, date downloaded and who approved.
 - **Spacing and container widths** — section padding (desktop and mobile), gaps, max container width(s),
   grid/breakpoint values.
 - **Corner radius** — per component family (buttons/inputs vs. cards/images) if the brand uses more than
@@ -341,9 +345,57 @@ kind of token, and treating them all the same way is the most common way this st
 - Never hardcode a token into Liquid/CSS where a theme setting already exists to hold it — this is the
   same rule `page-content-studio` enforces, and it applies doubly here since this skill is what makes
   those settings exist in the first place.
-- If a brand font isn't already in Shopify's font library, follow the repo's font-transfer steps in
-  `AGENTS.md`, including the licence question to the user — do not silently substitute a lookalike font,
-  and flag it in `design.md` as an asset-based font, not a `font_picker` value (see above).
+- If a brand font isn't already in the theme or Shopify's font library, follow "Sourcing a font that
+  isn't in the theme or Shopify's library" below. Never substitute a lookalike silently, and flag the
+  font in `design.md` as an asset-based font, not a `font_picker` value.
+
+### Sourcing a font that isn't in the theme or Shopify's library
+
+Work down this ladder and stop at the first rung that works. Never skip to a lookalike.
+
+1. **Already there.** Check the theme's `assets/` and the repo's font notes. Then check whether the
+   family is in Shopify's font library (search for it in the theme editor's font picker; if you
+   can't check, say so and treat it as not confirmed). If it is, set it with the existing
+   `font_picker` setting: nothing to download, and it stays swappable in the theme editor.
+2. **Files supplied.** If the client gave font files (in the brand book package or from the foundry),
+   confirm they are licensed for web use and for this store, then install them (next subsection).
+3. **Free and exact, found online, only with permission.** Do this only when every point holds:
+   - **Identify the exact family** from the brand book or from the live site: the computed
+     `font-family`, the `@font-face` rules and the font URLs it loads. Match the same family, the same
+     weights and the same styles the brand actually uses. A near match is a lookalike, so it doesn't
+     count.
+   - **Check the licence.** It must be free to self-host and redistribute: SIL Open Font License,
+     Apache 2.0 or Ubuntu Font License. The source must be official: the family's own page or
+     repository on Google Fonts, the foundry's own free download, or an official open-source
+     package. A commercial, trial, demo or unknown-licence font stops here: mark the family
+     `unconfirmed` and go to rung 4.
+   - **Ask before downloading.** Tell the user the file names, the exact source URL, the size and
+     the licence, and wait for an explicit yes. Download into the scratch folder, not the repo.
+   - **Check what you got:** the file type (prefer `woff2`), that it has the weights and styles
+     needed, and that the licence text came with it.
+4. **Can't be sourced legitimately.** Say so plainly and offer two choices: the user supplies
+   licensed files, or approves a named free substitute. A substitute is a deviation: record it in
+   `design.md` with the reason, who approved it and the date. Never choose one silently, and never
+   download an unlicensed copy.
+
+### Installing a font as a theme asset
+
+Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
+
+- Use the theme's `assets/`, not the store's Files area, which is store-level. Add only the weights
+  and styles in use, named as the repo's asset naming requires, and keep the licence text in the repo
+  if the licence requires it.
+- Add one `@font-face` per file in the repo's stylesheet (family, weight, style, `font-display: swap`,
+  a `woff2` source through the theme's asset URL), then point the `--font-*` tokens at the family.
+  Don't hardcode the family anywhere a token already holds it.
+- Edit a draft theme only, and push only the touched files. Never push to the live theme without the
+  user's explicit, chat-confirmed approval.
+- Verify on the rendered page, not the file: the computed font-family and weight on a heading and on
+  body text, each font file returning HTTP 200, no flash of unstyled text on a fresh load, mobile too,
+  and the `theme check` count unchanged.
+- Record it in `design.md` as an asset-based font: file names, weights and styles, source URL, licence
+  name, date downloaded, and who approved. The `font_picker` setting is unchanged, and the font is not
+  swappable in the theme editor.
 
 ## Step 5: Verify
 
@@ -367,8 +419,8 @@ kind of token, and treating them all the same way is the most common way this st
 - Final summary, short: what `design.md` now contains, what was and wasn't applied to the live theme
   settings, anything left `unconfirmed` that the user should resolve, any contrast issues found and how
   they were resolved, whether brand-capture had to run in this session (its mode and where its files are), whether
-  `BRAND.md` points at the file through `design_doc` (if not, have brand-capture adopt it), and whether this
-  is on draft/preview or live.
+  `BRAND.md` points at the file through `design_doc` (if not, have brand-capture adopt it), which fonts were installed as theme assets (from where,
+  under which licence), and whether this is on draft/preview or live.
 
 ## Never
 
@@ -378,4 +430,7 @@ missing: run brand-capture first, yourself, and wait for it to finish. Do not an
 questions for the user, and do not run it below the setting it asks for. Do not duplicate brand identity content that belongs in `BRAND.md`. Do not create a new theme
 setting id where an existing one already covers the token. Do not remap a color scheme without checking
 its role combinations for contrast. Do not push to the live theme without explicit, chat-confirmed
-approval. Do not claim a visual check passed without having loaded the actual rendered theme.
+approval. Do not claim a visual check passed without having loaded the actual rendered theme. Do not download a
+font without the user's explicit yes naming the file, source, size and licence. Do not download one that
+isn't free to self-host from its official source, and do not use a lookalike without the user's recorded
+approval.

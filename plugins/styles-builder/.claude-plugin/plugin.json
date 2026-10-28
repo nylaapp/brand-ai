@@ -1,6 +1,6 @@
 {
   "name": "styles-builder",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Create design.md (the brand visual guide) from a brand book or reference store, and apply its tokens into the theme's settings_schema.json/settings_data.json.",
   "author": {
     "name": "Nyla",
