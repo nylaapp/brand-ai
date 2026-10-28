@@ -100,12 +100,13 @@ an explicit yes before the first edit and again before the push.
 
 Use brand-capture's lookup (`references/brand-context.md` in that plugin): the theme repo or project
 root, then the user's local environment, then the central brand directory
-(`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then memory and connected
-knowledge. Resolve each file separately, and confirm each belongs to this store (its front matter
-`brand` or `site` matches); a file for another store counts as missing. A design guide saved under another
-case in the theme repo (for example `DESIGN.md`) counts as the client's `design.md`: use it as the
-source, tell brand-capture about it so it adopts that file, and never create a second one. Note each
-file's path and where it was found.
+(`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), which holds the files or a
+`BRAND-HOME.md` naming the draft theme's folder where they are, then memory and connected knowledge.
+Resolve each file separately, and confirm each belongs to this store (its front matter `brand` or
+`site` matches); a file for another store counts as missing. A design guide saved under another case
+in the theme repo (for example `DESIGN.md`) counts as the client's `design.md`: use it as the source,
+tell brand-capture about it so it adopts that file, and never create a second one. Note each file's
+path and where it was found.
 
 ### 0b Decide
 
@@ -122,12 +123,14 @@ It needs four things. If any is missing, stop, say which, and do not write a `de
 
 - **The skill is available.** Check the session's skill list. If it isn't there, say so and give the
   install command (`/plugin install brand-capture@brand-ai`).
-- **A site to scan.** Take the URL from the request, then from the repo (README, theme config, a design
-  doc); otherwise ask for it. It reads a public site, so a brand with no public site yet can't be captured
-  this way: say so, and ask for a URL it can read (a public staging site works).
-- **A person present.** It asks four short setup questions (top competitors, inspiration brands, who
-  approves things, anything never to say) that only the client can answer. In an unattended or scheduled
-  run, stop and say a person is needed.
+- **A site or a brand book to work from.** Take a site URL from the request, then from the repo
+  (README, theme config, a design doc), to pass along as a first guess; brand-capture asks the person
+  for the site and any brand book itself. It reads a public site or a brand book, so a brand with
+  neither yet can't be captured: say so, and ask for one (a public staging site works).
+- **A person present.** It asks what to work from (a site, a brand book), which draft theme to save
+  the files in, and four short setup questions (top competitors, inspiration brands, who approves
+  things, anything never to say) that only the client can answer. In an unattended or scheduled run,
+  stop and say a person is needed.
 - **The right setting.** brand-capture asks for Claude Opus 5.5 at high effort or above and says not to
   run it below that. If this session is below it, say so before starting and ask the user to switch; don't
   run it anyway.
@@ -135,13 +138,16 @@ It needs four things. If any is missing, stop, say which, and do not write a `de
 ### 0d Tell the user, then run it
 
 Say it plainly before starting: "BRAND.md and design.md don't exist yet, so I'm running brand-capture
-first. It scans the site, asks you four short questions, and writes both files. For a typical store that is
+first. It asks what it can work from (a site, a brand book) and which draft theme to save the files
+in, scans the site, asks you four short questions, and writes both files. For a typical store that is
 about 10 to 20 minutes of working time (20 to 40 for a large site) and roughly USD 3 to 6 at its
-recommended setting, not counting the time you take to answer." Those are brand-capture's own estimates;
-check its effort section if they matter. Then invoke brand-capture with the Skill tool, passing: the site
-URL, the theme repo path, and that the next step needs `design.md` (so it must write or adopt one). Let
-it save the files where it does by default (the central brand directory) unless the repo's rules say
-otherwise. A brand book is not an input to brand-capture: keep it for Step 1.
+recommended setting, not counting the time you take to answer." Those are brand-capture's own
+estimates; check its effort section if they matter. Then invoke brand-capture with the Skill tool,
+passing: the site URL, the theme repo path, the draft theme and folder if one is already settled (see
+"Theme first"), any brand book the user has already given you, and that the next step needs
+`design.md` (so it must write or adopt one). brand-capture asks the person for the sources and the
+draft theme itself, always, and saves the files in that draft theme's folder, so don't answer for them
+or tell it to save anywhere else.
 
 While it runs: relay its questions to the user, never answer them yourself, and never run this skill's
 extraction alongside it or before it finishes.

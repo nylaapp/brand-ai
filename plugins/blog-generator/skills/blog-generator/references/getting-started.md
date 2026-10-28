@@ -19,7 +19,7 @@ New here? Start with **blog-generator**. Add the others later.
 - [ ] **Use Claude Desktop (Cowork) for the full experience.** Chat can write a post, but saving drafts through your browser and scheduled runs need the desktop app.
 - [ ] **Shopify connection (recommended).** Connect the Shopify connector so Claude can save drafts straight into your store. Each person signs in to their own Shopify access.
 - [ ] **No connector?** Install Claude in Chrome and stay signed in to Shopify admin. The skill can fill in the blog editor for you. It never types your password.
-- [ ] **Your BRAND.md.** Set up the brand once with the **brand-capture** skill (about 10 to 25 minutes). It saves `BRAND.md` to the central brand directory (`$BRAND_AI_HOME/brands/<store>/`, default `~/.brand-ai/brands/<store>/`) and the skills also find it in your project folder or home directory: voice, audience, claim limits, competitors, inspiration brands and how your blog looks. Then run **competitor-research** to add `COMPETITORS.md`. The blog writer reads both and never asks about the brand again. Each store has its own folder and its own BRAND.md.
+- [ ] **Your BRAND.md.** Set up the brand once with the **brand-capture** skill (about 10 to 25 minutes). It asks which draft theme of your store to keep the brand files in and saves `BRAND.md` in that theme's folder on your computer (with a short pointer to it in `~/.brand-ai/brands/<store>/`), where the skills find it. It holds your voice, audience, claim limits, competitors, inspiration brands and how your blog looks. Then run **competitor-research** to add `COMPETITORS.md`. The blog writer reads both and never asks about the brand again. Each store has its own folder and its own BRAND.md.
 
 ---
 
@@ -116,5 +116,5 @@ Nothing is written until you answer. A week with no good idea is a quiet week wi
 - **Add a skill for everyone:** Add > Upload a skill (a .zip with a SKILL.md). It's available to all members straight away, on by default, and members can switch it off.
 - **Only some teams:** on Enterprise, bundle the skills in a plugin and assign it to a group.
 - **Connectors:** enabling one makes it available to everyone in the organization.
-- **Brand file:** one `BRAND.md` per store, written by brand-capture, read by every other skill. Keep each store in its own folder. Lookup order: project root, your home directory, the central brand directory, then memory and connected knowledge (see brand-capture `references/brand-context.md`).
+- **Brand file:** one `BRAND.md` per store, written by brand-capture, read by every other skill. Keep each store in its own folder. It lives in the folder of a draft theme you choose. Lookup order: project root, your home directory, the central brand directory (which points to the draft theme's folder), then memory and connected knowledge (see brand-capture `references/brand-context.md`).
 - **Updates:** re-upload a skill to update it for everyone.

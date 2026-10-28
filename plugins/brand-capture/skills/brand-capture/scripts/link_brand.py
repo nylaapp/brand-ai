@@ -40,7 +40,7 @@ SKILL_MIN, DOC_MIN = 3, 5
 
 def block_text(newline="\n"):
     lines = [START,
-             "> **Brand facts live in `BRAND.md`** (project root, else the central brand directory `$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`). Read it before writing anything "
+             "> **Brand facts live in `BRAND.md`** (project root, else the central brand directory `$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`, which holds the files or a `BRAND-HOME.md` naming the draft theme's folder where they are). Read it before writing anything "
              "customers will see: names, voice, terminology, claim limits, competitors and inspiration brands all "
              "come from there (deeper competitor research, when it exists, is in `COMPETITORS.md`). Don't ask the "
              "user about the brand and don't re-research it. To change something in it, add a line to "
@@ -176,7 +176,7 @@ def apply(root, item):
 
 def main():
     ap = argparse.ArgumentParser(description="Point a project's agent files and skills at BRAND.md")
-    ap.add_argument("root", help="project root (where BRAND.md lives)")
+    ap.add_argument("root", help="project root (where BRAND.md lives: the draft theme's folder)")
     ap.add_argument("--apply", nargs="+", metavar="PATH", help="'all', or the proposed paths to link")
     ap.add_argument("--remove", action="store_true", help="remove every BRAND.md link block")
     ap.add_argument("--json", action="store_true")

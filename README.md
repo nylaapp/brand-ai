@@ -23,8 +23,8 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 
 | Plugin | What it does | Requires |
 |---|---|---|
-| brand-capture | One-time brand setup: always asks for the brand's site or store and any brand book, reads them, and writes BRAND.md, BRAND-VOICE.md, design.md, BRAND-QUESTIONS.md | none |
-| competitor-research | Dated competitor and inspiration research: writes COMPETITORS.md | brand-capture |
+| brand-capture | One-time brand setup: always asks for the brand's site or store and any brand book, reads them, and writes BRAND.md, BRAND-VOICE.md, design.md, BRAND-QUESTIONS.md, saved in the folder of a draft theme you choose | none |
+| competitor-research | Dated competitor and inspiration research: writes COMPETITORS.md next to BRAND.md in the draft theme's folder | brand-capture |
 | content-fact-check | Verify claims in copy, with regulated-claim guardrails | none |
 | accessibility-audit | Lighthouse accessibility scoring and additive fixes for Shopify themes | none |
 | content-seo-audit | Audit a live blog post (schema, PageSpeed, on-page) and track Search Console rankings at 2 and 4 weeks | none (pairs with blog-generator) |
@@ -50,11 +50,11 @@ Validate with `claude plugin validate .`
 
 ## Brand files
 
-Brand skills read and write `BRAND.md`, `BRAND-VOICE.md`, `COMPETITORS.md`, `BRAND-QUESTIONS.md` and `BRAND-REQUESTS.md`. They look in the project root, then `~/` and `~/.claude/`, then the central directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then memory and connected knowledge, and only then offer to generate. Generated files are saved to the central directory. Full rules: `plugins/brand-capture/skills/brand-capture/references/brand-context.md`.
+Brand skills read and write `BRAND.md`, `BRAND-VOICE.md`, `COMPETITORS.md`, `BRAND-QUESTIONS.md` and `BRAND-REQUESTS.md`. They look in the project root, then `~/` and `~/.claude/`, then the central directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), which holds the files or a `BRAND-HOME.md` that names the draft theme's folder where they are, then memory and connected knowledge, and only then offer to generate. `brand-capture` and `competitor-research` ask which draft theme to save the brand files in and save them in that theme's folder on the computer, at its root beside `assets/`, `config/` and the rest (never inside the theme's own folders, and never in `assets/`, which is public), so later customization and every other skill finds them there. Nothing is pushed to the store. With no draft theme yet, or no Shopify store, they go in the central directory. Full rules: `plugins/brand-capture/skills/brand-capture/references/brand-context.md` and `brand-home.md`.
 
 ## Theme target
 
-Skills that can change theme files (`page-create`, `page-edit-content`, `page-edit-design`, `styles-builder`, `accessibility-audit`, and `analytics-setup` and `analytics-cleanup` when they touch theme code) ask once which theme to work on, a draft or the live theme, and remember the answer in `THEME-TARGET.md` next to `BRAND.md` (or in the central directory), so the next skill reuses it without asking. Name a different theme at any time to switch. The file records the theme only, never permission: for the live theme, each skill asks for an explicit yes before any edit and again before the push, every run. Read-only skills (audits) never need the question. Full rules, identical in each plugin that changes themes: `references/theme-target.md` (in `page-content-studio`, `styles-builder`, `accessibility-audit` and `analytics-setup`).
+Skills that can change theme files (`page-create`, `page-edit-content`, `page-edit-design`, `styles-builder`, `accessibility-audit`, and `analytics-setup` and `analytics-cleanup` when they touch theme code) ask once which theme to work on, a draft or the live theme, and remember the answer in `THEME-TARGET.md` next to `BRAND.md` (or in the central directory), so the next skill reuses it without asking. Name a different theme at any time to switch. The file records the theme only, never permission: for the live theme, each skill asks for an explicit yes before any edit and again before the push, every run. Read-only skills (audits) never need the question. `brand-capture` asks for a draft theme too, to save the brand files in, and that choice is remembered the same way. Full rules, identical in each plugin that uses them: `references/theme-target.md` (in `page-content-studio`, `styles-builder`, `accessibility-audit`, `analytics-setup` and `brand-capture`).
 
 ## Analytics file
 
