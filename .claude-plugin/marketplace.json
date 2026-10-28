@@ -36,7 +36,7 @@
       "name": "styles-builder",
       "source": "./plugins/styles-builder",
       "description": "Generate design.md from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates.",
-      "version": "0.3.0"
+      "version": "0.4.0"
     },
     {
       "name": "competitor-research",
@@ -54,7 +54,7 @@
       "name": "accessibility-audit",
       "source": "./plugins/accessibility-audit",
       "description": "Lighthouse accessibility scoring for Shopify themes with additive fixes and re-scoring.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "content-seo-audit",
@@ -71,14 +71,14 @@
     {
       "name": "page-content-studio",
       "source": "./plugins/page-content-studio",
-      "description": "Audit pages against what each page type should do (page-audit, read-only), then change or build them on a draft theme (page-content-studio).",
-      "version": "0.6.1"
+      "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme.",
+      "version": "0.8.0"
     },
     {
       "name": "analytics",
       "source": "./plugins/analytics",
       "description": "Analytics partner: tagging and full audits across privacy states, setup from issue list to verified fixes, quick and zero-based tag cleanup, and guardrails with drift watch.",
-      "version": "0.3.0"
+      "version": "0.4.0"
     }
   ]
 }

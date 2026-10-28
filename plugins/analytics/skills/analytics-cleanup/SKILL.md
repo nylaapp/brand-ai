@@ -18,7 +18,7 @@ If the project has its own instructions file (AGENTS.md, CLAUDE.md), read it fir
 - **Audit first.** Use a tagging or full audit from `analytics-audit` that is less than 30 days old and matches the current live GTM version (`analytics-guardrails` drift check); otherwise run the tagging audit first.
 - **Never touch what a core event depends on** in a quick cleanup: anything in the tracking plan, the dependency register, the rules, consent tools, conversion tags, or the only path to a destination.
 - **Disable before delete.** Pause, disconnect, or remove in a duplicate theme; delete after a quiet week with the owner's OK.
-- **Approval per item**, from the person who owns that tool. Publishing a GTM version, changing a live pixel or a live theme needs that owner's explicit OK for that change.
+- **Approval per item**, from the person who owns that tool. Publishing a GTM version, changing a live pixel or a live theme needs that owner's explicit OK for that change. Which theme code changes go on is settled once, the first time a change touches theme code (`../analytics-setup/references/theme-target.md`); for the live theme the owner's yes comes before the edit and again before the push.
 - **Benchmarks block in the browser, never on the store.** `tag_cost.py` changes nothing on the site.
 - **Never trade a Tier 1 event for speed.** Change how an expensive conversion tag loads; never drop the conversion.
 - **Lab numbers are lab numbers.** Report them as comparisons, not as real-user promises.

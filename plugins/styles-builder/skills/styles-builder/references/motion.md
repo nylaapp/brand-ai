@@ -24,5 +24,5 @@ A short table: effect, where, duration and easing, source (measured or stated). 
   and never block interaction while something animates.
 
 ## Verify
-On the draft preview, hover and click through each effect at desktop, check that nothing shifts layout, and
+On the chosen theme's preview, hover and click through each effect at desktop, check that nothing shifts layout, and
 check with reduced motion switched on that the motion stops. Record "measured" or "stated" for each.
