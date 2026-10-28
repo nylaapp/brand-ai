@@ -32,7 +32,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 | blog-rewriter | Rewrite an existing article in a store's brand voice | blog-generator |
 | shopify-blog-autopilot | Decide when and what to blog, then hand off to the writer | blog-generator, brand-capture |
 | styles-builder | Generate design.md (colors, type, spacing, radius, shadows, buttons, components) from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates | brand-capture |
-| page-content-studio | Two skills: `page-audit` (read-only gap analysis of a page against what its type should do, ranked with owners, saved to `PAGE-AUDIT.md`) and `page-content-studio` (make a named change or build a page on a draft theme) | brand-capture |
+| page-content-studio | Page work in focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-create` (new pages and sections), `page-edit-content` (words, images, links) and `page-edit-design` (layout, order, style). Each verifies on the rendered page and pushes only to a draft theme | brand-capture |
 | analytics | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
 
 ## Layout

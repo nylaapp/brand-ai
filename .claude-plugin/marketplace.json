@@ -71,8 +71,8 @@
     {
       "name": "page-content-studio",
       "source": "./plugins/page-content-studio",
-      "description": "Audit pages against what each page type should do (page-audit, read-only), then change or build them on a draft theme (page-content-studio).",
-      "version": "0.6.1"
+      "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme.",
+      "version": "0.7.0"
     },
     {
       "name": "analytics",

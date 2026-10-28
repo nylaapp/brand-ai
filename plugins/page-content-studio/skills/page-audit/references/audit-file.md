@@ -1,8 +1,8 @@
 # PAGE-AUDIT.md: the shared client file
 
 One living file per site, written by `page-audit` and read by the skills that act on its
-recommendations (today `page-content-studio`; later `page-update`, `page-build`,
-`page-verify`, `page-ship`). It holds the brief, what was observed, the gap report and the
+recommendations: `page-create`, `page-edit-content` and `page-edit-design`, reached through
+`page-content-studio` when a request spans jobs. It holds the brief, what was observed, the gap report and the
 recommendation rows with their status, so the next skill starts from evidence instead of
 asking again. A re-audit updates it; it never starts over.
 
@@ -75,7 +75,8 @@ suggestion, `status`, baseline number to re-check.
   its status, mark a row `done` only when the check now passes on the render, add new rows
   with new IDs, and add a changelog line. Do not edit a row's history; if a check changed
   grade or wording in the playbook, note it in the changelog.
-- **Acting skills** (`page-content-studio` and its successors) change a row's `status` to
+- **Acting skills** (`page-create`, `page-edit-content`, `page-edit-design`, each running the shared verify
+  and ship steps) change a row's `status` to
   `picked` or `done`, add the verification result to the changelog, and touch nothing else.
 - **Older or foreign files:** if a file exists without these sections, keep its content,
   append the sections below it, and never renumber its existing IDs.
