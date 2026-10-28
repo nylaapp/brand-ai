@@ -1,16 +1,33 @@
 ---
 name: brand-capture
-description: One-time brand setup for a new client. Scans the brand's public website (About, story, mission and values pages, careers and news, locations, products with prices, types and colors, site colors and fonts, blog style, social links, disclaimers), asks four short setup questions (top competitors, non-competitive inspiration brands, who approves things to make sure they're on brand, anything never to say or claim), then writes BRAND.md (the single source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand sounds, kept in its own file), design.md (the brand's visual system as measured values: palette, type, spacing, corners, components, imagery), a readable BRAND.html copy for the client, and at most four follow-up questions. Finally points the project's agent files and skills at BRAND.md. Works for any kind of store or business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "capture the brand", "set up the brand file", "create BRAND.md", "onboard a new client", "brand setup", or applies a client's answers to brand questions; and whenever another skill needs BRAND.md and it doesn't exist.
+description: >-
+  One-time brand setup for a new client. Always asks first whether the brand has an existing store
+  or website and an existing brand book (or other brand documents) to work from. Scans the brand's
+  public website (About, story, mission and values pages, careers and news, locations, products with
+  prices, types and colors, site colors and fonts, blog style, social links, disclaimers) and reads
+  any brand book it is given, asks four short setup questions (top competitors, non-competitive
+  inspiration brands, who approves things to make sure they're on brand, anything never to say or
+  claim), then writes BRAND.md (the single source of truth for brand identity that every other skill
+  reads) and BRAND-VOICE.md (how the brand sounds, kept in its own file), design.md (the brand's
+  visual system as measured values: palette, type, spacing, corners, components, imagery), a
+  readable BRAND.html copy for the client, and at most four follow-up questions. Finally points the
+  project's agent files and skills at BRAND.md. Works for any kind of store or business, in Claude
+  Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "capture the brand", "set
+  up the brand file", "create BRAND.md", "onboard a new client", "brand setup", or applies a
+  client's answers to brand questions; and whenever another skill needs BRAND.md and it doesn't
+  exist.
 ---
 
 # Brand capture
 
-Build `BRAND.md` once, at a client's setup, so no skill ever asks about the brand again. The website is the source:
-scan it, don't interview the client. Four things a website can't say are asked up front, in one message. What the
-scan can't settle becomes at most four follow-up questions.
+Build `BRAND.md` once, at a client's setup, so no skill ever asks about the brand again. The brand's own material is
+the source: its website, and any brand book it already has. Read them, don't interview the client. Always ask first
+what exists (a site or store, a brand book), and in the same message the four things neither can say. What the reading
+can't settle becomes at most four follow-up questions.
 
 ```
-0. Locate → 1. Four setup questions → 2. Scan → 3. Read and judge → 4. Write BRAND.md, BRAND-VOICE.md, design.md + questions
+0. Locate → 1. Ask what to work from, then four setup questions → 2. Scan the site, read the brand book
+→ 3. Read and judge → 4. Write BRAND.md, BRAND-VOICE.md, design.md + questions
 → 5. Validate → 6. Client copy (BRAND.html) → 7. Link the project → 8. Report
 ```
 
@@ -50,7 +67,7 @@ each other's files.
 
 | File | Read at |
 |---|---|
-| `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, conflicts, choosing the 4 questions, claim rules by category, competitors |
+| `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, reading a brand book, conflicts, choosing the 4 questions, claim rules by category, competitors |
 | `references/brand-template.md` | Step 4: the exact layout of BRAND.md (other skills depend on its headings) |
 | `references/voice-template.md` | Step 4: the exact layout of BRAND-VOICE.md (the validator checks its headings) |
 | `references/design-template.md` | Step 4: the layout of design.md, and where its values come from |
@@ -72,27 +89,33 @@ each other's files.
 - **Voice has one home.** The detail (how it sounds, signature phrases, do / don't pairs, words to avoid) is written
   in BRAND-VOICE.md only; BRAND.md's Voice section is a pointer plus the three words. Terminology and Claim limits
   stay in BRAND.md: they are naming and compliance rules, not tone.
+- **Always ask what to work from.** Step 1 asks whether the brand has an existing store or site and an existing brand
+  book, on every new capture and every add-design run, even when the request already names a site, the repo has one,
+  or another skill called you. A brand book that is given is read and used; a site that looks like enough is never a
+  reason to skip the question.
 - **Setup needs a person.** If no one can answer the setup questions (an unattended or scheduled run), don't
   start: say that brand-capture needs a person present, and stop.
 - **Competitors and inspirations come from the client.** Never research or suggest other brands unless the
   person explicitly asks you to suggest.
-- **Facts come from sources.** Quote mission, values and founding-story language verbatim (short quotes) with the
-  page URL, only from text saved in the evidence folder. Anything you conclude is labelled `(inferred)`.
-- **Never invent** founders, dates, awards, prices, results, certifications or names. When two sources disagree,
-  write neither: it becomes a Q-id (`discovery.md` §3a).
+- **Facts come from sources.** Quote mission, values and founding-story language verbatim (short quotes) with the page
+  URL or document name, only from text saved in the evidence folder (page text, or a text copy of the brand book).
+  Anything you conclude is labelled `(inferred)`; anything a brand book states is labelled `(from brand book)`.
+- **Never invent** founders, dates, awards, prices, results, certifications or names. When two sources disagree (two
+  pages, or the site and the brand book), write neither: it becomes a Q-id (`discovery.md` §3a).
 - **A `(client)` line is never overwritten by a scan.** Client answers outrank the site.
 - **Don't duplicate other docs.** design.md owns visual values; repo skills own procedures. BRAND.md links them.
-- **design.md is measured, not imagined.** Every value comes from the live site, the scan or the theme settings,
-  or is labelled `(inferred)` or left out. Never invent a hex, size, radius or hover state to fill a table. An
-  existing design.md (the client's or the repo's) is never overwritten: it is the source, and BRAND.md points to it.
+- **design.md is measured, not imagined.** Every value comes from the live site, the scan or the theme settings, or
+  from the brand book (labelled `(from brand book)`: stated, not measured), or is labelled `(inferred)` or left out.
+  Never invent a hex, size, radius or hover state to fill a table. An existing design.md (the client's or the repo's)
+  is never overwritten: it is the source, and BRAND.md points to it.
 - **Read only on the web.** Public pages, robots.txt honoured, fixed caps. Never sign in, never submit forms.
   Follow the host repo's own device and browser rules.
 - **Scratch stays out of the repo.** The scan JSON and the evidence folder go to a temp or scratch folder.
 
 ## Step 0: Locate
 
-1. **Site URL:** from the request; else from the repo (README, theme config, a design doc). If none, ask for it
-   in the same message as the setup questions.
+1. **Site URL (a first guess only):** from the request; else from the repo (README, theme config, a design doc).
+   Step 1 always asks the person to confirm it, so it is never taken as settled.
 2. **Look for existing files first**, following `references/brand-context.md` (project root, user local environment,
    central brand directory, then memory, CLAUDE.md and connected knowledge). **Where BRAND.md goes:** the central
    brand directory, `$BRAND_AI_HOME/brands/<slug>/` (default `~/.brand-ai/brands/<slug>/`), so every project and
@@ -102,10 +125,11 @@ each other's files.
    central path in the report; copy files into the project only if the person asks. With no filesystem (a chat), you'll hand the files over for download.
 3. **Mode:**
    - **new:** no BRAND.md yet. Full run; it writes BRAND.md, BRAND-VOICE.md and design.md.
-   - **add-design:** BRAND.md exists but no design.md does (`design_doc: none`, or the key is missing). Run Steps 2,
-     3 (visual part only), 4 (design.md), 5 and 6, then set `design_doc: design.md` in BRAND.md, replace its Visual
-     identity with the pointer and summary, add a Visual identity row to Sources, bump `revision` and add a Change
-     log row (Mode `add-design`, Sections: Visual identity, Sources). Nothing else in BRAND.md changes.
+   - **add-design:** BRAND.md exists but no design.md does (`design_doc: none`, or the key is missing). Run Step 1's
+     sources question (not the four setup questions), then Steps 2, 3 (visual part only), 4 (design.md), 5 and 6, then
+     set `design_doc: design.md` in BRAND.md, replace its Visual identity with the pointer and summary, add a Visual
+     identity row to Sources, bump `revision` and add a Change log row (Mode `add-design`, Sections: Visual identity,
+     Sources). Nothing else in BRAND.md changes.
    - **apply-answers:** BRAND.md exists and the client's answers to BRAND-QUESTIONS.md (or the setup questions)
      have arrived. Change only the answered lines, label them `(client, <date>)`, mark each question
      `Answered <date>: <answer> (from <who>)`, bump `revision`, add a Change log row, and re-run Steps 5 to 6.
@@ -130,22 +154,50 @@ each other's files.
      Sources). Confirm every moved line appears unchanged in BRAND-VOICE.md, then run Steps 5 to 6. Nothing is
      researched or reworded.
 
-## Step 1: Start the scan, then ask the four setup questions
+## Step 1: Ask what to work from, then the four setup questions
 
-Launch Step 2's scan first, in the background if your environment allows it (in Claude Code, run it as a
-background command): a question tool usually waits for the answer, so a scan started after asking would sit idle
-meanwhile. Then ask, in one message, with your environment's question tool if it has one:
+**Sources: always asked, first.** Ask on every new capture and every add-design run, before anything is read, even
+when the request names a site, the repo has one, or another skill called you (then relay it to the person). A site
+that looks like enough is no reason to skip it: a brand book often holds what a site can't (the mission as the
+brand wrote it, a voice guide, logo rules, the exact palette) and settles conflicts the site leaves open.
 
-> Four quick questions while I scan **<site>**:
+If a site URL is already known (Step 0), you may start Step 2's scan on it in the background while you ask (in Claude
+Code, run it as a background command): a question tool usually waits for the answer, so a scan started after asking
+would sit idle. If the answer names a different site, drop that scan and run it again on the right one. Then ask, in
+one message, with your environment's question tool if it has one:
+
+> Before I start on **<brand or site>**, what can I work from?
+> **A. Does the brand have an existing store or website?** *(If a URL is known:)* I found <url> (<where>): is that
+> the right one, and are there others I should read, such as another store, a marketplace page or social profiles?
+> *(Otherwise:)* Please send the link or links. "Not yet" is a fine answer.
+> **B. Is there an existing brand book I can use?** Brand guidelines, a style or voice guide, a logo or press kit, a
+> messaging or pitch deck, a Google Doc or Figma export: anything already written about the brand. Send the file or a
+> link, or paste the text. "Not yet" is a fine answer.
+>
+> And four quick questions:
 > 1. **Who are your top 2 or 3 competitors?** Names or websites.
 > 2. **Who are 2 or 3 brands you admire that don't compete with you?** Any industry: for tone, look, or how they talk to customers.
 > 3. **Who in your company needs to approve things to make sure they're on brand?** Name and role. "Nobody yet" is a fine answer.
 > 4. **Is there anything we should never say or claim about your brand or products?** Words, claims or topics. "Nothing" is fine.
 
-Unanswered or skipped questions become the first follow-up questions (they count toward the 4). If the person answers on behalf of the client (an agency kickoff), record who in the
+(An add-design run asks only A and B.) Then act on the answers to A and B:
+
+| Answer | What to do |
+|---|---|
+| A site or store | It is the site for Step 2. The first is `site` in BRAND.md; others go in `other_domains` or the report |
+| A brand book | Read it in Step 2 (`discovery.md` §2b) before judging anything. If it can't be opened (a private link, an unsupported format), say what failed and ask for another form; don't skip it |
+| No brand book | Carry on from the site. The report says "no brand book provided" so the reviewer can ask the client again; a book that arrives later goes through `BRAND-REQUESTS.md` (Step 0) |
+| No site yet, but a brand book | Skip the scan, set `site: none`, and capture from the book (`discovery.md` §2b) |
+| Neither a site nor any document | There is nothing to capture from. Say so, ask for at least one site, document or set of social profiles, and stop until it arrives. Never write BRAND.md from memory |
+| A or B left unanswered | Go on with the known site, if any, and put "sources not confirmed" in the report. With no known site, treat it as "Neither" |
+
+Questions 1 to 4 are not asked in an add-design run. Unanswered or skipped ones become the first follow-up questions
+(they count toward the 4). If the person answers on behalf of the client (an agency kickoff), record who in the
 Change log.
 
-## Step 2: Scan the site
+## Step 2: Scan the site and read the brand book
+
+With a site, run the scan below. With a brand book, also read it (2b, after the scan). With no site, skip the scan.
 
 ```bash
 python3 scripts/scrape_site.py <site-url> --out <scratch>/brand-scrape.json --repo <repo-root>
@@ -169,11 +221,18 @@ of the page. Sandboxes that block network (Codex's default, ChatGPT, Claude chat
 this command. Otherwise read the site with your browser tool if you have one (it gets past most bot checks; never
 solve a CAPTCHA or click through a challenge), else your web fetch tool, following `discovery.md` §2. Save each
 page you read that way as a text file in the evidence folder, first line `URL: <url>`, so quotes can be checked.
-If nothing works, stop and say what failed. Never write BRAND.md from memory.
+If nothing works and there is no brand book either, stop and say what failed. Never write BRAND.md from memory.
+
+### 2b. Read the brand book
+
+Follow `references/discovery.md` §2b: read each document in full, save a text copy of it in the evidence folder (first
+line `FILE: <name or link>`), and take its mission, values, voice, naming, palette, type and claim rules, each
+labelled `(from brand book)`. Do this before Step 3, so any disagreement with the site shows up as a conflict.
 
 ## Step 3: Read and judge (no more questions)
 
-Read `references/discovery.md` and complete its §2a reading checklist. Then fill each part of the template:
+Read `references/discovery.md` and complete its §2a reading checklist (and §2b, for a brand book). Where the book and
+the site disagree, that is a conflict (§3a). Then fill each part of the template:
 story in the brand's own words; voice with real examples (for BRAND-VOICE.md); names and brand architecture from every source;
 catalog topics and price bands; claim limits for the categories the scan found, with the site's disclaimers
 verbatim and the client's "never say" answer first; visual identity (or a pointer to design.md).
@@ -191,12 +250,14 @@ competitor-research skill's job; BRAND.md only points to `COMPETITORS.md` (front
   revision 1, 40 to 70 lines. `voice_doc: BRAND-VOICE.md` in BRAND.md's front matter is what links the two.
 - **design.md:** next to BRAND.md, following `references/design-template.md`. Same status as BRAND.md, revision 1.
   **Skip it if a design.md already exists** in the project or the central folder: set `design_doc` to it and write
-  Visual identity as a pointer plus a 3 to 5 line summary that agrees with it. Otherwise measure first: with a
-  browser tool, read computed values from the live site at 1440 and 390 (headings, body, nav, buttons and their hover
-  states, inputs, images, section padding, container width); add the scan's `visual` block and the theme's colour
-  and font settings. With no browser tool, use the scan and CSS only, say so in `measured:`, and label guesses
-  `(inferred)`. Set `design_doc: design.md` in BRAND.md, whose Visual identity is the pointer plus the summary.
-  Font families named TRIAL or DEMO get a ⚠️ in Assets and a question in BRAND-QUESTIONS.md.
+  Visual identity as a pointer plus a 3 to 5 line summary that agrees with it. Otherwise measure first: with a browser
+  tool, read computed values from the live site at 1440 and 390 (headings, body, nav, buttons and their hover states,
+  inputs, images, section padding, container width); add the scan's `visual` block and the theme's colour and font
+  settings. With no browser tool, use the scan and CSS only, say so in `measured:`, and label guesses `(inferred)`.
+  Take a brand book's stated palette, type and logo rules as `(from brand book)` and say in `measured:` that they are
+  stated, not measured; where the live site measures differently, record both and ask. With no site, everything in
+  design.md is stated, not measured. Set `design_doc: design.md` in BRAND.md, whose Visual identity is the pointer
+  plus the summary. Font families named TRIAL or DEMO get a ⚠️ in Assets and a question in BRAND-QUESTIONS.md.
 - **BRAND-QUESTIONS.md:** follow `references/client-questions.md`. **At most 4 questions for the client**,
   chosen with `discovery.md` §3b; every other open item goes under "Held for later" for the reviewer.
 
@@ -245,9 +306,10 @@ CLAUDE.md are not part of the theme, so theme pushes never send them to the stor
 
 ## Step 8: Report
 
-Follow `references/report-template.md`: where everything was saved, the 3 or 4 most useful findings, the questions
-sent and held, what the agency (not the client) should fix, what was linked, and the run time. End by offering
-the competitor-research skill for COMPETITORS.md.
+Follow `references/report-template.md`: what it worked from (the site, the brand book, or that none was available),
+where everything was saved, the 3 or 4 most useful findings, the questions sent and held, what the agency (not the
+client) should fix, what was linked, and the run time. End by offering the competitor-research skill for
+COMPETITORS.md.
 
 When another skill called this one, return to it as soon as BRAND.md is validated, with one line on what's still
 to confirm.

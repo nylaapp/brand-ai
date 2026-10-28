@@ -7,8 +7,8 @@ Standard library only. Usage:
 
 Exit codes: 0 valid (warnings allowed), 1 errors found, 2 file missing or unreadable, 3 older schema
 (rebuild it with a new brand-capture run). Errors block saving; warnings go in the run report.
-Quotes are checked against the evidence only on lines that cite the site ("(from site)" or a URL);
-lines labelled (client...), (repo...) or (example) are skipped.
+Quotes are checked against the evidence only on lines that cite the site or a brand book ("(from site)",
+"(from brand book)" or a URL); lines labelled (client...), (repo...) or (example) are skipped.
 
 When BRAND.md names a `voice_doc` (BRAND-VOICE.md), that file sits next to BRAND.md and is validated too: the
 Voice section in BRAND.md must then be a short pointer. Without `voice_doc` the older layout (Voice written out
@@ -50,7 +50,7 @@ HTML_OK = r"/?(?:a|b|i|u|p|br|em|strong|small|sup|sub|span|div|ul|ol|li|img|figu
 TEMPLATE_LEFTOVER = re.compile(r"<(?!https?://|mailto:|" + HTML_OK + r")[A-Za-z0-9][^<>\n]{2,}>"
                                r"|^\*[A-Z][^*\n]+\*$", re.M)
 QUOTE = re.compile(r"[\"\u201c]([^\"\u201c\u201d\n]{12,400})[\"\u201d]")
-SOURCED = re.compile(r"\(from site|https?://")          # lines whose quotes must match the evidence
+SOURCED = re.compile(r"\(from (?:site|brand book)|https?://")          # lines whose quotes must match the evidence
 NOT_FROM_SITE = re.compile(r"\((client|repo|example)\b")  # quotes that never come from a web page
 LINES_WARN, LINES_FAIL, WORDS_WARN, WORDS_FAIL = 220, 300, 3500, 5000
 MAX_SENT = 4  # follow-up questions sent to the client; the rest wait under '## Held for later'
