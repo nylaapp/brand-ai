@@ -8,6 +8,7 @@ Keep it short: the person reading it decides what to send the client and what to
 **Worked from:** <site URL(s) · brand book(s) by file name or link · or "none provided: asked, the person said <answer>">
 **Saved:** <path to BRAND.md> · rev <n> · <draft | approved> · <lines> lines · validator <OK | n warnings>
 **Draft theme:** <name> (<id>, draft) · folder <path> · pointer <path to BRAND-HOME.md> (or "none yet: saved in the central brand directory")
+**Shared copy:** <Drive: Shopify Brand & Competitor Research/<store>/ (created, updated, or "to create by hand") · repo: <path>/brand/ · or "none chosen: local only" · or "not offered: no draft theme yet"> · the local folder stays the source of truth
 **Voice file:** <path to BRAND-VOICE.md> · rev <n> · <lines> lines
 **Design file:** <path to design.md, or "existing: <path>"> · rev <n> · <lines> lines · measured <date and viewports, or "scan CSS only">
 **Client copy:** <path to BRAND.html, which includes the voice> (send it with the questions, or after approval)
@@ -44,7 +45,8 @@ instructions" when the run was in Cowork or a Claude project>
 
 ## Not done
 <pages blocked by robots or errors; client-rendered pages read without a browser; brand-book pages or documents not read, or
-mentioned but not shared yet; "no brand book provided"; "sources not confirmed"; "no draft theme yet"; anything skipped>
+mentioned but not shared yet; "no brand book provided"; "sources not confirmed"; "no draft theme yet"; a shared copy chosen but not made (Drive not connected: the folder and files to put in it);
+anything skipped>
 
 ## Next
 - Deep competitor research: run the competitor-research skill to write COMPETITORS.md next to BRAND.md (about <n> min).

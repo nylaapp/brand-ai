@@ -12,7 +12,8 @@ description: >-
   sounds, kept in its own file), design.md (the brand's visual system as measured values: palette,
   type, spacing, corners, components, imagery), a readable BRAND.html copy for the client, and at
   most four follow-up questions, all saved in the chosen draft theme's folder so later customization
-  and every other skill find them there. Finally points the project's agent files and skills at
+  and every other skill find them there, with an optional shared copy of the non-confidential files
+  for the rest of the team. Finally points the project's agent files and skills at
   BRAND.md. Works for any kind of store or business, in Claude Code, Cowork, Claude projects, Codex
   and ChatGPT. Use when the user says "capture the brand", "set up the brand file", "create
   BRAND.md", "onboard a new client", "brand setup", or applies a client's answers to brand
@@ -25,13 +26,15 @@ Build `BRAND.md` once, at a client's setup, so no skill ever asks about the bran
 the source: its website, and any brand book it already has. Read them, don't interview the client. Always ask first
 what exists (a site or store, a brand book) and which draft theme the files are saved in, and in the same message the
 four things neither can say. What the reading can't settle becomes at most four follow-up questions. Every file is
-saved in the draft theme's folder, so the brand files sit with the theme that later customization works on.
+saved in the draft theme's folder, so the brand files sit with the theme that later customization works on. Once they
+are written, the person can also ask for a shared copy for the rest of the team; the draft theme's folder stays the
+source of truth.
 
 ```
 0. Locate → 1. Ask what to work from and where to save, then four setup questions
 → 2. Scan the site, read the brand book → 3. Read and judge
 → 4. Write BRAND.md, BRAND-VOICE.md, design.md + questions
-→ 5. Validate → 6. Client copy (BRAND.html) → 7. Link the project → 8. Report
+→ 5. Validate → 6. Client copy (BRAND.html) → 6b. Optional shared copy → 7. Link the project → 8. Report
 ```
 
 ## Effort (read before starting)
@@ -71,7 +74,7 @@ each other's files.
 | File | Read at |
 |---|---|
 | `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, reading a brand book, conflicts, choosing the 4 questions, claim rules by category, competitors |
-| `references/brand-home.md` | Steps 0, 1 and 7: asking for the draft theme, finding and writing its folder, `BRAND-HOME.md`, moving existing files |
+| `references/brand-home.md` | Steps 0, 1, 6b and 7: asking for a local folder and the draft theme, finding and writing its folder, `BRAND-HOME.md`, moving existing files, the optional shared copy |
 | `references/theme-target.md` | Step 1: choosing and remembering the theme (the same file the theme skills use; sections 1 to 4 and 6 apply here) |
 | `references/brand-context.md` | Step 0: the lookup order for files that already exist |
 | `references/brand-template.md` | Step 4: the exact layout of BRAND.md (other skills depend on its headings) |
@@ -103,6 +106,10 @@ each other's files.
   capture (a remembered draft is offered first). Everything is written in that theme's folder, at its root: not in the
   theme's own folders, never in `assets/` (public), and nothing is pushed to the store. Without a draft theme, say so
   and use the central brand directory (`references/brand-home.md`).
+- **A shared copy is only a copy.** Step 6b offers it once, after the files are written. The draft theme's folder
+  stays the source of truth: copy, never move, and the local file wins if the two differ. Only BRAND.md,
+  BRAND-VOICE.md, design.md, BRAND.html and COMPETITORS.md go; BRAND-QUESTIONS.md and BRAND-REQUESTS.md never leave
+  the local folder (`references/brand-home.md` section 8).
 - **Setup needs a person.** If no one can answer the setup questions (an unattended or scheduled run), don't
   start: say that brand-capture needs a person present, and stop.
 - **Competitors and inspirations come from the client.** Never research or suggest other brands unless the
@@ -135,7 +142,13 @@ each other's files.
    don't generate another (Step 4). Files found in the central directory or another folder are moved in only on the
    person's yes (`brand-home.md` section 7). With no draft theme (no Shopify store, no draft yet) or no filesystem (a
    chat), `brand-home.md` section 6 says where they go.
-3. **Mode:**
+3. **A local folder to save in.** If item 2 found no remembered folder (no `BRAND-HOME.md` `path`, no
+   `THEME-TARGET.md`) and the current folder isn't a theme's, ask once, before Step 1's message, for the person to
+   create one and tell them where (`brand-home.md` section 2 has the wording). Create nothing, and no parent
+   folders, without saying the exact path first. Once the folder exists and is remembered, never ask again for
+   that project. Skip it with no file system, with no Shopify store, or when the person says there is no draft
+   theme yet.
+4. **Mode:**
    - **new:** no BRAND.md yet. Full run; it writes BRAND.md, BRAND-VOICE.md and design.md.
    - **add-design:** BRAND.md exists but no design.md does (`design_doc: none`, or the key is missing). Run Step 1's
      sources question, and its draft theme question if the files aren't already in a draft theme's folder (not
@@ -174,7 +187,8 @@ when the files aren't already in a draft theme's folder), before anything is rea
 the repo has one, or another skill called you (then relay it to the person). A site that looks like enough is no
 reason to skip A and B: a brand book often holds what a site can't (the mission as the brand wrote it, a voice guide,
 logo rules, the exact palette) and settles conflicts the site leaves open. C settles where every file this run writes
-will live, so nothing is written before it is answered (`references/brand-home.md`).
+will live, so nothing is written before it is answered (`references/brand-home.md`). If Step 0 asked the person to
+create a folder, that is settled first, and C builds on it.
 
 If a site URL is already known (Step 0), you may start Step 2's scan on it in the background while you ask (in Claude
 Code, run it as a background command): a question tool usually waits for the answer, so a scan started after asking
@@ -310,6 +324,16 @@ to PDF. While in draft it opens with the questions for them. It includes the con
 so the client reads the whole voice in one place. design.md is shared as the file itself (it is a reference for
 designers and developers, not for sign-off). Re-run it after every change to BRAND.md or BRAND-VOICE.md.
 
+### 6b. Optional shared copy
+
+Once BRAND.html is written, ask once whether the person also wants a shared copy for the rest of the team, and make
+it if they do. `references/brand-home.md` section 8 has the question, the two places it can go (a shared Google
+Drive folder, a `brand/` folder in the theme repo, both, or neither) and what is never copied. The draft theme's
+folder stays the source of truth: the copy is only a copy. Record the answer as `shared_copy` in `BRAND-HOME.md`.
+Don't ask in apply-answers, add-design or split-voice runs: after Step 6, update the copies `shared_copy` names, if
+any. Skip it when the files were saved in the central brand directory or handed over for download
+(`brand-home.md` section 6).
+
 ## Step 7: Link the project to BRAND.md
 
 ```bash
@@ -333,10 +357,10 @@ theme pushes never send them to the store. Where the project lives decides the r
 ## Step 8: Report
 
 Follow `references/report-template.md`: what it worked from (the site, the brand book, or that none was available),
-which draft theme and folder the files were saved in (or that there was no draft theme yet), where everything was
-saved, the 3 or 4 most useful findings, the questions sent and held, what the agency (not the client) should fix, what
-was linked, and the run time. End by offering the competitor-research skill for COMPETITORS.md, which saves next to
-BRAND.md.
+which draft theme and folder the files were saved in (or that there was no draft theme yet), where the shared copy
+is (or that none was chosen), where everything was saved, the 3 or 4 most useful findings, the questions sent and
+held, what the agency (not the client) should fix, what was linked, and the run time. End by offering the
+competitor-research skill for COMPETITORS.md, which saves next to BRAND.md.
 
 When another skill called this one, return to it as soon as BRAND.md is validated, with one line on what's still to
 confirm and the draft theme and folder you settled.
