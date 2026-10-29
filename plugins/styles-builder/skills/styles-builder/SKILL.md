@@ -6,9 +6,8 @@ description: >-
   and settings_data.json. Brand agnostic. Covers the full token set a theme needs before pages get
   built on it: typography, color schemes, spacing, corner radius, shadows, buttons and component
   states. It also sets up the essentials a new theme needs to start building: logo and favicon,
-  motion, input fields, variant pickers and swatches, and, if asked, brand placeholder images and
-  brand styling on the starting theme's section templates. If BRAND.md or design.md aren't
-  available yet, it runs brand-capture first and waits for it to finish. Use whenever the user
+  motion, input fields, variant pickers and swatches, and, if you opt in when it starts, brand
+  styling on the starting theme's section templates. If BRAND.md or design.md aren't available yet, it runs brand-capture first and waits for it to finish. Use whenever the user
   says "generate design tokens", "create design.md", "set up the brand's colors and fonts in the
   theme", "match the reference store's look", "build a style guide from this brand book", "what do
   we need before building pages", "set up the logo and favicon", "get the theme ready to build
@@ -88,13 +87,50 @@ This skill builds on brand-capture's two files and never replaces them. If eithe
 brand-capture itself**, waits for it to finish, and only then carries on. It doesn't ask the user to go
 and run it, and it doesn't start extracting tokens in the meantime.
 
-**Theme first.** Before 0a, settle which theme this run applies tokens to, following
-`references/theme-target.md`: use the theme the person already chose in this conversation or recorded in
-`THEME-TARGET.md` and say so in one line, or ask once which draft or the live theme to work on and
-remember the answer for every other skill. Don't ask again unless the person names a different theme.
-Writing `design.md` changes no theme, so a person who wants `design.md` only can say so; ask for a theme
-again the first time something would change one. If the theme is live, section 5 of that file applies:
-an explicit yes before the first edit and again before the push.
+### Opening questions: one message, before any real work
+
+At the start of the run, ask everything this run needs from the person **once, in a single message**, so
+they can answer and leave it running (brand-capture alone can take 10 to 20 minutes). The lookups in 0a
+and 0b are read-only and take seconds, so do them first if you need them (the theme lookup uses the same
+files), then ask and do nothing else until the answers are in. The optional step is offered here and
+nowhere later: not after brand-capture finishes, not between steps, not at the end. If 0b says
+brand-capture has to run, end the message with the heads-up from 0d, so one message covers the questions
+and what runs next.
+
+1. **Theme.** Settle which theme this run applies tokens to, following `references/theme-target.md`: use
+   the theme the person already chose in this conversation or recorded in `THEME-TARGET.md` and say so in
+   one line, or list the store's themes and ask which draft or the live theme to work on, and remember the
+   answer for every other skill. Don't ask again unless the person names a different theme. Offer
+   "design.md only" as an answer too: it writes `design.md` and changes no theme (the default is to also
+   apply the tokens to the theme); ask for a theme then if the person later wants one changed. If the
+   theme is live, section 5 of that file applies: an explicit yes before the first edit and again before
+   the push.
+2. **The optional step**, off unless the person says yes (`references/section-styling.md`):
+   - **Brand styling:** apply the brand's spacing, colour schemes, radius and padding to the existing
+     sections of the starting theme's templates.
+   - **Which templates:** home, product, collection, page, blog, article, cart, search, or all.
+   Skip this question when the answer to 1 is "design.md only": the step changes the theme.
+
+If the request already answers part of this ("also style the home page sections"), take it and ask
+only the rest. Send the questions as short numbered choices, the recommended answer first. Keep the
+answers: when brand-capture finishes (or at 0f if it didn't run), say them back in one line and carry on
+without asking again.
+
+**When one message isn't possible.** Split the questions only when an answer can't be given yet:
+- **The store isn't clear**, so its themes can't be listed: ask which store first, then send the rest as
+  one message.
+- **brand-capture's own questions** (what to work from, where to save, the four setup questions) can only
+  be answered by the client and are asked by brand-capture right after this message. Don't fold them in,
+  and never answer them.
+- **Approvals and choices that need details found later** stay where they are: an upload, a font download,
+  a live-theme push, a conflict between sources, a design.md change to confirm. They depend on what the
+  run finds, and they are not offers of the optional step.
+- **No person present** (a scheduled or unattended run): ask nothing, run no optional step, and say in
+  the summary that it wasn't offered.
+
+If something later suggests the optional step (the starter sections still carry the theme's demo look,
+say), don't ask mid-run: list it in the summary as something they can ask for next. A person who asks for
+it at any point gets it.
 
 ### 0a Look for the files
 
@@ -137,20 +173,22 @@ It needs four things. If any is missing, stop, say which, and do not write a `de
 
 ### 0d Tell the user, then run it
 
-Say it plainly before starting: "BRAND.md and design.md don't exist yet, so I'm running brand-capture
+Say it plainly before starting (at the end of the opening message, if it hasn't been sent yet): "BRAND.md
+and design.md don't exist yet, so I'm running brand-capture
 first. It asks what it can work from (a site, a brand book) and which draft theme to save the files
 in, scans the site, asks you four short questions, and writes both files. For a typical store that is
 about 10 to 20 minutes of working time (20 to 40 for a large site) and roughly USD 3 to 6 at its
 recommended setting, not counting the time you take to answer." Those are brand-capture's own
 estimates; check its effort section if they matter. Then invoke brand-capture with the Skill tool,
 passing: the site URL, the theme repo path, the draft theme and folder if one is already settled (see
-"Theme first"), any brand book the user has already given you, and that the next step needs
+the opening questions), any brand book the user has already given you, and that the next step needs
 `design.md` (so it must write or adopt one). brand-capture asks the person for the sources and the
 draft theme itself, always, and saves the files in that draft theme's folder, so don't answer for them
 or tell it to save anywhere else.
 
 While it runs: relay its questions to the user, never answer them yourself, and never run this skill's
-extraction alongside it or before it finishes.
+extraction alongside it or before it finishes. Keep the answers to the opening questions meanwhile: they
+are carried out at 0f without asking again.
 
 ### 0e Check what came back
 
@@ -165,13 +203,15 @@ exactly what is missing; never fill the gap with a `design.md` written here.
 1. A `design.md` now exists, so this is an update, not a fresh capture: read it first, show the user what
    would change, wait for a yes, and only touch the sections the new source affects. Update it where it
    lives.
-2. Confirm the theme settled at the start of Step 0 and its repo / branch, and whether the user also wants
-   tokens applied into `config/settings_schema.json` and `config/settings_data.json` on it, or only written
-   to `design.md` as reference. Default: write `design.md` and apply the tokens to that theme (a draft is
-   recommended) through the theme's settings
-   and the brand stylesheet, never by editing a base file, because a `design.md` with no theme applied
-   recreates the gap this skill exists to close.
-3. Ask which optional steps they want: 7a brand placeholder images (from the images already in the store's Files, unless the user names others) and 7b brand styling on the existing section templates (both default to no), and which templates, per `references/starter-content.md`. Anything not asked for is skipped.
+2. Carry out the answer to the opening question on the theme, and note its repo / branch: either apply the
+   tokens into `config/settings_schema.json` and `config/settings_data.json` on the settled theme (the
+   default; a draft is recommended) through the theme's settings and the brand stylesheet, never by editing a
+   base file, because a `design.md` with no theme applied recreates the gap this skill exists to close, or,
+   if the answer was "design.md only", write it as reference and change no theme. Don't ask again.
+3. Say the plan back in one line, from the opening answers: the theme, whether tokens are applied, and
+   whether the optional brand styling of the existing section templates runs (Step 7) and on which
+   templates, or that it wasn't chosen. Don't offer it now: if it wasn't chosen it is skipped, and a run with
+   no opening answers (nobody present) skips it.
 
 ## Step 0.5: The initial token set — what "ready to build on" means
 
@@ -293,7 +333,6 @@ as the source for every visual value, so write it the way brand-capture's `desig
 - **Motion** — each effect with where, duration, easing and source, or an explicit "No animation".
 - **Input fields** — every measured property and state.
 - **Variant pickers and swatches** — every state, shape, radius and border.
-- **Placeholders** (only if Step 7a ran) — image, where used, source, rights, approver.
 - **Shared styling contract** — the rule that sections of the same page family (e.g. all PLP card grids,
   all hero banners) must share these values, so future builds stay consistent without re-deriving them.
 - **Parity tolerances** — how close a rebuilt page must measure to a reference (pixel/percent tolerance on
@@ -465,11 +504,11 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
   settings, anything left `unconfirmed` that the user should resolve, any contrast issues found and how
   they were resolved, whether brand-capture had to run in this session (its mode and where its files are), whether
   `BRAND.md` points at the file through `design_doc` (if not, have brand-capture adopt it), which fonts were installed as theme assets (from where,
-  under which licence), which of logo, favicon, motion, inputs and variant pickers were set and which groups stayed at the theme default, whether 7a or 7b ran (what was placed or changed, source and rights), which starting-theme files, if any, were edited and where they are registered, the "Implementing this in the theme" section written in `design.md`, and whether this is on draft/preview or live.
+  under which licence), which of logo, favicon, motion, inputs and variant pickers were set and which groups stayed at the theme default, whether the optional section styling in Step 7 ran (what changed on which templates; if it didn't, one line saying they can ask for it next), which starting-theme files, if any, were edited and where they are registered, the "Implementing this in the theme" section written in `design.md`, and whether this is on draft/preview or live.
 
-## Step 7 (optional): Starter content and section styling
+## Step 7 (optional): Brand styling on the existing section templates
 
-Only if the user asked for it in Step 0. Follow `references/starter-content.md`: 7a places images already in the store's Files (or the ones the user names) as placeholders in the starting theme's existing sections, and 7b applies the brand's spacing, colour schemes, radius and padding to the existing section templates. Both run on the theme settled in Step 0 (the live theme needs the assurance in `references/theme-target.md`), limited to the templates the user named, show a table first, and verify against a baseline. Using an image already in the Files uploads nothing; uploading a new one needs the user's explicit yes. Template JSON is written by the theme editor too: follow `references/theme-code-standards.md` before changing it.
+Only if the person said yes to it in the opening questions (or asked for it in the request); it is never offered later. Follow `references/section-styling.md`: apply the brand's spacing, colour schemes, radius and padding to the existing section templates. It runs on the theme settled in Step 0 (the live theme needs the assurance in `references/theme-target.md`), is limited to the templates the user named, shows a table first, and verifies against a baseline. It changes how the sections look, never what they say or show: copy and images are `page-edit-content`'s job, and section order is `page-edit-design`'s. Template JSON is written by the theme editor too: follow `references/theme-code-standards.md` before changing it.
 
 ## Never
 
@@ -481,4 +520,4 @@ setting id where an existing one already covers the token. Do not remap a color 
 its role combinations for contrast. Do not edit or push to the live theme without the person's yes before the edit and again before the push (`references/theme-target.md`); do not ask which theme again once it is settled, unless they name another. Do not claim a visual check passed without having loaded the actual rendered theme. Do not download a
 font without the user's explicit yes naming the file, source, size and licence. Do not download one that
 isn't free to self-host from its official source, and do not use a lookalike without the user's recorded
-approval. Do not upload anything to the store's Files area without the user's explicit yes naming the file, source, size and rights. Do not place an image from outside the store's Files unless the user named it, or replace one the client chose. Do not change section settings outside the templates the user named, and do not change copy, section order or section count. Do not edit a file the starting theme owns to change a styling value an override can do. Fence and register any unavoidable edit. Do not rename, reorder or delete existing setting ids.
+approval. Do not upload anything to the store's Files area without the user's explicit yes naming the file, source, size and rights. Do not offer the optional step after the opening questions, and do not ask the opening questions one at a time. Do not change section settings outside the templates the user named, and do not change copy, images, section order or section count. Do not edit a file the starting theme owns to change a styling value an override can do. Fence and register any unavoidable edit. Do not rename, reorder or delete existing setting ids.
