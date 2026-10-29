@@ -150,7 +150,11 @@ each other's files.
    theme yet.
 4. **Mode:**
    - **new:** no BRAND.md yet. Full run; it writes BRAND.md, BRAND-VOICE.md and design.md.
-   - **add-design:** BRAND.md exists but no design.md does (`design_doc: none`, or the key is missing). Run Step 1's
+   - **add-design:** BRAND.md exists but no design.md does (`design_doc: none`, or the key is missing), or a design.md
+     exists but lacks an item of the deep set (`design-template.md`). In the second case, measure only the missing
+     items, show the person what would be added, and on their yes append just those sections: existing values and
+     `(client)` lines are never changed or overwritten, `revision` goes up and the file's Change log gets a row.
+     The steps below are for the first case. Run Step 1's
      sources question, and its draft theme question if the files aren't already in a draft theme's folder (not
      the four setup questions), then Steps 2, 3 (visual part only), 4 (design.md), 5 and 6, then
      set `design_doc: design.md` in BRAND.md, replace its Visual identity with the pointer and summary, add a Visual
@@ -291,7 +295,11 @@ competitor-research skill's job; BRAND.md only points to `COMPETITORS.md` (front
   **Skip it if a design.md already exists** in the theme folder, the project or the central folder: set `design_doc`
   to it and write Visual identity as a pointer plus a 3 to 5 line summary that agrees with it. Otherwise measure
   first: with a browser tool, read computed values from the live site at 1440 and 390 (headings, body, nav, buttons
-  and their hover states, inputs, images, section padding, container width); add the scan's `visual` block and the
+  and their hover and focus states, inputs in every state, images, section padding, container width), and measure
+  the deep set the template requires: a real product page, collection page and cart (drawer or page), the logo's
+  rendered height and the favicon links, and motion (transitions and hover effects). design.md is always written
+  deep: a part of the deep set you could not reach is labelled `(inferred)` or said to be absent, and goes in
+  BRAND-QUESTIONS.md or Held for later, never left out; add the scan's `visual` block and the
   theme's colour and font settings. With no browser tool, use the scan and CSS only, say so in `measured:`, and label
   guesses `(inferred)`. Take a brand book's stated palette, type and logo rules as `(from brand book)` and say in
   `measured:` that they are stated, not measured; where the live site measures differently, record both and ask. With
@@ -308,7 +316,8 @@ python3 scripts/validate_brand.py BRAND.md --evidence <scratch>/evidence --quest
 ```
 
 It checks BRAND.md and, through `voice_doc`, BRAND-VOICE.md. Check design.md by hand: the front-matter keys match
-the template, every value is measured or labelled, and BRAND.md's Visual identity summary agrees with it. Exit 0 is required before saving (warnings go in the
+the template, every value is measured or labelled, every item of the deep set is present (product, collection and cart
+measurements, hover and focus states, inputs, logo and favicon, motion) or said plainly to be absent, and BRAND.md's Visual identity summary agrees with it. Exit 0 is required before saving (warnings go in the
 report). Fix and re-run on errors. Always pass
 `--evidence`: a quote it can't find in the saved pages is unverified, so save that page (`--extra-url`) or drop
 the quote, and report any warning that remains.

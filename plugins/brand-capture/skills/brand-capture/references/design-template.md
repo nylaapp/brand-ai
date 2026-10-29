@@ -1,6 +1,7 @@
 # design.md template
 
-design.md holds the brand's visual system as **actual values**: palette, type, spacing, corners, components, imagery.
+design.md holds the brand's visual system as **actual values**: palette, type, spacing, corners, components, imagery,
+and the deep set below.
 It sits next to BRAND.md; BRAND.md's `design_doc: design.md` key and its Visual identity section point to it. It is
 written so it still works from a blank theme or a design tool with none of the brand's CSS present. Where design.md
 and BRAND.md disagree on a visual value, design.md wins; on names, voice and claims, BRAND.md wins.
@@ -26,7 +27,17 @@ A value you could not measure is labelled `(inferred)` or left out. **Never inve
 hover behaviour to fill a table. Put anything that cannot be settled in BRAND-QUESTIONS.md like any other open item
 (font licences especially: a font named TRIAL or DEMO is a licence question, shown under Assets).
 
-**Sizing.** Aim for 150 to 330 lines. Skip a section whose subject the brand doesn't have (a store with no
+**The deep set (always covered).** Every design.md brand-capture writes covers these, so a later skill never has to
+go back and measure them. Each item is measured, `(from brand book)`, `(inferred)`, or said plainly to be absent
+(for example "No animation", "no swatches"); an item is never silently skipped:
+1. **Product, collection and cart pages:** layout measurements for each (section 7).
+2. **Hover and focus states** for buttons, links, cards and inputs (sections 6 and 7).
+3. **Input fields:** every property and state (section 6).
+4. **Logo and favicon:** files, rendered heights, favicon links (section 9).
+5. **Motion:** each effect, or an explicit "No animation" (section 6).
+Palette, type, spacing, corners, components and imagery stay as before.
+
+**Sizing.** Aim for 200 to 400 lines. Skip a section whose subject the brand doesn't have (a store with no
 accordions has no Accordion entry). Keep every rule that a designer would otherwise get wrong: the counterintuitive
 ones (what is rounded and what is square, what hover does, which family does which job) earn the most space.
 
@@ -105,27 +116,53 @@ padding and font size, and say whether they change on hover. Add disabled, focus
 only) and motion (which properties animate, how long). If a measured hover state fails contrast on some surface,
 say so and give the accessible variant.*
 
-### Inputs · Links · Navigation · Accordion · Product card
+### Inputs
+*Always. Background, text, border colour and width, radius, height and padding, placeholder colour, hover and
+focus ring (`:focus-visible`), error state and label style, plus checkboxes, radios and selects if the brand styles
+them. Measure on a real form (newsletter, search, cart note, account) at 1440 and 390.*
+
+### Links, cards and focus
+*Link default, hover and focus; product card hover (image, title, price, button); keyboard focus ring colour,
+width and offset, and any surface where it fails contrast.*
+
+### Motion
+*Always. Each effect that exists (page transitions, card and image hover, button transitions, add-to-cart feedback,
+scroll reveals, drawers) with where, the properties animated, duration and easing, and whether
+`prefers-reduced-motion` is honoured. If the site has none, write "No animation" rather than leaving it out.*
+
+### Navigation · Accordion · Badges
 *Only those the brand uses. One short paragraph or table each, with real values. Third-party widgets that render
 their own unbranded styles (a pop-up app, a reviews widget) are named as "not the brand's reference".*
 
-## 7. Imagery
+## 7. Product, collection and cart pages
+*Always, measured at 1440 and 390 on a real product, a real collection and the cart (a drawer, a page, or both).
+Where a template doesn't exist, say so.*
+- **Product:** gallery layout and image ratio, thumbnails, column split and gap, title, price and compare-at price
+  styles, variant picker and swatch states (default, hover, selected, selected-hover, unavailable), quantity
+  selector, add-to-cart button size and states, accordions or tabs, and the mobile order.
+- **Collection:** grid columns at 1440 and 390 and the gap, card image ratio, card text rows, badges, filters and
+  sort, pagination or load more.
+- **Cart:** drawer or page, line-item layout, image size, quantity control, remove, subtotal and checkout button
+  styles, empty state, notes and the free-shipping or upsell bar if any.
+
+## 8. Imagery
 *Corner treatment; `object-fit`; filters, overlays or colour treatment (usually none); aspect ratios by context
 (people, product, hero); subject matter and setting; alt text, width and height, eager vs lazy loading.*
 
-## 8. Assets
+## 9. Assets
 - **Typefaces:** <families, where they come from (Google, Adobe, self-hosted), and a ⚠️ licence flag for any TRIAL or DEMO file>
-- **Logo:** <description, rendered size in the header, URL or path, clear-space or colour variants if the site shows them>
+- **Logo:** <description, file and URL or path, rendered height in the header at 1440 and 390, inverse version if the site uses a light logo on dark, clear space and minimum size if stated>
+- **Favicon:** <the favicon and touch-icon links in the page head, sizes, format, or "not set">
 - **Icons:** <size range, fill or stroke, colour, style>
 - **Custom-code prefix:** <only when a connected repo uses one (e.g. `aya-`), otherwise delete this line>
 
-## 9. Visual parity
+## 10. Visual parity
 *Only when the work will rebuild existing pages: the live page is the specification, measured at 1440 and 390.
 Tolerances table (container, padding and gaps ± 2px; font size, line height, letter spacing, weight, radius, border
 width exact; image ratio and crop exact; section order and count exact; copy verbatim), and the rule that every
 deviation is logged with its reason. Delete this section otherwise.*
 
-## 10. Implementing this in <platform>
+## 11. Implementing this in <platform>
 *Only when a repo or theme is connected (scan `repo.shopify`): map the values above onto that platform's own
 settings and tokens, in the order a developer should try them (theme setting, then token override, then scoped
 rule, then inline style). Never hardcode a value the platform already exposes as a setting. Record any known gap
