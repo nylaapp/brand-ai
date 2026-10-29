@@ -171,7 +171,7 @@ exactly what is missing; never fill the gap with a `design.md` written here.
    recommended) through the theme's settings
    and the brand stylesheet, never by editing a base file, because a `design.md` with no theme applied
    recreates the gap this skill exists to close.
-3. Ask which optional steps they want: 7a brand placeholder images and 7b brand styling on the existing section templates (both default to no), and which templates, per `references/starter-content.md`. Anything not asked for is skipped.
+3. Ask which optional steps they want: 7a brand placeholder images (from the images already in the store's Files, unless the user names others) and 7b brand styling on the existing section templates (both default to no), and which templates, per `references/starter-content.md`. Anything not asked for is skipped.
 
 ## Step 0.5: The initial token set — what "ready to build on" means
 
@@ -469,7 +469,7 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
 
 ## Step 7 (optional): Starter content and section styling
 
-Only if the user asked for it in Step 0. Follow `references/starter-content.md`: 7a places brand images as placeholders in the starting theme's existing sections, and 7b applies the brand's spacing, colour schemes, radius and padding to the existing section templates. Both run on the theme settled in Step 0 (the live theme needs the assurance in `references/theme-target.md`), limited to the templates the user named, show a table first, and verify against a baseline. Uploading images to the store's Files needs the user's explicit yes. Template JSON is written by the theme editor too: follow `references/theme-code-standards.md` before changing it.
+Only if the user asked for it in Step 0. Follow `references/starter-content.md`: 7a places images already in the store's Files (or the ones the user names) as placeholders in the starting theme's existing sections, and 7b applies the brand's spacing, colour schemes, radius and padding to the existing section templates. Both run on the theme settled in Step 0 (the live theme needs the assurance in `references/theme-target.md`), limited to the templates the user named, show a table first, and verify against a baseline. Using an image already in the Files uploads nothing; uploading a new one needs the user's explicit yes. Template JSON is written by the theme editor too: follow `references/theme-code-standards.md` before changing it.
 
 ## Never
 
@@ -481,4 +481,4 @@ setting id where an existing one already covers the token. Do not remap a color 
 its role combinations for contrast. Do not edit or push to the live theme without the person's yes before the edit and again before the push (`references/theme-target.md`); do not ask which theme again once it is settled, unless they name another. Do not claim a visual check passed without having loaded the actual rendered theme. Do not download a
 font without the user's explicit yes naming the file, source, size and licence. Do not download one that
 isn't free to self-host from its official source, and do not use a lookalike without the user's recorded
-approval. Do not upload anything to the store's Files area without the user's explicit yes naming the file, source, size and rights. Do not place an image the client didn't supply or approve, or replace one the client chose. Do not change section settings outside the templates the user named, and do not change copy, section order or section count. Do not edit a file the starting theme owns to change a styling value an override can do. Fence and register any unavoidable edit. Do not rename, reorder or delete existing setting ids.
+approval. Do not upload anything to the store's Files area without the user's explicit yes naming the file, source, size and rights. Do not place an image from outside the store's Files unless the user named it, or replace one the client chose. Do not change section settings outside the templates the user named, and do not change copy, section order or section count. Do not edit a file the starting theme owns to change a styling value an override can do. Fence and register any unavoidable edit. Do not rename, reorder or delete existing setting ids.

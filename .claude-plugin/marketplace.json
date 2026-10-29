@@ -36,7 +36,7 @@
       "name": "styles-builder",
       "source": "./plugins/styles-builder",
       "description": "Generate design.md from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates.",
-      "version": "0.4.1"
+      "version": "0.4.2"
     },
     {
       "name": "competitor-research",
