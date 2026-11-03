@@ -220,6 +220,30 @@ pages.skills = (query) => {
   </div></div>`;
 };
 
+function skillPage(p) {
+  const subs = p.skills ? `<section><h2>Skills in this plugin</h2><div class="subskills">${p.skills.map(s => `
+    <div class="sub"><h3>${esc(s.name)}</h3><p>${esc(s.tagline)}</p>${list(s.prompts, 'prompts')}${videoFor(s.name, s.name)}</div>`).join('')}</div></section>` : '';
+  const vids = p.skills ? '' : '<section><h2>Video tutorial</h2>' + videoFor(p.name, p.name) + '</section>';
+  const next = (p.next && p.next.length) ? `<section><h2>What to run next</h2>${chain(p.next)}</section>` : '';
+  return `<div class="page">
+  <header>
+    ${badges(p)}
+    <h1>${esc(p.name)}</h1>
+    <p class="lede">${esc(p.tagline)}</p>
+    <p class="lede">Install it in Cowork: <b>Customize &gt; Plugins</b>, find <b>${esc(p.name)}</b> in the Brand AI marketplace and click <b>Install</b>.</p>
+  </header>
+  <section><h2>What it does</h2><p>${esc(p.what)}</p></section>
+  ${subs}
+  <section><h2>How to ask for it</h2><p>Say something like:</p>${list(p.prompts, 'prompts')}</section>
+  <section><h2>How it works</h2><ol class="steps">${p.steps.map(s => '<li><div class="body">' + esc(s) + '</div></li>').join('')}</ol></section>
+  <section><h2>What it produces</h2>${list(p.produces)}</section>
+  <section><h2>Needs first</h2>${list(p.requires)}</section>
+  <section><h2>Guardrails</h2>${list(p.guardrails)}</section>
+  ${vids}
+  ${next}
+</div>`;
+}
+
 function renderNav(query) {
   const q = (query || '').toLowerCase().trim();
   const cur = (location.hash || '#start').slice(1);
