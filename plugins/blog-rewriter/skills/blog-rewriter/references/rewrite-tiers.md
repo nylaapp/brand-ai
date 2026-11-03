@@ -29,7 +29,7 @@ transitions and signature turns of phrase. Say in the report which sections were
 definitions), each marked with where it came from. Close the source. Then write the post from the fact sheet and
 BRAND.md: new title and angle (a different search intent if the store's keywords call for it), new outline, the
 brand's own examples from Catalog and Identity. Statistics, studies and regulatory statements are cited to their
-**primary source** (found and checked via `content-fact-check`), not to the source article, and a figure you cannot
+**primary source** (found and checked via `fact-check`), not to the source article, and a figure you cannot
 trace to a primary source is dropped. Do not add claims the source did not make. A post at this tier is a new
 article that uses the source's facts, so the report says "derived from <url>" for the record.
 

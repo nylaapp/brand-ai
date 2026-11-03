@@ -107,7 +107,7 @@ schedule:
   timezone: "local"
   checkin_expire_days: 14              # an unanswered check-in lapses after this many days (ask_first mode)
 
-audit:                                 # optional overrides for the shopify-post-publish-audit skill; delete to use its defaults
+audit:                                 # optional overrides for the seo-audit skill; delete to use its defaults
   report_language: ""                  # blank = markets.language
   # title_length: [50, 60]
   # meta_length: [140, 160]

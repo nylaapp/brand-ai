@@ -23,14 +23,14 @@ reviews_analyzed_this_run: <N>
 reviews_analyzed_total: <N, cumulative across runs>
 taxonomy_version: <N, bump only when a category is added, merged, or retired>
 next_review: <YYYY-MM-DD, about 3 months later>
-analyzed_by: cro-review-mining 1.0
+analyzed_by: review-miner 1.0
 ---
 
 # <Brand>: review mining (<YYYY-MM-DD>)
 
 > Mined from <N> customer reviews exported from <source>, covering <date range>.
 > This is what customers are saying, not brand facts: brand facts live in
-> BRAND.md. Re-run the cro-review-mining skill with a fresh export to update it.
+> BRAND.md. Re-run the review-miner skill with a fresh export to update it.
 
 ## Summary
 *3 to 6 bullets a store owner would act on this week.*

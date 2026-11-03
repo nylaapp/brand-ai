@@ -21,26 +21,27 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 
 ## Plugins
 
-| Plugin | What it does | Requires |
-|---|---|---|
-| brand-capture | One-time brand setup: always asks for the brand's site or store and any brand book, reads them, and writes BRAND.md, BRAND-VOICE.md, design.md, BRAND-QUESTIONS.md, saved in the folder of a draft theme you choose | none |
-| competitor-research | Dated competitor and inspiration research: writes COMPETITORS.md next to BRAND.md in the draft theme's folder | brand-capture |
-| content-fact-check | Verify claims in copy, with regulated-claim guardrails | none |
-| accessibility-audit | Lighthouse accessibility scoring and additive fixes for Shopify themes | none |
-| content-seo-audit | Audit a live blog post (schema, PageSpeed, on-page) and track Search Console rankings at 2 and 4 weeks | none (pairs with blog-generator) |
-| blog-generator | Research and write SEO/AEO blog posts, deliver as hidden drafts | brand-capture |
-| blog-rewriter | Rewrite an existing article in a store's brand voice | blog-generator |
-| shopify-blog-autopilot | Decide when and what to blog, then hand off to the writer | blog-generator, brand-capture |
-| styles-builder | Generate design.md (colors, type, spacing, radius, shadows, buttons, components) from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates | brand-capture |
-| page-content-studio | Page work in focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-create` (new pages and sections), `page-edit-content` (words, images, links) and `page-edit-design` (layout, order, style). Each verifies on the rendered page and pushes only the touched files to the theme you chose | brand-capture |
-| analytics | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
+| Plugin | Skills | What it does | Requires |
+|---|---|---|---|
+| brand-capture | `brand-capture` | One-time brand setup: always asks for the brand's site or store and any brand book, reads them, and writes BRAND.md, BRAND-VOICE.md, design.md, BRAND-QUESTIONS.md, saved in the folder of a draft theme you choose | none |
+| competitor-research | `competitor-research` | Dated competitor and inspiration research: writes COMPETITORS.md next to BRAND.md in the draft theme's folder | brand-capture |
+| content-fact-check | `fact-check` | Verify claims in copy, with regulated-claim guardrails | none |
+| accessibility-audit | `accessibility-audit` | Lighthouse accessibility scoring and additive fixes for Shopify themes | none |
+| content-seo-audit | `seo-audit` | Audit a live blog post (schema, PageSpeed, on-page) and track Search Console rankings at 2 and 4 weeks | none (pairs with blog-generator) |
+| blog-generator | `blog-generator` | Research and write SEO/AEO blog posts, deliver as hidden drafts | brand-capture |
+| blog-rewriter | `blog-rewriter` | Rewrite an existing article in a store's brand voice | blog-generator |
+| shopify-blog-autopilot | `blog-autopilot` | Decide when and what to blog, then hand off to the writer | blog-generator, brand-capture |
+| styles-builder | `styles-builder` | Generate design.md (colors, type, spacing, radius, shadows, buttons, components) from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates | brand-capture |
+| page-content-studio | `page-audit`, `page-create`, `page-edit-content`, `page-edit-design`, `page-studio` | Page work in focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-create` (new pages and sections), `page-edit-content` (words, images, links) and `page-edit-design` (layout, order, style). Each verifies on the rendered page and pushes only the touched files to the theme you chose | brand-capture |
+| analytics | `analytics-audit`, `analytics-cleanup`, `analytics-guardrails`, `analytics-setup` | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
+| cro-review-mining | `review-miner` | Mine a store's existing reviews into pain-point and praise categories and A/B test ideas, written to `REVIEW-MINING.md` | none |
 
 ## Layout
 
 ```
 .claude-plugin/marketplace.json
 plugins/<name>/.claude-plugin/plugin.json
-plugins/<name>/skills/<name>/SKILL.md
+plugins/<name>/skills/<skill>/SKILL.md
 ```
 
 The `analytics` plugin holds four skills in one plugin (`plugins/analytics/skills/analytics-*/`) because they share a file contract, references and scripts; the shared references and scripts live in `analytics-audit`.

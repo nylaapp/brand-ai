@@ -1,6 +1,6 @@
 ---
 name: "blog-generator"
-description: "Research and write SEO/AEO-optimized Shopify blog posts that build brand discoverability in Google and AI answer engines. Asks intent, media, delivery, mode and topic once; reads the store's BRAND.md and COMPETITORS.md instead of re-asking about the brand; researches what changes each time; shows the outline in chat for approval; then delivers a hidden Shopify draft (connector or browser) or paste-ready HTML with SEO fields, images, schema and internal links. Guided or fully automated; also runs from shopify-blog-autopilot. Use whenever the user wants a blog post, article, buying guide, how-to or content brief for a Shopify store, better blog SEO, content cited by AI answers, or says \"write a post for my store\", even without saying \"SEO\"."
+description: "Research and write SEO/AEO-optimized Shopify blog posts that build brand discoverability in Google and AI answer engines. Asks intent, media, delivery, mode and topic once; reads the store's BRAND.md and COMPETITORS.md instead of re-asking about the brand; researches what changes each time; shows the outline in chat for approval; then delivers a hidden Shopify draft (connector or browser) or paste-ready HTML with SEO fields, images, schema and internal links. Guided or fully automated; also runs from blog-autopilot. Use whenever the user wants a blog post, article, buying guide, how-to or content brief for a Shopify store, better blog SEO, content cited by AI answers, or says \"write a post for my store\", even without saying \"SEO\"."
 ---
 
 # Shopify Blog Writer
@@ -60,7 +60,7 @@ If the user asks how to use this skill, how to get started, or what the Shopify 
 
 ## Autopilot-triggered runs: check this first
 
-If the request comes from the **shopify-blog-autopilot** skill (you'll see an "Autopilot brief", a file like `runs/<date>-<handle>-autopilot-brief.md`, or a message saying the autopilot triggered it), the user has already been asked and has approved the post, or has set that brand to auto-draft. The brief answers the setup questions:
+If the request comes from the **blog-autopilot** skill (you'll see an "Autopilot brief", a file like `runs/<date>-<handle>-autopilot-brief.md`, or a message saying the autopilot triggered it), the user has already been asked and has approved the post, or has set that brand to auto-draft. The brief answers the setup questions:
 
 - **Skip Step 0.** Take **intent, media, format, delivery and mode** from the brief. If a field is missing: intent inferred from the trigger, media = stock photos, format = `match-layout`, delivery = hidden Shopify draft, mode = fully automated.
 - **If the brief says `Mode: fully automated`: ask nothing, not one question or confirmation.** Do not call AskUserQuestion; nobody is there, and a stalled run means no draft. Use the Step 0b rules: read BRAND.md, discover from the store, fill gaps with defaults, list assumptions, never invent first-party material (leave it out and list it as missing input).
@@ -219,7 +219,7 @@ python scripts/check_post.py <post>.html --fields <post>-fields.json
 
 It is intent-aware (a brand journal isn't failed for lacking an FAQ) and honors `length_target`. Fix every FAIL that the brand's house style and repo rules allow; fix WARNs unless there's a good reason. Then do the judgment pass the script can't (the questions at the end of `writing-quality.md`): does every section earn its place? Is the answer-first paragraph a real answer? Are all claims cited or softened? Confirm the body contains no `[[…]]` text.
 
-**6b. Fact-check.** Look for the `content-fact-check` skill. Run it (or, in guided mode, run it without asking) when BRAND.md shows `regulated: yes`, claim limits or a required disclaimer, or when the post makes health, medical, safety, ingredient, regulatory ("FDA approved", "clinically proven") or performance claims. It checks each claim against authoritative sources and suggests rewrites; it flags, it doesn't approve.
+**6b. Fact-check.** Look for the `fact-check` skill. Run it (or, in guided mode, run it without asking) when BRAND.md shows `regulated: yes`, claim limits or a required disclaimer, or when the post makes health, medical, safety, ingredient, regulatory ("FDA approved", "clinically proven") or performance claims. It checks each claim against authoritative sources and suggests rewrites; it flags, it doesn't approve.
 - *Skill available:* run it, soften or remove claims it marks incorrect or unsupported, and list every change in the summary.
 - *Skill not available:* apply conservative rules yourself. Don't state regulatory status ("approved", "cleared", "certified") or medical, pregnancy or safety claims without a primary-source citation; otherwise rephrase or remove. Say in the summary that an independent fact-check is recommended.
 
