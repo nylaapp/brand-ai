@@ -132,7 +132,7 @@ const byName = Object.fromEntries(D.plugins.map(p => [p.name, p]));
 const SKILL_TO_PLUGIN = {};
 D.plugins.forEach(p => { (p.skills || []).forEach(s => SKILL_TO_PLUGIN[s.name] = p.name); });
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const ADD = '/plugin marketplace add ' + D.marketplace;
+const REPO = D.marketplace;
 
 function cmd(text) {
   return '<div class="cmd"><code>' + esc(text) + '</code><button type="button" data-copy="' + esc(text) + '">Copy</button></div>';
@@ -158,30 +158,31 @@ pages.start = () => `
 <div class="page">
   <header>
     <h1>Get started</h1>
-    <p class="lede">Install the Brand AI skills in Claude Code, set up one brand, and run your first skill. About ten minutes.</p>
+    <p class="lede">Add the Brand AI marketplace in Claude Cowork, install the skills, set up one brand, and run your first skill. About ten minutes. Nothing to type in a terminal.</p>
   </header>
   <section>
     <h2>Before you begin</h2>
     <ul class="list">
-      <li><b>Claude Code</b>, in the terminal, the desktop app (Code tab) or an IDE extension.</li>
+      <li><b>Claude Cowork</b>, in the Claude desktop app.</li>
       <li><b>A Shopify store</b> to work on. Skills that write to Shopify use the Shopify connector or the Shopify CLI. Use a draft theme while you learn.</li>
-      <li><b>Access to the marketplace repository.</b> While this project is in development it is shared with invited people only. If the install step reports a git or permission error, ask for access first.</li>
+      <li><b>Access to the marketplace repository.</b> While this project is in development it is shared with invited people only. If adding the marketplace reports a permission error, ask for access first.</li>
     </ul>
   </section>
   <section>
-    <h2>Setup in five steps</h2>
+    <h2>Setup in six steps</h2>
     <ol class="steps">
-      <li><div class="body"><strong>Add the marketplace.</strong> Run this once in Claude Code.${cmd(ADD)}</div></li>
-      <li><div class="body"><strong>Install brand-capture.</strong> Every other skill builds on its output, so install it first.${cmd('/plugin install brand-capture@brand-ai')}</div></li>
-      <li><div class="body"><strong>Install what you need.</strong> Add other skills any time. Each skill page has its own install command.${cmd('/plugin install blog-generator@brand-ai')}<p>Prefer everything at once? <a href="#all">Copy all install commands</a>.</p></div></li>
-      <li><div class="body"><strong>Capture the brand.</strong> Open the project folder for the client in Claude Code and say:${cmd('Capture the brand for example.com')}<p>It asks about the existing site and brand book, then four short questions, and writes <code>BRAND.md</code>, <code>BRAND-VOICE.md</code> and <code>design.md</code>.</p></div></li>
-      <li><div class="body"><strong>Ask for what you want.</strong> Describe the task in plain words, such as "write a blog post about summer skincare". Claude picks the matching skill. You can also name the skill.</div></li>
+      <li><div class="body"><strong>Open Plugins.</strong> In Cowork, select <b>Customize</b> in the sidebar, then <b>Plugins</b>.</div></li>
+      <li><div class="body"><strong>Add the marketplace.</strong> Select <b>Add marketplace</b> and enter this repository. Do this once.${cmd(REPO)}<p>The full address <code>https://github.com/${esc(REPO)}</code> works too.</p></div></li>
+      <li><div class="body"><strong>Install brand-capture.</strong> Every other skill builds on its output, so install it first. Find <b>brand-capture</b> under the Brand AI marketplace and click <b>Install</b>.</div></li>
+      <li><div class="body"><strong>Install what you need.</strong> Add other skills any time the same way. Each skill page names the plugin to install, and <a href="#all">All plugins</a> lists them.</div></li>
+      <li><div class="body"><strong>Capture the brand.</strong> Start a Cowork task in the client's project folder and say:${cmd('Capture the brand for example.com')}<p>It asks about the existing site and brand book, then four short questions, and writes <code>BRAND.md</code>, <code>BRAND-VOICE.md</code> and <code>design.md</code>.</p></div></li>
+      <li><div class="body"><strong>Ask for what you want.</strong> Describe the task in plain words, such as "write a blog post about summer skincare". Claude picks the matching skill. You can also name the skill. To see these docs again, say "show the documentation" once <b>brand-docs</b> is installed.</div></li>
     </ol>
   </section>
   <section>
     <h2>Suggested order</h2>
     <p>You can use most skills on their own once the brand is captured. This is the usual path for a new client.</p>
-    ${chain(['brand-capture','competitor-research','styles-builder','page-studio','blog-generator','seo-audit'])}
+    ${chain(['brand-capture','competitor-research','styles-builder','page-studio','cro-audit','blog-generator','seo-audit'])}
   </section>
   <section>
     <h2>Where the brand files live</h2>
@@ -196,22 +197,21 @@ pages.start = () => `
   </section>
   <section>
     <h2>Updating</h2>
-    <p>Refresh the marketplace to pick up new versions, then reinstall or update the plugin you use.</p>
-    ${cmd('/plugin marketplace update brand-ai')}
+    <p>In <b>Customize &gt; Plugins</b>, select <b>Check for updates</b> on the Brand AI marketplace to pull new versions, or turn on <b>Sync automatically</b>. Then update the plugins you use. If you edited a plugin's files locally, Cowork warns you before an update would overwrite them.</p>
   </section>
   <section>
     <h2>Troubleshooting</h2>
-    <details><summary>The marketplace will not add</summary><p>Check that you were given access to the repository and that git can reach it from this machine. Then run the add command again.</p></details>
-    <details><summary>A skill does not start when I ask</summary><p>Name it directly, for example "use blog-generator to write a post about X". Check that the plugin is installed and that you restarted the Claude Code session after installing.</p></details>
-    <details><summary>A skill keeps asking about the brand</summary><p>It cannot find BRAND.md. Open the client's project folder, or place the brand files in the central folder shown above.</p></details>
+    <details><summary>The marketplace will not add</summary><p>Check that you were given access to the repository and that the address is exactly <code>nylaapp/brand-ai</code> (or the full GitHub URL). Then select <b>Add marketplace</b> again.</p></details>
+    <details><summary>A skill does not start when I ask</summary><p>Name it directly, for example "use blog-generator to write a post about X". Check that the plugin shows as installed under <b>Customize &gt; Plugins</b>, then start a new task so Cowork loads it.</p></details>
+    <details><summary>A skill keeps asking about the brand</summary><p>It cannot find BRAND.md. Start the task in the client's project folder, or place the brand files in the central folder shown above.</p></details>
     <details><summary>It cannot reach Shopify</summary><p>Skills that write drafts fall back to paste-ready HTML when the connector or browser is unavailable or not signed in, and they tell you why. Connect Shopify and run it again to get a draft.</p></details>
   </section>
 </div>`;
 
 pages.all = () => `
 <div class="page">
-  <header><h1>All install commands</h1><p class="lede">Add the marketplace once, then install any plugin.</p></header>
-  <section>${cmd(ADD)}${cmd(D.plugins.map(p => p.install).join('\n'))}</section>
+  <header><h1>All plugins</h1><p class="lede">Add the marketplace once in <b>Customize &gt; Plugins &gt; Add marketplace</b>, then install any plugin from it.</p></header>
+  <section>${cmd(REPO)}<ul class="list">${D.plugins.map(p => '<li><b>' + esc(p.name) + '</b>: ' + esc(p.tagline) + '</li>').join('')}</ul></section>
 </div>`;
 
 pages.skills = (query) => {
@@ -249,7 +249,7 @@ function skillPage(p) {
     ${badges(p)}
     <h1>${esc(p.name)}</h1>
     <p class="lede">${esc(p.tagline)}</p>
-    ${cmd(p.install)}
+    <p class="lede">Install it in Cowork: <b>Customize &gt; Plugins</b>, find <b>${esc(p.name)}</b> in the Brand AI marketplace and click <b>Install</b>.</p>
   </header>
   <section><h2>What it does</h2><p>${esc(p.what)}</p></section>
   ${subs}
@@ -267,7 +267,7 @@ function renderNav(query) {
   const q = (query || '').toLowerCase().trim();
   const cur = (location.hash || '#start').slice(1);
   const link = (id, label) => '<a href="#' + id + '"' + (cur === id ? ' aria-current="page"' : '') + '>' + esc(label) + '</a>';
-  let h = '<h4>Guide</h4>' + link('start', 'Get started') + link('all', 'Install commands') + link('videos', 'Video tutorials');
+  let h = '<h4>Guide</h4>' + link('start', 'Get started') + link('all', 'All plugins') + link('videos', 'Video tutorials');
   h += '<h4>Skills</h4>' + link('skills', 'All skills');
   D.groups.forEach(g => {
     const items = D.plugins.filter(p => p.group === g.id && (!q || (p.name + ' ' + p.tagline + ' ' + (p.skills || []).map(s => s.name).join(' ')).toLowerCase().includes(q)));

@@ -1,25 +1,16 @@
 # brand-ai
 
-Claude Code plugin marketplace for brand-agnostic Shopify content and analytics skills.
+Plugin marketplace for brand-agnostic Shopify content and analytics skills.
 
-## Install
+## Install (Claude Cowork)
 
-```
-/plugin marketplace add nylaapp/brand-ai
-/plugin install brand-capture@brand-ai
-/plugin install competitor-research@brand-ai
-/plugin install fact-check@brand-ai
-/plugin install accessibility-audit@brand-ai
-/plugin install seo-audit@brand-ai
-/plugin install blog-generator@brand-ai
-/plugin install blog-rewriter@brand-ai
-/plugin install blog-autopilot@brand-ai
-/plugin install styles-builder@brand-ai
-/plugin install page-studio@brand-ai
-/plugin install analytics@brand-ai
-/plugin install cro-audit@brand-ai
-/plugin install brand-docs@brand-ai
-```
+1. In Claude Cowork, select **Customize** in the sidebar, then **Plugins**.
+2. Select **Add marketplace** and enter `nylaapp/brand-ai` (or `https://github.com/nylaapp/brand-ai`). Do this once.
+3. Find **brand-capture** under the Brand AI marketplace and click **Install**. Every other plugin builds on its output, so install it first.
+4. Install any other plugin from the table below the same way.
+5. Start a Cowork task in the client's project folder and say "Capture the brand for example.com".
+
+To pick up new versions, select **Check for updates** on the marketplace (or turn on **Sync automatically**). To see the documentation from inside Claude, install **brand-docs** and say "show the documentation".
 
 ## Plugins
 
