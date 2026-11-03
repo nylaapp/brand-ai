@@ -1,8 +1,8 @@
 ---
 name: styles-builder
 description: >-
-  Guide for creating or deepening design.md (the brand visual guide) in a Shopify theme repo from
-  a brand book or a reference store, and applying its tokens into the theme's settings_schema.json
+  Guide for building on design.md (the brand visual guide, written deep by brand-capture) in a Shopify
+  theme repo, extracting from a brand book or a reference store where one is given, and applying its tokens into the theme's settings_schema.json
   and settings_data.json. Brand agnostic. Covers the full token set a theme needs before pages get
   built on it: typography, color schemes, spacing, corner radius, shadows, buttons and component
   states. It also sets up the essentials a new theme needs to start building: logo and favicon,
@@ -19,9 +19,8 @@ description: >-
 
 `page-content-studio` and `page-audit` take visual values from `design.md`, the brand's visual guide.
 When it is missing they fall back to the store repo's own visual spec or the theme's settings, and they
-never invent a value. This skill is for when that fallback isn't enough: on top of brand-capture's
-first pass, it builds `design.md` out from a brand book or a reference store by extracting real design
-tokens from a source. Then it **applies the tokens into the theme's settings**, so every later page build
+never invent a value. This skill is for when that fallback isn't enough: it takes brand-capture's deep
+`design.md` (plus a brand book or reference store, if the person gives one) and **applies the tokens into the theme's settings**, so every later page build
 starts from the same values instead of re-deriving them section by section. Applying them to the theme
 is the part no other skill in this marketplace does.
 
@@ -41,21 +40,25 @@ It holds no brand facts of its own and is reusable across any Shopify theme repo
 
 ## How this fits with brand-capture
 
-brand-capture runs first whenever `BRAND.md` or its first-pass `design.md` isn't available yet (Step 0).
+brand-capture runs first whenever `BRAND.md` or its deep `design.md` isn't available yet (Step 0).
 This skill runs it itself, waits for it to finish, and never starts without both files. Both skills write
 to `design.md`, so know which one does what:
 
-- **`brand-capture`** writes a first-pass `design.md` as part of brand setup: values measured on the live
+- **`brand-capture`** writes a deep `design.md` as part of brand setup: values measured on the live
   site (at 1440 and 390 wide), from the scan and from the theme's settings, labelled `(from site)` or
-  `(inferred)`. It never overwrites a `design.md` that already exists; it adopts it and points
+  `(inferred)`, covering palette, type, spacing, corners, components and imagery plus product, collection and
+  cart page measurements, hover and focus states, input fields, logo and favicon, and motion. It never overwrites a `design.md` that already exists; it adopts it and points
   `BRAND.md`'s `design_doc` key at it.
-- **This skill** goes further where that first pass can't: a brand book or style guide as the source, a
-  reference store, a rebrand, the full token set in Step 0.5 (named
-  color schemes, every button state, parity tolerances), and, only here, applying the tokens into the
-  theme's `settings_schema.json` and `settings_data.json`.
+- **This skill** adds what a brand book or a reference store the person gives it can settle (named
+  color schemes, every button state, parity tolerances) and, only here, applies the tokens into the
+  theme's `settings_schema.json` and `settings_data.json`. It never asks whether to deepen `design.md`:
+  depth is settled in brand-capture.
 - **If a `design.md` already exists** (brand-capture's, the client's, or an earlier run of this skill), it
-  is the starting point, not something to replace. Read it, show the user what would change, wait for a
-  yes, and edit only the sections the new source affects (Step 0f).
+  is already deep and is the starting point, not something to replace. Read it and go straight to applying
+  its tokens (Step 0f). Edit it only when the person gave a new source in this run (a brand book or a
+  reference store); then show what would change and wait for a yes first. If it lacks an item of the deep
+  set, don't measure it here and don't ask whether to deepen it: say which item is missing and point back to
+  brand-capture's add-design mode (Step 0e).
 - **Same file either way.** Use the same flat front matter and origin labels brand-capture uses (Step 3)
   so the file reads the same whichever skill wrote it. Leave `BRAND.md` to brand-capture: if its
   `design_doc` key doesn't point at the file yet, say so in the summary and have brand-capture adopt the
@@ -101,15 +104,15 @@ and what runs next.
    the theme the person already chose in this conversation or recorded in `THEME-TARGET.md` and say so in
    one line, or list the store's themes and ask which draft or the live theme to work on, and remember the
    answer for every other skill. Don't ask again unless the person names a different theme. Offer
-   "design.md only" as an answer too: it writes `design.md` and changes no theme (the default is to also
-   apply the tokens to the theme); ask for a theme then if the person later wants one changed. If the
+   "no theme for now" as an answer too: it changes no theme (the default is to apply the tokens to the
+   theme); ask for a theme then if the person later wants one changed. If the
    theme is live, section 5 of that file applies: an explicit yes before the first edit and again before
    the push.
 2. **The optional step**, off unless the person says yes (`references/section-styling.md`):
    - **Brand styling:** apply the brand's spacing, colour schemes, radius and padding to the existing
      sections of the starting theme's templates.
    - **Which templates:** home, product, collection, page, blog, article, cart, search, or all.
-   Skip this question when the answer to 1 is "design.md only": the step changes the theme.
+   Skip this question when the answer to 1 is "no theme for now": the step changes the theme.
 
 If the request already answers part of this ("also style the home page sections"), take it and ask
 only the rest. Send the questions as short numbered choices, the recommended answer first. Keep the
@@ -198,16 +201,21 @@ visual questions still open in `BRAND-QUESTIONS.md` into Step 2, since they are 
 If brand-capture stopped early, couldn't render the site, or produced no `design.md`, stop and report
 exactly what is missing; never fill the gap with a `design.md` written here.
 
+Then check the deep set against `design.md`: product, collection and cart page measurements, hover and focus
+states, input fields, logo and favicon, and motion. Each must be present, or said plainly to be absent
+("No animation"). If one is missing, say which, and ask brand-capture to fill it in (its add-design mode, which
+measures only the missing items); don't ask the person whether to deepen `design.md`, and don't measure it here.
+
 ### 0f Then plan the work
 
-1. A `design.md` now exists, so this is an update, not a fresh capture: read it first, show the user what
-   would change, wait for a yes, and only touch the sections the new source affects. Update it where it
-   lives.
+1. A `design.md` now exists and is already deep: read it first and go straight to the next step. Change
+   it only for a new source the person gave in this run (a brand book or a reference store): show what would
+   change, wait for a yes, and only touch the sections that source affects. Update it where it lives.
 2. Carry out the answer to the opening question on the theme, and note its repo / branch: either apply the
    tokens into `config/settings_schema.json` and `config/settings_data.json` on the settled theme (the
    default; a draft is recommended) through the theme's settings and the brand stylesheet, never by editing a
    base file, because a `design.md` with no theme applied recreates the gap this skill exists to close, or,
-   if the answer was "design.md only", write it as reference and change no theme. Don't ask again.
+   if the answer was "no theme for now", change no theme. Don't ask again.
 3. Say the plan back in one line, from the opening answers: the theme, whether tokens are applied, and
    whether the optional brand styling of the existing section templates runs (Step 7) and on which
    templates, or that it wasn't chosen. Don't offer it now: if it wasn't chosen it is skipped, and a run with
@@ -520,4 +528,4 @@ setting id where an existing one already covers the token. Do not remap a color 
 its role combinations for contrast. Do not edit or push to the live theme without the person's yes before the edit and again before the push (`references/theme-target.md`); do not ask which theme again once it is settled, unless they name another. Do not claim a visual check passed without having loaded the actual rendered theme. Do not download a
 font without the user's explicit yes naming the file, source, size and licence. Do not download one that
 isn't free to self-host from its official source, and do not use a lookalike without the user's recorded
-approval. Do not upload anything to the store's Files area without the user's explicit yes naming the file, source, size and rights. Do not offer the optional step after the opening questions, and do not ask the opening questions one at a time. Do not change section settings outside the templates the user named, and do not change copy, images, section order or section count. Do not edit a file the starting theme owns to change a styling value an override can do. Fence and register any unavoidable edit. Do not rename, reorder or delete existing setting ids.
+approval. Do not upload anything to the store's Files area without the user's explicit yes naming the file, source, size and rights. Do not ask whether to deepen `design.md` or measure the deep set here; brand-capture owns that, so name a missing item and point back to it. Do not offer the optional step after the opening questions, and do not ask the opening questions one at a time. Do not change section settings outside the templates the user named, and do not change copy, images, section order or section count. Do not edit a file the starting theme owns to change a styling value an override can do. Fence and register any unavoidable edit. Do not rename, reorder or delete existing setting ids.
