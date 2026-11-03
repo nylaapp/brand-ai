@@ -174,7 +174,7 @@ pages.start = () => `
       <li><div class="body"><strong>Open Plugins.</strong> In Cowork, select <b>Customize</b> in the sidebar, then <b>Plugins</b>.</div></li>
       <li><div class="body"><strong>Add the marketplace.</strong> Select <b>Add marketplace</b> and enter this repository. Do this once.${cmd(REPO)}<p>The full address <code>https://github.com/${esc(REPO)}</code> works too.</p></div></li>
       <li><div class="body"><strong>Install brand-capture.</strong> Every other skill builds on its output, so install it first. Find <b>brand-capture</b> under the Brand AI marketplace and click <b>Install</b>.</div></li>
-      <li><div class="body"><strong>Install what you need.</strong> Add other skills any time the same way. Each skill page names the plugin to install, and <a href="#all">All plugins</a> lists them.</div></li>
+      <li><div class="body"><strong>Install what you need.</strong> Add other skills any time the same way. Each skill page names the plugin to install, and <a href="#skills">All skills</a> lists them.</div></li>
       <li><div class="body"><strong>Capture the brand.</strong> Start a Cowork task in the client's project folder and say:${cmd('Capture the brand for example.com')}<p>It asks about the existing site and brand book, then four short questions, and writes <code>BRAND.md</code>, <code>BRAND-VOICE.md</code> and <code>design.md</code>.</p></div></li>
       <li><div class="body"><strong>Ask for what you want.</strong> Describe the task in plain words, such as "write a blog post about summer skincare". Claude picks the matching skill. You can also name the skill. To see these docs again, say "show the documentation" once <b>brand-docs</b> is installed.</div></li>
     </ol>
@@ -208,12 +208,6 @@ pages.start = () => `
   </section>
 </div>`;
 
-pages.all = () => `
-<div class="page">
-  <header><h1>All plugins</h1><p class="lede">Add the marketplace once in <b>Customize &gt; Plugins &gt; Add marketplace</b>, then install any plugin from it.</p></header>
-  <section>${cmd(REPO)}<ul class="list">${D.plugins.map(p => '<li><b>' + esc(p.name) + '</b>: ' + esc(p.tagline) + '</li>').join('')}</ul></section>
-</div>`;
-
 pages.skills = (query) => {
   const q = (query || '').toLowerCase().trim();
   const hit = p => !q || [p.name, p.tagline, p.what, (p.prompts || []).join(' '), (p.skills || []).map(s => s.name + ' ' + s.tagline).join(' ')].join(' ').toLowerCase().includes(q);
@@ -226,48 +220,11 @@ pages.skills = (query) => {
   </div></div>`;
 };
 
-pages.videos = () => {
-  const rows = [];
-  D.plugins.forEach(p => {
-    rows.push([p.name, p.name, p.tagline]);
-    (p.skills || []).forEach(s => rows.push([s.name, s.name, s.tagline]));
-  });
-  return `<div class="page">
-  <header><h1>Video tutorials</h1><p class="lede">Short walkthroughs for each skill. Videos open in a new tab.</p></header>
-  <section>${rows.map(([key, name, tag]) => `<div class="video${D.videos[key] ? ' has' : ''}"><p><b>${esc(name)}</b><br>${esc(tag)}</p>${D.videos[key] ? '<a class="btn" href="' + esc(D.videos[key]) + '" target="_blank" rel="noopener">Watch</a>' : '<span class="badge">Coming soon</span>'}</div>`).join('')}</section>
-  <div class="note"><b>Adding a video:</b> in <code>docs-site/content.json</code>, add the skill name and its video link under <code>"videos"</code>, for example <code>"blog-generator": "https://..."</code>, then run <code>python3 docs-site/build.py</code> and republish.</div>
-</div>`;
-};
-
-function skillPage(p) {
-  const subs = p.skills ? `<section><h2>Skills in this plugin</h2><div class="subskills">${p.skills.map(s => `
-    <div class="sub"><h3>${esc(s.name)}</h3><p>${esc(s.tagline)}</p>${list(s.prompts, 'prompts')}${videoFor(s.name, s.name)}</div>`).join('')}</div></section>` : '';
-  const vids = p.skills ? '' : '<section><h2>Video tutorial</h2>' + videoFor(p.name, p.name) + '</section>';
-  const next = (p.next && p.next.length) ? `<section><h2>What to run next</h2>${chain(p.next)}</section>` : '';
-  return `<div class="page">
-  <header>
-    ${badges(p)}
-    <h1>${esc(p.name)}</h1>
-    <p class="lede">${esc(p.tagline)}</p>
-    <p class="lede">Install it in Cowork: <b>Customize &gt; Plugins</b>, find <b>${esc(p.name)}</b> in the Brand AI marketplace and click <b>Install</b>.</p>
-  </header>
-  <section><h2>What it does</h2><p>${esc(p.what)}</p></section>
-  ${subs}
-  <section><h2>How to ask for it</h2><p>Say something like:</p>${list(p.prompts, 'prompts')}</section>
-  <section><h2>How it works</h2><ol class="steps">${p.steps.map(s => '<li><div class="body">' + esc(s) + '</div></li>').join('')}</ol></section>
-  <section><h2>What it produces</h2>${list(p.produces)}</section>
-  <section><h2>Needs first</h2>${list(p.requires)}</section>
-  <section><h2>Guardrails</h2>${list(p.guardrails)}</section>
-  ${vids}
-  ${next}
-</div>`;
-}
-
 function renderNav(query) {
   const q = (query || '').toLowerCase().trim();
   const cur = (location.hash || '#start').slice(1);
   const link = (id, label) => '<a href="#' + id + '"' + (cur === id ? ' aria-current="page"' : '') + '>' + esc(label) + '</a>';
-  let h = '<h4>Guide</h4>' + link('start', 'Get started') + link('all', 'All plugins') + link('videos', 'Video tutorials');
+  let h = '<h4>Guide</h4>' + link('start', 'Get started');
   h += '<h4>Skills</h4>' + link('skills', 'All skills');
   D.groups.forEach(g => {
     const items = D.plugins.filter(p => p.group === g.id && (!q || (p.name + ' ' + p.tagline + ' ' + (p.skills || []).map(s => s.name).join(' ')).toLowerCase().includes(q)));
