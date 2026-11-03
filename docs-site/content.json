@@ -151,7 +151,7 @@
       ],
       "produces": ["A client-ready audit report and PAGE-AUDIT.md", "Changes or new pages on a draft theme"],
       "requires": ["brand-capture"],
-      "guardrails": ["page-audit never edits a theme or store.", "Changes go to a draft theme."],
+      "guardrails": ["page-audit never edits a theme or store.", "Changes go only to a draft theme (asked for or created). The live theme is never edited."],
       "next": ["accessibility-audit"]
     },
     {
@@ -167,7 +167,7 @@
       ],
       "produces": ["A scored report and approved accessibility fixes"],
       "requires": ["Lighthouse CLI"],
-      "guardrails": ["Editing the live theme needs an explicit yes, and another before the push.", "Roughly 15 to 40 minutes per page template. This is an estimate."],
+      "guardrails": ["Never edits the live theme: it works on a draft theme, asked for or created.", "Roughly 15 to 40 minutes per page template. This is an estimate."],
       "next": []
     },
     {

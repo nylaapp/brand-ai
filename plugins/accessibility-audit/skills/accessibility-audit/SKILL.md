@@ -1,6 +1,6 @@
 ---
 name: accessibility-audit
-description: "Score a Shopify theme's pages with the Lighthouse CLI (accessibility), classify every failing audit, propose minimal fixes, and after approval apply them and re-score until the page hits 1.00. Use whenever the user says \"score this page\", \"run Lighthouse\", \"accessibility audit\", \"check accessibility on the product page / about page / collection page\", \"get this to 100%\", \"fix the a11y score\", or asks to improve Lighthouse accessibility on any page template, even if they don't say Lighthouse. Fixes are additive only (aria attributes, roles, hidden labels, blank-value guards, a minimum contrast nudge) and never change layout, styling or copy. Works on the theme the person chose (asked once, remembered; a draft is recommended), and the live theme needs an explicit yes before any edit and again before the push."
+description: "Score a Shopify theme's pages with the Lighthouse CLI (accessibility), classify every failing audit, propose minimal fixes, and after approval apply them and re-score until the page hits 1.00. Use whenever the user says \"score this page\", \"run Lighthouse\", \"accessibility audit\", \"check accessibility on the product page / about page / collection page\", \"get this to 100%\", \"fix the a11y score\", or asks to improve Lighthouse accessibility on any page template, even if they don't say Lighthouse. Fixes are additive only (aria attributes, roles, hidden labels, blank-value guards, a minimum contrast nudge) and never change layout, styling or copy. Works only on a draft theme (asked once, remembered, or created from the live theme); it never edits the live theme."
 ---
 
 # Accessibility audit (Lighthouse CLI, classify, fix, re-score)
@@ -17,15 +17,14 @@ If the project has its own instructions file (for example `AGENTS.md` or `CLAUDE
 
 **Theme first.** Before step 1, settle which theme this run is for, following `references/theme-target.md`:
 use the theme the person already chose in this conversation or recorded in `THEME-TARGET.md` and say so in one
-line, or ask once which draft or the live theme to work on (offer the theme the project's theme config names
-as the default) and remember the answer for every other skill. Don't ask again unless the person names a
+line, or settle a draft: ask whether one already exists or create one, never the live theme (the project's theme config may default to the live theme, so don't use that default) and remember the answer for every other skill. Don't ask again unless the person names a
 different theme. The local dev server previews the working copy; the chosen theme is where approved fixes are
 pushed in step 8.
 
 ## 0. Non-negotiables
 
 - **No layout, styling or content changes.** A fix may add an `aria-*` attribute, a `role`, a visually-hidden label, a guard around a blank or broken dynamic value, or nudge a colour's contrast by the minimum needed. Never move, resize, reword or restyle. If a real fix needs a visible change, stop and ask; don't reinterpret "no changes" to permit it.
-- **Push only to the theme the person chose, and protect the live theme.** Pushing means that theme by id. If it is the live theme, get an explicit yes naming it before any edit and again, with the exact files, before the push (`references/theme-target.md` section 5); `--allow-live` is used only then, and `--publish` (which makes a draft the live theme) only with its own explicit yes naming both themes.
+- **Push only to a draft theme, never the live theme.** Pushing means that theme by id. `--allow-live` is never used, and neither is `--publish` (which makes a draft the live theme): the person publishes in the store admin (`references/theme-target.md` section 5).
 - **Don't edit shared, vendor or base theme files** (global stylesheets, the theme's core scripts, shared colour-scheme tokens). If it's unavoidable, keep the edit minimal, mark it with a comment saying what and why, and log it.
 - **`shopify theme check` must equal baseline** before and after every edit. Take a clean baseline run first; don't trust a remembered number. A changed count means something broke.
 - **Verify every fix on the rendered page**, never from the code alone. Reading `document.querySelector(...).getAttribute('role')` on the running page is verification; "I added the role" is not.
@@ -98,9 +97,9 @@ Repeat step 2 for every page and both form factors against the dev server. Every
 ## 8. Push, verify, re-check deployed (only after the person approves pushing)
 
 1. `shopify theme check` must match the pre-pass baseline exactly.
-2. If the chosen theme is live, ask the second yes first: show the exact files, name the theme (name and id) and wait for an explicit yes. Then `shopify theme push --theme <chosen theme id> --only <exact touched files>`, adding `--allow-live` only for the live theme once both yeses are on record. Never a bare push: the branch may carry unrelated work in progress.
+2. Re-read the chosen theme's role: if it is live, stop (never push to it) and use or create a draft. Then `shopify theme push --theme <chosen theme id> --only <exact touched files>`, never with `--allow-live`. Never a bare push: the branch may carry unrelated work in progress.
 3. `shopify theme pull` the same files to a scratch folder and `diff` them: they must be byte-identical to local. That is the proof, not the CLI's "success" message.
-4. Re-run Lighthouse on the deployed page (the preview domain for a draft, the live domain for the live theme) for every page and both form factors. Say plainly that this is the Lighthouse CLI engine, not the Chrome extension UI.
+4. Re-run Lighthouse on the deployed page (the draft's preview) for every page and both form factors. Say plainly that this is the Lighthouse CLI engine, not the Chrome extension UI.
 5. Expect lower scores than local (the preview bar, third-party scripts). Don't reopen step 3 to chase the gap, but confirm every new finding lands in bucket 3a with evidence rather than assuming it's third-party noise.
 
 ## 9. Log
@@ -122,6 +121,6 @@ Per page, a before and after row (mobile and desktop), then: fixes applied, item
 - [ ] `theme check` unchanged
 - [ ] 1.0 on every page, both form factors, locally
 - [ ] Live regression check passed
-- [ ] Theme settled once (remembered or asked); pushed only to it, with `--only` touched files; if live, a yes before the edit and again before the push; pulled and diffed identical
+- [ ] Theme settled once (remembered or asked); pushed only to it, with `--only` touched files; never the live theme; pulled and diffed identical
 - [ ] Deployed-domain gaps traced to confirmed non-theme causes
 - [ ] QA log entry written

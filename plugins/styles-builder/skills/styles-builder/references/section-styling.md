@@ -3,7 +3,7 @@
 One optional step for a new theme whose pre-built section templates still carry the theme's demo look. It is
 off unless the person said yes in the opening questions (Step 0 in `SKILL.md`) or asked for it in the
 request, and it is offered once, at the start, never later in the run. It works on the theme settled in
-Step 0 (`theme-target.md`): a draft is recommended, and the live theme needs the assurance described there.
+Step 0 (`theme-target.md`): always a draft, never the live theme.
 
 It changes how the sections look, never what they say or show: no copy, no images, no section order or
 count. Those are other jobs (`page-edit-content` for words, images and links, `page-edit-design` for order
@@ -36,5 +36,5 @@ named templates.
 
 ## Never
 Do not touch templates the user didn't name. Do not change copy, images, section order or section count.
-Do not edit or push to the live theme without the yes before the edit and again before the push
+Never edit or push to the live theme
 (`theme-target.md`).

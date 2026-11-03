@@ -8,7 +8,7 @@ description: >-
   and section code only last), takes every visual value from the design spec, checks every other
   page that shares the section or style, captures a baseline, edits a local working copy, verifies
   on the rendered page across breakpoints and colour schemes, and pushes only the touched files to
-  the theme the person chose (a draft unless they say live). Also acts on audit rows a person picked
+  the theme the person chose (always a draft, never the live theme). Also acts on audit rows a person picked
   in PAGE-AUDIT.md. Brand-agnostic, written for the Site Editor. Use for "move the booking section
   up", "make the hero shorter on mobile", "change this section's colour scheme", "increase the
   spacing", "restyle this button", "fix the second h1", "do row HOME-01" when the row is about
@@ -23,8 +23,7 @@ Change how an existing page **looks and is arranged** (layout, order, spacing, c
 component styles, responsive behaviour) and nothing about what it says. The skill picks the
 narrowest technique, captures a baseline, edits a local working copy, proves nothing else moved
 across breakpoints and colour schemes, and puts only the touched files on the theme the person chose
-(a draft unless they say live). The live theme needs their explicit yes before any edit and again
-before the push.
+(always a draft, never the live theme). The live theme is never edited: work goes to a draft theme, created if there isn't one.
 
 ```
 1. Context -> 2. Understand the request -> 3. Resolve the target and working copy ->
@@ -35,9 +34,7 @@ before the push.
 ## Rules
 
 - **Working copy first, on the theme the person chose.** Never push from the working copy except
-  through the ship step. The theme is asked once and remembered (`theme-target.md`); a draft is
-  recommended. The live theme needs an explicit yes before the first edit and again before the push,
-  every run (`theme-target.md`, `ship-to-draft.md`).
+  through the ship step. The theme is asked once and remembered (`theme-target.md`); it is always a draft or unpublished theme, never the live theme (if there is none, `theme-target.md` asks for one or creates one) (`theme-target.md`, `ship-to-draft.md`).
 - **Design only.** If the request also changes words, images or links, do that in
   `page-edit-content` as its own change.
 - **Narrowest technique that works:** a theme setting, then a token override, then scoped CSS,
@@ -64,17 +61,14 @@ booking section is too far down", "the hero is too tall on my phone"), not where
 theme. Plain language, explain a term once, narrate before acting ("I'll move that section up and
 leave every other section where it is"), flag trade-offs in plain terms ("this style is also used on
 your contact page"), and explain draft versus live the first time it comes up: on a draft, nothing
-visitors see changes until they say go; on the live theme, edits show to visitors as soon as they
-are pushed.
+visitors see changes until they say go; these skills never edit the live theme, because edits there show to visitors at once.
 
 ## 1. Context
 
 **Theme first.** Before anything else, settle which theme this runs on, with
 `../page-studio/references/theme-target.md`: use the theme already chosen in this
-conversation or remembered in `THEME-TARGET.md` and say so in one line, or ask once which draft or
-the live theme to work on and remember the answer for every other skill. Don't ask again unless the
-person names a different theme. If it is the live theme, section 5 of that file applies: an explicit
-yes before the first edit and again before the push.
+conversation or remembered in `THEME-TARGET.md` and say so in one line, or settle one with that file (an existing draft, or a new draft copy; never the live theme) and remember it for every other skill. Don't ask again unless the
+person names a different theme. If the person names the live theme, that file applies: it is refused and a draft is used.
 
 Follow section 1 of `../page-audit/references/intake.md`: resolve the brand files and `design.md`,
 handle a partial set, and read the store repo's own engineering rules (`AGENTS.md` or `CLAUDE.md`),
@@ -136,9 +130,7 @@ each other page that uses the shared code**, so nothing else can move unnoticed.
 Say in plain words what will change and show it: the setting or file, the before and the after, and
 the expected effect on position and size. Name every other page that shares the code and what you
 expect to happen there (usually nothing). Get a yes before editing anything beyond a single setting
-value or anything that touches shared code. If the theme is live, a yes is always needed, even for a
-single value; it names the theme (name and id) and is the live-theme assurance (`theme-target.md`
-section 5). Record it in section 3 of the change pack.
+value or anything that touches shared code. The change is always on a draft theme; name it (name and id) and record the approval in section 3 of the change pack.
 
 ## 7. Edit the working copy
 
@@ -159,15 +151,12 @@ targets (check 9). Any failure goes back to step 7; nothing ships on a failed ch
 Run `../page-studio/references/ship-to-draft.md`: check nobody edited the files since the
 baseline, push only the touched files to the chosen theme, pull them back as proof, re-check the
 preview, write the QA entry (`../page-studio/references/qa-entry-format.md`), and set any
-audit rows to `done`. On the live theme, the second yes (the exact files and change) comes before
-the push. Publishing a draft over the live theme happens only if the person asks, with an explicit,
-recorded yes. To undo, use `../page-studio/references/revert-mode.md`.
+audit rows to `done`. Never push to the live theme. Publishing a draft is done by the person in the store admin; say where (`ship-to-draft.md` section 8). To undo, use `../page-studio/references/revert-mode.md`.
 
 ## 10. Hand back
 
 Give a short, plain summary: what changed and where it can be seen, what was verified with the
-numbers (including the other pages checked), what was flagged and not done, and whether it is on the
-draft only or live.
+numbers (including the other pages checked), what was flagged and not done, and whether it is on a draft only (the live theme is never edited here).
 
 ## Checklist before finishing
 
@@ -179,5 +168,5 @@ draft only or live.
 - [ ] Only design changed; any wording request handed to `page-edit-content`
 - [ ] Verified at desktop, mobile and tablet where relevant, across colour schemes; tracked links unchanged
 - [ ] Theme settled once (remembered or asked); pushed only to it, only the touched files, pulled back identical;
-      if live, a yes before the edit and again before the push
+      never the live theme
 - [ ] No credential typed; QA entry written; audit rows updated only when verified

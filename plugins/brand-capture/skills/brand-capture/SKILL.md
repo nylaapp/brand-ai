@@ -75,7 +75,7 @@ each other's files.
 |---|---|
 | `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, reading a brand book, conflicts, choosing the 4 questions, claim rules by category, competitors |
 | `references/brand-home.md` | Steps 0, 1, 6b and 7: asking for a local folder and the draft theme, finding and writing its folder, `BRAND-HOME.md`, moving existing files, the optional shared copy |
-| `references/theme-target.md` | Step 1: choosing and remembering the theme (the same file the theme skills use; sections 1 to 4 and 6 apply here) |
+| `references/theme-target.md` | Step 1: choosing and remembering the theme (the same file the theme skills use; sections 2 to 4 and 6 apply here) |
 | `references/brand-context.md` | Step 0: the lookup order for files that already exist |
 | `references/brand-template.md` | Step 4: the exact layout of BRAND.md (other skills depend on its headings) |
 | `references/voice-template.md` | Step 4: the exact layout of BRAND-VOICE.md (the validator checks its headings) |
