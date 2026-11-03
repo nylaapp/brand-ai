@@ -68,7 +68,7 @@
       ],
       "produces": ["A hidden Shopify draft (via connector or browser), or paste-ready HTML", "SEO fields, images, schema, internal links"],
       "requires": ["brand-capture (BRAND.md). competitor-research is optional but used when present."],
-      "guardrails": ["Posts land as hidden drafts for a human to review.", "Guided mode or fully automated mode. Also runs from shopify-blog-autopilot."],
+      "guardrails": ["Posts land as hidden drafts for a human to review.", "Guided mode or fully automated mode. Also runs from blog-autopilot."],
       "next": ["content-fact-check", "content-seo-audit"]
     },
     {
@@ -137,17 +137,17 @@
     {
       "name": "page-content-studio", "group": "pages",
       "tagline": "Audit a page, then change it or build a new one on a draft theme.",
-      "what": "Two skills that work together. page-audit is read-only: it checks a page against what its type should do and ranks the fixes. page-content-studio makes a named change (copy, image, link, section settings or order) or builds a new page, and can act on the recommendations an audit picked. It is built for the Site Editor, for marketing and ops people who aren't developers.",
+      "what": "Two skills that work together. page-audit is read-only: it checks a page against what its type should do and ranks the fixes. page-studio makes a named change (copy, image, link, section settings or order) or builds a new page, and can act on the recommendations an audit picked. It is built for the Site Editor, for marketing and ops people who aren't developers.",
       "skills": [
         {"name": "page-audit", "tagline": "Read-only gap analysis, ranked, with an owner for every fix.", "prompts": ["What should we improve on the homepage?", "Audit the about page", "Where does this page fall short?"]},
-        {"name": "page-content-studio", "tagline": "Make a named change or build a page on a draft theme.", "prompts": ["Swap the image on the homepage hero", "Move this section up", "Make a landing page for X", "Recreate this page from the live site"]}
+        {"name": "page-studio", "tagline": "Make a named change or build a page on a draft theme.", "prompts": ["Swap the image on the homepage hero", "Move this section up", "Make a landing page for X", "Recreate this page from the live site"]}
       ],
       "prompts": ["Audit the about page", "Swap the image on the homepage hero", "Make a landing page for X"],
       "steps": [
         "Start with page-audit. Say what the page is for: book, sell, promote, build trust, inform or fix.",
         "It checks the rendered page at desktop and mobile against a playbook for its type, and names who owns each fix (this theme, store admin, store settings, a third-party app, or an off-site page).",
         "It writes a ranked report and a living PAGE-AUDIT.md.",
-        "Ask page-content-studio to apply the recommendations you pick, or name any change or new page directly."
+        "Ask page-studio to apply the recommendations you pick, or name any change or new page directly."
       ],
       "produces": ["A client-ready audit report and PAGE-AUDIT.md", "Changes or new pages on a draft theme"],
       "requires": ["brand-capture"],
