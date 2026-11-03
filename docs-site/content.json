@@ -53,7 +53,7 @@
       "produces": ["design.md", "Updated settings_schema.json and settings_data.json", "Logo, favicon, motion, input and variant picker setup"],
       "requires": ["brand-capture"],
       "guardrails": ["Starter section styling only happens if you opt in when it starts."],
-      "next": ["page-content-studio"]
+      "next": ["page-studio"]
     },
     {
       "name": "blog-generator", "group": "content",
@@ -68,8 +68,8 @@
       ],
       "produces": ["A hidden Shopify draft (via connector or browser), or paste-ready HTML", "SEO fields, images, schema, internal links"],
       "requires": ["brand-capture (BRAND.md). competitor-research is optional but used when present."],
-      "guardrails": ["Posts land as hidden drafts for a human to review.", "Guided mode or fully automated mode. Also runs from shopify-blog-autopilot."],
-      "next": ["content-fact-check", "content-seo-audit"]
+      "guardrails": ["Posts land as hidden drafts for a human to review.", "Guided mode or fully automated mode. Also runs from blog-autopilot."],
+      "next": ["fact-check", "seo-audit"]
     },
     {
       "name": "blog-rewriter", "group": "content",
@@ -85,10 +85,10 @@
       "produces": ["A hidden Shopify draft with SEO fields and a preview link", "Fallback: paste-ready HTML and a fields sheet"],
       "requires": ["blog-generator", "brand-capture (BRAND.md)"],
       "guardrails": ["Never quietly changes a claim. Anything changed is flagged.", "Posts are hidden drafts only."],
-      "next": ["content-seo-audit"]
+      "next": ["seo-audit"]
     },
     {
-      "name": "shopify-blog-autopilot", "group": "content",
+      "name": "blog-autopilot", "group": "content",
       "tagline": "Decides when a store should blog and what to cover, then hands off to the writer.",
       "what": "The editor-in-chief. It scans store events (new products, restocks, rising sellers), Search Console exports, review and helpdesk exports, competitor blog feeds, trends and an occasion calendar, scores the opportunities, and applies guardrails: dedupe, cannibalization, cooldowns and a weekly cap. It never writes the post itself.",
       "prompts": ["What should we blog about this week?", "Set up blogging on a schedule", "Is anything worth a new post right now?"],
@@ -104,7 +104,7 @@
       "next": ["blog-generator"]
     },
     {
-      "name": "content-fact-check", "group": "content",
+      "name": "fact-check", "group": "content",
       "tagline": "Independent fact-check for blog and marketing copy, with guardrails for regulated claims.",
       "what": "Pulls out every factual claim, flags the risky ones (FDA and other regulatory status, medical and treatment claims, ingredient facts, pregnancy and safety statements, clinically proven, statistics), checks them against primary sources, and returns a claim-by-claim report with verdicts, citations and safer rewrites.",
       "prompts": ["Fact-check this post", "Check the FDA wording in this copy", "Is this accurate?", "Check this before we publish"],
@@ -120,7 +120,7 @@
       "next": ["blog-rewriter"]
     },
     {
-      "name": "content-seo-audit", "group": "content",
+      "name": "seo-audit", "group": "content",
       "tagline": "Check a blog post after it goes live, then track real Search Console rankings.",
       "what": "Audits the live page with Google's own tools: structured data and Rich Results, PageSpeed Insights, title, meta, H1, leftover placeholders and indexing. About two and four weeks later it follows the post's real ranking numbers from Search Console.",
       "prompts": ["I published the post", "Check my new blog post", "Audit the live post", "Did the post get indexed?", "How is the blog post doing in Google?"],
@@ -135,19 +135,19 @@
       "next": []
     },
     {
-      "name": "page-content-studio", "group": "pages",
+      "name": "page-studio", "group": "pages",
       "tagline": "Audit a page, then change it or build a new one on a draft theme.",
-      "what": "Two skills that work together. page-audit is read-only: it checks a page against what its type should do and ranks the fixes. page-content-studio makes a named change (copy, image, link, section settings or order) or builds a new page, and can act on the recommendations an audit picked. It is built for the Site Editor, for marketing and ops people who aren't developers.",
+      "what": "Two skills that work together. page-audit is read-only: it checks a page against what its type should do and ranks the fixes. page-studio makes a named change (copy, image, link, section settings or order) or builds a new page, and can act on the recommendations an audit picked. It is built for the Site Editor, for marketing and ops people who aren't developers.",
       "skills": [
         {"name": "page-audit", "tagline": "Read-only gap analysis, ranked, with an owner for every fix.", "prompts": ["What should we improve on the homepage?", "Audit the about page", "Where does this page fall short?"]},
-        {"name": "page-content-studio", "tagline": "Make a named change or build a page on a draft theme.", "prompts": ["Swap the image on the homepage hero", "Move this section up", "Make a landing page for X", "Recreate this page from the live site"]}
+        {"name": "page-studio", "tagline": "Make a named change or build a page on a draft theme.", "prompts": ["Swap the image on the homepage hero", "Move this section up", "Make a landing page for X", "Recreate this page from the live site"]}
       ],
       "prompts": ["Audit the about page", "Swap the image on the homepage hero", "Make a landing page for X"],
       "steps": [
         "Start with page-audit. Say what the page is for: book, sell, promote, build trust, inform or fix.",
         "It checks the rendered page at desktop and mobile against a playbook for its type, and names who owns each fix (this theme, store admin, store settings, a third-party app, or an off-site page).",
         "It writes a ranked report and a living PAGE-AUDIT.md.",
-        "Ask page-content-studio to apply the recommendations you pick, or name any change or new page directly."
+        "Ask page-studio to apply the recommendations you pick, or name any change or new page directly."
       ],
       "produces": ["A client-ready audit report and PAGE-AUDIT.md", "Changes or new pages on a draft theme"],
       "requires": ["brand-capture"],
@@ -190,21 +190,6 @@
       "produces": ["ANALYTICS.md (tracking plan, stack inventory, consent setup, dependency register, findings, changelog)"],
       "requires": ["Python 3 for the scripts. The privacy matrix needs Node and Playwright. The cost benchmark needs Node and Chrome. GA4 checks can use Google's Analytics MCP server."],
       "guardrails": ["Audit changes nothing.", "Setup never skips the approval or the test."],
-      "next": []
-    },
-    {
-      "name": "cro-review-mining", "group": "research", "status": "In development",
-      "tagline": "Mine existing product reviews into pain points, praise and A/B test ideas.",
-      "what": "Turns reviews a store already has (Judge.me, Yotpo, Loox, Stamped, or any CSV export) into REVIEW-MINING.md: pain-point and praise categories with real mention counts and quotes, root cause, user impact and success metric tables for the top issues, and A/B test ideas with the psychological lever and metrics to watch. The category list persists between runs so trends can be compared quarter to quarter.",
-      "prompts": ["Mine our product reviews", "What are customers complaining about?", "Turn these reviews into test ideas"],
-      "steps": [
-        "Give it a review export or connect the review app.",
-        "It groups reviews into canonical categories with counts and quotes.",
-        "It writes REVIEW-MINING.md with root causes and A/B test ideas."
-      ],
-      "produces": ["REVIEW-MINING.md"],
-      "requires": ["Nothing. Works with or without BRAND.md."],
-      "guardrails": ["Still in development, so the behavior may change."],
       "next": []
     }
   ],

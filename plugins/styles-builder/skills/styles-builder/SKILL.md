@@ -11,13 +11,13 @@ description: >-
   says "generate design tokens", "create design.md", "set up the brand's colors and fonts in the
   theme", "match the reference store's look", "build a style guide from this brand book", "what do
   we need before building pages", "set up the logo and favicon", "get the theme ready to build
-  on", or when page-content-studio or page-audit had to fall back to theme settings because
+  on", or when page-studio or page-audit had to fall back to theme settings because
   design.md is missing or too thin.
 ---
 
 # Styles Builder (brand agnostic)
 
-`page-content-studio` and `page-audit` take visual values from `design.md`, the brand's visual guide.
+`page-studio` and `page-audit` take visual values from `design.md`, the brand's visual guide.
 When it is missing they fall back to the store repo's own visual spec or the theme's settings, and they
 never invent a value. This skill is for when that fallback isn't enough: it takes brand-capture's deep
 `design.md` (plus a brand book or reference store, if the person gives one) and **applies the tokens into the theme's settings**, so every later page build
@@ -34,7 +34,7 @@ It holds no brand facts of its own and is reusable across any Shopify theme repo
   or after, and its content isn't duplicated here. This skill only owns **visual** tokens: color, type, spacing, radius, shadow, buttons,
   components.
 - **Not a ClickUp workflow.** This is theme-repo and live-store work only.
-- **Not ongoing page editing.** Once `design.md` exists, `page-content-studio` and `page-audit`
+- **Not ongoing page editing.** Once `design.md` exists, `page-studio` and `page-audit`
   read it for every subsequent build — this skill is run once per client (or once per rebrand), and again
   only when the source material changes.
 
@@ -70,7 +70,7 @@ A theme has no visual identity of its own until something sets one. Build a page
 every section invents its own padding, its own button radius, its own shade of the brand color — small
 differences that don't show up section by section but add up to a site that looks hand-assembled rather
 than designed. This skill is the step that gives every later build the same values to pull from, so
-`page-content-studio` is filling in content and layout, never guessing brand values.
+`page-studio` is filling in content and layout, never guessing brand values.
 
 ## Inputs (ask which the user has, in this order of preference)
 
@@ -223,7 +223,7 @@ measures only the missing items); don't ask the person whether to deepen `design
 
 ## Step 0.5: The initial token set — what "ready to build on" means
 
-Before a theme is ready for `page-content-studio` to build or edit pages against, these are the
+Before a theme is ready for `page-studio` to build or edit pages against, these are the
 things that need a settled, sourced value. Treat this as the checklist for Step 1's extraction and Step 3's
 `design.md`: a design.md missing one of these isn't wrong, but say plainly in the summary which are still
 `unconfirmed` rather than letting a later skill discover the gap mid-build.
@@ -281,7 +281,7 @@ Read every page. Pull out, verbatim where stated:
 ### From a reference live store
 Do not eyeball rendered colors or guess font names from how text looks — measure them:
 - Capture desktop and mobile widths (brand-capture measures at 1440 and 390); scroll slowly so lazy
-  content loads (same capture discipline as the reference capture in `page-content-studio` Step 3b).
+  content loads (same capture discipline as the reference capture in `page-studio` Step 3b).
 - Read **computed values** with `getComputedStyle` (or equivalent) for: background/text/border/link colors
   per distinct visual section (to infer named color schemes), font-family/size/weight/line-height/
   letter-spacing per heading level and body text, container max-width and section padding/gaps, button
@@ -295,7 +295,7 @@ Do not eyeball rendered colors or guess font names from how text looks — measu
   Record the weights and styles actually used.
 - Also measure: the logo's rendered height and file at desktop and mobile; the favicon links in the page head; transitions and hover effects (see `references/motion.md`); a real form's input styles in every state; and, on a product page with variants, every variant-picker and swatch state.
 - If no rendered view is possible, say so plainly and name what failed — do not guess values from a
-  text-only fetch, exactly as `page-content-studio` requires for its own captures.
+  text-only fetch, exactly as `page-studio` requires for its own captures.
 
 ### From direct chat answers
 Only to fill specific named gaps (a hex code, a confirmed license) — never as the primary source when a
@@ -308,7 +308,7 @@ file or reference store is available.
   sometimes drift from guidelines.
 - Never invent a value with no source. If something is missing from every source (e.g. no stated font
   license, no documented shadow), leave it explicitly marked `unconfirmed` in `design.md` rather than
-  filling in a plausible guess — `page-content-studio` checks a new font's licence with the Site Editor
+  filling in a plausible guess — `page-studio` checks a new font's licence with the Site Editor
   before using it, and that check is only as honest as this file; a theme applying an `unconfirmed` value
   silently is how a guess becomes load-bearing.
 - Flag anything inferred (a proposed scheme mapping, a measured-not-stated type scale) clearly as
@@ -317,7 +317,7 @@ file or reference store is available.
 
 ## Step 3: Write design.md
 
-`page-content-studio` and `page-audit` find this file through `BRAND.md`'s `design_doc` key and treat it
+`page-studio` and `page-audit` find this file through `BRAND.md`'s `design_doc` key and treat it
 as the source for every visual value, so write it the way brand-capture's `design.md` is written
 (lowercase name, same front matter and origin labels, below), covering:
 
@@ -389,7 +389,7 @@ kind of token, and treating them all the same way is the most common way this st
 - **Typography is font-picker only.** The `font_picker` setting type draws from Shopify's font library —
   it can't point at an arbitrary custom font file. If the brand's typeface isn't in Shopify's library, it
   has to be uploaded as a custom theme asset and referenced via `@font-face` in the theme's CSS, which
-  means it sits outside the normal settings/presets system — note this in `design.md` so `page-content-studio`
+  means it sits outside the normal settings/presets system — note this in `design.md` so `page-studio`
   knows the font isn't swappable via the theme editor the way a `font_picker` value is.
 - **Buttons and components still have no native type.** They're `range`/`select`/`color` settings read
   into CSS, same as spacing — the guardrails above apply equally.
@@ -422,7 +422,7 @@ kind of token, and treating them all the same way is the most common way this st
   values the brand's own scale would plausibly need, not platform maximums — a reviewer two years from now
   should be able to tell from the schema's bounds roughly what this brand's scale looks like.
 - Never hardcode a token into Liquid/CSS where a theme setting already exists to hold it — this is the
-  same rule `page-content-studio` enforces, and it applies doubly here since this skill is what makes
+  same rule `page-studio` enforces, and it applies doubly here since this skill is what makes
   those settings exist in the first place.
 - If a brand font isn't already in the theme or Shopify's font library, follow "Sourcing a font that
   isn't in the theme or Shopify's library" below. Never substitute a lookalike silently, and flag the

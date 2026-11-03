@@ -1,0 +1,11 @@
+{
+  "name": "brand-docs",
+  "version": "0.1.0",
+  "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
+  "author": {
+    "name": "Nyla",
+    "email": "michael@nyla.app"
+  },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": ["documentation", "help", "guide"]
+}

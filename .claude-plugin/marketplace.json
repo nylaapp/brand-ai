@@ -21,8 +21,8 @@
       "version": "0.8.0"
     },
     {
-      "name": "shopify-blog-autopilot",
-      "source": "./plugins/shopify-blog-autopilot",
+      "name": "blog-autopilot",
+      "source": "./plugins/blog-autopilot",
       "description": "Decide when and what to blog from store, SEO and seasonal signals.",
       "version": "0.1.1"
     },
@@ -45,8 +45,8 @@
       "version": "0.2.0"
     },
     {
-      "name": "content-fact-check",
-      "source": "./plugins/content-fact-check",
+      "name": "fact-check",
+      "source": "./plugins/fact-check",
       "description": "Fact-check blog and marketing copy with guardrails for regulated claims.",
       "version": "0.1.1"
     },
@@ -57,20 +57,14 @@
       "version": "0.2.0"
     },
     {
-      "name": "content-seo-audit",
-      "source": "./plugins/content-seo-audit",
+      "name": "seo-audit",
+      "source": "./plugins/seo-audit",
       "description": "Audit live Shopify blog posts (schema, PageSpeed, on-page checks) and track Search Console rankings at 2 and 4 weeks.",
       "version": "0.1.1"
     },
     {
-      "name": "cro-review-mining",
-      "source": "./plugins/cro-review-mining",
-      "description": "Mine a store's existing product reviews into pain-point/praise categories, root-cause/impact/metric tables, and A/B test ideas, written to REVIEW-MINING.md.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "page-content-studio",
-      "source": "./plugins/page-content-studio",
+      "name": "page-studio",
+      "source": "./plugins/page-studio",
       "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme.",
       "version": "0.8.0"
     },
@@ -79,6 +73,12 @@
       "source": "./plugins/analytics",
       "description": "Analytics partner: tagging and full audits across privacy states, setup from issue list to verified fixes, quick and zero-based tag cleanup, and guardrails with drift watch.",
       "version": "0.4.0"
+    },
+    {
+      "name": "brand-docs",
+      "source": "./plugins/brand-docs",
+      "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
+      "version": "0.1.0"
     }
   ]
 }
