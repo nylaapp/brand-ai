@@ -194,18 +194,19 @@
     },
     {
       "name": "cro-audit", "group": "research",
-      "tagline": "Find what is likely costing conversions, with no analytics tool connected.",
-      "what": "Reviews a live page like an expert (calls to action, price and next-step visibility, trust, form and booking friction), measures page speed and the phone experience, and does funnel math from numbers you paste. Every finding is labelled as heuristic, measured, reported or customer voice, so expert judgement is never passed off as behavioural data. It ends with the questions only behavioural data can answer.",
-      "prompts": ["Run a CRO audit on the homepage", "Why isn't this page converting?", "Is the site fast enough on mobile?", "Here are our funnel numbers, where is the leak?"],
+      "tagline": "Find what is costing conversions, say how sure we are, and plan what to fix and test.",
+      "what": "A quick first-pass audit or the full research suite CRO agencies run, with no integrations required. It reviews the live page (technical, speed, mobile, heuristics, competitors), analyses funnel numbers you supply by segment after checking the data can be trusted, reviews heatmaps and recordings you bring, mines reviews and support text, writes survey questions and user-test scripts and analyses the results. Every finding is labelled by the kind of evidence behind it and how confident we are. It then sorts issues into just do it, instrument, investigate, test or hypothesize, scores them, and plans experiments with a hypothesis, metrics, sample size and duration. It also checks A/B test results, including whether the traffic split was valid.",
+      "prompts": ["Run a CRO audit on the homepage", "Run the full CRO research suite", "Here are our funnel numbers, where is the leak?", "Plan an A/B test for the booking button", "How many visitors do we need for this test?", "Read these A/B results"],
       "steps": [
-        "Say which page and what counts as a conversion.",
+        "Choose a quick audit (about an hour, needs nothing from you) or the full audit.",
         "It reviews the live page at desktop and phone width and measures speed.",
-        "Paste funnel numbers if you have them; it works without.",
-        "It writes CRO-AUDIT.md with ranked fixes and test ideas."
+        "Bring what you have: funnel numbers, heatmaps or recordings, reviews or support text, past test results. It says exactly what to bring.",
+        "It prepares the survey questions and user-test script if you want them, and analyses the answers when they come back.",
+        "It writes CRO-AUDIT.md: ranked findings with evidence and confidence, quick wins, an experiment roadmap and open questions."
       ],
-      "produces": ["CRO-AUDIT.md (ranked findings by evidence type, test ideas, open questions)"],
-      "requires": ["Nothing. Uses REVIEW-MINING.md and BRAND.md if they exist."],
-      "guardrails": ["Read-only: never edits the site or submits forms.", "No invented benchmarks or lift predictions.", "Small samples are flagged as directional."],
+      "produces": ["CRO-AUDIT.md (ranked findings with evidence and confidence, buckets, scores, experiment plans, open questions)", "Survey questions and a user-test script, on request"],
+      "requires": ["Nothing for a quick audit. A full audit uses analytics numbers, heatmaps or recordings, and review or support text if you have them. Uses REVIEW-MINING.md, COMPETITORS.md and BRAND.md if they exist."],
+      "guardrails": ["Read-only: never edits the site or submits forms.", "No invented benchmarks or lift predictions.", "Small samples are flagged as directional.", "It prepares surveys and tests but does not run them; you collect that data."],
       "next": ["page-studio"]
     }
   ],
