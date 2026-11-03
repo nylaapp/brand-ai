@@ -65,7 +65,7 @@ with), `COMPETITORS.md`, and an existing `PAGE-AUDIT.md` (see `audit-file.md`).
   them to know the difference between a template and a section.
 - **Which theme?** Use the remembered theme if there is one (section 1 of
   `../../page-studio/references/theme-target.md`); otherwise ask once, as that file describes.
-  Observing any theme, the live one included, is read-only, so it needs no live-theme assurance. Name the
+  Observing any theme, the live one included, is read-only; only editing is restricted to drafts. Name the
   exact theme id you observed.
 
 ## 3. Guided goal questions: what is the page for?

@@ -34,7 +34,7 @@ Columns:
 Show the plan in plain words first ("1. Remove the second copy of Google Analytics so page views stop counting twice"), then the table. Ask for approval per item or per batch, and record who approved what and when in ANALYTICS.md section 10.
 
 Changes that always need a named approver, never a general "go ahead":
-- anything that publishes (a GTM version, a live theme, a pixel connect or disconnect on a live store),
+- anything that publishes (a GTM version, a pixel connect or disconnect on a live store),
 - consent banner settings, regions or category mappings (client and, if they have one, their counsel),
 - deleting anything (prefer pause or disconnect first, delete after a quiet period),
 - test purchases, bookings or form submissions on the live site,

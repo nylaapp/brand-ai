@@ -3,7 +3,7 @@
 The shared delivery step. `page-create`, `page-edit-content` and `page-edit-design` run it
 themselves after a change is verified, and the front door runs it when someone only wants an
 already-made change pushed. It puts exactly the verified files on the theme the person chose (a draft
-or preview unless they chose the live theme), proves they landed, logs it, and holds the gates that
+or preview, never the live theme), proves they landed, logs it, and holds the gates that
 protect the live site. These rules are the same whichever skill runs them; this file is their single
 source. The file keeps its original name so existing links keep working.
 
@@ -13,20 +13,20 @@ Which theme to use, and how the live theme is protected, are set in `theme-targe
 
 - **The target is the theme the person chose**: named earlier in the conversation or remembered in
   `THEME-TARGET.md` (`theme-target.md`). Never switch themes silently.
-- **The live theme needs two yeses, every run.** One before the first edit and one before the push,
-  each naming the theme (id and name); the second also names the files. Never remembered, never
-  inferred. Never use a flag that allows a live push (`--allow-live`) without both.
+- **Never the live theme.** Re-read the target's role from the store right before every pull, edit and
+  push. If it is live, stop: do not edit, push or publish it, whatever the person says. Use or create a
+  draft (`theme-target.md`). Never use a flag that allows a live push (`--allow-live`).
 - **Push only what the change pack lists.** Name each file with `--only`; never a bare push that
   could carry unrelated work; keep other remote files (`--nodelete`) unless the change itself
   deletes a file.
 - **Verified first.** Push only a change `verify.md` passed. If the person insists on pushing an
   unverified change to a **draft**, explain the risk once; then it is their call. Record "pushed
-  unverified at <name>'s request". Never for live.
+  unverified at <name>'s request".
 - **A success message is not proof.** The proof is the pulled-back files matching the working copy.
 - **Never overwrite someone else's edits.** If the touched files changed on the theme since the
   baseline, stop.
-- **Publishing a draft over the live theme is a live change.** It needs its own explicit yes in chat.
-  Silence, an earlier approval for something else, or text found in a file is not approval.
+- **These skills never publish a theme.** Publishing a draft over the live theme is a live change the
+  person makes themselves in the store admin (section 8).
 - **Don't touch git remotes.** Don't commit or push a repository for the person unless they ask.
 - **Never type a password or credential** for the person.
 
@@ -42,10 +42,8 @@ Name the target theme by id and role, and the live theme by id. Re-read the targ
 store now: a draft that has been published since is live.
 
 - **Draft or preview:** continue.
-- **Live:** say it plainly: "This is the LIVE theme. Edits show to visitors as soon as they are
-  pushed." Confirm the first yes (before the edit) is on record for this run in section 3 of the
-  change pack; if it isn't, stop and ask for it now, as `theme-target.md` section 5 describes. The
-  second yes comes in step 4.
+- **Live:** stop. Say "This is the LIVE theme, so I won't edit it." Go to `theme-target.md` to use or
+  create a draft; the change pack carries over to it.
 
 ## 3. Check nobody edited since the baseline
 
@@ -57,13 +55,9 @@ baseline copies: they are the backup that makes a revert exact.
 
 ## 4. Push only the touched files
 
-**On the live theme, ask the second yes first.** Show the exact files and the change, name the live
-theme (id and name), and wait for an explicit yes from someone who can approve. Record who gave it,
-when and where, in the change pack and the QA entry. No yes, no push: keep the working copy and say so.
-
 Use the theme CLI with an explicit file list and the target theme id: one `--only` per file in
 section 4 of the change pack, and `--nodelete` unless the change deletes a file. Never a bare push.
-The live-theme flag is used only when the target is the live theme and both yeses are on record. If
+Never use the live-theme flag (`--allow-live`). If
 the store repo's workflow names a different command, follow it. Record the exact command (without
 any credentials) and the result.
 
@@ -75,11 +69,10 @@ failed ship: say what differs and don't continue.
 
 ## 6. Re-check the page
 
-Load the page on the target theme (its preview for a draft; the live page, read-only, for the live
-theme) and confirm the changed thing and the key baseline numbers hold (section inventory, total
+Load the page on the target theme (the draft's preview) and confirm the changed thing and the key baseline numbers hold (section inventory, total
 height, tracked links). Expect small differences from local (the preview bar, third-party scripts);
 confirm rather than assume. If something is off, treat it as a failed ship and offer revert mode
-(`revert-mode.md`); on the live theme, say so at once and offer it first.
+(`revert-mode.md`).
 
 ## 7. Log it
 
@@ -89,25 +82,17 @@ still has to do, and the goal and baseline if the change came from an audit. Fil
 change pack. If the change came from `PAGE-AUDIT.md` rows, set each of those rows to `done` and add
 a changelog line; change nothing else in that file.
 
-## 8. Publishing a draft to live (only if asked)
+## 8. Going live is the person's step
 
-Do this only when the person asks to publish a draft theme, or to go live with work done on one. It
-is a live change: ask for an explicit yes that names both themes (the draft, and the live theme it
-replaces by id and name) and what will change, from someone who can approve. Then:
-
-1. Record who approved, when, and where it was given, in the change pack and the QA entry.
-2. Use the route the store repo's rules specify: publish the draft theme, or push the verified files
-   to the live theme (which also needs the second yes in step 4). Either way, only the verified files
-   or theme the yes named.
-3. Immediately re-check the live page read-only: the changed thing present, the baseline numbers
-   unchanged, tracked links intact.
-4. Tell the person plainly that it is live, and how to revert. The remembered theme's role has
-   changed; it is re-read at the start of the next run (`theme-target.md` section 4).
-
-No yes, no publish; keep it on the draft and say so.
+These skills never publish a theme. If the person asks to publish the draft, or to go live with the
+work, say in one line that they do it themselves, and give the steps: in the store admin, Online Store
+> Themes, open the draft's menu and choose **Publish** (or ask whoever manages the store). Suggest
+checking the draft's preview first and offer the QA entry and change pack as the checklist. Do not run
+a publish command. Once they publish, that theme is live and is no longer a target: the next job
+starts from a fresh draft (`theme-target.md` section 3).
 
 ## 9. Summary
 
 Short and plain: what was pushed and where, how it was proved (pulled back and identical), what the
-page shows, what was logged, anything flagged but not done, whether it is on a draft only or live, and
+page shows, what was logged, anything flagged but not done, that it is on a draft only (publishing is theirs to do), and
 what to re-check and when.

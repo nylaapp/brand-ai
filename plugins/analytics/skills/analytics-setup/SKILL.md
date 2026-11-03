@@ -18,11 +18,12 @@ If the project has its own instructions file (AGENTS.md, CLAUDE.md), read it fir
 - **No change without approval.** Plan first, then change only the approved items. Approval names the item; "looks good" for a list approves that list only.
 - **One change at a time, tested before the next.** Batch only changes that are tested together and owned by the same person.
 - **Rollback ready before every change** (`references/fix-playbooks.md` P12).
-- **Never publish** a GTM container, a live theme, or a pixel or consent change on a live store unless the owner explicitly asks for that specific publish. Prefer that the owner presses publish.
+- **Never edit, push to or publish a live theme.** Theme code changes go on a draft theme (`references/theme-target.md`).
+- **Never publish** a GTM container, or a pixel or consent change on a live store unless the owner explicitly asks for that specific publish. Prefer that the owner presses publish.
 - **Consent is the client's legal decision.** Propose settings and mappings; the client (and their counsel) decides regions, categories and banner wording. Not legal advice.
 - **Never sign in for anyone**, type credentials or 2FA codes, or accept terms on their behalf.
 - **No real orders, bookings or form submissions** without the owner's OK for that test and an agreed test method; never real customer data.
-- **Theme and site code follow the project's rules** (for a Shopify theme: prefer new files, mark and log any edit to a core file). Which theme the code goes on is asked once and remembered (`references/theme-target.md`), settled the first time a change touches theme code, not before; a draft or dev theme is recommended, and the live theme needs the owner's explicit yes before the edit and again before the push.
+- **Theme and site code follow the project's rules** (for a Shopify theme: prefer new files, mark and log any edit to a core file). Which theme the code goes on is asked once and remembered (`references/theme-target.md`), settled the first time a change touches theme code, not before; it is always a draft or dev theme, never the live theme.
 
 ## 1. Intake
 

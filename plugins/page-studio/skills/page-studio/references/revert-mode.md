@@ -3,9 +3,7 @@
 Restore a theme to its baseline and prove it. Use when the person asks to undo changes, a ship
 failed, or verification of a pushed change found a regression that can't be fixed quickly.
 
-A revert is a push, so everything in `ship-to-draft.md` applies: scoped files only, no bare push, no live
-flag, and a revert of the **live** theme needs the live-theme assurance in `theme-target.md` section 5 (an
-explicit yes naming the theme and the files), recorded.
+A revert is a push, so everything in `ship-to-draft.md` applies: scoped files only, no bare push, no live flag, and never the live theme: a revert happens on the draft the change was made on.
 
 ## 1. Find the baseline
 
@@ -63,6 +61,5 @@ no longer there.
 
 ## What a revert does not do
 
-It does not undo edits made outside this change, it does not touch the live theme without a
-recorded yes, and it does not restore content that lives in the admin (pages, products, menus,
+It does not undo edits made outside this change, it never touches the live theme, and it does not restore content that lives in the admin (pages, products, menus,
 metafields), only theme files.

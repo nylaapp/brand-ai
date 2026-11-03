@@ -3,8 +3,8 @@
 Where brand-capture and competitor-research keep the files they write: in the folder of a **draft theme** the
 person chooses, so the brand files travel with the theme and every later skill that customizes it finds them in
 the working folder. Both skills ask for the draft theme (this file says how) and save there. Choosing and
-remembering the theme follows `theme-target.md` (sections 1 to 4 and 6); its live-theme assurance (section 5)
-doesn't apply here, because these skills write local files only and change nothing on the store. The one thing
+remembering the theme follows `theme-target.md` (sections 2 to 4 and 6); its never-edit-the-live-theme rule (section 1)
+is met here because these skills write local files only and change nothing on the store. The one thing
 written elsewhere is the optional shared copy for the rest of the team (section 8), made only on the person's yes:
 it is only a copy, and this folder stays the source of truth.
 
@@ -24,13 +24,13 @@ If no local folder exists for the project yet, section 2's first check comes bef
    - **Every other run** says one line ("Saving to the **draft** theme <name>, folder <path>.") and goes on. The
      person can name another draft at any time; then switch, as `theme-target.md` section 4 says.
 2. **If none, ask once.** Settle the store, list its themes and ask which draft to use, as `theme-target.md`
-   section 2 says, with these differences:
+   section 3 says, with these differences:
    - **Offer draft and unpublished themes only.** The live theme is not offered: the brand files belong with the
      working copy. A person who names the live theme anyway is told once that a draft is better (a published draft
-     counts as live, and later skills ask for extra assurance before touching it); if they still want it, use it.
+     counts as live, and later skills will never edit it); if they still want it, use it.
      The files are written locally and nothing is pushed.
    - **Offer "another" and "none yet".**
-3. **No draft theme yet.** Don't create one (`theme-target.md` section 2, step 4). Say how: Online Store, Themes,
+3. **No draft theme yet.** Don't create one here: these skills write local files only (`theme-target.md` section 3, step 4 is for skills that edit themes). Say how: Online Store, Themes,
    the live theme's menu, Duplicate. Then either wait, or carry on with section 6 ("no draft yet") and let the
    next skill that works on a theme ask again.
 4. **Not a Shopify store.** Skip the question and use section 6.

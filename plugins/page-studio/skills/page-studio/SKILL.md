@@ -31,9 +31,7 @@ invented.
 | `page-edit-design` | Change how something that **exists looks or is arranged**: layout, order, spacing, colour, type, styles, responsive behaviour | Local working copy, then the chosen theme |
 
 Each editing skill ends with the same steps, defined once in this folder: capture a baseline, verify
-on the rendered page, push only the touched files to the chosen theme (a draft unless the person
-chose the live theme) and pull them back as proof. The live theme is confirmed with the person
-before any edit and again before the push.
+on the rendered page, push only the touched files to the chosen theme (always a draft, never the live theme) and pull them back as proof.
 
 ## Which job is this?
 
@@ -61,10 +59,8 @@ Don't answer its questions for the person.
 
 For any job that writes to a theme, settle the theme once, before handing off, with
 `references/theme-target.md`: use the theme the person already chose in this conversation or recorded in
-`THEME-TARGET.md` and say so in one line; if there is none, ask once which draft or live theme to work on
-(recommend a draft) and remember it for every skill that follows. Don't ask again unless the person names
-a different theme. The live theme needs the person's explicit yes before any edit and again before the
-push, every run; that is never remembered. `page-audit` only reads, so it uses the remembered theme if
+`THEME-TARGET.md` and say so in one line; if there is none, ask whether a draft theme already exists, or create one from the live theme, and remember it for every skill that follows. Don't ask again unless the person names
+a different theme. The live theme is never edited, and no yes unlocks it. `page-audit` only reads, so it uses the remembered theme if
 there is one and never needs the question.
 
 ## The chain
@@ -74,7 +70,7 @@ page-audit  ->  (the person picks rows)  ->  page-create | page-edit-content | p
                                                          |
                                        baseline -> edit working copy -> verify -> ship to chosen theme
                                                          |
-                                               live theme: a yes before any edit and again before the push
+                                               live theme: never edited (draft only)
 ```
 
 1. **Audit** when the person hasn't decided what to change. It writes `PAGE-AUDIT.md` with ranked rows;
@@ -88,9 +84,7 @@ step, stop after it.
 
 ## Rules that hold for every step
 
-- **The theme the person chose, asked once.** A draft is recommended. Nothing reaches the live theme without an
-  explicit yes in chat that names it, before the first edit and again before the push, recorded in the change
-  pack and the QA entry (`references/theme-target.md`, `references/ship-to-draft.md`).
+- **A draft theme, asked once or created.** It is always a draft or unpublished theme. Nothing is edited, pushed or published on the live theme, with or without a yes (`references/theme-target.md`, `references/ship-to-draft.md`).
 - **Only verified changes are pushed, and only the touched files.** No bare pushes.
 - **Only picked rows are acted on.** A recommendation nobody chose stays an open row.
 - **Never type a password or credential** for the person; blocked access is reported and handed back.
@@ -121,6 +115,5 @@ Each skill points to the files it needs, so any of them can be used on its own.
       requests excepted)
 - [ ] A mixed request was split into one change per skill, content before design
 - [ ] The person knows where they are in the chain and what comes next
-- [ ] The theme was settled once and reused; nothing was pushed except verified files to it; if it was the live
-      theme, the person said yes before the edit and again before the push
+- [ ] The theme was settled once and reused; nothing was pushed except verified files to it; it was never the live theme
 - [ ] No credential was typed or passed on

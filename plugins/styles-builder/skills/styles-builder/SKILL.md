@@ -102,12 +102,10 @@ and what runs next.
 
 1. **Theme.** Settle which theme this run applies tokens to, following `references/theme-target.md`: use
    the theme the person already chose in this conversation or recorded in `THEME-TARGET.md` and say so in
-   one line, or list the store's themes and ask which draft or the live theme to work on, and remember the
+   one line, or list the store's themes and ask whether a draft already exists, or create one (never the live theme), and remember the
    answer for every other skill. Don't ask again unless the person names a different theme. Offer
    "no theme for now" as an answer too: it changes no theme (the default is to apply the tokens to the
-   theme); ask for a theme then if the person later wants one changed. If the
-   theme is live, section 5 of that file applies: an explicit yes before the first edit and again before
-   the push.
+   theme); ask for a theme then if the person later wants one changed. The live theme is never edited (section 1 of that file).
 2. **The optional step**, off unless the person says yes (`references/section-styling.md`):
    - **Brand styling:** apply the brand's spacing, colour schemes, radius and padding to the existing
      sections of the starting theme's templates.
@@ -479,8 +477,7 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
 - Add one `@font-face` per file in the repo's stylesheet (family, weight, style, `font-display: swap`,
   a `woff2` source through the theme's asset URL), then point the `--font-*` tokens at the family.
   Don't hardcode the family anywhere a token already holds it.
-- Edit only the theme settled in Step 0, and push only the touched files. On the live theme, ask for the yes
-  before the edit and again before the push (`references/theme-target.md`).
+- Edit only the theme settled in Step 0, and push only the touched files. Never the live theme (`references/theme-target.md`).
 - Verify on the rendered page, not the file: the computed font-family and weight on a heading and on
   body text, each font file returning HTTP 200, no flash of unstyled text on a fresh load, mobile too,
   and the `theme check` count unchanged.
@@ -503,13 +500,11 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
 
 ## Step 6: Push, log, summarize
 
-- Push only to the theme settled in Step 0, scoped to the exact files touched. If it is the live theme, ask
-  the second yes now, naming the theme and the exact files (the first was asked before the first edit).
+- Push only to the theme settled in Step 0, scoped to the exact files touched. It is never the live theme.
   Same rule as every other theme-affecting skill in this roster (`references/theme-target.md`).
 - Log an entry in the repo's QA log if one exists, noting the source (brand book file name, or reference
   store URL) and what was applied vs. only documented.
-- Final summary, short: what `design.md` now contains, what was and wasn't applied to the live theme
-  settings, anything left `unconfirmed` that the user should resolve, any contrast issues found and how
+- Final summary, short: what `design.md` now contains, what was and wasn't applied to the draft theme's settings, anything left `unconfirmed` that the user should resolve, any contrast issues found and how
   they were resolved, whether brand-capture had to run in this session (its mode and where its files are), whether
   `BRAND.md` points at the file through `design_doc` (if not, have brand-capture adopt it), which fonts were installed as theme assets (from where,
   under which licence), which of logo, favicon, motion, inputs and variant pickers were set and which groups stayed at the theme default, whether the optional section styling in Step 7 ran (what changed on which templates; if it didn't, one line saying they can ask for it next), which starting-theme files, if any, were edited and where they are registered, the "Implementing this in the theme" section written in `design.md`, and whether this is on draft/preview or live.
@@ -525,7 +520,7 @@ instead. Do not start, or write a `design.md` of your own, when `BRAND.md` or br
 missing: run brand-capture first, yourself, and wait for it to finish. Do not answer brand-capture's setup
 questions for the user, and do not run it below the setting it asks for. Do not duplicate brand identity content that belongs in `BRAND.md`. Do not create a new theme
 setting id where an existing one already covers the token. Do not remap a color scheme without checking
-its role combinations for contrast. Do not edit or push to the live theme without the person's yes before the edit and again before the push (`references/theme-target.md`); do not ask which theme again once it is settled, unless they name another. Do not claim a visual check passed without having loaded the actual rendered theme. Do not download a
+its role combinations for contrast. Never edit or push to the live theme (`references/theme-target.md`); do not ask which theme again once it is settled, unless they name another. Do not claim a visual check passed without having loaded the actual rendered theme. Do not download a
 font without the user's explicit yes naming the file, source, size and licence. Do not download one that
 isn't free to self-host from its official source, and do not use a lookalike without the user's recorded
 approval. Do not upload anything to the store's Files area without the user's explicit yes naming the file, source, size and rights. Do not ask whether to deepen `design.md` or measure the deep set here; brand-capture owns that, so name a missing item and point back to it. Do not offer the optional step after the opening questions, and do not ask the opening questions one at a time. Do not change section settings outside the templates the user named, and do not change copy, images, section order or section count. Do not edit a file the starting theme owns to change a styling value an override can do. Fence and register any unavoidable edit. Do not rename, reorder or delete existing setting ids.
