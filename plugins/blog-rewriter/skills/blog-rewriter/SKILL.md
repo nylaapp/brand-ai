@@ -183,7 +183,7 @@ If the project's own rules say where reports and spreadsheets go, follow them.
 9. **Resume.** In a new session, `resume --dir <folder>` puts any `in_progress` rows back in the queue; a row whose run
    folder already holds a finished rewrite is checked and marked, not redone.
 10. **Finish** with `summary` and `validate` and give the CSV path. Report totals by status, what needs attention, what is
-    still queued, and where each article's report is. Offer the content-fact-check and approver review for the whole set.
+    still queued, and where each article's report is. Offer the fact-check and approver review for the whole set.
 
 **CSV columns:** `id, source_url, source_title, source_date, category, status, skip_reason, batch, tier, seo_tune_up,
 target_blog, handle, new_title, run_folder, shopify_article_id, preview_url, overlap_pct, claims_removed, images_used,
@@ -308,7 +308,7 @@ If the user chose to review first, wait for approval here and apply their edits 
 
 ## Step 5: Fact-check
 
-Rewording can quietly change meaning, especially on health, safety and "best" or "most" claims, so re-check every claim you touched against the source. Then run `content-fact-check` on the rewritten text when BRAND.md shows `regulated: yes`, has claim limits or a required disclaimer, or the post makes health, safety, ingredient, regulatory, statistical or performance claims. Soften or remove what it marks wrong or unsupported and note each change in the report. If the skill isn't available, apply conservative rules yourself (no regulatory, medical or safety claim without a primary-source citation) and say an independent fact-check is recommended. For a clearly non-regulated brand with no such claims, say you skipped it and why.
+Rewording can quietly change meaning, especially on health, safety and "best" or "most" claims, so re-check every claim you touched against the source. Then run `fact-check` on the rewritten text when BRAND.md shows `regulated: yes`, has claim limits or a required disclaimer, or the post makes health, safety, ingredient, regulatory, statistical or performance claims. Soften or remove what it marks wrong or unsupported and note each change in the report. If the skill isn't available, apply conservative rules yourself (no regulatory, medical or safety claim without a primary-source citation) and say an independent fact-check is recommended. For a clearly non-regulated brand with no such claims, say you skipped it and why.
 
 ## Step 6: SEO fields and QA
 

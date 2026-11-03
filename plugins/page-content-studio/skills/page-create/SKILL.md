@@ -64,7 +64,7 @@ show to visitors as soon as they are pushed.
 ## 1. Context
 
 **Theme first.** Before anything else, settle which theme this runs on, with
-`../page-content-studio/references/theme-target.md`: use the theme already chosen in this
+`../page-studio/references/theme-target.md`: use the theme already chosen in this
 conversation or remembered in `THEME-TARGET.md` and say so in one line, or ask once which draft or
 the live theme to work on and remember the answer for every other skill. Don't ask again unless the
 person names a different theme. If it is the live theme, section 5 of that file applies: an explicit
@@ -127,7 +127,7 @@ live-theme assurance is asked (`theme-target.md` section 5): an explicit yes bef
 ## 5. Capture the baseline
 
 Before the first edit, start the change pack as set out in
-`../page-content-studio/references/baseline-and-change-pack.md`. For a **new page** the baseline is the
+`../page-studio/references/baseline-and-change-pack.md`. For a **new page** the baseline is the
 list of existing templates plus the site-wide numbers (a few existing pages' section inventory, total
 height and the `theme check` count), so the new page can be shown not to disturb anything. For a
 **section added to an existing page**, capture that page's full baseline first, as for any edit.
@@ -143,7 +143,7 @@ must not be higher than the baseline's. Record the intended structure and the fi
 
 ## 7. Verify
 
-Run `../page-content-studio/references/verify.md` on the rendered page. For something new the checks
+Run `../page-studio/references/verify.md` on the rendered page. For something new the checks
 that matter most are: it exists and reads as planned (checks 1 and 5), the theme editor's add, remove,
 reorder and duplicate controls work and empty fields and long headings don't break layout (check 10),
 other breakpoints and colour schemes hold (check 6), values come from the spec (check 12), and nothing
@@ -152,13 +152,13 @@ Never say a page "matches" a reference without a measured parity table.
 
 ## 8. Ship to the chosen theme
 
-Run `../page-content-studio/references/ship-to-draft.md`: check nobody edited the touched files
+Run `../page-studio/references/ship-to-draft.md`: check nobody edited the touched files
 since the baseline, push only the new and touched files to the chosen theme, pull them back as
 proof, re-check the preview, write the QA entry
-(`../page-content-studio/references/qa-entry-format.md`), and set any audit rows to `done`. On the
+(`../page-studio/references/qa-entry-format.md`), and set any audit rows to `done`. On the
 live theme, the second yes (the exact files and change) comes before the push. Publishing a draft
 over the live theme happens only if the person asks, with an explicit, recorded yes. To undo, use
-`../page-content-studio/references/revert-mode.md`.
+`../page-studio/references/revert-mode.md`.
 
 ## 9. Hand back
 

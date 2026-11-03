@@ -70,7 +70,7 @@ Keep a running research log as you go (queries run, URLs, findings). Everything 
 - Prefer: government/regulatory sites, standards bodies, academic papers, industry associations, established publishers. Avoid citing competitors' marketing pages as authority.
 - Check dates; use the most recent figures and say what year they're from.
 - Claims check: health, safety, sustainability ("eco-friendly", "non-toxic"), performance ("lasts 2x longer") need substantiation. If you can't source it, soften or drop it.
-- Regulated claims (regulatory status such as "FDA approved", medical, ingredient, pregnancy and safety statements): confirm against the regulator's own current records, not another blog. Status can change, so check it each time. For these, use the `content-fact-check` skill if available (`SKILL.md` Step 6).
+- Regulated claims (regulatory status such as "FDA approved", medical, ingredient, pregnancy and safety statements): confirm against the regulator's own current records, not another blog. Status can change, so check it each time. For these, use the `fact-check` skill if available (`SKILL.md` Step 6).
 - Aim for 3–6 cited sources in a typical post.
 
 ## Stage 6 — Site and cluster mapping

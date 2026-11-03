@@ -51,7 +51,7 @@ Gap report row format:
 | U7 | Accessibility basics: one h1, no skipped heading levels, alt text, contrast, keyboard use; pointer targets at least 24x24 CSS px unless spacing or inline exceptions apply | DOM check plus `theme check`; targets by measurement | A (WCAG 2.2 SC 2.5.8, level AA). Larger targets (44-48 px) are common advice: B |
 | U8 | Mobile parity: the same primary action is reachable in the first screens; no auto-rotating carousel on mobile | Measure positions at 375 px; check carousel autoplay | A (Baymard) |
 | U9 | Independent proof exists and matches: third-party reviews and listings agree with the page | Compare claims with review sites | A (NN/g: users cross-check outside sources) |
-| U10 | Claims that are regulated or numeric (results, "award-winning", patient counts, "proven") have a source on the page or in the brand files | Read copy against `BRAND.md`; run content-fact-check | H (compliance; for health and wellness content treat as a must-check) |
+| U10 | Claims that are regulated or numeric (results, "award-winning", patient counts, "proven") have a source on the page or in the brand files | Read copy against `BRAND.md`; run fact-check | H (compliance; for health and wellness content treat as a must-check) |
 | U11 | No dead space: no full-screen block with neither copy nor an action between sections | Section heights from the inventory | H |
 | U12 | Tracked links and tagging are unchanged by any edit | Compare booking and checkout links before and after | H (check the store repo's analytics rules) |
 
@@ -283,7 +283,7 @@ Candidates only; confirm each against the observed page and the limits from inta
 | U5: an overlay covers the first screen or main button | Delay or shrink the overlay, or reposition it; usually a store setting or app | S, other owner |
 | U7: second h1, skipped heading levels | Change the section's heading-level setting | S |
 | U7: small tap targets | Add padding with matching negative margin so layout holds | S |
-| U10: unsourced numbers or superlatives | Source them, soften them, or remove them; run content-fact-check first | S |
+| U10: unsourced numbers or superlatives | Source them, soften them, or remove them; run fact-check first | S |
 | U11: dead full-screen band | Remove it from the section list, add an action to it, or replace its image | S to M |
 | HP6: two offers compete above the fold | Decide which leads; the other moves lower or becomes secondary | S, needs a business decision |
 | HP10: proof sits far from the action | Move a rating, count or short quote next to the main button | S to M |

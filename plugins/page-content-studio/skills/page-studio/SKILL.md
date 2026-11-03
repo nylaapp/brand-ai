@@ -1,5 +1,5 @@
 ---
-name: page-content-studio
+name: page-studio
 description: >-
   The front door for Shopify page work. Use when a request spans several jobs ("improve the homepage
   and apply the top fixes", "audit it and fix what matters", "change the headline and restyle the

@@ -44,7 +44,7 @@ before any edit and again before the push.
   edit reverted exactly.
 - **New copy comes from the brand files or from the person.** Never invent a claim, number,
   credential, price or proper noun, and never copy one from memory. Health, result and "best"
-  wording, and any figure, goes through `content-fact-check` before it ships.
+  wording, and any figure, goes through `fact-check` before it ships.
 - **Don't change tracked links** (booking, checkout) unless that is the request, and say so when it
   is; the verify step compares the link map.
 - **Images:** use files already in the store or theme. Don't upload to the store's media library
@@ -67,7 +67,7 @@ theme, edits show to visitors as soon as they are pushed.
 ## 1. Context
 
 **Theme first.** Before anything else, settle which theme this runs on, with
-`../page-content-studio/references/theme-target.md`: use the theme already chosen in this
+`../page-studio/references/theme-target.md`: use the theme already chosen in this
 conversation or remembered in `THEME-TARGET.md` and say so in one line, or ask once which draft or
 the live theme to work on and remember the answer for every other skill. Don't ask again unless the
 person names a different theme. If it is the live theme, section 5 of that file applies: an explicit
@@ -120,12 +120,12 @@ don't guess from a name.
 
 Check whether the same words are used elsewhere (a reused section or locale key) and flag it before
 changing it. If the new copy contains a claim, a number or regulated wording, say it will be
-fact-checked, and run `content-fact-check` before it ships.
+fact-checked, and run `fact-check` before it ships.
 
 ## 5. Capture the baseline
 
 Before the first edit, start the change pack as set out in
-`../page-content-studio/references/baseline-and-change-pack.md`: theme id and role, section
+`../page-studio/references/baseline-and-change-pack.md`: theme id and role, section
 inventory, total height, `theme check` count, heading outline, the link map for links in scope,
 overlays, a copy of each file to edit, and the current text or image of the thing that will change.
 Desktop and mobile.
@@ -146,19 +146,19 @@ baseline's. Record the files touched, with lines added and removed, in section 4
 
 ## 8. Verify
 
-Run `../page-content-studio/references/verify.md` on the rendered page. For a content change the
+Run `../page-studio/references/verify.md` on the rendered page. For a content change the
 checks that matter most are: the new words read exactly as approved (check 5), links and images work
 (check 4), tracked links unchanged (check 3), nothing else moved (check 2), and accessibility basics
 including alt text (check 9). Any failure goes back to step 7; nothing ships on a failed check.
 
 ## 9. Ship to the chosen theme
 
-Run `../page-content-studio/references/ship-to-draft.md`: check nobody edited the files since the
+Run `../page-studio/references/ship-to-draft.md`: check nobody edited the files since the
 baseline, push only the touched files to the chosen theme, pull them back as proof, re-check the
-preview, write the QA entry (`../page-content-studio/references/qa-entry-format.md`), and set any
+preview, write the QA entry (`../page-studio/references/qa-entry-format.md`), and set any
 audit rows to `done`. On the live theme, the second yes (the exact files and change) comes before
 the push. Publishing a draft over the live theme happens only if the person asks, with an explicit,
-recorded yes. To undo, use `../page-content-studio/references/revert-mode.md`.
+recorded yes. To undo, use `../page-studio/references/revert-mode.md`.
 
 ## 10. Hand back
 

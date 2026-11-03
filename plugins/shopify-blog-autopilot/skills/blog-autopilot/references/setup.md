@@ -42,7 +42,7 @@ Show the filled profile summary (brand, categories, blog, markets, sources on/of
 Use `create_scheduled_task` (list existing tasks first, to avoid duplicates):
 - name: `blog-autopilot-<brand-slug>`
 - cron: the profile's `schedule.cron` (default `0 9 * * 1`, weekly)
-- prompt: `Run the shopify-blog-autopilot skill for brand "<Brand>" using the profile at <folder>/blog-autopilot/<brand-slug>/brand-profile.yaml. Scheduled run: scan, then follow the profile's `approval` setting. With `ask_first`, send the check-in message and wait for the reply; don't write anything until the user says yes. With `auto_draft`, create at most the allowed hidden drafts. Always write the run report.`
+- prompt: `Run the blog-autopilot skill for brand "<Brand>" using the profile at <folder>/blog-autopilot/<brand-slug>/brand-profile.yaml. Scheduled run: scan, then follow the profile's `approval` setting. With `ask_first`, send the check-in message and wait for the reply; don't write anything until the user says yes. With `auto_draft`, create at most the allowed hidden drafts. Always write the run report.`
 
 Offer a test check-in right away ("Want me to send a test check-in now so you can see how it works?") and note how the reply is captured (`references/checkin.md` §6).
 

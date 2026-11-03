@@ -126,7 +126,7 @@ Then point to the next skill:
 | Layout, section order, spacing, colour, type or style of an existing page | `page-edit-design`, which reads the row from `PAGE-AUDIT.md` |
 | A new page, a new section, or a section the audit says is missing | `page-create` |
 | Brand files missing, or copy needs brand approval | `brand-capture` |
-| Unsourced, numeric or regulated claims | `content-fact-check` |
+| Unsourced, numeric or regulated claims | `fact-check` |
 | Accessibility depth beyond the baseline | `accessibility-audit` |
 | Tracking, consent or tagging problems | `analytics-audit` |
 | Store settings, an app, or an off-site page | The owner named in the row; give them the observation and what to change |

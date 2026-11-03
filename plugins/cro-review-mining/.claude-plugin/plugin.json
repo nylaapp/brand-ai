@@ -1,0 +1,8 @@
+{
+  "name": "cro-review-mining",
+  "version": "0.1.0",
+  "description": "Mine a store's existing product reviews into pain-point and praise categories, root-cause/impact/metric tables, and A/B test ideas, written to REVIEW-MINING.md.",
+  "author": { "name": "Nyla", "email": "michael@nyla.app" },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": ["cro", "reviews", "voice-of-customer", "conversion-rate-optimization"]
+}

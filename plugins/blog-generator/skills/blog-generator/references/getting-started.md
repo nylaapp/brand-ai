@@ -5,9 +5,9 @@ Four skills that work together to plan, write, check and follow up on blog posts
 | Skill | What it does | Use it when |
 |---|---|---|
 | **blog-generator** | Researches, writes and delivers one SEO-ready blog post | You want a post written now |
-| **content-fact-check** | Checks a post's claims (FDA and other regulatory wording, medical, ingredient, pregnancy, statistics) against official sources and suggests safer wording | Before publishing anything with health, beauty, treatment or product claims |
-| **shopify-blog-autopilot** | Looks at your store, search data, reviews and the calendar, then **asks you each week** whether to write the best idea | You want a regular posting rhythm without it posting on its own |
-| **shopify-post-publish-audit** | Checks a live post (schema, speed, indexing), then tracks Google rankings at 2 and 4 weeks | A post has just gone live |
+| **fact-check** | Checks a post's claims (FDA and other regulatory wording, medical, ingredient, pregnancy, statistics) against official sources and suggests safer wording | Before publishing anything with health, beauty, treatment or product claims |
+| **blog-autopilot** | Looks at your store, search data, reviews and the calendar, then **asks you each week** whether to write the best idea | You want a regular posting rhythm without it posting on its own |
+| **seo-audit** | Checks a live post (schema, speed, indexing), then tracks Google rankings at 2 and 4 weeks | A post has just gone live |
 
 New here? Start with **blog-generator**. Add the others later.
 
@@ -50,7 +50,7 @@ Then wait a few minutes. You get the post, with title, SEO title, meta descripti
 ## 3. Before you publish
 
 - **Fill the placeholders.** Anything like `[[BRAND TO ADD: ...]]` is something only you know (a founder quote, care-label facts, real customer data). The skill never invents these.
-- **Fact-check it.** If the post makes health, treatment, ingredient, pregnancy or regulatory claims, run **content-fact-check** on it (the writer offers or runs it for you). It flags and verifies; it doesn't approve. A person should still review regulated claims.
+- **Fact-check it.** If the post makes health, treatment, ingredient, pregnancy or regulatory claims, run **fact-check** on it (the writer offers or runs it for you). It flags and verifies; it doesn't approve. A person should still review regulated claims.
 - **Look at the images.** Check each stock photo fits, or add your own where slots are marked.
 - **Drafts are always hidden.** Nothing goes live until you publish it in Shopify admin (Online Store > Blog posts).
 - **Check links and facts.** Click the product links and skim the cited sources.
@@ -71,7 +71,7 @@ The **autopilot** looks at new products, restocks, search data, reviews, competi
 
 Nothing is written until you answer. A week with no good idea is a quiet week with no message.
 
-1. Say: *"Set up shopify-blog-autopilot for [your store]."*
+1. Say: *"Set up blog-autopilot for [your store]."*
 2. Connect a folder when asked. It keeps your brand profile and a log of past posts there.
 3. Answer the setup questions. It uses your BRAND.md and finds most answers from your store.
 4. It creates a weekly scheduled check-in (Monday 9:00 by default). New drafts appear in Shopify as **hidden**, tagged `autopilot`.
