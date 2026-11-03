@@ -63,6 +63,12 @@
       "version": "0.1.1"
     },
     {
+      "name": "cro-audit",
+      "source": "./plugins/cro-audit",
+      "description": "Conversion audit with no integrations: expert heuristic review, page speed, mobile pass, funnel math from numbers you paste, and existing review mining. Every finding is labelled by evidence type.",
+      "version": "0.1.0"
+    },
+    {
       "name": "page-studio",
       "source": "./plugins/page-studio",
       "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme.",

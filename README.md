@@ -1,24 +1,16 @@
 # brand-ai
 
-Claude Code plugin marketplace for brand-agnostic Shopify content and analytics skills.
+Plugin marketplace for brand-agnostic Shopify content and analytics skills.
 
-## Install
+## Install (Claude Cowork)
 
-```
-/plugin marketplace add nylaapp/brand-ai
-/plugin install brand-capture@brand-ai
-/plugin install competitor-research@brand-ai
-/plugin install fact-check@brand-ai
-/plugin install accessibility-audit@brand-ai
-/plugin install seo-audit@brand-ai
-/plugin install blog-generator@brand-ai
-/plugin install blog-rewriter@brand-ai
-/plugin install blog-autopilot@brand-ai
-/plugin install styles-builder@brand-ai
-/plugin install page-studio@brand-ai
-/plugin install analytics@brand-ai
-/plugin install brand-docs@brand-ai
-```
+1. In Claude Cowork, select **Customize** in the sidebar, then **Plugins**.
+2. Select **Add marketplace** and enter `nylaapp/brand-ai` (or `https://github.com/nylaapp/brand-ai`). Do this once.
+3. Find **brand-capture** under the Brand AI marketplace and click **Install**. Every other plugin builds on its output, so install it first.
+4. Install any other plugin from the table below the same way.
+5. Start a Cowork task in the client's project folder and say "Capture the brand for example.com".
+
+To pick up new versions, select **Check for updates** on the marketplace (or turn on **Sync automatically**). To see the documentation from inside Claude, install **brand-docs** and say "show the documentation".
 
 ## Plugins
 
@@ -35,6 +27,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 | styles-builder | `styles-builder` | Generate design.md (colors, type, spacing, radius, shadows, buttons, components) from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates | brand-capture |
 | page-studio | `page-audit`, `page-create`, `page-edit-content`, `page-edit-design`, `page-studio` | Page work in focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-create` (new pages and sections), `page-edit-content` (words, images, links) and `page-edit-design` (layout, order, style). Each verifies on the rendered page and pushes only the touched files to the theme you chose | brand-capture |
 | analytics | `analytics-audit`, `analytics-cleanup`, `analytics-guardrails`, `analytics-setup` | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
+| cro-audit | `cro-audit` | Conversion audit with no integrations: heuristic review, page speed, mobile pass, funnel math from pasted numbers; findings labelled by evidence type, written to `CRO-AUDIT.md` | none |
 | brand-docs | `brand-docs` | Open this documentation inside Claude ("show the documentation"): every plugin and skill, example prompts and how they fit together | none |
 
 ## Layout
