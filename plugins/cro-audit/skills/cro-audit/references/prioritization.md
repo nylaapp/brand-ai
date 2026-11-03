@@ -23,7 +23,11 @@ Use `scripts/prioritize.py` on a JSON list of issues, ICE by default (impact, co
 - **Impact or potential**: how many visitors it touches and how close to the conversion; the
   analytics leak sizes help.
 - **Confidence**: how sure we are. Use `--evidence-confidence` so confidence follows the number of
-  **different kinds** of evidence (one kind is low; three or more is high). Don't raise it on enthusiasm.
+  **different kinds** of evidence (one kind is low; three or more is high). A finding backed only by a
+  measurement scores in the middle, not the bottom: the problem is certain, only its conversion effect
+  isn't. Don't raise it on enthusiasm.
+- **Read buckets before scores.** A measured defect (a 10 MB video, a duplicate tag, a broken link) is a
+  Just do it or Instrument item whatever its score; the score orders work within a bucket.
 - **Ease**: effort and who can do it (this theme, an app, content, a developer).
 
 State the scoring method and the inputs in the report so the ranking can be questioned. A score is a
