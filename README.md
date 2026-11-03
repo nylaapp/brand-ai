@@ -17,6 +17,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 /plugin install styles-builder@brand-ai
 /plugin install page-studio@brand-ai
 /plugin install analytics@brand-ai
+/plugin install cro-audit@brand-ai
 /plugin install brand-docs@brand-ai
 ```
 
@@ -35,6 +36,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 | styles-builder | `styles-builder` | Generate design.md (colors, type, spacing, radius, shadows, buttons, components) from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates | brand-capture |
 | page-studio | `page-audit`, `page-create`, `page-edit-content`, `page-edit-design`, `page-studio` | Page work in focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-create` (new pages and sections), `page-edit-content` (words, images, links) and `page-edit-design` (layout, order, style). Each verifies on the rendered page and pushes only the touched files to the theme you chose | brand-capture |
 | analytics | `analytics-audit`, `analytics-cleanup`, `analytics-guardrails`, `analytics-setup` | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
+| cro-audit | `cro-audit` | Conversion audit with no integrations: heuristic review, page speed, mobile pass, funnel math from pasted numbers; findings labelled by evidence type, written to `CRO-AUDIT.md` | none |
 | brand-docs | `brand-docs` | Open this documentation inside Claude ("show the documentation"): every plugin and skill, example prompts and how they fit together | none |
 
 ## Layout

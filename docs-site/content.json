@@ -191,6 +191,22 @@
       "requires": ["Python 3 for the scripts. The privacy matrix needs Node and Playwright. The cost benchmark needs Node and Chrome. GA4 checks can use Google's Analytics MCP server."],
       "guardrails": ["Audit changes nothing.", "Setup never skips the approval or the test."],
       "next": []
+    },
+    {
+      "name": "cro-audit", "group": "research",
+      "tagline": "Find what is likely costing conversions, with no analytics tool connected.",
+      "what": "Reviews a live page like an expert (calls to action, price and next-step visibility, trust, form and booking friction), measures page speed and the phone experience, and does funnel math from numbers you paste. Every finding is labelled as heuristic, measured, reported or customer voice, so expert judgement is never passed off as behavioural data. It ends with the questions only behavioural data can answer.",
+      "prompts": ["Run a CRO audit on the homepage", "Why isn't this page converting?", "Is the site fast enough on mobile?", "Here are our funnel numbers, where is the leak?"],
+      "steps": [
+        "Say which page and what counts as a conversion.",
+        "It reviews the live page at desktop and phone width and measures speed.",
+        "Paste funnel numbers if you have them; it works without.",
+        "It writes CRO-AUDIT.md with ranked fixes and test ideas."
+      ],
+      "produces": ["CRO-AUDIT.md (ranked findings by evidence type, test ideas, open questions)"],
+      "requires": ["Nothing. Uses REVIEW-MINING.md and BRAND.md if they exist."],
+      "guardrails": ["Read-only: never edits the site or submits forms.", "No invented benchmarks or lift predictions.", "Small samples are flagged as directional."],
+      "next": ["page-studio"]
     }
   ],
   "videos": {}
