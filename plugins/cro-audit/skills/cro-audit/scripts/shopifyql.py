@@ -4,6 +4,9 @@
   shopifyql.py --store <shop>.myshopify.com --check
   shopifyql.py --store <shop>.myshopify.com --preset device-funnel --since 2026-10-20 --until 2026-11-01
   shopifyql.py --store <shop>.myshopify.com --preset all --since -28d --until -1d
+
+Dates: YYYY-MM-DD, -Nd (days before today), today or yesterday, read in the store's time zone. Relative
+dates are turned into absolute ones before querying, because a relative UNTIL can drop the last day.
   shopifyql.py --store <shop>.myshopify.com --query "FROM sessions SHOW sessions GROUP BY referrer_source SINCE -28d UNTIL -1d"
 
 Runs `shopify store execute` with a GraphQL *query* only. It never passes --allow-mutations, and it
@@ -26,7 +29,7 @@ themselves and approve it in the browser.
   all             all of the above
 --csv prints the device funnel as Name=count steps ready for funnel.py.
 """
-import argparse, json, re, subprocess, sys
+import argparse, datetime, json, re, subprocess, sys
 
 WRITE_WORDS = re.compile(r"\b(mutation|create|update|delete|set|remove|publish|upsert|append)\b", re.I)
 
@@ -99,6 +102,48 @@ def table(title, cols, rows, limit=25):
     for row in rows[:limit]:
         print("| " + " | ".join(fmt(row.get(c)) for c in cols) + " |")
 
+REL = re.compile(r"^-(\d+)d$")
+
+def join_dash_values(argv):
+    """Let `--since -28d` work: argparse would read -28d as a new option."""
+    out, i = [], 0
+    while i < len(argv):
+        if argv[i] in ("--since", "--until") and i + 1 < len(argv) and REL.match(argv[i + 1]):
+            out.append(f"{argv[i]}={argv[i + 1]}")
+            i += 2
+        else:
+            out.append(argv[i])
+            i += 1
+    return out
+
+def resolve_date(value, today):
+    """Turn -Nd, today or yesterday into an absolute YYYY-MM-DD in the store's time zone.
+
+    ShopifyQL's relative UNTIL (for example UNTIL -1d) was seen returning 0 for the last day while the
+    same day queried by date had data, so the window is always sent as absolute dates."""
+    v = value.strip().lower()
+    m = REL.match(v)
+    if m:
+        return (today - datetime.timedelta(days=int(m.group(1)))).isoformat()
+    if v == "today":
+        return today.isoformat()
+    if v == "yesterday":
+        return (today - datetime.timedelta(days=1)).isoformat()
+    try:
+        datetime.date.fromisoformat(v)
+    except ValueError:
+        sys.exit(f"bad date '{value}': use YYYY-MM-DD, -Nd (for example -28d), today or yesterday")
+    return v
+
+def store_today(store):
+    d = run_graphql(store, "{ shop { ianaTimezone } }")
+    tz = d["shop"]["ianaTimezone"]
+    try:
+        from zoneinfo import ZoneInfo
+        return datetime.datetime.now(ZoneInfo(tz)).date(), tz
+    except Exception:
+        return datetime.date.today(), "local time (store time zone unavailable)"
+
 FUNNEL = "sessions, sessions_with_cart_additions, sessions_that_reached_checkout, sessions_that_completed_checkout"
 
 def presets(win):
@@ -123,7 +168,7 @@ def main():
     ap.add_argument("--since", default="-28d")
     ap.add_argument("--until", default="-1d")
     ap.add_argument("--csv", action="store_true", help="print the device funnel as funnel.py --steps strings")
-    a = ap.parse_args()
+    a = ap.parse_args(join_dash_values(sys.argv[1:]))
 
     if a.check:
         d = run_graphql(a.store, "{ shop { name myshopifyDomain ianaTimezone currencyCode } currentAppInstallation { accessScopes { handle } } }")
@@ -137,8 +182,14 @@ def main():
             print("Note: the connection also has " + ", ".join(writes) + ". This audit never uses them.")
         return
 
-    win = f"SINCE {a.since} UNTIL {a.until}"
+    today, tz = store_today(a.store)
+    since, until = resolve_date(a.since, today), resolve_date(a.until, today)
+    if since > until:
+        sys.exit(f"the window starts after it ends: {since} to {until}")
+    win = f"SINCE {since} UNTIL {until}"
     if a.query:
+        if re.search(r"UNTIL\s+-\d+d", a.query, re.I):
+            print("Warning: a relative UNTIL (for example UNTIL -1d) can drop the last day. Prefer an absolute date.")
         cols, rows = shopifyql(a.store, a.query)
         table("Query", cols, rows, 100)
         return
@@ -146,7 +197,8 @@ def main():
         sys.exit("give --check, --preset or --query")
     p = presets(win)
     names = list(p) if a.preset == "all" else ([a.preset] + (["social-landing"] if a.preset == "social" else []) + (["homepage-source"] if a.preset == "homepage" else []))
-    print(f"Window: {a.since} to {a.until} (store time zone). Source: Shopify Analytics via ShopifyQL, read-only.")
+    print(f"Window: {since} to {until} (both days included, {tz}; asked for {a.since} to {a.until}). "
+          "Source: Shopify Analytics via ShopifyQL, read-only.")
     for n in names:
         title, q = p[n]
         cols, rows = shopifyql(a.store, q)

@@ -17,6 +17,9 @@ that looks like a write and never passes `--allow-mutations`.
    example `shopify store auth -s <shop>.myshopify.com --scopes <their current scopes>,read_reports,read_orders`.
    Don't run it, and don't suggest dropping their existing scopes. If they'd rather not, use exports.
 3. `--preset check-data` first (sessions per day), then `--preset all` on the clean window.
+4. Dates: `YYYY-MM-DD`, `-Nd`, `today` or `yesterday`, read in the store's time zone; both ends are included.
+   The script turns relative dates into absolute ones, because ShopifyQL's relative `UNTIL` (for
+   example `UNTIL -1d`) was seen dropping the last day. In a hand-written `--query`, use absolute dates.
 
 Fields that work in the `sessions` dataset: `sessions`, `sessions_with_cart_additions`,
 `sessions_that_reached_checkout`, `sessions_that_completed_checkout`, `conversion_rate`, `bounce_rate`,

@@ -1,6 +1,6 @@
 {
   "name": "cro-audit",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Full CRO audit suite, strictly read-only: technical and speed, heuristic and competitive review, Shopify Analytics read through the Shopify CLI (or supplied numbers) with data-validity checks, behavioural review, voice of customer, survey and user-test plans, prioritisation, experiment planning and an A/B result checker. Never changes store settings or setup.",
   "author": { "name": "Nyla", "email": "michael@nyla.app" },
   "repository": "https://github.com/nylaapp/brand-ai",
