@@ -1,5 +1,5 @@
 {
-  "name": "content-fact-check",
+  "name": "fact-check",
   "version": "0.1.1",
   "description": "Independent fact-checker for blog and marketing copy, with guardrails for regulated claims.",
   "author": { "name": "Nyla", "email": "michael@nyla.app" },
