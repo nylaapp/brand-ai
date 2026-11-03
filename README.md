@@ -17,6 +17,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 /plugin install styles-builder@brand-ai
 /plugin install page-content-studio@brand-ai
 /plugin install analytics@brand-ai
+/plugin install brand-docs@brand-ai
 ```
 
 ## Plugins
@@ -34,6 +35,7 @@ Claude Code plugin marketplace for brand-agnostic Shopify content and analytics 
 | styles-builder | `styles-builder` | Generate design.md (colors, type, spacing, radius, shadows, buttons, components) from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates | brand-capture |
 | page-content-studio | `page-audit`, `page-create`, `page-edit-content`, `page-edit-design`, `page-studio` | Page work in focused skills behind a thin front door: `page-audit` (read-only gap analysis, `PAGE-AUDIT.md`), `page-create` (new pages and sections), `page-edit-content` (words, images, links) and `page-edit-design` (layout, order, style). Each verifies on the rendered page and pushes only the touched files to the theme you chose | brand-capture |
 | analytics | `analytics-audit`, `analytics-cleanup`, `analytics-guardrails`, `analytics-setup` | Four skills sharing one `ANALYTICS.md` per client: `analytics-audit` (tagging audit, full audit across privacy states), `analytics-setup` (issue list to approved, verified fixes), `analytics-cleanup` (quick cleanup, zero-based deep tag cleanup), `analytics-guardrails` (dependency register, change checks, drift watch) | none (reads BRAND.md if present) |
+| brand-docs | `brand-docs` | Open this documentation inside Claude ("show the documentation"): every plugin and skill, example prompts and how they fit together | none |
 | cro-review-mining | `review-miner` | Mine a store's existing reviews into pain-point and praise categories and A/B test ideas, written to `REVIEW-MINING.md` | none |
 
 ## Layout
