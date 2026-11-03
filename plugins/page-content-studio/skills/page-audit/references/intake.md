@@ -64,7 +64,7 @@ with), `COMPETITORS.md`, and an existing `PAGE-AUDIT.md` (see `audit-file.md`).
 - **New or existing?** If they're not sure, it is settled by checking the store; never ask
   them to know the difference between a template and a section.
 - **Which theme?** Use the remembered theme if there is one (section 1 of
-  `../../page-content-studio/references/theme-target.md`); otherwise ask once, as that file describes.
+  `../../page-studio/references/theme-target.md`); otherwise ask once, as that file describes.
   Observing any theme, the live one included, is read-only, so it needs no live-theme assurance. Name the
   exact theme id you observed.
 
@@ -102,7 +102,7 @@ recommendations" are candidates to test against the page, never findings.
 | Book or enquire | Which single action counts (form, call, booking link)? Is there a booking link that analytics already tracks? | Where the first booking action sits on mobile and desktop, clicks to book, whether the booking path matches the tracked one, form or link friction | Move one clear booking action into the first screen, repeat it after proof, shorten the path to book, remove competing off-site actions from the top |
 | Sell products | Which products or collection matter most? Is the problem traffic, add-to-cart, or checkout? | Product and collection sections' position, price and review visibility, add-to-cart reachability on mobile, empty or sold-out items showing | Feature best sellers earlier, show ratings and prices on cards, add a clear shop path, reduce sections between hero and products |
 | Promote an offer or launch | What is the offer, its dates and terms? Where should it lead? | Offer visible in the first screen, dates and terms present and current, link target works | One lead banner with the offer, one clear destination, expiry and terms, remove stale promos |
-| Build trust | What proof exists (reviews, counts, credentials, before/after, press)? Which claims are allowed? | Review count and rating shown, quotes sourced, unsourced numbers, credentials visible, photo proof | Show rating plus count, attribute quotes, source or soften unsourced claims (offer content-fact-check), put real proof near the main action |
+| Build trust | What proof exists (reviews, counts, credentials, before/after, press)? Which claims are allowed? | Review count and rating shown, quotes sourced, unsourced numbers, credentials visible, photo proof | Show rating plus count, attribute quotes, source or soften unsourced claims (offer fact-check), put real proof near the main action |
 | Inform or answer questions | What questions do visitors ask? What should they do after reading? | Heading structure, answer-first copy, FAQ presence, internal links, page speed, search impressions if available | Answer-first intro, scannable headings, FAQ block, next-step link, fix heading levels |
 | Fix what looks wrong | What exactly looks wrong, and on which device? Is there a reference for what right looks like? | Reproduce on the render at desktop and mobile, compare against `design.md`, check the section's settings before touching code | Settings-level fix first, then scoped CSS, only then section code; list anything else as "flagged, not done" |
 | Not sure yet | Ask Round 1 question 2, then offer the two nearest goals with a one-line example each | Run the full measurement | Rank across all goals and show which goal each candidate serves |

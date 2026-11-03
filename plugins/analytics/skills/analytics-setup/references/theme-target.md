@@ -4,7 +4,7 @@ Applies to every skill that can change theme files or theme settings, or push or
 It settles **which theme to work on**, how that choice is remembered across skills, and what extra
 assurance the live theme needs.
 
-This file is the same in every plugin that changes themes (page-content-studio, styles-builder,
+This file is the same in every plugin that changes themes (page-studio, styles-builder,
 accessibility-audit and analytics). Plugins can't read each other's folders, so each keeps a copy;
 change them together and keep them identical.
 

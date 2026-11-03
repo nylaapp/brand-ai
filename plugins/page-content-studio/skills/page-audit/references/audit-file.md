@@ -2,7 +2,7 @@
 
 One living file per site, written by `page-audit` and read by the skills that act on its
 recommendations: `page-create`, `page-edit-content` and `page-edit-design`, reached through
-`page-content-studio` when a request spans jobs. It holds the brief, what was observed, the gap report and the
+`page-studio` when a request spans jobs. It holds the brief, what was observed, the gap report and the
 recommendation rows with their status, so the next skill starts from evidence instead of
 asking again. A re-audit updates it; it never starts over.
 

@@ -1,5 +1,5 @@
 ---
-name: "shopify-blog-autopilot"
+name: "blog-autopilot"
 description: "Brand-agnostic autopilot that decides WHEN a Shopify store should get a new or refreshed blog post and what it should cover. It scans store events (new products, restocks, rising sellers), Search Console exports, review and helpdesk exports, competitor blog feeds, trends and a lead-time occasion calendar, scores opportunities with a rubric, applies guardrails (dedupe, cannibalization, cooldowns, weekly cap), then by default checks in with the user (weekly) and drafts only after they say yes, handing the brief to blog-generator as a hidden draft; optional auto-draft. Each brand keeps its own profile. Use whenever the user wants blog posts created on a schedule or when something happens, e.g. \"run my blog autopilot\", \"weekly blog check-in\", \"should we post this week?\", \"set up automatic blog posts\", \"what should we blog about next\", a scheduled blog-scan firing, or any request to trigger or prioritize Shopify blog content from store, SEO, competitor or seasonal signals."
 ---
 

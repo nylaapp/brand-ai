@@ -1,5 +1,5 @@
 ---
-name: "shopify-post-publish-audit"
+name: "seo-audit"
 description: Post-publish SEO and AEO audit for Shopify blog posts. Checks the live page (structured data / Rich Results, PageSpeed Insights, title, meta, H1, leftover placeholders, indexing), then tracks real Search Console rankings about 2 and 4 weeks later. Use this whenever a Shopify blog post has just been published or made Visible, when the user says "I published the post", "check my new blog post", "audit the live post", "did the post get indexed", "how is the blog post doing in Google", or when a scheduled daily blog check fires. Use it even if the user does not say SEO. Works for any Shopify store or brand. Pairs with blog-generator, which writes the post; this skill checks it after it goes live.
 ---
 
@@ -26,7 +26,7 @@ The reader is usually not a developer. Write reports in short, plain language an
 This skill works for any Shopify store and holds nothing about a particular brand. Everything store-specific comes from the request or a brand profile. Work out the brand first:
 
 1. **A scheduled or explicit request names the brand** and gives a store URL or a profile path. Use that.
-2. **A brand profile exists** at `blog-autopilot/<brand-slug>/brand-profile.yaml` (made by the `shopify-blog-autopilot` skill). If so, read what it has: `brand.name`, `brand.slug`, `brand.store_url`, `shopify.blog_handle`, `markets.language`, `sources.search_console.property`, and an optional `audit:` block (see "Settings that can vary by brand" below). Use them; don't ask for what the profile already says.
+2. **A brand profile exists** at `blog-autopilot/<brand-slug>/brand-profile.yaml` (made by the `blog-autopilot` skill). If so, read what it has: `brand.name`, `brand.slug`, `brand.store_url`, `shopify.blog_handle`, `markets.language`, `sources.search_console.property`, and an optional `audit:` block (see "Settings that can vary by brand" below). Use them; don't ask for what the profile already says.
 3. **Otherwise ask once** for the store URL (and the Search Console property, if they want ranking checks). A scheduled run with no brand named can't ask: write a one-line "needs a brand" note and stop.
 
 Derive the `brand-slug` from the profile, or from the store's domain in lowercase-kebab form. If the user has several stores, keep them fully separate. Never mix logs or reports between brands, and check that every post you audit is on that brand's domain.
@@ -111,6 +111,6 @@ When a user asks for automatic checks, list existing scheduled tasks first (avoi
 
 - name: `blog-audit-<brand-slug>`
 - cron: daily at 9:00 local time unless the user or profile says otherwise
-- prompt: `Run the shopify-post-publish-audit skill for brand "<Brand>" (store <store URL>, profile <path if any>). Scheduled run: no user is present, so don't ask questions. Audit only posts that are due, write the reports, and say what needs the user.`
+- prompt: `Run the seo-audit skill for brand "<Brand>" (store <store URL>, profile <path if any>). Scheduled run: no user is present, so don't ask questions. Audit only posts that are due, write the reports, and say what needs the user.`
 
 Tell the user plainly: the check runs on their computer, so it needs to be awake with Claude open, and Google may ask them to sign in or click a captcha, which the run will flag rather than skip.

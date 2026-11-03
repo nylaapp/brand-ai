@@ -124,5 +124,5 @@ Sometimes a customer's own words make a claim the brand shouldn't repeat verbati
 — a medical benefit, a safety claim, an unverifiable statistic. If a review you'd
 otherwise want to quote makes one of these claims, don't use it as supporting
 "evidence" for the brand's own marketing; flag it in the report as something for
-a human (or the content-fact-check skill, if the output is headed into copy) to
+a human (or the fact-check skill, if the output is headed into copy) to
 look at before it's reused anywhere customer-facing.

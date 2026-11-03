@@ -1,5 +1,5 @@
 ---
-name: cro-review-mining
+name: review-miner
 description: Mine a store's existing product reviews (Judge.me, Yotpo, Loox, Stamped, or any CSV export) into REVIEW-MINING.md -- canonical pain-point and praise categories with real mention counts and quotes, root-cause/user-impact/success-metric tables for the top issues, and A/B test ideas with the psychological lever and metrics to watch. Persists its category taxonomy across runs so trends are comparable quarter to quarter, the same way COMPETITORS.md tracks over time. Works for any Shopify (or similar) store, brand-agnostic, with or without BRAND.md already set up. Use this whenever the user wants to analyze, mine, or make sense of customer reviews, asks what customers are complaining about or what they love about a product, wants pain points or voice-of-customer insights pulled from reviews, is doing a CRO (conversion rate optimization) audit, or hands over a review export CSV or asks where to export one -- even if they never say "review mining."
 ---
 
