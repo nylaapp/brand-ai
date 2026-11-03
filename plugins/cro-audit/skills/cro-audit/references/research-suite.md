@@ -13,7 +13,7 @@ them exactly what to bring.
 | 1 | Technical | Is anything broken, slow or inconsistent across browsers and devices? | The skill (browser, Lighthouse) | Measured | `mobile-checklist.md`, `scripts/pagespeed.py` |
 | 2 | Heuristic | Where does the page break known usability and persuasion principles? | The skill (rendered page) | Heuristic | `heuristics-checklist.md` |
 | 3 | Competitive | How do others solve the same journey, and what do shoppers compare us with? | The skill (public pages; `COMPETITORS.md` if present) | Heuristic | `competitor-benchmark.md` |
-| 4 | Web analytics | Where are visitors lost, for which segments? | The person (exports, numbers) | Reported | `analytics-analysis.md`, `scripts/funnel.py` |
+| 4 | Web analytics | Where are visitors lost, for which segments? | The skill, read-only, through the Shopify CLI if authorised; otherwise the person (exports, numbers) | Reported | `analytics-analysis.md`, `scripts/shopifyql.py`, `scripts/funnel.py` |
 | 5 | Behavioural | What do visitors actually do on the page? | The person (heatmaps, scroll maps, recordings, as exports or notes) | Behavioural | `behavioral-review.md` |
 | 6 | Voice of customer | What do customers say, in their own words? | The person (reviews, support tickets, chats, surveys); `REVIEW-MINING.md` | Customer voice, Survey | `survey-playbook.md` |
 | 7 | User testing | Can a real person complete the key task, and where do they stumble? | The person (sessions run from the script) | Test | `user-testing-playbook.md` |
@@ -36,7 +36,8 @@ them exactly what to bring.
 
 ## What stays human
 
-The skill can plan, analyse and write up. It can't recruit test participants, run interviews, send
-surveys, or run and read a live experiment on its own. It prepares the instruments (scripts,
+The skill can plan, analyse and write up, and read the store's analytics when read-only access already
+exists. It can't recruit test participants, run interviews, send surveys, or run and read a live
+experiment on its own, and it never changes anything on the store. It prepares the instruments (scripts,
 questions, a test plan), analyses what comes back, and checks the maths (`scripts/`). Say so plainly
 when a stream is "prepared, awaiting data".

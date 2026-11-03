@@ -11,8 +11,9 @@ instead of impact and confidence. Scores run 1 to 10.
 
 ICE = average of impact, confidence and ease. PIE = average of potential, importance and ease.
 --evidence-confidence ignores any hand-given confidence and sets it from how many DIFFERENT
-kinds of evidence back the idea: 1 kind = 3, 2 kinds = 6, 3 or more = 8, and 9 only if the idea
-lists "Behavioural" or "Experiment" among them. This keeps a guess from outranking a finding that
+kinds of evidence back the idea: 1 kind = 3 (5 if that kind is "Measured": the problem is certain,
+only its effect isn't), 2 kinds = 6, 3 or more = 8, and 9 only if the idea lists "Behavioural" or
+"Experiment" among them. This keeps a guess from outranking a finding that
 several independent sources agree on. It is a default rule, not a law: override it when you can say why.
 """
 import argparse, json, sys
@@ -22,7 +23,7 @@ def conf_from_evidence(ev):
     n = len(kinds)
     if n == 0:
         return 2
-    c = 3 if n == 1 else 6 if n == 2 else 8
+    c = (5 if kinds == {"measured"} else 3) if n == 1 else 6 if n == 2 else 8
     if {"behavioural", "behavioral", "experiment"} & kinds and n >= 3:
         c = 9
     return c
