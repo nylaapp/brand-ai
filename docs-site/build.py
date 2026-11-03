@@ -30,3 +30,8 @@ out = here / "dist"
 out.mkdir(exist_ok=True)
 (out / "index.html").write_text(html)
 print("wrote", out / "index.html", len(html), "bytes")
+# keep the copy bundled with the brand-docs plugin in sync, so Claude can open it offline
+bundled = repo / "plugins" / "brand-docs" / "skills" / "brand-docs" / "assets"
+bundled.mkdir(parents=True, exist_ok=True)
+(bundled / "index.html").write_text(html)
+print("wrote", bundled / "index.html")

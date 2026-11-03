@@ -79,6 +79,12 @@
       "source": "./plugins/analytics",
       "description": "Analytics partner: tagging and full audits across privacy states, setup from issue list to verified fixes, quick and zero-based tag cleanup, and guardrails with drift watch.",
       "version": "0.4.0"
+    },
+    {
+      "name": "brand-docs",
+      "source": "./plugins/brand-docs",
+      "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
+      "version": "0.1.0"
     }
   ]
 }
