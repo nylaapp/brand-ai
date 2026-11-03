@@ -65,8 +65,8 @@
     {
       "name": "cro-audit",
       "source": "./plugins/cro-audit",
-      "description": "Conversion audit with no integrations: expert heuristic review, page speed, mobile pass, funnel math from numbers you paste, and existing review mining. Every finding is labelled by evidence type.",
-      "version": "0.1.0"
+      "description": "Full CRO audit suite with no integrations required: technical and speed, heuristic and competitive review, analytics analysis, behavioural review, voice of customer, survey and user-test plans, prioritisation, experiment planning and an A/B result checker.",
+      "version": "0.2.0"
     },
     {
       "name": "page-studio",
@@ -84,7 +84,7 @@
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.1.1"
+      "version": "0.1.2"
     }
   ]
 }

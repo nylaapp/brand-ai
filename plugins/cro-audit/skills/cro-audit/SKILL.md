@@ -1,134 +1,183 @@
 ---
 name: cro-audit
-description: "Conversion-rate audit for a Shopify page or store that needs no analytics or heatmap integration (no Clarity, GA or Shopify connector). Runs five evidence streams: an expert heuristic review of the live page (CTA hierarchy, value and price visibility, trust, form and booking friction), page speed and Core Web Vitals, a mobile pass at phone width, funnel math from numbers the person pastes or exports, and voice-of-customer from an existing REVIEW-MINING.md. Labels every finding by evidence type (heuristic, measured, reported, customer voice) so expert judgement is never passed off as behavioural data, ranks fixes by impact and effort, and lists the open questions that only behavioural data can answer. Read-only. Use for \"CRO audit\", \"why isn't this converting\", \"conversion review\", \"heuristic review\", \"what should we test\", \"audit the funnel\", \"is the site fast enough\", or when a store has no analytics yet and wants a first evidence base. Not for fixing the page (use page-edit-content or page-edit-design), a general page gap analysis (page-audit), tagging and consent (analytics-audit) or accessibility scoring (accessibility-audit)."
+description: "Conversion-rate (CRO) audit for a Shopify page or store, run as a quick first pass or as the full research suite CRO agencies use, with no analytics or heatmap integration required. Streams: technical and speed, expert heuristic review, competitive review, web analytics analysis from numbers the person supplies (with a data-validity check and segment cuts), behavioural review of heatmaps and session recordings the person supplies, voice of customer (reviews, support text, surveys) and user testing (it writes the survey questions and test scripts and analyses the results; it does not collect them). Labels every finding by evidence type and confidence, sorts each issue into a bucket (just do it, instrument, investigate, test, hypothesize), scores with ICE or PIE, and plans the experiments with hypotheses, metrics, sample size and duration, plus an A/B result checker with a sample-ratio check. Read-only. Use for \"CRO audit\", \"conversion audit\", \"full CRO audit\", \"why isn't this converting\", \"heuristic review\", \"what should we test\", \"analyse our funnel\", \"plan an A/B test\", \"how many visitors do we need for a test\", \"read these A/B results\", or \"is the site fast enough\". Not for fixing the page (use page-edit-content, page-edit-design or page-create), a general page gap analysis (page-audit), tagging and consent (analytics-audit) or accessibility scoring (accessibility-audit)."
 ---
 
 # CRO audit
 
-Find what is most likely costing a page or store conversions, using only what can be observed
-or measured today, with no tool connections. Read-only and brand-agnostic.
+Find what is most likely costing a page or store conversions, say how sure we are, and turn it into a
+ranked plan: fixes to make now, tracking to add, things to investigate, and experiments worth running.
+Read-only and brand-agnostic. Works with no tool connections; behavioural data is supplied by the
+person when they have it.
 
 ```
-1. Intake -> 2. Heuristic review -> 3. Speed -> 4. Mobile pass ->
-5. Funnel math (only from numbers given) -> 6. Customer voice (only if it exists) ->
-7. Rank and write CRO-AUDIT.md -> 8. Hand off
+1. Intake and mode -> 2. Technical -> 3. Heuristic + competitive ->
+4. Analytics (supplied) -> 5. Behavioural (supplied) -> 6. Voice of customer + surveys ->
+7. User testing -> 8. Synthesis, prioritise, plan experiments -> 9. Write CRO-AUDIT.md -> 10. Hand off
 ```
 
 ## Who this is for
 
-A store owner, marketer or Site Editor who wants to know what to fix first and what to test,
-not a developer. Plain language, explain a term once, narrate before acting.
+A store owner, marketer or Site Editor who wants to know what to fix first and what to test, not a
+developer. Plain language, explain a term once, narrate before acting.
+
+## Two modes
+
+- **Quick audit** (about an hour): stages 1, 2, 3 and 8 to 10, plus 4 and 6 only for numbers and
+  files the person already has. Needs nothing from the person. Gives likely friction and measured
+  problems, a ranked list, and the questions behavioural data would answer.
+- **Full audit** (the research suite): every stage. Stages 4 to 7 need data or sessions the person
+  provides; the skill tells them exactly what to bring (`references/research-suite.md`). A stream
+  with no data yet is written up as "prepared, awaiting data" with its instrument attached, not
+  skipped silently.
+
+Ask which mode in the intake. If unsure, run the quick audit and offer the full one.
 
 ## Rules
 
 - **Read-only.** Never edit a theme or store, and never enter data into the live site (no test
-  bookings, no test orders, no form submits). The only file you write is `CRO-AUDIT.md`.
-- **No integrations required.** Work from the public page, public tools and numbers the person
-  gives you. Never ask the person to connect an analytics tool, and never type a password or
-  token for them.
+  bookings, no test orders, no form submits). The only files you write are `CRO-AUDIT.md` and, if
+  asked, instruments (survey questions, test scripts) beside it.
+- **No integrations required.** Work from the public page, public tools and what the person gives
+  you. Never ask them to connect a tool, and never type a password or token for them. Behavioural
+  tools (a heatmap, recordings, a survey tool) are places the person may already have data, never a
+  requirement.
 - **Label every finding by evidence type**, and never blur them:
-  - `[Heuristic]` expert judgement against a named principle. Legitimate evidence, but not
-    behavioural: say "this is a likely friction point", never "this loses X% of sales".
-  - `[Measured]` a number you measured (speed, tap target size, field count, word count).
-  - `[Reported]` a number the person supplied (funnel counts, conversion rate). Say where it
-    came from and the date range; you did not verify it.
-  - `[Customer voice]` quoted or counted from an existing `REVIEW-MINING.md`.
-- **No invented numbers.** No benchmark, uplift percentage or "industry average" without a
-  source and date you can name. Default to none. Never predict a lift.
-- **Findings vs. test ideas.** A finding is observed. A test idea is a hypothesis; mark it as
-  such and say what data would confirm it.
-- **Small samples are small.** Flag any rate built on fewer than a few hundred sessions or
-  fewer than about 30 conversions as directional only (`references/funnel-math.md`).
-- **Hard limits win.** If the person says something must not change (price display, a
-  required form field, a legal line), keep it out of the recommendations and say so.
-- **Don't rule on claims.** Unsourced claims are reported as "no source on the page" and sent
-  to the `fact-check` skill, not judged here.
+  - `[Heuristic]` expert judgement against a named principle; fast, but not behavioural. Say "likely
+    friction", never "loses X% of sales".
+  - `[Measured]` a number you measured (speed, tap size, field count, request weight).
+  - `[Reported]` a number the person supplied (analytics, funnel). Give the source and date range;
+    you did not verify it.
+  - `[Behavioural]` what visitors did, from heatmaps, scroll maps or recordings the person supplied.
+    Give the sample ("9 of 24 mobile recordings").
+  - `[Customer voice]` text customers wrote already (reviews, tickets), counted.
+  - `[Survey]` answers to questions asked for this audit.
+  - `[Test]` what participants did in user testing; give how many people.
+- **Confidence on every finding** (`references/prioritization.md` section 3): High when two or more
+  different kinds of evidence agree, Medium for one strong source, Low for a single opinion.
+- **Triangulate.** Analytics find where; behavioural, voice and test evidence find why. Never explain
+  a leak from analytics alone, and never present a heuristic finding as data about visitors.
+- **No invented numbers.** No benchmark, uplift or "industry average" without a source and date you can
+  name. Never predict a lift. Check scripts' results; don't round a verdict up.
+- **Small samples are leads.** Apply `references/funnel-math.md` to every rate, and treat recordings,
+  surveys and tests as explanations, not rates.
+- **Findings vs. test ideas.** A finding is observed. A test idea is a hypothesis; mark it and say what
+  would confirm it.
+- **Honest about what you can't do.** You can't recruit participants, send surveys, or run an
+  experiment. Say so, prepare the instrument and analyse what comes back.
+- **Hard limits win.** If the person says something must not change (price display, a required field,
+  a legal line), keep it out of the recommendations and say so.
+- **Don't rule on claims.** Unsourced claims are reported as "no source on the page" and sent to the
+  `fact-check` skill.
+- **Run it well.** This is judgement-heavy work: use the strongest model available and high effort for
+  the audit and synthesis. Cheaper settings are fine for re-running a script or one check.
 
-## 1. Intake
+## 1. Intake and mode
 
-Ask at most four questions, multiple choice where possible, always allowing "not sure". If
+Ask at most four questions per round, multiple choice where possible, always allowing "not sure". If
 unanswered, state the assumption and continue.
 
-1. **What is being audited?** A page URL (homepage, product, collection, landing, booking) or
-   the whole store's main path.
-2. **What counts as a conversion?** Purchase, booking or consultation request, lead form,
-   email signup, other. This sets the one primary action every check is measured against.
-3. **Who is the typical visitor and where do they come from?** (new or returning; search,
-   social, email, ads, in person.) "Not sure" is fine.
-4. **What evidence do you already have?** Numbers from Shopify Analytics or anywhere else
-   (sessions, product views, add to cart, checkout, orders, or sessions to bookings), and
-   whether a `REVIEW-MINING.md` exists. Say none is fine: skip streams 5 and 6.
+1. **Mode:** quick or full.
+2. **What is being audited?** A page URL (homepage, product, collection, landing, booking) or the main
+   path of the store.
+3. **What counts as a conversion, and which is the one primary action?** (purchase, booking or
+   consultation request, lead, signup.) Plus the **segments that matter** (mobile vs desktop,
+   new vs returning, paid vs organic, location), if known.
+4. **What evidence exists?** Analytics numbers or exports, heatmaps or recordings, reviews or a
+   `REVIEW-MINING.md`, support text, past A/B tests, and the daily traffic to the page. "None" is fine.
 
-Brand context: read `BRAND.md` if present (brand name, what is sold, claim limits) using
-brand-capture's lookup order; if missing, continue and say claims can't be checked against
-brand rules. If `CRO-AUDIT.md` already exists, read it first: this is a re-audit that updates
-it (`references/report-template.md`).
+Also gather: what has already been changed or tested (so you don't re-recommend it), the platform and
+installed apps, and any promotion running. Brand context: read `BRAND.md` if present (brand name,
+what is sold, claim limits) using brand-capture's lookup order; if missing, continue and say claims
+can't be checked against brand rules. If `CRO-AUDIT.md` exists, read it first: this is a re-audit that
+updates it (`references/report-template.md`).
 
-## 2. Heuristic review
+## 2. Technical
 
-Load the real page at desktop (1440x900) and at 375x812 using whichever browser tool is
-available (built-in browser first). Scroll slowly so lazy content loads; do not interact with
-forms beyond looking. If no browser is available, work from the fetched HTML and say the
-review is partial and which checks you could not do.
+Load the real page at desktop (1440x900) and 375x812 in the built-in browser (or whichever tool is
+available), scrolling slowly so lazy content loads, without interacting with forms. If no browser is
+available, work from fetched HTML and say the review is partial.
 
-Run `references/heuristics-checklist.md` for the page's type. Record each failed or at-risk
-check as a `[Heuristic]` finding naming the principle (Nielsen Norman heuristic, Baymard-style
-checkout or form friction, or plain CRO practice) and quoting what you saw. Passed checks are
-listed in one line, not padded out.
+- **Speed**: `scripts/pagespeed.py <url>` (a free key via `--key` or `PSI_API_KEY` avoids the shared
+  quota). If it fails, run the Lighthouse CLI (`npx lighthouse`), else say speed was not measured.
+  Record LCP, TBT or INP, CLS, page weight and the biggest items, lab and field separately. Name an
+  owner for each fix. Lab and field numbers differ; a huge LCP caused by one heavy asset is likely
+  inflated by the lab throttle, so say so.
+- **Mobile pass**: `references/mobile-checklist.md`.
+- **Console errors, broken links, missing images, layout that differs by browser or device**, if the
+  tool reads them.
+- **Which theme**: confirm the page is the live theme (read `Shopify.theme.id` and role) unless the
+  person named a draft; say which was audited.
 
-## 3. Page speed
+## 3. Heuristic and competitive review
 
-Run `scripts/pagespeed.py <url>` for mobile and desktop (public PageSpeed Insights; the shared
-no-key quota is often used up, so a free API key via `--key` or `PSI_API_KEY` makes it reliable). Record LCP, INP or TBT, CLS and the top
-opportunities as `[Measured]`. If the script can't reach the API or the quota is used up, use the
-Lighthouse CLI if installed, else say speed was not measured and give the person the PageSpeed
-Insights link to read it themselves. Report lab and field (real-user) data
-separately and say which is which; field data may be absent for low-traffic pages.
+- **Heuristics**: `references/heuristics-checklist.md` for the page type. Record each failed or at-risk
+  check as `[Heuristic]` naming the principle and quoting what you saw. List passed checks in one line.
+- **Competitive** (full mode, or quick if `COMPETITORS.md` exists): `references/competitor-benchmark.md`.
 
-Name an owner for each fix (this theme, an installed app, images and media, store settings,
-a third-party embed). Don't promise a conversion gain from a faster page.
+## 4. Web analytics (supplied numbers)
 
-## 4. Mobile pass
+Follow `references/analytics-analysis.md`: validate the data first, then the funnel by segment with
+`scripts/funnel.py`, landing pages, checkout or booking steps, product-level and search. Tag
+`[Reported]`. If there are no numbers, name the three they can read off their analytics in a minute
+(sessions, add-to-cart or booking starts, orders) and move on. If a number can't be trusted, say so
+and route the question to `analytics-audit`.
 
-At 375 wide, check `references/mobile-checklist.md`: tap target size and spacing, text
-truncation, horizontal scroll, carousel and gallery usability one-handed, sticky or hidden
-primary CTA, popups and banners that cover content, form input types, and whether the primary
-action is reachable without hunting. Record as `[Measured]` where you measured a size and
-`[Heuristic]` otherwise.
+## 5. Behavioural (supplied)
 
-## 5. Funnel math
+Follow `references/behavioral-review.md` for heatmaps, scroll maps and recordings the person brings
+or notes they take from a short viewing plan you write. Tag `[Behavioural]` with sample counts. No data
+yet: prepare the viewing plan and mark the stream "prepared, awaiting data".
 
-Only when the person gave numbers. Run
-`scripts/funnel.py --steps "Sessions=12000,Product views=5400,Add to cart=640,Checkout=310,Orders=140"`
-(or `--csv file`), following `references/funnel-math.md`. It returns step conversion, drop-off
-and the largest leak. Tag everything `[Reported]`, state the date range and source the person
-gave, and apply the small-sample rule. A leak points to where to look, not why: pair it with
-the heuristic findings for that step.
+## 6. Voice of customer and surveys
 
-If the person has no numbers, say which three they can read off Shopify Analytics in a minute
-(sessions, add to cart or booking starts, orders) and move on. Do not ask them to export
-anything or connect anything.
+Follow `references/survey-playbook.md`. First use existing text: `REVIEW-MINING.md` (from the
+`review-miner` skill), support tickets, chats, reviews. Then write the survey questions the audit still
+needs and say how many answers to wait for. Tag `[Customer voice]` or `[Survey]`.
 
-## 6. Customer voice
+## 7. User testing
 
-If `REVIEW-MINING.md` exists, read its top pain points and praise themes and tie each to the
-page element it speaks to. Tag `[Customer voice]` with the mention count it reports. If it
-doesn't exist, mention once that the `review-miner` skill produces it from a review export;
-do not run it from here.
+Follow `references/user-testing-playbook.md`: write the tasks and script from the conversion goal,
+say who to recruit and how many, and analyse the notes or recordings the person brings with the
+severity scale. Tag `[Test]`. No sessions yet: attach the script and mark "prepared, awaiting data".
 
-## 7. Rank and write
+## 8. Synthesis, prioritise, plan experiments
 
-Score each finding for impact (how many visitors it touches, how close to the conversion) and
-effort (who can fix it and how fast), then rank with `references/report-template.md`. Write
-`CRO-AUDIT.md` in the project root (or the folder the person names) and give a short readout:
-the top five, one line each, with the evidence tag.
+1. Merge the streams into one issue list. For each issue note every kind of evidence behind it.
+2. Rate confidence and assign a bucket (`references/prioritization.md`): Just do it, Instrument,
+   Investigate, Test or Hypothesize.
+3. Score with `scripts/prioritize.py ideas.json --evidence-confidence` (write the JSON from the issue
+   list) and rank.
+4. For each Test item write the experiment (`references/experiment-design.md`): hypothesis naming its
+   evidence, primary and guardrail metrics, sample size and duration from `scripts/sample_size.py`, and
+   feasibility at the page's traffic. If it can't be tested, say what to do instead.
+5. If the person supplies results of a finished test, check them with `scripts/ab_result.py`, report
+   the interval, and flag a failed split check as invalid.
 
-End with **Open questions for behavioural data**: what a session recording, scroll map or
-funnel report would answer that this audit cannot (for example "do visitors reach the booking
-form at all?"), so adding tools later has a purpose. These are questions, not findings.
+## 9. Write CRO-AUDIT.md
 
-## 8. Hand off
+Use `references/report-template.md`. Give a short readout: the top five with evidence tags and
+confidence, the buckets, and what is waiting on data. End with the open questions and the list of
+skipped streams.
 
-Offer to apply the rows they pick: copy, images and links go to `page-edit-content`, layout,
-order and style to `page-edit-design`, new sections to `page-create`, claims to `fact-check`.
-Do not apply them from this skill.
+## 10. Hand off
+
+Offer to apply the "Just do it" rows the person picks: copy, images and links go to
+`page-edit-content`, layout, order and style to `page-edit-design`, new sections to `page-create`,
+tracking to `analytics-setup`, claims to `fact-check`. Do not apply them from this skill. Theme changes
+always go to a draft theme (those skills never edit the live theme).
+
+## Files
+
+| File | Use |
+|---|---|
+| `references/research-suite.md` | The streams, how they combine, what stays human |
+| `references/heuristics-checklist.md`, `references/mobile-checklist.md` | Streams 1 and 2 |
+| `references/competitor-benchmark.md` | Stream 3 |
+| `references/analytics-analysis.md`, `references/funnel-math.md` | Stream 4 |
+| `references/behavioral-review.md` | Stream 5 |
+| `references/survey-playbook.md` | Stream 6 |
+| `references/user-testing-playbook.md` | Stream 7 |
+| `references/prioritization.md`, `references/experiment-design.md` | Stream 8 |
+| `references/report-template.md` | The file you write |
+| `scripts/pagespeed.py`, `funnel.py`, `sample_size.py`, `ab_result.py`, `prioritize.py` | Measurement and maths (stdlib only) |
