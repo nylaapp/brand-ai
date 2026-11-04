@@ -84,7 +84,7 @@
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.1.7"
+      "version": "0.1.8"
     }
   ]
 }
