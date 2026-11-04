@@ -21,6 +21,10 @@ The reader is usually not a developer. Write reports in short, plain language an
 - **Ask before "Request indexing"** in Search Console. It changes something in their account.
 - Do not invent one big "SEO score". Report Google's numbers and pass / warn / fail checks.
 
+## Setup check (before Step 0)
+
+Run `references/setup-check.md` for the `seo-audit` column: a browser is required, because Google's tools only run in one, and Search Console access is required for the week 2 and week 4 ranking checks; Shopify connected, web search, a folder for the audit log and a free PageSpeed API key are recommended. For daily checks, the computer must be awake with Claude open. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback and list what's missing under "Needs your attention".
+
 ## Step 0: Know which brand and store
 
 This skill works for any Shopify store and holds nothing about a particular brand. Everything store-specific comes from the request or a brand profile. Work out the brand first:
