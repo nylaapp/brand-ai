@@ -209,7 +209,7 @@
         "It reviews the live page at desktop and phone width and measures speed.",
         "If the Shopify CLI is authorised for the store it reads the analytics itself, read-only; otherwise bring funnel numbers. Also bring heatmaps or recordings, reviews or support text, past test results if you have them.",
         "It prepares the survey questions and user-test script if you want them, and analyses the answers when they come back.",
-        "It writes CRO-AUDIT.md: ranked findings with evidence and confidence, quick wins, an experiment roadmap and open questions."
+        "It gives you a plain-language summary in chat (the top five fixes in a table, quick wins, what to test, what it couldn't check) and writes CRO-AUDIT.md with every finding, its evidence and the experiment plans."
       ],
       "produces": ["CRO-AUDIT.md (ranked findings with evidence and confidence, buckets, scores, experiment plans, open questions)", "Survey questions and a user-test script, on request"],
       "requires": ["Nothing for a quick audit. For analytics: the Shopify CLI authorised for the store with read_reports and read_orders (you grant it yourself), or exported numbers. Uses REVIEW-MINING.md, COMPETITORS.md and BRAND.md if they exist."],
