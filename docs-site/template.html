@@ -158,7 +158,7 @@ pages.start = () => `
 <div class="page">
   <header>
     <h1>Get started</h1>
-    <p class="lede">Add the Brand AI marketplace in Claude Cowork, install the skills, set up one brand, and run your first skill. About ten minutes. Nothing to type in a terminal.</p>
+    <p class="lede">Add the Brand AI marketplace in Claude Cowork, install the skills, set up one brand, and run your first skill. About ten minutes. You don't need to be technical: the skills explain each step, and walk you through anything you need to set up.</p>
   </header>
   <section>
     <h2>Before you begin</h2>
@@ -167,6 +167,26 @@ pages.start = () => `
       <li><b>A Shopify store</b> to work on. Skills that write to Shopify use the Shopify connector or the Shopify CLI. Use a draft theme while you learn.</li>
       <li><b>Access to the marketplace repository.</b> While this project is in development it is shared with invited people only. If adding the marketplace reports a permission error, ask for access first.</li>
     </ul>
+    <p>Some skills need a little more, and you don't have to set it up in advance. The Blog and content and the Pages and theme skills check what they need when they start. If something is missing, they explain what it is and give you numbered steps to set it up, one at a time.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Skills</th><th>What they may ask you to set up</th></tr></thead>
+      <tbody>
+        <tr><td>Blog and content</td><td>Web search in Claude, the Shopify connector (for hidden drafts), a browser, Python 3, Google Search Console access, and for the autopilot a folder and review exports</td></tr>
+        <tr><td>Pages and theme</td><td>A browser, Node.js, the Shopify CLI signed in to your store, a draft theme, and for accessibility audits Google Chrome</td></tr>
+        <tr><td>Brand foundation</td><td>Your site address and brand book; styles-builder also needs the Shopify CLI and a draft theme</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <section>
+    <h2>How the skills talk to you</h2>
+    <p>Every skill follows the same rules when it replies, in Claude and in other AI apps:</p>
+    <ul class="list">
+      <li><b>Short and direct.</b> The answer or next step first. Long detail goes in the saved file.</li>
+      <li><b>No technical knowledge assumed,</b> including of Shopify. Any technical word is explained the first time.</li>
+      <li><b>Step-by-step help</b> for anything you need to do yourself, with the exact button or menu to use.</li>
+      <li><b>Simple, formal English.</b> Short sentences, no figures of speech.</li>
+    </ul>
+    <p>These rules cover messages to you. Posts and page copy are written in your brand's own voice, from <code>BRAND-VOICE.md</code>.</p>
   </section>
   <section>
     <h2>Setup in six steps</h2>
@@ -204,6 +224,7 @@ pages.start = () => `
     <details><summary>The marketplace will not add</summary><p>Check that you were given access to the repository and that the address is exactly <code>nylaapp/brand-ai</code> (or the full GitHub URL). Then select <b>Add marketplace</b> again.</p></details>
     <details><summary>A skill does not start when I ask</summary><p>Name it directly, for example "use blog-generator to write a post about X". Check that the plugin shows as installed under <b>Customize &gt; Plugins</b>, then start a new task so Cowork loads it.</p></details>
     <details><summary>A skill keeps asking about the brand</summary><p>It cannot find BRAND.md. Start the task in the client's project folder, or place the brand files in the central folder shown above.</p></details>
+    <details><summary>A skill asks me to install or connect something</summary><p>That is the setup check. Follow its steps one at a time and tell it when each one is done; it checks again for you. If you can't do a step now (for example, you need the store owner's permission), say so. Nothing is changed, and the next run picks up from there.</p></details>
     <details><summary>It cannot reach Shopify</summary><p>Skills that write drafts fall back to paste-ready HTML when the connector or browser is unavailable or not signed in, and they tell you why. Connect Shopify and run it again to get a draft.</p></details>
   </section>
 </div>`;
