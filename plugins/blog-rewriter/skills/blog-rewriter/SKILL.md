@@ -25,7 +25,7 @@ A rewrite is built for the store it is going **to**, so it follows that store's 
 
 
 ```
-1. Intake + store → 2. Load brand voice → 2b. Resolve placeholders and brand names → 3. Rewrite (three passes) → 4. Quality gate + change report → 5. Fact-check → 6. SEO fields + QA → 7. Hidden Shopify draft (or HTML fallback)
+Setup check → 1. Intake + store → 2. Load brand voice → 2b. Resolve placeholders and brand names → 3. Rewrite (three passes) → 4. Quality gate + change report → 5. Fact-check → 6. SEO fields + QA → 7. Hidden Shopify draft (or HTML fallback)
 ```
 
 This skill reuses `blog-generator` for brand loading, house style, QA and delivery, so the Shopify logic exists in one place. Read these from that skill's folder only when you reach the step:
@@ -42,6 +42,10 @@ This skill reuses `blog-generator` for brand loading, house style, QA and delive
 | 7 | `references/publishing.md` (connector 1A / browser 1B, preview link, HTML option 2) |
 
 If `blog-generator` isn't installed, say so and fall back to HTML delivery (body HTML plus a fields sheet).
+
+## Setup check (before Step 1)
+
+Run `references/setup-check.md` for the `blog-rewriter` column: web search, brand files and blog-generator installed are required; Shopify connected, a browser and Python 3 are recommended (Python 3 is required for a series or image transfer); Google Drive for a Google Doc and a Word reader for a .docx only when the source is one. Check the source-dependent rows once you know the source. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback and list what's missing under "Needs your attention".
 
 ## Step 1: Intake and store
 

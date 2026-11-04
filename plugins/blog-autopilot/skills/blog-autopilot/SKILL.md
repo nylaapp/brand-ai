@@ -12,7 +12,7 @@ Weekly check-in: about 5 to 10 minutes and $1 to $2 with the deep web sources, u
 Decide **whether, what and when** a Shopify store should publish, then hand off to `blog-generator` to do the writing. This skill never writes the post itself: it's the editor-in-chief, and the writer skill is the staff writer. Keeping them apart means the rubric can change without breaking the writing workflow, and the writer still works on its own when the user asks for a post directly.
 
 ```
-Load brand profile → Gather signals → Build candidates → Score → Guardrails → Decide → Check in → Hand off → Log
+Setup check → Load brand profile → Gather signals → Build candidates → Score → Guardrails → Decide → Check in → Hand off → Log
         (setup if missing)                                                      (ask first)  (hidden draft)
 ```
 
@@ -24,6 +24,7 @@ Read each one when you reach the step that needs it.
 
 | File | Read at |
 |---|---|
+| `references/setup-check.md` | Before Step 1: what must be set up first and how to guide the person through it |
 | `references/setup.md` | First run for a brand (no profile yet), or when the user asks to change settings or the schedule |
 | `assets/brand-profile.template.yaml` | Setup: the file you copy and fill in for each brand |
 | `references/triggers.md` | Step 2: how to detect each trigger type, with queries and file formats |
@@ -46,6 +47,10 @@ Read each one when you reach the step that needs it.
 - **Assume nothing about the brand.** No country, language, currency, industry, competitors or voice is built into this skill. All of it comes from the profile or from the store during setup. If a value is missing, derive it from the store or skip the feature that needs it. Never fall back to a default market.
 - **Don't invent data.** If a source isn't configured or its file is missing, skip that trigger and say so in the run report. Don't guess search volumes, rankings or review counts. The rubric works with the evidence you have.
 - **Quiet by default.** A scheduled run with nothing worth writing is a successful run. Log it and stop. Don't write a weak post just to fill the week.
+
+## Setup check (before Step 1)
+
+Run `references/setup-check.md` for the `blog-autopilot` column: a folder on this computer, web search, brand files, blog-generator installed, Shopify connected, Python 3 and, for the weekly check-in, the computer awake with Claude open, are required; competitor research, Search Console exports and review or helpdesk exports are recommended, because they are where the best post ideas come from. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback and list what's missing under "Needs your attention". When handing off to `blog-generator`, say in the brief that the check passed.
 
 ## Step 1 — Load the brand profile
 

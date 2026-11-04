@@ -17,6 +17,7 @@ It stands alone: it doesn't depend on any writing skill, and any writing skill c
 
 | File | Read at |
 |---|---|
+| `references/setup-check.md` | Before Step 0: what must be set up first and how to guide the person through it |
 | `references/claim-types.md` | Step 2: claim categories, risk tiers, and the precise wording rules for regulatory status |
 | `references/sources.md` | Step 3: which sources settle which kind of claim, by market |
 | `references/report-template.md` | Step 5: the report layout |
@@ -31,6 +32,10 @@ It stands alone: it doesn't depend on any writing skill, and any writing skill c
 - **Not legal or medical advice.** Say so once in the report. Flag claims needing expert or legal sign-off instead of ruling on them.
 - **Spend research where the risk is.** Check every high-risk claim; sample the medium-risk ones; leave plain common knowledge alone.
 - **Read-only by default.** Don't edit a live article or any store content unless the user asks you to apply fixes, and even then produce the revised text for them to publish.
+
+## Setup check (before Step 0)
+
+Run `references/setup-check.md` for the `fact-check` column: web search is required, because claims are checked against the original sources; brand files and Python 3 (for the pre-screen) are recommended; Shopify, a browser, Google Drive or a Word reader only when the content comes from one. When another skill hands content over, it has already run the check. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback and list what's missing under "Needs your attention".
 
 ## Step 0: Get the content and the context
 

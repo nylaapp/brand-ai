@@ -15,6 +15,9 @@ New here? Start with **blog-generator**. Add the others later.
 
 ## 1. Before you start (2 minutes)
 
+You don't have to set these up in advance: each skill checks what it needs when it starts and walks
+you through anything missing, one step at a time. This list is what it will look for.
+
 - [ ] **The skills are on.** Open Claude, go to **Customize > Skills**, and look under **Organization skills**. Switch on the skills above. If you don't see them, ask your Claude admin (see the last section).
 - [ ] **Use Claude Desktop (Cowork) for the full experience.** Chat can write a post, but saving drafts through your browser and scheduled runs need the desktop app.
 - [ ] **Shopify connection (recommended).** Connect the Shopify connector so Claude can save drafts straight into your store. Each person signs in to their own Shopify access.
