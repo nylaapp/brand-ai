@@ -10,7 +10,7 @@ what was actually observed. Read-only and brand-agnostic. Brand facts come from 
 and `BRAND-VOICE.md` (see `references/intake.md`), never invented.
 
 ```
-1. Intake: brand/theme context, page and type, goal questions ->
+0. Setup check -> 1. Intake: brand/theme context, page and type, goal questions ->
 2. Observe the rendered page -> 3. Gap analysis against the playbook ->
 4. Measure -> 5. Qualitative evidence -> 6. Pair, score, name owners ->
 7. Write PAGE-AUDIT.md and the readout -> 8. Hand off the rows they pick
@@ -44,6 +44,14 @@ is also on your contact page").
   "no source on the page", then sent to a fact-check, not ruled on.
 - **No promises about results.** A page can pass every check and still underperform, and a
   failed check doesn't prove lost sales. Say so, and pair with analytics when available.
+
+## 0. Setup check
+
+Before intake, run `../page-studio/references/setup-check.md` for the `page-audit` column: a
+browser and the page address are required; brand files and the Shopify CLI are recommended. Assume
+the person isn't technical: check silently yourself and walk them through anything missing one
+step at a time. If a recommended item is missing, say in one line what the audit will do without
+it and carry on. Skip it if it already passed in this conversation.
 
 ## 1. Intake
 
@@ -133,6 +141,7 @@ Then point to the next skill:
 
 ## Checklist before finishing
 
+- [ ] Setup check passed (or already passed this conversation); anything missing was explained and fixed step by step
 - [ ] Goal, audience, change appetite and limits recorded, with assumptions marked
 - [ ] Theme id confirmed and viewports noted; blocked checks marked "Can't tell"
 - [ ] Every shortfall has an observation behind it; no check failed from guesswork
