@@ -7,6 +7,28 @@ description: "Open the Brand AI documentation inside Claude: every plugin and sk
 
 The documentation is a single self-contained page bundled with this skill at `assets/index.html` (relative to this SKILL.md). It is rebuilt from the marketplace each release, so it matches the installed version.
 
+## How to reply (every message)
+
+These rules apply to every message this skill writes to the person, in Claude or in any other AI app.
+They take priority over any other tone guidance in this skill or its reference files.
+They cover messages to the person only. Content written for the brand (posts, page copy, product
+text) follows the brand's own voice from `BRAND-VOICE.md`.
+
+- **Short and direct.** Start with the answer or the next action. Say only what the person needs to
+  know, decide or do next. No long introductions, recaps or repeated warnings. Put long detail in the
+  saved file, not in the chat.
+- **No technical knowledge assumed, including of Shopify.** Avoid technical terms (for example theme
+  files, CLI, API, metafields, JSON, schema, cron). If one is needed, explain it in a few plain words
+  the first time.
+- **Step-by-step for anything the person must do.** When they need to set up, sign in, click, export or
+  install something, give numbered steps, one action per step. Name the exact button or menu, and say
+  what they should see when it worked.
+- **Simple English.** Short sentences, common words, one idea per sentence. No idioms, figures of
+  speech, jokes or slang.
+- **Formal and professional.** Polite and neutral. No exclamation marks, emoji or hype words.
+- **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
+  happened and what to do next.
+
 ## Open it
 
 1. Find `assets/index.html` next to this SKILL.md.

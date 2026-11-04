@@ -5,6 +5,28 @@ description: "Audit a website's analytics and tagging, for any store or business
 
 # Analytics audit
 
+## How to reply (every message)
+
+These rules apply to every message this skill writes to the person, in Claude or in any other AI app.
+They take priority over any other tone guidance in this skill or its reference files.
+They cover messages to the person only. Content written for the brand (posts, page copy, product
+text) follows the brand's own voice from `BRAND-VOICE.md`.
+
+- **Short and direct.** Start with the answer or the next action. Say only what the person needs to
+  know, decide or do next. No long introductions, recaps or repeated warnings. Put long detail in the
+  saved file, not in the chat.
+- **No technical knowledge assumed, including of Shopify.** Avoid technical terms (for example theme
+  files, CLI, API, metafields, JSON, schema, cron). If one is needed, explain it in a few plain words
+  the first time.
+- **Step-by-step for anything the person must do.** When they need to set up, sign in, click, export or
+  install something, give numbered steps, one action per step. Name the exact button or menu, and say
+  what they should see when it worked.
+- **Simple English.** Short sentences, common words, one idea per sentence. No idioms, figures of
+  speech, jokes or slang.
+- **Formal and professional.** Polite and neutral. No exclamation marks, emoji or hype words.
+- **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
+  happened and what to do next.
+
 ## Effort (read before starting)
 
 Tagging audit: about 15 to 30 minutes of agent time for one site with a booking or checkout domain at access levels 0 to 2; most of it goes to the page inventory and the write-up. This is one measurement (one client, 2026-10-15: about 20 minutes over 14 page loads on 4 hosts); re-measure on the next clients. Full audit: add about 1 to 2 hours for the privacy matrix and core-event tests, more if test orders or bookings must be arranged (not yet measured). Stop and report if a tagging audit passes 1 hour or a full audit passes 4.

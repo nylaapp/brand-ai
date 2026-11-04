@@ -30,6 +30,10 @@ To pick up new versions, select **Check for updates** on the marketplace (or tur
 | cro-audit | `cro-audit` | Full CRO audit suite, strictly read-only: technical and speed, heuristic and competitive review, Shopify Analytics read through the Shopify CLI (or supplied numbers) with data-validity checks, behavioural review, voice of customer, survey and user-test plans, prioritisation, experiment planning and an A/B result checker; written to `CRO-AUDIT.md` | none (uses analytics numbers, recordings, reviews if you have them) |
 | brand-docs | `brand-docs` | Open this documentation inside Claude ("show the documentation"): every plugin and skill, example prompts and how they fit together | none |
 
+## How the skills reply
+
+Every skill starts with a "How to reply" section that applies in Claude and in any other AI app: short and direct; no technical knowledge assumed, including of Shopify; numbered step-by-step guides for anything the person must set up or do; simple English with no figures of speech; formal and professional. It covers messages to the person only. Content written for the brand follows `BRAND-VOICE.md`.
+
 ## Layout
 
 ```
