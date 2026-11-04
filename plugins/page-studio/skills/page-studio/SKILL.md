@@ -55,6 +55,14 @@ a new section, or a new page, is create, even when it only reuses an existing se
 Invoke the chosen skill with the Skill tool, passing the page, the theme and anything already known.
 Don't answer its questions for the person.
 
+## Setup check first
+
+Once the job is known, and before handing off, run `references/setup-check.md` for that skill's
+column (for a chain, the column of the most demanding skill in it). Assume the person isn't
+technical: check silently yourself, and walk them through anything missing one step at a time, in
+plain words, re-checking after each step. Tell the skill you hand to that the check passed, so it
+isn't repeated. Nothing is handed off until the required items pass.
+
 ## Which theme?
 
 For any job that writes to a theme, settle the theme once, before handing off, with
@@ -101,6 +109,7 @@ step, stop after it.
 |---|---|
 | `references/baseline-and-change-pack.md` | What to capture before any edit, and the one-file record carried through a change |
 | `references/verify.md` | The checks that prove a change on the rendered page |
+| `references/setup-check.md` | What each skill needs set up first, and how to guide a non-technical person through each missing piece |
 | `references/theme-target.md` | Which theme to work on: ask once, remember it, protect the live theme |
 | `references/ship-to-draft.md` | Pushing to the chosen theme, pull-back proof, the log, publishing a draft to live |
 | `references/revert-mode.md` | Restoring a theme to its baseline and proving it |
@@ -111,6 +120,7 @@ Each skill points to the files it needs, so any of them can be used on its own.
 
 ## Checklist before finishing
 
+- [ ] Setup check run for the receiving skill before handing off; anything missing was guided step by step
 - [ ] The job was identified and handed to the owning skill, not done here (verify, ship and revert
       requests excepted)
 - [ ] A mixed request was split into one change per skill, content before design

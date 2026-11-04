@@ -15,6 +15,13 @@ Use this whenever someone asks for a Lighthouse accessibility pass on a Shopify 
 
 If the project has its own instructions file (for example `AGENTS.md` or `CLAUDE.md`) with safety rules or invariants, read it first and follow it; it outranks this skill.
 
+**Setup check first.** Before anything else, run `references/setup-check.md` for the
+`accessibility-audit` column: a browser, the page address, Node.js, the Shopify CLI signed in to the
+store, Google Chrome, Lighthouse and a folder for the theme copy. Assume the person isn't technical:
+check silently yourself, then walk them through anything missing one step at a time, in plain words,
+and re-check after each step. Skip it if it already passed in this conversation. Nothing else starts
+until every required item passes.
+
 **Theme first.** Before step 1, settle which theme this run is for, following `references/theme-target.md`:
 use the theme the person already chose in this conversation or recorded in `THEME-TARGET.md` and say so in one
 line, or settle a draft: ask whether one already exists or create one, never the live theme (the project's theme config may default to the live theme, so don't use that default) and remember the answer for every other skill. Don't ask again unless the person names a
@@ -112,6 +119,7 @@ Per page, a before and after row (mobile and desktop), then: fixes applied, item
 
 ## Checklist
 
+- [ ] Setup check passed (or already passed this conversation); anything missing was explained and fixed step by step
 - [ ] Real, published, 200 URL for every page
 - [ ] Baseline: mobile and desktop, accessibility only, on the dev server
 - [ ] Every failing audit classified skip or fix, with a reason

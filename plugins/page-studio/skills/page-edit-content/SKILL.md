@@ -24,7 +24,7 @@ in a local working copy, proves it on the rendered page, and puts only the touch
 theme the person chose (always a draft, never the live theme). The live theme is never edited: work goes to a draft theme, created if there isn't one.
 
 ```
-1. Context -> 2. Understand the request -> 3. Resolve the target and working copy ->
+0. Setup check -> 1. Context -> 2. Understand the request -> 3. Resolve the target and working copy ->
 4. Find where the content lives -> 5. Capture the baseline -> 6. Show the exact change ->
 7. Edit the working copy -> 8. Verify -> 9. Ship to the theme -> 10. Hand back
 ```
@@ -59,6 +59,15 @@ homepage headline is out of date"), not where it lives in the theme. Plain langu
 once ("the hero, the big banner at the top"), narrate before acting ("I'll change the headline and
 leave everything else as it is"), flag trade-offs in plain terms, and explain draft versus live the
 first time it comes up: on a draft, nothing visitors see changes until they say go; these skills never edit the live theme, because edits there show to visitors at once.
+
+## 0. Setup check
+
+Before anything else, run `../page-studio/references/setup-check.md` for this skill's column: a
+browser, the page address, brand files, Node.js, the Shopify CLI signed in to the store, and a
+folder for the theme copy. Assume the person isn't technical: check silently yourself, then walk
+them through anything missing one step at a time, in plain words, and re-check after each step.
+Skip it if it already passed in this conversation (for example, `page-studio` ran it before handing
+off). Nothing else starts until the required items pass.
 
 ## 1. Context
 
@@ -157,6 +166,7 @@ on a draft only (the live theme is never edited here).
 
 ## Checklist before finishing
 
+- [ ] Setup check passed (or already passed this conversation); anything missing was explained and fixed step by step
 - [ ] Brand files handled; no claim, number or name invented; claims sent to a fact-check
 - [ ] Content found where it lives; admin-owned content pointed to admin; shared locale text flagged
 - [ ] Baseline captured before the first edit; change pack started
