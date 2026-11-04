@@ -61,13 +61,14 @@
       "what": "Writes blog posts meant to be found in Google and cited by AI answer engines. It asks intent, media, delivery, mode and topic once, reads BRAND.md and COMPETITORS.md instead of re-asking about the brand, researches what changes each time, and shows the outline for approval before writing.",
       "prompts": ["Write a post for my store", "Write a buying guide for X", "Make a how-to article about X", "I need a blog post for better SEO"],
       "steps": [
+        "It checks what it needs first (web search, your brand files, Shopify connected for a hidden draft) and walks you through setting up anything missing, in plain steps.",
         "Answer the setup questions once: intent, media, delivery, mode, topic.",
         "It researches the topic and shows the outline in chat.",
         "You approve the outline.",
         "It delivers a hidden Shopify draft, or paste-ready HTML, with SEO fields, images, schema and internal links."
       ],
       "produces": ["A hidden Shopify draft (via connector or browser), or paste-ready HTML", "SEO fields, images, schema, internal links"],
-      "requires": ["brand-capture (BRAND.md). competitor-research is optional but used when present."],
+      "requires": ["brand-capture (BRAND.md). competitor-research is optional but used when present.", "Web search in Claude. Recommended: Shopify connected (connector or a signed-in browser) for a hidden draft instead of HTML, Python 3 for the QA check, and fact-check installed.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
       "guardrails": ["Posts land as hidden drafts for a human to review.", "Guided mode or fully automated mode. Also runs from blog-autopilot."],
       "next": ["fact-check", "seo-audit"]
     },
@@ -77,13 +78,14 @@
       "what": "Takes a finished article written by someone else (a URL, Google Doc, .docx, .txt or .md file, or pasted text) and rewrites it in the store's voice. It is a voice transplant: facts and claims never change, only wording, tone, rhythm and terminology. Four depths are available: Match, Reword, Restructure and Reimagine.",
       "prompts": ["Rewrite this doc for the blog", "Put this article in our voice", "Make this guest post on brand", "Clean this up and post it as a draft"],
       "steps": [
+        "It checks what it needs first (web search, your brand files, blog-generator, Shopify connected, and Google Drive or a Word reader for those sources) and walks you through setting up anything missing, in plain steps.",
         "Give it the article and choose a rewrite depth.",
         "It rewrites in the voice from BRAND.md and the live blog, then fact-checks.",
         "It posts a hidden draft with SEO fields and a preview link.",
         "If Shopify is unavailable or not signed in, it returns paste-ready HTML and a fields sheet and says why."
       ],
       "produces": ["A hidden Shopify draft with SEO fields and a preview link", "Fallback: paste-ready HTML and a fields sheet"],
-      "requires": ["blog-generator", "brand-capture (BRAND.md)"],
+      "requires": ["blog-generator", "brand-capture (BRAND.md)", "Web search in Claude. Recommended: Shopify connected and Python 3 (required for series and image transfer). Google Drive connected for Google Doc sources.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
       "guardrails": ["Never quietly changes a claim. Anything changed is flagged.", "Posts are hidden drafts only."],
       "next": ["seo-audit"]
     },
@@ -93,13 +95,14 @@
       "what": "The editor-in-chief. It scans store events (new products, restocks, rising sellers), Search Console exports, review and helpdesk exports, competitor blog feeds, trends and an occasion calendar, scores the opportunities, and applies guardrails: dedupe, cannibalization, cooldowns and a weekly cap. It never writes the post itself.",
       "prompts": ["What should we blog about this week?", "Set up blogging on a schedule", "Is anything worth a new post right now?"],
       "steps": [
+        "It checks what it needs first (a folder, Shopify connected, Python, Search Console and review exports) and walks you through setting up anything missing, in plain steps.",
         "It runs a weekly scan and scores opportunities.",
         "By default it checks in with you and drafts only after you say yes.",
         "It hands the brief to blog-generator, which writes a hidden draft.",
         "Optional: turn on auto-draft."
       ],
       "produces": ["A ranked list of post opportunities", "A brief handed to blog-generator"],
-      "requires": ["blog-generator", "brand-capture"],
+      "requires": ["blog-generator", "brand-capture", "The Claude desktop app with a folder, Shopify connected, Python 3, and the computer awake with Claude open for the weekly check-in. Recommended: Search Console, review and helpdesk exports.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
       "guardrails": ["Check-in first, draft only after approval, unless auto-draft is on.", "Each brand keeps its own profile."],
       "next": ["blog-generator"]
     },
@@ -109,13 +112,14 @@
       "what": "Pulls out every factual claim, flags the risky ones (FDA and other regulatory status, medical and treatment claims, ingredient facts, pregnancy and safety statements, clinically proven, statistics), checks them against primary sources, and returns a claim-by-claim report with verdicts, citations and safer rewrites.",
       "prompts": ["Fact-check this post", "Check the FDA wording in this copy", "Is this accurate?", "Check this before we publish"],
       "steps": [
+        "It checks what it needs first (web search, and your brand files if you have them) and walks you through setting up anything missing, in plain steps.",
         "Give it pasted text, a file, a URL or a Shopify article.",
         "It lists each claim and marks which are risky.",
         "It verifies against authoritative sources.",
         "You get verdicts, citations and safer wording."
       ],
       "produces": ["A claim-by-claim report with verdicts, citations and safer rewrites"],
-      "requires": ["Nothing. Works on its own or after blog-generator."],
+      "requires": ["Web search in Claude. Works on its own or after blog-generator. Brand files and Python 3 recommended.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
       "guardrails": ["It flags and verifies. It never approves.", "Regulated claims still need a qualified human or legal review."],
       "next": ["blog-rewriter"]
     },
@@ -125,12 +129,13 @@
       "what": "Audits the live page with Google's own tools: structured data and Rich Results, PageSpeed Insights, title, meta, H1, leftover placeholders and indexing. About two and four weeks later it follows the post's real ranking numbers from Search Console.",
       "prompts": ["I published the post", "Check my new blog post", "Audit the live post", "Did the post get indexed?", "How is the blog post doing in Google?"],
       "steps": [
+        "It checks what it needs first (a browser, Search Console access, an optional free PageSpeed key) and walks you through setting up anything missing, in plain steps.",
         "Run it on publish day to check the live page.",
         "Run it again around week 2 and week 4 for ranking numbers.",
         "It can also run from a scheduled daily blog check."
       ],
       "produces": ["A live-page audit and ranking follow-ups at 2 and 4 weeks"],
-      "requires": ["None. Pairs with blog-generator."],
+      "requires": ["A browser Claude can use, and Search Console access for the ranking checks. Recommended: Shopify connected and a free PageSpeed API key. Pairs with blog-generator.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
       "guardrails": ["Read-only. It checks the post and changes nothing."],
       "next": []
     },

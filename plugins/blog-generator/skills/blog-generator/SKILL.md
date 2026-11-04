@@ -20,13 +20,14 @@ Write blog posts that make a Shopify brand easier to find (in classic search, in
 A post is only as good as its research, and research is only useful if it's grounded in the real brand. Two rules keep it efficient and accurate: **brand facts that don't change are read from that store's `BRAND.md` (and dated competitor research from `COMPETITORS.md`), never asked again; things that change are researched fresh for every post.** This skill serves many stores, so it first works out which store the post is for and uses only that store's files.
 
 ```
-0. Setup (intent, media, delivery, mode, topic, format; each asked once) → 0b. Load brand knowledge → 1. Research → 2. Brief + outline shown in chat → 3. Write → 4. Media → 5. Schema + fields → 6. QA + fact-check → 7. Deliver
+Setup check → 0. Setup (intent, media, delivery, mode, topic, format; each asked once) → 0b. Load brand knowledge → 1. Research → 2. Brief + outline shown in chat → 3. Write → 4. Media → 5. Schema + fields → 6. QA + fact-check → 7. Deliver
 ```
 
 Reference files (read each when you reach its step, not all up front):
 
 | File | Read at |
 |---|---|
+| `references/setup-check.md` | Before Step 0: what must be set up first and how to guide the person through it |
 | `references/setup-questions.md` | Step 0: the exact setup questions, defaults |
 | `references/intents.md` | Steps 1 and 3: what each intent changes |
 | `references/house-style.md` | Step 0 and 3: matching the brand's existing blog format |
@@ -51,6 +52,10 @@ If a reference file says otherwise, this section wins.
 6. **The outline is shown in chat.** In guided mode, always print the full outline in the chat before writing (see Step 2), then ask what to add or change. The user cannot approve what they haven't seen.
 
 ---
+
+## Setup check (before anything else)
+
+Run `references/setup-check.md` for the `blog-generator` column: web search, brand files and, recommended, competitor research, Shopify connected (for a hidden draft instead of HTML), a browser, Python 3 for the QA script, a folder for the run files, and fact-check installed. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback and list what's missing under "Needs your attention". In an autopilot-triggered run the autopilot already ran it; don't repeat it.
 
 ## Getting-started questions
 
