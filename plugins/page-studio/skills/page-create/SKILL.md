@@ -25,7 +25,7 @@ The skill proves the result on the rendered page and puts only the new and touch
 theme the person chose (always a draft, never the live theme). The live theme is never edited: work goes to a draft theme, created if there isn't one.
 
 ```
-1. Context -> 2. Understand what is being created -> 3. Reference or playbook ->
+0. Setup check -> 1. Context -> 2. Understand what is being created -> 3. Reference or playbook ->
 4. Plan (approval) -> 5. Capture the baseline -> 6. Build in the working copy ->
 7. Verify -> 8. Ship to the theme -> 9. Hand back
 ```
@@ -56,6 +56,15 @@ theme the person chose (always a draft, never the live theme). The live theme is
 A Site Editor on the marketing, content or operations side. Plain language, explain a term once,
 narrate before acting, flag trade-offs in plain terms, and explain draft versus live the first time
 it comes up: on a draft, nothing visitors see changes until they say go; these skills never edit the live theme, because edits there show to visitors at once.
+
+## 0. Setup check
+
+Before anything else, run `../page-studio/references/setup-check.md` for this skill's column: a
+browser, the page address, brand files, Node.js, the Shopify CLI signed in to the store, and a
+folder for the theme copy. Assume the person isn't technical: check silently yourself, then walk
+them through anything missing one step at a time, in plain words, and re-check after each step.
+Skip it if it already passed in this conversation (for example, `page-studio` ran it before handing
+off). Nothing else starts until the required items pass.
 
 ## 1. Context
 
@@ -159,6 +168,7 @@ in the store admin and choosing the template, publishing). Say whether it is on 
 
 ## Checklist before finishing
 
+- [ ] Setup check passed (or already passed this conversation); anything missing was explained and fixed step by step
 - [ ] Page, section or section type settled; name and handle checked for clashes
 - [ ] Plan built from the reference's measured values or the playbook's must-haves
 - [ ] Existing sections reused first; any new section type called out, approved and built to the repo's rules

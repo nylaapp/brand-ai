@@ -149,13 +149,14 @@
       ],
       "prompts": ["Audit the about page", "Swap the image on the homepage hero", "Make a landing page for X"],
       "steps": [
+        "Each skill first checks what it needs (a browser, the Shopify CLI, your brand files) and, if anything is missing, walks you through setting it up in plain steps.",
         "Start with page-audit. Say what the page is for: book, sell, promote, build trust, inform or fix.",
         "It checks the rendered page at desktop and mobile against a playbook for its type, and names who owns each fix (this theme, store admin, store settings, a third-party app, or an off-site page).",
         "It writes a ranked report and a living PAGE-AUDIT.md.",
         "Ask page-studio to apply the recommendations you pick, or name any change or new page directly."
       ],
       "produces": ["A client-ready audit report and PAGE-AUDIT.md", "Changes or new pages on a draft theme"],
-      "requires": ["brand-capture"],
+      "requires": ["brand-capture (BRAND.md, BRAND-VOICE.md, design.md) for new or rewritten words.", "To change pages: Node.js, the Shopify CLI signed in to your store with theme access, a browser Claude can use, and a folder on your computer for the theme copy. page-audit needs only a browser and the page address.", "No need to set these up in advance: each skill checks them first and walks you through anything missing, step by step."],
       "guardrails": ["page-audit never edits a theme or store.", "Changes go only to a draft theme (asked for or created). The live theme is never edited."],
       "next": ["accessibility-audit"]
     },
@@ -165,13 +166,14 @@
       "what": "Scores a page with the Lighthouse CLI, classifies every failing audit, proposes minimal fixes, and after your approval applies them and re-scores until the page reaches 1.00. Fixes are additive only: aria attributes, roles, hidden labels, blank-value guards and a minimum contrast nudge. It never changes layout, styling or copy.",
       "prompts": ["Score this page", "Run Lighthouse on the product page", "Accessibility audit", "Get this to 100%", "Fix the a11y score"],
       "steps": [
-        "Pick the theme to work on. It asks once and remembers. A draft theme is recommended.",
+        "It checks what it needs (Node.js, the Shopify CLI, Chrome, Lighthouse) and walks you through setting up anything missing.",
+        "Pick the draft theme to work on. It asks once and remembers, or makes a draft copy. The live theme is never edited.",
         "It scores the page and classifies each failing audit.",
         "You approve the proposed fixes.",
         "It applies them and re-scores until the page hits 1.00."
       ],
       "produces": ["A scored report and approved accessibility fixes"],
-      "requires": ["Lighthouse CLI"],
+      "requires": ["Node.js, the Shopify CLI signed in to your store with theme access, Google Chrome, Lighthouse (downloads itself), a browser Claude can use, and a folder on your computer for the theme copy.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
       "guardrails": ["Never edits the live theme: it works on a draft theme, asked for or created.", "Roughly 15 to 40 minutes per page template. This is an estimate."],
       "next": []
     },

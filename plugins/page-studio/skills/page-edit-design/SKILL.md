@@ -26,7 +26,7 @@ across breakpoints and colour schemes, and puts only the touched files on the th
 (always a draft, never the live theme). The live theme is never edited: work goes to a draft theme, created if there isn't one.
 
 ```
-1. Context -> 2. Understand the request -> 3. Resolve the target and working copy ->
+0. Setup check -> 1. Context -> 2. Understand the request -> 3. Resolve the target and working copy ->
 4. Pick the narrowest technique -> 5. Capture the baseline -> 6. Show the exact change ->
 7. Edit the working copy -> 8. Verify -> 9. Ship to the theme -> 10. Hand back
 ```
@@ -62,6 +62,15 @@ theme. Plain language, explain a term once, narrate before acting ("I'll move th
 leave every other section where it is"), flag trade-offs in plain terms ("this style is also used on
 your contact page"), and explain draft versus live the first time it comes up: on a draft, nothing
 visitors see changes until they say go; these skills never edit the live theme, because edits there show to visitors at once.
+
+## 0. Setup check
+
+Before anything else, run `../page-studio/references/setup-check.md` for this skill's column: a
+browser, the page address, brand files, Node.js, the Shopify CLI signed in to the store, and a
+folder for the theme copy. Assume the person isn't technical: check silently yourself, then walk
+them through anything missing one step at a time, in plain words, and re-check after each step.
+Skip it if it already passed in this conversation (for example, `page-studio` ran it before handing
+off). Nothing else starts until the required items pass.
 
 ## 1. Context
 
@@ -160,6 +169,7 @@ numbers (including the other pages checked), what was flagged and not done, and 
 
 ## Checklist before finishing
 
+- [ ] Setup check passed (or already passed this conversation); anything missing was explained and fixed step by step
 - [ ] Visual values traced to the spec; none invented; no font swapped without a licence check
 - [ ] Every other page using the shared code identified, baselined and verified
 - [ ] Narrowest technique used; repo scoping rules followed; no base or vendor file edited
