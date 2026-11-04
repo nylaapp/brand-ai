@@ -12,79 +12,79 @@
       "name": "blog-generator",
       "source": "./plugins/blog-generator",
       "description": "Research and write SEO/AEO-optimized Shopify blog posts.",
-      "version": "0.3.0"
+      "version": "0.3.1"
     },
     {
       "name": "blog-rewriter",
       "source": "./plugins/blog-rewriter",
       "description": "Rewrite existing articles in a store's brand voice and post as hidden drafts.",
-      "version": "0.9.0"
+      "version": "0.9.1"
     },
     {
       "name": "blog-autopilot",
       "source": "./plugins/blog-autopilot",
       "description": "Decide when and what to blog from store, SEO and seasonal signals.",
-      "version": "0.2.0"
+      "version": "0.2.1"
     },
     {
       "name": "brand-capture",
       "source": "./plugins/brand-capture",
       "description": "One-time brand setup: scans a site, reads any brand book, and writes BRAND.md, BRAND-VOICE.md and BRAND-QUESTIONS.md in a draft theme's folder, where every other skill reads them.",
-      "version": "0.4.0"
+      "version": "0.4.1"
     },
     {
       "name": "styles-builder",
       "source": "./plugins/styles-builder",
       "description": "Generate design.md from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates.",
-      "version": "0.6.0"
+      "version": "0.6.1"
     },
     {
       "name": "competitor-research",
       "source": "./plugins/competitor-research",
       "description": "Deep, dated research on a client's named competitors, written to COMPETITORS.md in the draft theme's folder.",
-      "version": "0.2.0"
+      "version": "0.2.1"
     },
     {
       "name": "fact-check",
       "source": "./plugins/fact-check",
       "description": "Fact-check blog and marketing copy with guardrails for regulated claims.",
-      "version": "0.2.0"
+      "version": "0.2.1"
     },
     {
       "name": "accessibility-audit",
       "source": "./plugins/accessibility-audit",
       "description": "Lighthouse accessibility scoring for Shopify themes with additive fixes and re-scoring.",
-      "version": "0.4.0"
+      "version": "0.4.1"
     },
     {
       "name": "seo-audit",
       "source": "./plugins/seo-audit",
       "description": "Audit live Shopify blog posts (schema, PageSpeed, on-page checks) and track Search Console rankings at 2 and 4 weeks.",
-      "version": "0.2.0"
+      "version": "0.2.1"
     },
     {
       "name": "cro-audit",
       "source": "./plugins/cro-audit",
       "description": "Full CRO audit suite, strictly read-only: technical and speed, heuristic and competitive review, Shopify Analytics read through the Shopify CLI (or supplied numbers) with data-validity checks, behavioural review, voice of customer, survey and user-test plans, prioritisation, experiment planning and an A/B result checker. Never changes store settings or setup.",
-      "version": "0.3.1"
+      "version": "0.3.2"
     },
     {
       "name": "page-studio",
       "source": "./plugins/page-studio",
       "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme.",
-      "version": "0.10.0"
+      "version": "0.10.1"
     },
     {
       "name": "analytics",
       "source": "./plugins/analytics",
       "description": "Analytics partner: tagging and full audits across privacy states, setup from issue list to verified fixes, quick and zero-based tag cleanup, and guardrails with drift watch.",
-      "version": "0.5.0"
+      "version": "0.5.1"
     },
     {
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.1.6"
+      "version": "0.1.7"
     }
   ]
 }
