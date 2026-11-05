@@ -154,7 +154,7 @@ the imagery rule). Only when design.md could not be made, list:*
   someone else>
 
 ## Competitors
-*The client's top 2 or 3, as named. Light research only: site, feed, overlap, one line each.*
+*The client's top 3 (fewer if that is all they named), as named. Light research only: site, feed, overlap, one line each.*
 
 | Brand | Website | Blog feed | Overlap | Notes | Source |
 |---|---|---|---|---|---|
@@ -164,11 +164,12 @@ the imagery rule). Only when design.md could not be made, list:*
 - **Deep research:** COMPETITORS.md, written by the competitor-research skill (dated; run it if the file is missing)
 
 ## Inspiration brands
-*The client's 2 or 3 non-competitive brands they admire, any industry.*
+*The client's 2 or 3 non-competitive brands they admire, any industry. Studied by brand-capture (discovery §6b);
+competitor-research does not cover them.*
 
-| Brand | Website | What to learn (style only, never copy) | Source |
+| Brand | Website | What to learn (2 or 3 patterns, style only, never copy) | Source |
 |---|---|---|---|
-| <name> | <url> | <tone, layout, storytelling> | <client / suggested> |
+| <name> | <url> | <Pattern: what they do (url). For <brand>: how it could apply.> | <client / suggested> |
 
 ## Channels
 - **Social:** <platform: url> list

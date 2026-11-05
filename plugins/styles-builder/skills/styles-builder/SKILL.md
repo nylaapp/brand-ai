@@ -187,7 +187,7 @@ It needs four things. If any is missing, stop, say which, and do not write a `de
   for the site and any brand book itself. It reads a public site or a brand book, so a brand with
   neither yet can't be captured: say so, and ask for one (a public staging site works).
 - **A person present.** It asks what to work from (a site, a brand book), which draft theme to save
-  the files in, and four short setup questions (top competitors, inspiration brands, who approves
+  the files in, and four short setup questions (top 3 competitors, inspiration brands, who approves
   things, anything never to say) that only the client can answer. In an unattended or scheduled run,
   stop and say a person is needed.
 - **The right setting.** brand-capture asks for Claude Opus 5.5 at high effort or above and says not to

@@ -12,12 +12,11 @@ brand: <brand, as in BRAND.md>
 brand_md_revision: <the BRAND.md revision this run read>
 researched: <YYYY-MM-DD>
 next_review: <YYYY-MM-DD, about 3 months later>
-competitors: <names, comma-separated>
-inspirations: <names, comma-separated>
+competitors: <the top 3 names from BRAND.md, comma-separated>
 researched_by: competitor-research 1.0
 ---
 
-# <Brand>: competitors and inspiration (<YYYY-MM-DD>)
+# <Brand>: top competitors (<YYYY-MM-DD>)
 
 > Dated research about other brands, not facts about <Brand>: brand facts live in BRAND.md. Prices, offers and
 > counts are as seen on the date given with each one. Re-run the competitor-research skill to refresh.
@@ -31,18 +30,18 @@ researched_by: competitor-research 1.0
 ## Side by side
 *Only the rows that apply to this kind of business (research guide §1).*
 
-| | <Brand> | <Competitor A> | <Competitor B> |
-|---|---|---|---|
-| What they are | <from BRAND.md> | <one line> | <one line> |
-| Where they operate | <from BRAND.md> | <...> | <...> |
-| Overlap with <Brand> | n/a | <cities, neighbourhoods, marketplaces> | <...> |
-| Offer | <from BRAND.md> | <...> | <...> |
-| Prices | <from BRAND.md> | <from $X (date)> | <...> |
-| Pricing model | <...> | <...> | <...> |
-| Promotions | <...> | <...> | <...> |
-| Proof they show | <from BRAND.md> | <...> | <...> |
-| Content | <cadence, length, authors> | <...> | <...> |
-| Voice in three words | <from BRAND.md> | <...> | <...> |
+| | <Brand> | <Competitor A> | <Competitor B> | <Competitor C> |
+|---|---|---|---|---|
+| What they are | <from BRAND.md> | <one line> | <one line> | <one line> |
+| Where they operate | <from BRAND.md> | <...> | <...> | <...> |
+| Overlap with <Brand> | n/a | <cities, neighbourhoods, marketplaces> | <...> | <...> |
+| Offer | <from BRAND.md> | <...> | <...> | <...> |
+| Prices | <from BRAND.md> | <from $X (date)> | <...> | <...> |
+| Pricing model | <...> | <...> | <...> | <...> |
+| Promotions | <...> | <...> | <...> | <...> |
+| Proof they show | <from BRAND.md> | <...> | <...> | <...> |
+| Content | <cadence, length, authors> | <...> | <...> | <...> |
+| Voice in three words | <from BRAND.md> | <...> | <...> | <...> |
 
 ## <Competitor A>
 - **Site:** <url> · **Positioning:** "<short quote>" (<url>)
@@ -57,11 +56,8 @@ researched_by: competitor-research 1.0
 ## <Competitor B>
 *Same layout.*
 
-## Inspiration brands: what to learn
-### <Inspiration X>
-- **Site:** <url> · **Why <Brand> admires it:** <inferred, from what it does well>
-- **Pattern:** <what they do (url)>. **For <Brand>:** <how it could apply>
-- **Pattern:** <...>
+## <Competitor C>
+*Same layout. Leave out if BRAND.md names only two.*
 
 ## Openings for <Brand>
 *3 to 6, each with its evidence.*
