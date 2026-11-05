@@ -222,7 +222,8 @@ If brand-capture stopped early, couldn't render the site, or produced no `design
 exactly what is missing; never fill the gap with a `design.md` written here.
 
 Then check the deep set against `design.md`: product, collection and cart page measurements, hover and focus
-states, input fields, logo and favicon, and motion. Each must be present, or said plainly to be absent
+states, input fields, logo and favicon, motion, and the §12 Shopify theme settings map (every settings group with a
+value, the type scale complete from H1 to H6). Each must be present, or said plainly to be absent
 ("No animation"). If one is missing, say which, and ask brand-capture to fill it in (its add-design mode, which
 measures only the missing items); don't ask the person whether to deepen `design.md`, and don't measure it here.
 
@@ -244,9 +245,10 @@ measures only the missing items); don't ask the person whether to deepen `design
 ## Step 0.5: The initial token set — what "ready to build on" means
 
 Before a theme is ready for `page-studio` to build or edit pages against, these are the
-things that need a settled, sourced value. Treat this as the checklist for Step 1's extraction and Step 3's
-`design.md`: a design.md missing one of these isn't wrong, but say plainly in the summary which are still
-`unconfirmed` rather than letting a later skill discover the gap mid-build.
+things that need a settled value. Treat this as the checklist for Step 1's extraction and Step 3's
+`design.md`. design.md is complete (brand-capture `design-template.md` §12): every item has a measured, stated,
+inferred or `(proposed)` value, so the theme gets a full set of settings however little the brand book covers. Only
+items that need a file or licence (logo, favicon, font files) stay `unconfirmed`, and the summary lists them.
 
 - **Color schemes** — not just "the brand colors," but how they group into the named sets a Shopify
   theme actually uses (a scheme defines roles: text, background, button, border — see Step 4). At minimum:
@@ -254,7 +256,7 @@ things that need a settled, sourced value. Treat this as the checklist for Step 
   (a footer, a promo band, a dark hero). Each scheme needs its role colors identified, not just a swatch list.
 - **Typography** — font family per role (heading, body, and accent/display if the brand uses one),
   weights actually used (don't carry over every weight a font file ships with — list only the ones that
-  appear), a type scale (H1 through H4 or H5, plus body and small/caption sizes), line height per role,
+  appear), a complete type scale (H1 through H6, plus body and small/caption sizes, at desktop and mobile), line height per role,
   letter-spacing where the brand uses it (often headings only), and casing convention (sentence case,
   title case, or uppercase for eyebrows/labels).
 - **Spacing and layout rhythm** — section vertical padding (desktop and mobile — these are almost always
@@ -326,13 +328,17 @@ file or reference store is available.
 - When brand book and reference store disagree (e.g. book says one blue, live site renders a slightly
   different blue), ask the user which is current/authoritative — brand books go stale, live sites
   sometimes drift from guidelines.
-- Never invent a value with no source. If something is missing from every source (e.g. no stated font
-  license, no documented shadow), leave it explicitly marked `unconfirmed` in `design.md` rather than
-  filling in a plausible guess — `page-studio` checks a new font's licence with the Site Editor
-  before using it, and that check is only as honest as this file; a theme applying an `unconfirmed` value
-  silently is how a guess becomes load-bearing.
-- Flag anything inferred (a proposed scheme mapping, a measured-not-stated type scale) clearly as
-  `(inferred)`, and anything measured on a live store as `(from site)`, matching brand-capture's origin
+- Fill every gap, and label it. A value no source covers gets a `(proposed)` value derived by brand-capture's
+  rules (`design-template.md` §12: follow the brand's own pattern, complete the type scale on one ratio, one spacing
+  unit, states from the palette, else the theme default named as such), with its reason in the same row. Apply
+  proposed values to the theme like any other: they are theme settings, easy to change, and a blank setting would
+  leave the theme's demo look in place. List them in the summary for the designer or approver to confirm.
+- Never present a proposal as a brand fact, never propose a colour outside the brand's palette or a font family the
+  brand didn't name (or name as a fallback), and never propose a licence, a logo or a font file. Those stay
+  `unconfirmed` in `design.md` — `page-studio` checks a new font's licence with the Site Editor before using it, and
+  that check is only as honest as this file.
+- Flag anything inferred (a scheme mapping, a measured-not-stated type scale) as `(inferred)`, anything measured on
+  a live store as `(from site)`, and anything filled by the rules as `(proposed)`, matching brand-capture's origin
   labels for the same situations.
 
 ## Step 3: Write design.md
@@ -343,7 +349,8 @@ as the source for every visual value, so write it the way brand-capture's `desig
 
 - **Colour palette** — every named scheme, which colours it contains, where each is used (background,
   text, border, accent, link, button).
-- **Typography** — families (heading/body/accent), scale per role, weights, casing conventions, font
+- **Typography** — families (heading/body/accent), the full scale from H1 to H6 plus body, small, button and
+  label (size, line height, letter spacing, case, at desktop and mobile), weights, casing conventions, font
   licence status per family. For an asset-based font: file names, weights and styles, source URL,
   licence name, date downloaded and who approved.
 - **Spacing and container widths** — section padding (desktop and mobile), gaps, max container width(s),
@@ -363,6 +370,8 @@ as the source for every visual value, so write it the way brand-capture's `desig
 - **Variant pickers and swatches** — every state, shape, radius and border.
 - **Shared styling contract** — the rule that sections of the same page family (e.g. all PLP card grids,
   all hero banners) must share these values, so future builds stay consistent without re-deriving them.
+- **Shopify theme settings** — brand-capture's §12 map: every settings group with a value and its origin, so
+  Step 4 applies a complete set.
 - **Parity tolerances** — how close a rebuilt page must measure to a reference (pixel/percent tolerance on
   spacing, color delta tolerance) — propose sensible defaults (e.g. ±4px spacing, ΔE < 2 for color) and
   ask the user to confirm or adjust.
@@ -370,8 +379,9 @@ as the source for every visual value, so write it the way brand-capture's `desig
 Front matter: the same flat `key: value` lines brand-capture's `design.md` uses (no nesting, no quotes):
 `brand`, `parent_doc: BRAND.md`, `status` (draft or approved, same as `BRAND.md`), `revision` (+1 on every
 write), `last_updated`, `measured` (date and viewports, or "not measured"), and `source` (the brand book
-file or reference store URL). Label a value `(from site)` when measured on a live store and `(inferred)`
-when proposed; values taken as stated from a brand book are covered by `source`. Leave any `(client)` line
+file or reference store URL). Label a value `(from site)` when measured on a live store, `(inferred)` when
+concluded from the sources, and `(proposed)` (with its reason) when it fills a gap; values taken as stated from a
+brand book are labelled `(from brand book)`. Leave any `(client)` line
 as the user wrote it. Keep brand identity content (voice, claims, competitor names) out entirely — link to
 `BRAND.md` instead of repeating it.
 
@@ -537,8 +547,9 @@ Only if the person said yes to it in the opening questions (or asked for it in t
 
 ## Never
 
-Do not invent a color, font, spacing, radius, or shadow value with no source — mark it `unconfirmed`
-instead. Do not start, or write a `design.md` of your own, when `BRAND.md` or brand-capture's `design.md` is
+Do not leave a theme setting without a value because the sources are silent: fill it with a labelled `(proposed)`
+value and its reason. Do not present a proposal as a brand fact, propose a colour outside the brand's palette or a
+font family the brand didn't name, or propose a licence, logo or font file — those stay `unconfirmed`. Do not start, or write a `design.md` of your own, when `BRAND.md` or brand-capture's `design.md` is
 missing: run brand-capture first, yourself, and wait for it to finish. Do not answer brand-capture's setup
 questions for the user, and do not run it below the setting it asks for. Do not duplicate brand identity content that belongs in `BRAND.md`. Do not create a new theme
 setting id where an existing one already covers the token. Do not remap a color scheme without checking

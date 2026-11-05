@@ -9,7 +9,7 @@ and `##` headings, so keep every key and every heading, in this order, even when
 out as in `voice-template.md`. Terminology and Claim limits stay here, because they are naming and compliance rules.
 
 **Origin labels** (on any line that isn't plainly sourced): `(from site)`, `(from brand book)`, `(repo)`, `(client)`,
-`(inferred)`, `(suggested)`. A line labelled `(client)` was confirmed by the customer and must never be overwritten by a scan.
+`(inferred)`, `(suggested)`, and in design.md only `(proposed)` (a gap filled by `design-template.md` §12's rules). A line labelled `(client)` was confirmed by the customer and must never be overwritten by a scan.
 
 **Unknowns** use one form only, with a stable id that also appears in `BRAND-QUESTIONS.md`:
 `[[CLIENT TO CONFIRM: Q-07 | the question the client must answer]]`. Never write a bare `[[CLIENT TO CONFIRM]]`.

@@ -20,7 +20,7 @@
         "It studies each inspiration brand and records in BRAND.md what the brand can learn from it.",
         "It writes the files and asks at most four follow-up questions for anything the scan could not settle."
       ],
-      "produces": ["BRAND.md (brand identity, the source of truth)", "BRAND-VOICE.md (how the brand sounds)", "design.md (palette, type, spacing, corners, components, imagery)", "BRAND.html (a readable copy for the client)", "BRAND-QUESTIONS.md (open follow-up questions)"],
+      "produces": ["BRAND.md (brand identity, the source of truth)", "BRAND-VOICE.md (how the brand sounds)", "design.md (a complete visual guide: palette, the full H1 to H6 type scale, spacing, corners, components, imagery and a value for every Shopify theme setting; gaps the sources leave are filled with clearly labelled proposed values)", "BRAND.html (a readable copy for the client)", "BRAND-QUESTIONS.md (open follow-up questions)"],
       "requires": ["Nothing. Start here."],
       "guardrails": ["Scans public pages only.", "Optional shared copy of the non-confidential files for the team."],
       "next": ["competitor-research", "styles-builder", "blog-generator"]
@@ -47,7 +47,7 @@
       "prompts": ["Generate design tokens", "Create design.md", "Set up the brand's colors and fonts in the theme", "Match the reference store's look", "Get the theme ready to build on"],
       "steps": [
         "If BRAND.md or design.md are missing, it runs brand-capture first and waits for it to finish.",
-        "It builds the full token set from your brand book or a reference store.",
+        "It builds the full token set from your brand book or a reference store, and fills any gap with a labelled proposed value so every theme setting gets one.",
         "It applies the tokens into the theme settings and sets up the starter essentials.",
         "If you opted in at the start, it brands the starter section templates."
       ],
