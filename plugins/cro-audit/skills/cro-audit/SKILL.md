@@ -218,9 +218,12 @@ severity scale. Tag `[Test]`. No sessions yet: attach the script and mark "prepa
 
 ## 9. Write CRO-AUDIT.md
 
-Use `references/report-template.md`. Give a short readout: the top five with evidence tags and
-confidence, the buckets, and what is waiting on data. End with the open questions and the list of
-skipped streams.
+Use `references/report-template.md` for the file. Then write the chat message with
+`references/chat-readout.md`: a plain-language readout in a fixed order (headline, what I looked at,
+what changed, a five-row "Fix these first" table, quick wins, what's worth testing, what the numbers
+say, what I couldn't check, then the link and one next-step question). The file keeps the analyst
+detail (evidence tags, buckets, scores); the chat translates it into plain words using the glossary in
+that reference. Put the same readout at the top of the file as **Read this first**.
 
 ## 10. Hand off
 
@@ -242,5 +245,6 @@ always go to a draft theme (those skills never edit the live theme).
 | `references/user-testing-playbook.md` | Stream 7 |
 | `references/prioritization.md`, `references/experiment-design.md` | Stream 8 |
 | `references/report-template.md` | The file you write |
+| `references/chat-readout.md` | The chat message: layout, writing rules, glossary, example |
 | `scripts/shopifyql.py` | Read-only Shopify Analytics through the Shopify CLI (access check, presets, refuses writes) |
 | `scripts/pagespeed.py`, `funnel.py`, `sample_size.py`, `ab_result.py`, `prioritize.py` | Measurement and maths (stdlib only) |

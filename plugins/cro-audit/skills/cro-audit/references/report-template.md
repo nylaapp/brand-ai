@@ -22,6 +22,11 @@ analyzed_by: cro-audit 0.2.0
 
 # <Brand>: CRO audit (<date>)
 
+## Read this first
+The same plain-language readout given in chat (`chat-readout.md`): headline, what was looked at, what
+changed since last time, the five-row "Fix these first" table, quick wins, what's worth testing, what
+the numbers say and what couldn't be checked. Everything below is the full detail behind it.
+
 > What this is: <one line saying which streams ran and which kinds of evidence back it. State plainly
 > that heuristic and measured findings show likely friction, and only analytics, behavioural and test
 > evidence show what visitors did.>
