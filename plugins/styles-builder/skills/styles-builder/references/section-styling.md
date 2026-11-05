@@ -25,7 +25,9 @@ named templates.
 1. **Inventory.** For each section, list the styling settings it exposes (colour scheme, top and bottom
    padding, gap, width, height, corner radius where offered) and their current values.
 2. **Map from `design.md` only.** Use its section padding (desktop and mobile), container widths, scheme
-   roles and radius scale. Where `design.md` has no value, leave the section alone and say so. Never invent one.
+   roles and radius scale, including its `(proposed)` values (show those as proposed in the table). design.md is
+   complete, so every section setting has a value to map from; if one is still missing, point back to
+   brand-capture's add-design mode rather than choosing a value here.
 3. **Existing settings only.** No new settings, no markup or CSS changes, no change to the order or count of
    sections, and no copy or image changes: those are other jobs.
 4. **Show first.** A before and after table for every section changed. Get a yes per template, then apply.

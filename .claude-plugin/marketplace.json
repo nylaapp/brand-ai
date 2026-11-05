@@ -29,14 +29,14 @@
     {
       "name": "brand-capture",
       "source": "./plugins/brand-capture",
-      "description": "One-time brand setup: scans a site, reads any brand book, and writes BRAND.md, BRAND-VOICE.md and BRAND-QUESTIONS.md in a draft theme's folder, where every other skill reads them.",
-      "version": "0.5.0"
+      "description": "One-time brand setup: scans a site, reads any brand book, and writes BRAND.md, BRAND-VOICE.md, a complete design.md and BRAND-QUESTIONS.md in a draft theme's folder, where every other skill reads them.",
+      "version": "0.6.0"
     },
     {
       "name": "styles-builder",
       "source": "./plugins/styles-builder",
       "description": "Generate design.md from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates.",
-      "version": "0.6.2"
+      "version": "0.7.0"
     },
     {
       "name": "competitor-research",
@@ -84,7 +84,7 @@
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.1.11"
+      "version": "0.1.12"
     }
   ]
 }

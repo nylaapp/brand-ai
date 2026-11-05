@@ -10,8 +10,9 @@ description: >-
   things to make sure they're on brand, anything never to say or claim), studies each inspiration
   brand for what the brand can learn from it, then writes BRAND.md (the single
   source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand
-  sounds, kept in its own file), design.md (the brand's visual system as measured values: palette,
-  type, spacing, corners, components, imagery), a readable BRAND.html copy for the client, and at
+  sounds, kept in its own file), design.md (the brand's complete visual system, measured, stated or
+  clearly proposed where the sources are silent: palette, the full H1 to H6 type scale, spacing,
+  corners, components, imagery and a value for every Shopify theme setting), a readable BRAND.html copy for the client, and at
   most four follow-up questions, all saved in the chosen draft theme's folder so later customization
   and every other skill find them there, with an optional shared copy of the non-confidential files
   for the rest of the team. Finally points the project's agent files and skills at
@@ -144,10 +145,15 @@ each other's files.
   pages, or the site and the brand book), write neither: it becomes a Q-id (`discovery.md` §3a).
 - **A `(client)` line is never overwritten by a scan.** Client answers outrank the site.
 - **Don't duplicate other docs.** design.md owns visual values; repo skills own procedures. BRAND.md links them.
-- **design.md is measured, not imagined.** Every value comes from the live site, the scan or the theme settings, or
-  from the brand book (labelled `(from brand book)`: stated, not measured), or is labelled `(inferred)` or left out.
-  Never invent a hex, size, radius or hover state to fill a table. An existing design.md (the client's or the repo's)
-  is never overwritten: it is the source, and BRAND.md points to it.
+- **design.md is complete, and honest about where each value comes from.** It is always a full design guide that a
+  Shopify theme can be set from, however little the sources cover: every theme settings group and every type level
+  (H1 to H6, body, small, button, label) has a value. Each value is measured on the live site `(from site)`, stated by
+  the brand book `(from brand book)`, concluded from them `(inferred)`, or, where no source covers it, `(proposed)`:
+  derived from the brand's own stated values by the rules in `design-template.md` §12, with the reason written next to
+  it. A proposal is never presented as a brand fact, and it never adds a colour outside the brand's palette or a font
+  family the brand didn't name (or name as a fallback). Only things that need a file or a licence (logo, favicon, font
+  files) may stay open, and each says what the theme uses meanwhile. An existing design.md (the client's or the
+  repo's) is never overwritten: it is the source, and BRAND.md points to it; a missing §12 is added in add-design mode.
 - **Read only on the web.** Public pages, robots.txt honoured, fixed caps. Never sign in, never submit forms.
   Follow the host repo's own device and browser rules.
 - **Scratch stays out of the repo.** The scan JSON and the evidence folder go to a temp or scratch folder.
@@ -174,7 +180,7 @@ each other's files.
 4. **Mode:**
    - **new:** no BRAND.md yet. Full run; it writes BRAND.md, BRAND-VOICE.md and design.md.
    - **add-design:** BRAND.md exists but no design.md does (`design_doc: none`, or the key is missing), or a design.md
-     exists but lacks an item of the deep set (`design-template.md`). In the second case, measure only the missing
+     exists but lacks an item of the deep set (`design-template.md`, including the §12 theme settings map). In the second case, measure only the missing
      items, show the person what would be added, and on their yes append just those sections: existing values and
      `(client)` lines are never changed or overwritten, `revision` goes up and the file's Change log gets a row.
      The steps below are for the first case. Run Step 1's
@@ -332,7 +338,11 @@ recent posts (about 2 minutes each), and write 2 or 3 patterns the brand can lea
   `measured:` that they are stated, not measured; where the live site measures differently, record both and ask. With
   no site, everything in design.md is stated, not measured. Set `design_doc: design.md` in BRAND.md, whose Visual
   identity is the pointer plus the summary. Font families named TRIAL or DEMO get a ⚠️ in Assets and a question in
-  BRAND-QUESTIONS.md.
+  BRAND-QUESTIONS.md. **Then complete it** (`design-template.md` §12): fill every gap the sources leave with a
+  `(proposed)` value and its reason, so the full type scale (H1 to H6 at desktop and mobile), spacing, every component
+  state and every Shopify theme settings group has a value. List the proposed values in one "Proposed design values"
+  item under Held for later in BRAND-QUESTIONS.md, for the designer or approver to confirm; they are not one of the 4
+  client questions.
 - **BRAND-QUESTIONS.md:** follow `references/client-questions.md`. **At most 4 questions for the client**,
   chosen with `discovery.md` §3b; every other open item goes under "Held for later" for the reviewer.
 
@@ -344,7 +354,8 @@ python3 scripts/validate_brand.py BRAND.md --evidence <scratch>/evidence --quest
 
 It checks BRAND.md and, through `voice_doc`, BRAND-VOICE.md. Check design.md by hand: the front-matter keys match
 the template, every value is measured or labelled, every item of the deep set is present (product, collection and cart
-measurements, hover and focus states, inputs, logo and favicon, motion) or said plainly to be absent, and BRAND.md's Visual identity summary agrees with it. Exit 0 is required before saving (warnings go in the
+measurements, hover and focus states, inputs, logo and favicon, motion, the theme settings map) or said plainly to be
+absent, §12 has no blank value (H1 to H6 included), and BRAND.md's Visual identity summary agrees with it. Exit 0 is required before saving (warnings go in the
 report). Fix and re-run on errors. Always pass
 `--evidence`: a quote it can't find in the saved pages is unverified, so save that page (`--extra-url`) or drop
 the quote, and report any warning that remains.

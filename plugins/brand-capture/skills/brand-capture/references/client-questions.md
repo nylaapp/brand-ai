@@ -13,6 +13,8 @@ Rules for the agent:
 - Offer choices whenever the evidence allows (A/B/C plus "other"). Quote both sides of a conflict with where each
   appears. Plain language: no file names, section names or ids in the question text itself.
 - Everything else goes under "Held for later" with its evidence, for the reviewer. It is never sent as a list.
+- design.md's `(proposed)` values (`design-template.md` §12) go under Held for later as one item, "Proposed design
+  values": a short list of each value and its reason, for the designer or approver. They are not client questions.
 - When an answer arrives, mark the entry `Answered <date>: <answer> (from <who>)`; never delete entries.
 
 ---

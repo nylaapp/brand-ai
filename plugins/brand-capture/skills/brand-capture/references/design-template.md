@@ -1,7 +1,8 @@
 # design.md template
 
 design.md holds the brand's visual system as **actual values**: palette, type, spacing, corners, components, imagery,
-and the deep set below.
+the deep set below, and a value for every setting a Shopify theme needs (§12). It is always **complete**: however
+little the site or brand book covers, a designer or the styles-builder skill can set up a whole theme from it.
 It sits next to BRAND.md; BRAND.md's `design_doc: design.md` key and its Visual identity section point to it. It is
 written so it still works from a blank theme or a design tool with none of the brand's CSS present. Where design.md
 and BRAND.md disagree on a visual value, design.md wins; on names, voice and claims, BRAND.md wins.
@@ -22,27 +23,35 @@ BRAND-VOICE.md. Build procedures, section-by-section theme instructions and QA l
 4. **A brand book's stated values** (hex, type, spacing, logo rules), labelled `(from brand book)`. These are stated,
    not measured. Where the live site measures differently, record both and ask which is current; with no site yet,
    they are the only source.
+5. **Proposed**, only where none of the above covers a value: derived from the brand's own stated or measured values
+   by the rules in §12, labelled `(proposed)`, with the reason in the same row ("H4: 24px, continues the 1.25 scale
+   from the 16px body"). This is how gaps are filled; a table is never left with a blank.
 
-A value you could not measure is labelled `(inferred)` or left out. **Never invent** a hex, size, radius, font or
-hover behaviour to fill a table. Put anything that cannot be settled in BRAND-QUESTIONS.md like any other open item
-(font licences especially: a font named TRIAL or DEMO is a licence question, shown under Assets).
+**Complete, never invented.** Every value has an origin label, and a gap is filled with a `(proposed)` value, not left
+out. A proposal is a design decision made for the brand, not a fact about it: it is never written as `(from brand
+book)` or `(from site)`, never adds a colour outside the brand's palette, and never adds a font family the brand
+didn't name or name as a fallback. What needs a file or a licence (logo, favicon, font files) can't be proposed: it
+stays open, says what the theme uses meanwhile, and goes in BRAND-QUESTIONS.md (font licences especially: a font
+named TRIAL or DEMO is a licence question, shown under Assets). All `(proposed)` values are listed once under Held
+for later in BRAND-QUESTIONS.md as "Proposed design values", for the designer or approver to confirm.
 
 **The deep set (always covered).** Every design.md brand-capture writes covers these, so a later skill never has to
-go back and measure them. Each item is measured, `(from brand book)`, `(inferred)`, or said plainly to be absent
-(for example "No animation", "no swatches"); an item is never silently skipped:
+go back and measure them. Each item is measured, `(from brand book)`, `(inferred)`, `(proposed)`, or said plainly to be
+absent (for example "No animation", "no swatches"); an item is never silently skipped:
 1. **Product, collection and cart pages:** layout measurements for each (section 7).
 2. **Hover and focus states** for buttons, links, cards and inputs (sections 6 and 7).
 3. **Input fields:** every property and state (section 6).
 4. **Logo and favicon:** files, rendered heights, favicon links (section 9).
 5. **Motion:** each effect, or an explicit "No animation" (section 6).
+6. **Theme settings map:** a value for every Shopify theme settings group, including the full H1 to H6 scale (§12).
 Palette, type, spacing, corners, components and imagery stay as before.
 
 **Sizing.** Aim for 200 to 400 lines. Skip a section whose subject the brand doesn't have (a store with no
 accordions has no Accordion entry). Keep every rule that a designer would otherwise get wrong: the counterintuitive
 ones (what is rounded and what is square, what hover does, which family does which job) earn the most space.
 
-**Origin labels** are the same as in BRAND.md. Use `(from site)` for measured values, `(from brand book)` for values a brand book states, and `(inferred)` for the rest;
-`(client)` lines are never overwritten by a re-scan.
+**Origin labels** are the same as in BRAND.md. Use `(from site)` for measured values, `(from brand book)` for values a brand book states, `(inferred)` for what you conclude from them, and `(proposed)` for a gap filled by §12's rules (always with its reason);
+`(client)` lines are never overwritten by a re-scan, and a confirmed proposal becomes `(client)`.
 
 The front matter is flat `key: value` lines (no nesting, no quotes). Dates are `YYYY-MM-DD`.
 
@@ -92,8 +101,9 @@ commonest way to look off-brand while using the right fonts.*
 
 | Role | Size / weight / line-height | Family | Notes |
 |---|---|---|---|
-*H1, H2, H3, body, small body, nav link, button label, eyebrow, caption: only the roles the site has, desktop first
-with the mobile step noted where it differs.*
+*Always every level: H1, H2, H3, H4, H5, H6, body, small body, nav link, button label, eyebrow or label, caption, price.
+Give size, weight, line height, letter spacing and case, at desktop and at mobile. A level the sources don't show
+gets a `(proposed)` value from §12's type rules; never stop at the levels the brand book happens to show.*
 
 **Rules** *(one H1 per page, never skip levels; heading and eyebrow casing; italics; a third typeface yes or no)*
 
@@ -168,6 +178,43 @@ settings and tokens, in the order a developer should try them (theme setting, th
 rule, then inline style). Never hardcode a value the platform already exposes as a setting. Record any known gap
 between the saved settings and this file, dated. With no repo connected, delete this section: everything above is
 platform-neutral.*
+
+## 12. Shopify theme settings
+*Always, even with no theme connected: the complete set of values a Shopify theme is set from, one table per
+settings group. With a theme connected, use its own groups and setting ids (read `config/settings_schema.json`);
+without one, use these groups. Every row has a value and an origin label; no row says "not stated". A row that needs
+a file or licence says "needs file" and the value the theme uses until then.*
+
+| Group | What to give |
+|---|---|
+| Logo and favicon | logo and inverse logo files (or "needs file"), logo height desktop and mobile, favicon file |
+| Colours | the brand palette with a role for each colour; the theme's colour schemes or palette slots (background, text, primary and secondary button fill, text and border, input, border/divider, accent), each mapped to a palette colour, with its contrast ratio |
+| Typography | heading, body, subheading and accent fonts (the brand's, or its stated fallback from Shopify's font library); the full scale from the Typography table: H1 to H6 and body, each with size, line height, letter spacing, case and font role |
+| Page layout | page width, side margins, section padding desktop and mobile, gaps |
+| Buttons | per variant: fill, text, border, border width, radius, font, case, hover, focus, disabled |
+| Inputs | background, text, border, border width, radius, height, focus ring, error, label |
+| Variant pickers and swatches | button style, radius, border, default, hover, selected, unavailable; swatch shape and size |
+| Badges | position, radius, font, case, sale and sold-out colours |
+| Product cards | image ratio, corner radius, hover effect, title case, price style |
+| Cart, drawers, popovers | cart type, drawer and popover colours, radius, border, shadow |
+| Animations | page transition, add-to-cart feedback, card hover, reduced motion |
+| Icons | stroke or style |
+
+**Rules for `(proposed)` values** (use the first that applies, and write which one in the row):
+1. **Follow the brand's own pattern.** Continue a rule the sources show: if buttons are pills, inputs and variant
+   buttons are pills; if images are square, cards and media are square; if the book shows no shadows, there are none.
+2. **Type scale.** Take the stated or measured body size (16px if none) and the largest heading size the sources show
+   or imply; fill the missing levels on a single ratio between them (1.2 to 1.333; 1.25 when nothing suggests
+   otherwise), snapped to the theme's allowed sizes. Mobile steps H1 to H3 down by about 20%, H4 to H6 by about 10%.
+   Line height: about 1.1 for display, 1.2 for H3 to H6, 1.5 for body. Letter spacing 0 unless the sources show
+   tracking. Headings use the brand's heading weight; H5 and H6 may use the subheading role.
+3. **Spacing.** Use one base unit (4px or 8px) and the proportions the sources show; when they show none, section
+   padding 64px desktop and 40px mobile, 24px gaps, 16px mobile side gutter.
+4. **States.** Hover and focus follow the brand's palette: hover darkens or inverts within the palette, focus is a 2px
+   ring in the text colour with a 2px offset (`:focus-visible`), disabled uses 50% opacity; every state checked for
+   contrast (4.5:1 text, 3:1 UI).
+5. **Theme default.** Where nothing above decides it, keep the theme's own default and say so ("theme default,
+   proposed"), so the choice is visible rather than silent.
 
 ## Change log
 | Rev | Date | Requested by | Summary |
