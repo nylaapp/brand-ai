@@ -6,8 +6,8 @@ another site is judgement, not data about this store).
 
 ## Which competitors
 
-Use `COMPETITORS.md` if it exists (from the `competitor-research` skill) and its named competitors and
-inspiration brands. Otherwise ask for two to four, including one the person admires and one a customer
+Use the competitors in `COMPETITORS.md` if it exists (from the `competitor-research` skill) and the
+inspiration brands in `BRAND.md`. Otherwise ask for two to four, including one the person admires and one a customer
 would realistically compare with. Say the choice came from the person.
 
 ## Compare the same journey

@@ -16,7 +16,8 @@
       "steps": [
         "It asks whether the brand has an existing store or website and a brand book, and which draft theme should hold the brand files.",
         "It scans the website and reads the brand book if you provided one.",
-        "It asks four questions in one message: top competitors, inspiration brands, who approves things, and anything the brand must never say or claim.",
+        "It asks four questions in one message: top 3 competitors, inspiration brands, who approves things, and anything the brand must never say or claim.",
+        "It studies each inspiration brand and records in BRAND.md what the brand can learn from it.",
         "It writes the files and asks at most four follow-up questions for anything the scan could not settle."
       ],
       "produces": ["BRAND.md (brand identity, the source of truth)", "BRAND-VOICE.md (how the brand sounds)", "design.md (palette, type, spacing, corners, components, imagery)", "BRAND.html (a readable copy for the client)", "BRAND-QUESTIONS.md (open follow-up questions)"],
@@ -26,12 +27,12 @@
     },
     {
       "name": "competitor-research", "group": "foundation",
-      "tagline": "Dated research on the competitors and inspiration brands named in BRAND.md.",
-      "what": "Turns the competitors and inspiration brands the client named into COMPETITORS.md. For each one it compares where they operate against the client, what they sell and at what price, pricing model (flat, packages, memberships, subscriptions), offers and referral programs, how often they publish and who writes it, and how they position themselves. It ends with concrete openings for the client.",
+      "tagline": "Dated research on the top 3 competitors named in BRAND.md.",
+      "what": "Turns the client's top 3 competitors into COMPETITORS.md. Inspiration brands are not covered here; brand-capture asks for and studies them. For each competitor it compares where they operate against the client, what they sell and at what price, pricing model (flat, packages, memberships, subscriptions), offers and referral programs, how often they publish and who writes it, and how they position themselves. It ends with concrete openings for the client.",
       "prompts": ["Research the competitors", "Competitor analysis", "Build COMPETITORS.md", "Refresh the competitor research"],
       "steps": [
-        "It reads the competitor and inspiration lists from BRAND.md.",
-        "It researches each brand and compares it with the client.",
+        "It takes the top 3 competitors from BRAND.md. If none are listed, it asks you for your top 3.",
+        "It researches each competitor and compares it with the client.",
         "It writes COMPETITORS.md next to BRAND.md and lists openings for the client."
       ],
       "produces": ["COMPETITORS.md (dated, re-run every few months)"],

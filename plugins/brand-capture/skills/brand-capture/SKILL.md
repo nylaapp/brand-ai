@@ -6,8 +6,9 @@ description: >-
   theme to save the brand files in. Scans the brand's public website (About, story, mission and
   values pages, careers and news, locations, products with prices, types and colors, site colors and
   fonts, blog style, social links, disclaimers) and reads any brand book it is given, asks four
-  short setup questions (top competitors, non-competitive inspiration brands, who approves things to
-  make sure they're on brand, anything never to say or claim), then writes BRAND.md (the single
+  short setup questions (top 3 competitors, 2 or 3 non-competitive inspiration brands, who approves
+  things to make sure they're on brand, anything never to say or claim), studies each inspiration
+  brand for what the brand can learn from it, then writes BRAND.md (the single
   source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand
   sounds, kept in its own file), design.md (the brand's visual system as measured values: palette,
   type, spacing, corners, components, imagery), a readable BRAND.html copy for the client, and at
@@ -95,7 +96,7 @@ each other's files.
 
 | File | Read at |
 |---|---|
-| `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, reading a brand book, conflicts, choosing the 4 questions, claim rules by category, competitors |
+| `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, reading a brand book, conflicts, choosing the 4 questions, claim rules by category, competitors, studying inspiration brands |
 | `references/brand-home.md` | Steps 0, 1, 6b and 7: asking for a local folder and the draft theme, finding and writing its folder, `BRAND-HOME.md`, moving existing files, the optional shared copy |
 | `references/theme-target.md` | Step 1: choosing and remembering the theme (the same file the theme skills use; sections 2 to 4 and 6 apply here) |
 | `references/brand-context.md` | Step 0: the lookup order for files that already exist |
@@ -237,7 +238,7 @@ with your environment's question tool if it has one:
 > name, and the folder where its files are (I'll use this folder if it is the theme). "No draft yet" is a fine answer.
 >
 > And four quick questions:
-> 1. **Who are your top 2 or 3 competitors?** Names or websites.
+> 1. **Who are your top 3 competitors?** Names or websites. Fewer is fine.
 > 2. **Who are 2 or 3 brands you admire that don't compete with you?** Any industry: for tone, look, or how they talk to customers.
 > 3. **Who in your company needs to approve things to make sure they're on brand?** Name and role. "Nobody yet" is a fine answer.
 > 4. **Is there anything we should never say or claim about your brand or products?** Words, claims or topics. "Nothing" is fine.
@@ -302,9 +303,13 @@ story in the brand's own words; voice with real examples (for BRAND-VOICE.md); n
 catalog topics and price bands; claim limits for the categories the scan found, with the site's disclaimers
 verbatim and the client's "never say" answer first; visual identity (or a pointer to design.md).
 
-**Competitors and inspirations: light research only** (`discovery.md` §6): site, feed, one line and overlap for
-each brand the client named, about a minute each. Deep research (pricing, offers, content cadence) is the
-competitor-research skill's job; BRAND.md only points to `COMPETITORS.md` (front matter `competitors_doc`), which that skill writes.
+**Competitors: light research only** (`discovery.md` §6): site, feed, one line and overlap for each of the top 3,
+about a minute each. Deep competitor research (pricing, offers, content cadence) is the competitor-research skill's
+job; BRAND.md only points to `COMPETITORS.md` (front matter `competitors_doc`), which that skill writes.
+
+**Inspiration brands: studied here, in full** (`discovery.md` §6b). This skill is the only one that asks for and
+researches them; competitor-research covers competitors only. For each one, read the homepage, one story page and two
+recent posts (about 2 minutes each), and write 2 or 3 patterns the brand can learn from, each tied to a page.
 
 ## Step 4: Write BRAND.md, BRAND-VOICE.md, design.md and BRAND-QUESTIONS.md
 
@@ -391,7 +396,7 @@ Follow `references/report-template.md`: what it worked from (the site, the brand
 which draft theme and folder the files were saved in (or that there was no draft theme yet), where the shared copy
 is (or that none was chosen), where everything was saved, the 3 or 4 most useful findings, the questions sent and
 held, what the agency (not the client) should fix, what was linked, and the run time. End by offering the
-competitor-research skill for COMPETITORS.md, which saves next to BRAND.md.
+competitor-research skill for COMPETITORS.md (the top 3 competitors only), which saves next to BRAND.md.
 
 When another skill called this one, return to it as soon as BRAND.md is validated, with one line on what's still to
 confirm and the draft theme and folder you settled.

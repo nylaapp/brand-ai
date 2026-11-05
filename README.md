@@ -17,7 +17,7 @@ To pick up new versions, select **Check for updates** on the marketplace (or tur
 | Plugin | Skills | What it does | Requires |
 |---|---|---|---|
 | brand-capture | `brand-capture` | One-time brand setup: always asks for the brand's site or store and any brand book, reads them, and writes BRAND.md, BRAND-VOICE.md, design.md, BRAND-QUESTIONS.md, saved in the folder of a draft theme you choose | none |
-| competitor-research | `competitor-research` | Dated competitor and inspiration research: writes COMPETITORS.md next to BRAND.md in the draft theme's folder | brand-capture |
+| competitor-research | `competitor-research` | Dated research on the top 3 competitors: writes COMPETITORS.md next to BRAND.md in the draft theme's folder (inspiration brands are covered by brand-capture) | brand-capture |
 | fact-check | `fact-check` | Verify claims in copy, with regulated-claim guardrails | web search (checked first, with step-by-step setup help) |
 | accessibility-audit | `accessibility-audit` | Lighthouse accessibility scoring and additive fixes for Shopify themes | Node.js, Shopify CLI, Chrome (checked first, with step-by-step setup help) |
 | seo-audit | `seo-audit` | Audit a live blog post (schema, PageSpeed, on-page) and track Search Console rankings at 2 and 4 weeks | a browser and Search Console access (checked first, with step-by-step setup help); pairs with blog-generator |
