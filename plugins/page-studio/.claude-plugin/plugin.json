@@ -1,6 +1,6 @@
 {
   "name": "page-studio",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Page work for the Site Editor in focused skills: page-audit (read-only gap analysis), page-create (new pages and sections), page-edit-content (words, images, links) and page-edit-design (layout, order, style), behind a thin page-studio front door. Each editing skill captures a baseline, verifies on the rendered page and pushes only to a draft theme.",
   "author": {
     "name": "Nyla",

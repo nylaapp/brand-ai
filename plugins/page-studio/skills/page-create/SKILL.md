@@ -68,6 +68,11 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
   wait for brand-capture. Placeholder text must be obviously a placeholder, such as "[Clinician name]".
 - **Never recreate a reference page from a text-only fetch.** A capture without computed values and
   images isn't a capture. Don't say "matches the reference" without a measured parity table.
+- **Recreating a reference: its layout, the brand's design.** Unless the person says otherwise, follow
+  "Recreating a page from a reference" in step 3: copy the reference's structure and layout, build a new
+  section when no existing one nearly matches, and take every visual value from `design.md` and the
+  theme settings already established. Where the reference conflicts with the brand guidelines (spacing,
+  sizes, radius, type, colour), the brand guidelines win.
 - **Never delete or rename** an existing section or block file, and never edit a shared base-theme file
   without checking every usage.
 - **Never type a password or credential** for the person.
@@ -125,6 +130,27 @@ gaps, font, size, weight, colours, radius) rather than eyeballing them; and capt
 disabled states of buttons and links. If no rendered view is possible, say plainly it's blocked and name
 what failed; don't guess.
 
+**Recreating a page from a reference.** These rules apply unless the person gives other instructions
+for this page; when they do, theirs win and the plan says which rule they replaced.
+
+1. **Copy the layout, not the look.** Match the reference's structure: the order and number of bands,
+   what each band holds, columns and card count, which side media sits on, what is centred, and what
+   slides or stacks. Never copy its words, images, logo or typefaces.
+2. **Existing section first, new section when needed.** Use an existing section (or the same section
+   with one new setting) when it nearly matches the band's layout. When none nearly matches (a
+   different arrangement, a component the theme lacks, a card with parts no block can produce), plan a
+   new section following "If a new section type is needed" in step 4. Don't force a band into a
+   section that changes its layout.
+3. **Always the brand's design system.** Every colour, font, type size, spacing, radius, border,
+   shadow and state comes from `design.md` and the theme settings already set from it (styles-builder),
+   including its `(proposed)` values. The reference's own values are measured only to understand the
+   layout and to explain the differences.
+4. **The brand guidelines win every conflict.** Where the reference's spacing, sizes, radius, type,
+   colours or proportions differ from the brand guidelines, use the brand's value: for example the
+   brand's section padding instead of the reference's gaps, the brand's H2 instead of the reference's
+   heading size, the brand's pill buttons instead of square ones. Record each one in the parity table as
+   an intended difference with the brand rule it follows, so it isn't counted as a mismatch.
+
 **Without one:** start from the playbook section for this page type
 (`../page-audit/references/page-type-playbook.md`). Its must-have checks decide which regions the page
 or section needs and in what order, with the primary action in the first screen. Take copy facts from
@@ -133,7 +159,9 @@ the brand files and visual values from `design.md`.
 ## 4. Plan
 
 For each region choose from the reuse order in the rules. Show the person a plain-language table:
-region, which section it will use, whether it needs a new setting or a new section, and why. Get a
+region, which section it will use, whether it needs a new setting or a new section, and why. When
+recreating a reference, add what the reference does there and every place the brand guidelines replace
+the reference's value (step 3). Get a
 yes before building. The plan names the draft theme (name and id) it will be built on.
 
 **If a new section type is needed**, plan it explicitly and follow the store repo's rules for adding one:
