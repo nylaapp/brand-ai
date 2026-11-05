@@ -190,13 +190,30 @@ Claim limits holds three lists, so a reader can tell an approved claim from a sc
 
 ## 6. Competitors and inspiration
 
-The user names them; you don't discover them. Never research or suggest competitors or inspiration brands unless the user explicitly says "suggest". Ask for the **top 2 or 3 competitors** and **2 or 3 non-competitive inspiration brands** (any industry): the second list is non-competitive by definition, so the client never has to decide whether a competitor is also an inspiration.
+The user names them; you don't discover them. Never research or suggest competitors or inspiration brands unless the user explicitly says "suggest". Ask for the **top 3 competitors** (fewer is fine) and **2 or 3 non-competitive inspiration brands** (any industry): the second list is non-competitive by definition, so the client never has to decide whether a competitor is also an inspiration.
 
 - Take the user's answers as given; spell names as the brands do. More than 3 in a list: keep the first 3 and note the rest in the report.
 - **Light research only, for every brand the user named** (about 1 minute each): its official site (one search per brand), its blog feed if any (Shopify: `/blogs/<handle>.atom`; others: `/feed`, `/rss.xml`, `/blog/rss.xml`), one line on what it is, and for competitors the **overlap** with the brand: shared cities or neighbourhoods for businesses with locations (read its locations page), shared marketplaces, channels or price band for online-only brands.
-- **Deep research is a separate skill.** Pricing models, offers, memberships, content cadence and authorship, and side-by-side comparisons belong to the competitor-research skill, which writes `COMPETITORS.md`. brand-capture doesn't do it; BRAND.md just points to `COMPETITORS.md`, and the report offers the competitor-research skill as the next step.
+- **Deep competitor research is a separate skill.** Pricing models, offers, memberships, content cadence and authorship, and side-by-side comparisons of the top 3 competitors belong to the competitor-research skill, which writes `COMPETITORS.md`. brand-capture doesn't do it; BRAND.md just points to `COMPETITORS.md`, and the report offers the competitor-research skill as the next step.
+- **Inspiration brands are owned here.** competitor-research does not ask for or research them. brand-capture asks for them (Step 1, question 2) and studies them (§6b), and BRAND.md is the only place they are recorded.
 - **An inspiration brand that also competes** (it has a location in the brand's markets, or sells the same products to the same customers): keep it where the client put it and note it in the report for the reviewer. Not a client question unless the client asked about it. AYA example: Peachy Studio, given as inspiration, has an Atlanta Midtown studio.
 - **"Suggest", only when the user explicitly asks:** answer after the scan, from the category and markets it found. Give 3 names per list, each with overlap evidence and `(suggested)`, and never present a suggestion as the client's choice.
+
+## 6b. Studying inspiration brands
+
+The client admires them for a reason. For each one, read the homepage, one story or About page, and two recent posts
+(about 2 minutes per brand; save each page in the evidence folder). Find the 2 or 3 patterns worth learning, each tied
+to something you saw, for example:
+
+- how they present prices (flat, transparent, one page)
+- how they name and explain what they sell (named protocols, clear before and after labelling)
+- their tone (short sentences, first person, how formal they are)
+- their content format (named authors, short guides, video)
+- the customer experience (booking in two taps, quiz-led shopping)
+
+Write each in the Inspiration brands table as "Pattern: what they do (url). For <brand>: how it could apply." Never
+suggest copying wording. If a site can't be read, record its URL, write "not read: <reason>" and mention it in the
+report. The pattern that bears on voice, if any, also goes in BRAND-VOICE.md's Inspiration brands line.
 
 ## 6a. Names and brand architecture
 
