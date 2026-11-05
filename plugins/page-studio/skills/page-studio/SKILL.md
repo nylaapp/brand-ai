@@ -61,6 +61,7 @@ on the rendered page, push only the touched files to the chosen theme (always a 
 |---|---|
 | "Improve the homepage", "what's wrong with this page", "what should we fix" | `page-audit` |
 | "Build a page for X", "add a testimonials section", "make a new section for team members" | `page-create` |
+| "Recreate this page from <url>", "build our home page like <site>" | `page-create`: the reference's layout, the brand's design system (`design.md` and the theme settings); the brand guidelines win any conflict, unless the person says otherwise |
 | "Change the headline", "fix the typo", "swap this image", "make the button go to X" | `page-edit-content` |
 | "Move this section up", "make the hero shorter on mobile", "change the colours", "restyle the button" | `page-edit-design` |
 | "Do row HOME-02" | Read the row; its type decides: words, images or links go to `page-edit-content`; layout, order or style to `page-edit-design`; something new to `page-create` |

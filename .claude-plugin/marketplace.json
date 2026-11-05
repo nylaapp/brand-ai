@@ -72,7 +72,7 @@
       "name": "page-studio",
       "source": "./plugins/page-studio",
       "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme.",
-      "version": "0.10.1"
+      "version": "0.11.0"
     },
     {
       "name": "analytics",
@@ -84,7 +84,7 @@
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.1.10"
+      "version": "0.1.11"
     }
   ]
 }
