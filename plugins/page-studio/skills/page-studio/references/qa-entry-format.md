@@ -19,10 +19,11 @@ page in one entry).
 - source: <reference URL, or "new design (no reference)", or "n/a (update only)">
 - implementation: <file(s) touched>; sections used/added: <list>; new settings added:
   <none | list>; base-theme files edited: <none | list>
-- theme validation: <theme check result, before -> after>
+- route: <cli | connector>
+- theme validation: <theme check result, before -> after; connector route: "Can't tell: the code checker needs the Shopify CLI">
 - render check: <templates/widths/color-schemes checked, what was confirmed, how>
 - change pack: <path>; verified (verify step): <pass | pass with "Can't tell" items | not run>
-- pushed files: <list> -> theme <id, role>; pulled back and diffed: <identical | differences>
+- pushed files: <list> -> theme <id, role>; pulled back and diffed: <identical | differences> (connector route: read back, checksum or body compared)
 - gates run: <list>
 - gates not run: <which, and why>
 

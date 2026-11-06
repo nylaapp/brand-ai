@@ -6,7 +6,9 @@ It checks that the tools and access the skill needs are in place, and walks the 
 setting up anything that is missing.
 
 This file is the same in page-studio and theme-audit. Plugins can't read each other's
-folders, so each keeps a copy; change them together and keep them identical.
+folders, so each keeps a copy; change them together and keep them identical. Only page-studio
+has `connector-route.md` (changing a theme through the Shopify connector, with no CLI).
+theme-audit has no connector route: it skips row K and the route choice, and always needs the CLI.
 
 ## Who you are guiding
 
@@ -41,8 +43,10 @@ the checks; they take seconds and stay silent when everything is fine.
 Some places Claude runs (a plain chat, a Claude project with no computer access) can't run
 commands or reach the person's computer. There, say plainly that this skill needs the Claude
 desktop app (Claude Code or Cowork, with access to a folder on their computer), because it has to
-copy the theme to their computer and preview it. `page-audit` is the exception: it can still run
-from a browser alone, without the theme tools, and says which checks it couldn't do.
+reach the theme (with a tool on their computer, or through the Shopify connection), keep a record
+of the change and backups of the files it changes, and preview the page. `page-audit` is the
+exception: it can still run from a browser alone, without the theme tools, and says which checks
+it couldn't do.
 
 ## 2. What each skill needs
 
@@ -54,16 +58,37 @@ it is fixed. **Recommended** lets it run with less, and you say what will be mis
 | A | A browser Claude can use to look at the page | Required | Required (to check each change) | Required (to check each fix) |
 | B | The page's address, and the storefront password if the store has one | Required | Required | Required |
 | C | Brand files (`BRAND.md`, `BRAND-VOICE.md`, `design.md`) | Recommended | Required for new or rewritten words; `design.md` recommended for design changes | Not needed |
-| D | Node.js | Not needed | Required | Required |
-| E | Shopify CLI | Recommended (lets it read theme files) | Required | Required |
-| F | Shopify CLI signed in to the right store, with theme access | Recommended | Required | Required |
+| D | Node.js | Not needed | Required on the CLI route (below) | Required |
+| E | Shopify CLI | Recommended (lets it read theme files) | Required on the CLI route | Required |
+| F | Shopify CLI signed in to the right store, with theme access | Recommended | Required on the CLI route | Required |
 | G | Google Chrome | Not needed | Not needed | Required |
 | H | Lighthouse | Not needed | Not needed | Required |
-| I | A folder on this computer for the theme copy | Not needed | Required | Required |
+| I | A folder on this computer (the theme copy on the CLI route; on the connector route only the change record and backups of the files changed) | Not needed | Required | Required |
 | J | A draft theme | Not needed | Required (settled next, by `theme-target.md`) | Required (settled next, by `theme-target.md`) |
+| K | The Shopify connector, with theme read and write access to the right store (detected read-only) | Recommended instead of E and F (read access is enough) | Required on the connector route | Not applicable (theme-audit needs the CLI) |
+
+**Two routes to the theme** (`page-create`, `page-edit-content`, `page-edit-design`). One must be
+ready: the **CLI route** (rows D, E and F: the Shopify CLI signed in) or the **connector route**
+(row K: the Shopify connector). They do the same job with the same safety rules; the connector
+route is in `connector-route.md` (page-studio) and has no CLI, no local theme copy and no
+`theme check`. Choose the route like this, silently:
+
+1. Check rows D, E and F. If all pass, use the **CLI route**, exactly as before. Don't check row K.
+   The CLI route can check a change before anything is sent and runs `theme check`, so it wins
+   when both are ready.
+2. If they don't, check row K. If it passes, use the **connector route** and say one line:
+   "I can work on your theme through your Shopify connection, so there is nothing to install."
+   The plan step then says what is different (`connector-route.md` section 5).
+3. If neither is ready, say which and why in plain words, then guide the CLI setup (rows D, E, F)
+   one step at a time, as before. Row K says what to say when the connector is the reason.
+4. If the route chosen in step 2 fails at its first write because Shopify refuses it, nothing
+   was changed: go to step 3.
+
+`page-audit` and `theme-audit` do not choose a route: `page-audit` reads theme files with either
+tool when one is ready, and `theme-audit` always uses the CLI.
 
 The `page-studio` front door runs the rows for the skill it is about to hand to, then tells that
-skill the check already passed, so it isn't repeated.
+skill the check already passed (and which route was chosen), so it isn't repeated.
 
 ## 3. The checks, and how to guide each one
 
@@ -107,6 +132,8 @@ claim, and its colours and fonts, so I never guess." Offer to run **brand-captur
 `../page-audit/references/intake.md` section 1 (structure-only changes, audits).
 
 ### D. Node.js
+
+Rows D, E and F are the CLI route (`theme-audit` always needs them).
 
 **Check:** `node --version` prints `v20` or higher.
 
@@ -190,12 +217,52 @@ the changes there, check them, and only then send them to the draft." Ask them t
 a folder (for example `Documents/<store name> theme`) and, in Cowork, to connect it to this task.
 The skill pulls the theme into it; they don't need to download anything.
 
+On the connector route, say instead: "I'll keep a short record of the change, and a backup of each
+file before I change it, in a folder on your computer, so I can undo exactly what I did."
+
 ### J. A draft theme
 
 Not checked here. Say in one line that the next step is choosing the draft theme the work will
 go to, then follow `theme-target.md`. If the person has never made one, explain once: "A draft
 theme is a private copy of your website's design. I make changes there; visitors keep seeing your
 current site until you choose to publish."
+
+### K. The Shopify connector, with theme read and write access (connector route)
+
+`page-studio` only. `theme-audit` skips this row.
+
+**Check**, silently, read-only (the exact queries are in `connector-route.md` section 1): the
+Shopify connector is connected, it is the **same store** as the page, it can read the themes and
+their roles, and the access it was granted (`currentAppInstallation { accessScopes { handle } }`)
+includes both `read_themes` and `write_themes`. Never test it with a trial write, never ask for or
+type a token, and never switch the connector's store silently.
+
+Having the scope is not the whole answer: Shopify also has to have approved the connection to
+change themes, and that can't be read. The first real write finds out. If Shopify refuses it,
+nothing has changed; treat it as "can look, can't change" below.
+
+**If the connector is not connected,** use the CLI route and guide rows D, E and F as before. If
+the person says they would rather not install anything, offer the connection instead:
+1. In the Claude app, open **Customize** (or **Settings**), then **Connectors**.
+2. Find **Shopify** and click **Connect**.
+3. A Shopify page opens: sign in with **your own** Shopify login and choose the right store.
+4. Approve the access it asks for, then come back and tell me.
+
+Say once, in plain words: "Shopify only lets a connection change themes when it has approved that
+connection. I can only find out after it is connected. If it isn't approved, I'll set up the other
+tool with you." Then re-check.
+
+**If it is connected to another store,** say so, and ask them to switch the connector to this
+store (the same steps) or use the CLI route. Never write to the wrong store.
+
+**If it can look but not change** (no `write_themes`, or Shopify refused the first write), explain:
+"Your Shopify connection can read your themes but isn't allowed to change them. Shopify has to
+approve a connection before it can, and I can't switch that on. I'll set up a different tool on
+this computer instead." Then guide rows D, E and F. Anyone who manages the connection for them can
+ask Shopify for that approval; offer this as a side note, never as the next step.
+
+**If the connection drops partway,** stop, say what was and wasn't changed (`connector-route.md`
+section 7), and ask them to reconnect it themselves.
 
 ## 4. Opening the Terminal (only when the person must run a command themselves)
 
@@ -212,7 +279,8 @@ anything red or anything that says "error" back into the chat.
 
 ## 5. Hand-off
 
-When every required row passes, say one line, then go to the skill's step 1. If a required row
+When every required row passes (for the three editing skills: the rows of the one route chosen,
+section 2), say one line, then go to the skill's step 1. If a required row
 can't be fixed now ("I'll ask IT tomorrow"), stop politely: say what's left, that nothing was
 changed, and that the next run will pick up where this left off. For a recommended row that's
 still missing, say in one line what the skill will do without it and continue.

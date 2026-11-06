@@ -70,7 +70,8 @@ is also on your contact page").
 ## 0. Setup check
 
 Before intake, run `../page-studio/references/setup-check.md` for the `page-audit` column: a
-browser and the page address are required; brand files and the Shopify CLI are recommended. Assume
+browser and the page address are required; brand files and a way to read theme files (the Shopify CLI,
+or the Shopify connector, where read access is enough) are recommended. Assume
 the person isn't technical: check silently yourself and walk them through anything missing one
 step at a time. If a recommended item is missing, say in one line what the audit will do without
 it and carry on. Skip it if it already passed in this conversation.
