@@ -1,11 +1,11 @@
 # Setup check: make sure the essentials are ready, and guide the person through what isn't
 
 Run this **before step 1** of every Pages and theme skill (`page-audit`, `page-create`,
-`page-edit-content`, `page-edit-design`, the `page-studio` front door and `accessibility-audit`).
+`page-edit-content`, `page-edit-design`, the `page-studio` front door and `theme-audit`).
 It checks that the tools and access the skill needs are in place, and walks the person through
 setting up anything that is missing.
 
-This file is the same in page-studio and accessibility-audit. Plugins can't read each other's
+This file is the same in page-studio and theme-audit. Plugins can't read each other's
 folders, so each keeps a copy; change them together and keep them identical.
 
 ## Who you are guiding
@@ -49,7 +49,7 @@ from a browser alone, without the theme tools, and says which checks it couldn't
 Check only the rows the current skill needs, in this order. **Required** blocks the skill until
 it is fixed. **Recommended** lets it run with less, and you say what will be missing.
 
-| # | Item | page-audit | page-create, page-edit-content, page-edit-design | accessibility-audit |
+| # | Item | page-audit | page-create, page-edit-content, page-edit-design | theme-audit |
 |---|---|---|---|---|
 | A | A browser Claude can use to look at the page | Required | Required (to check each change) | Required (to check each fix) |
 | B | The page's address, and the storefront password if the store has one | Required | Required | Required |
@@ -97,7 +97,7 @@ page name you can resolve from the store), and the page loads.
 ### C. Brand files
 
 **Check:** look for `BRAND.md`, `BRAND-VOICE.md` and `design.md` with the lookup in
-`../page-audit/references/intake.md` section 1 (or, for `accessibility-audit`, skip this row).
+`../page-audit/references/intake.md` section 1 (or, for `theme-audit`, skip this row).
 
 **If missing**, explain: "Your brand files tell me how the brand sounds, what it can and can't
 claim, and its colours and fonts, so I never guess." Offer to run **brand-capture** first (about

@@ -6,7 +6,7 @@ bends: **these skills never edit, push to or publish over the live theme.** Work
 draft (unpublished) theme.
 
 This file is the same in every plugin that changes themes (page-studio, styles-builder,
-accessibility-audit and analytics). Plugins can't read each other's folders, so each keeps a copy;
+theme-audit and analytics). Plugins can't read each other's folders, so each keeps a copy;
 change them together and keep them identical.
 
 Read-only skills (audits, research) may look at any theme, the live one included, because they

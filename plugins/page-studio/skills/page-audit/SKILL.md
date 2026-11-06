@@ -1,6 +1,6 @@
 ---
 name: page-audit
-description: "Audit a Shopify page against what its page type should do, for any store: find where it falls short and rank what to fix, from evidence. Asks what the page is for (book, sell, promote, build trust, inform, fix), checks the rendered page at desktop and mobile against a graded playbook for its type (homepage, landing, collection, product, about, contact, FAQ, policy, location, service), measures what it can, names who owns each fix (this theme, store admin, store settings, a third-party app, an off-site page), and writes a ranked, client-ready report plus a living PAGE-AUDIT.md. Use for \"what should we improve on the homepage\", \"audit the about page\", \"where does this page fall short\", \"review this landing page\", \"is this page effective\", \"what is missing on this page\". Read-only: never edits a theme or store. Not for making a change or building a page (use page-create, page-edit-content or page-edit-design), blog posts (blog-generator), a full accessibility audit (accessibility-audit) or analytics and tagging (analytics-audit)."
+description: "Audit a Shopify page against what its page type should do, for any store: find where it falls short and rank what to fix, from evidence. Asks what the page is for (book, sell, promote, build trust, inform, fix), checks the rendered page at desktop and mobile against a graded playbook for its type (homepage, landing, collection, product, about, contact, FAQ, policy, location, service), measures what it can, names who owns each fix (this theme, store admin, store settings, a third-party app, an off-site page), and writes a ranked, client-ready report plus a living PAGE-AUDIT.md. Use for \"what should we improve on the homepage\", \"audit the about page\", \"where does this page fall short\", \"review this landing page\", \"is this page effective\", \"what is missing on this page\". Read-only: never edits a theme or store. Not for making a change or building a page (use page-create, page-edit-content or page-edit-design), blog posts (blog-generator), a full accessibility, speed or theme-code audit (theme-audit) or analytics and tagging (analytics-audit)."
 ---
 
 # Page audit
@@ -157,7 +157,7 @@ Then point to the next skill:
 | A new page, a new section, or a section the audit says is missing | `page-create` |
 | Brand files missing, or copy needs brand approval | `brand-capture` |
 | Unsourced, numeric or regulated claims | `fact-check` |
-| Accessibility depth beyond the baseline | `accessibility-audit` |
+| Accessibility, speed or theme-code depth beyond the baseline | `theme-audit` |
 | Tracking, consent or tagging problems | `analytics-audit` |
 | Store settings, an app, or an off-site page | The owner named in the row; give them the observation and what to change |
 

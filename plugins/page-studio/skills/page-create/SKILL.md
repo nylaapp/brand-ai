@@ -14,7 +14,7 @@ description: >-
   "build a new section for team members", "recreate this page from the live site". Not for changing
   words, images or links on something that exists (use page-edit-content), changing layout or style
   of something that exists (page-edit-design), open-ended "improve this page" (page-audit), blog
-  posts (blog-generator) or accessibility audits (accessibility-audit).
+  posts (blog-generator) or accessibility, speed and theme-code audits (theme-audit).
 ---
 
 # Page create
