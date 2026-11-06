@@ -48,12 +48,19 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 | Skill | Job | Writes to a theme? |
 |---|---|---|
 | `page-audit` | Find where a page falls short against what its type should do; rank fixes with owners; keep `PAGE-AUDIT.md` | No, read-only |
-| `page-create` | Make something **new**: a page, a section on a page, or a new section type | Local working copy, then the chosen theme |
-| `page-edit-content` | Change what something that **exists says or shows**: words, images, links, alt text, SEO fields | Local working copy, then the chosen theme |
-| `page-edit-design` | Change how something that **exists looks or is arranged**: layout, order, spacing, colour, type, styles, responsive behaviour | Local working copy, then the chosen theme |
+| `page-create` | Make something **new**: a page, a section on a page, or a new section type | The chosen draft theme, through a local working copy (Shopify CLI) or the Shopify connector |
+| `page-edit-content` | Change what something that **exists says or shows**: words, images, links, alt text, SEO fields | The chosen draft theme, through a local working copy (Shopify CLI) or the Shopify connector |
+| `page-edit-design` | Change how something that **exists looks or is arranged**: layout, order, spacing, colour, type, styles, responsive behaviour | The chosen draft theme, through a local working copy (Shopify CLI) or the Shopify connector |
 
 Each editing skill ends with the same steps, defined once in this folder: capture a baseline, verify
 on the rendered page, push only the touched files to the chosen theme (always a draft, never the live theme) and pull them back as proof.
+
+**Two routes to the theme.** The setup check picks one. The **CLI route** (Shopify CLI signed in, a
+local working copy, `theme check`, a check before anything is sent) is the default and wins when
+both are ready. The **connector route** (`references/connector-route.md`) works with no CLI, when
+the Shopify connector can read and change themes on the right store: it reads and writes only the
+files a change touches, checks the change on the private draft right after writing it, and can't
+run `theme check`. The safety rules are identical on both.
 
 ## Which job is this?
 
@@ -83,8 +90,10 @@ Don't answer its questions for the person.
 Once the job is known, and before handing off, run `references/setup-check.md` for that skill's
 column (for a chain, the column of the most demanding skill in it). Assume the person isn't
 technical: check silently yourself, and walk them through anything missing one step at a time, in
-plain words, re-checking after each step. Tell the skill you hand to that the check passed, so it
-isn't repeated. Nothing is handed off until the required items pass.
+plain words, re-checking after each step. For a job that writes to a theme the check also picks the
+route (CLI, or the Shopify connector when there is no CLI). Tell the skill you hand to that the
+check passed and which route was chosen, so it isn't repeated. Nothing is handed off until the
+required items pass.
 
 ## Which theme?
 
@@ -116,7 +125,9 @@ step, stop after it.
 ## Rules that hold for every step
 
 - **A draft theme, asked once or created.** It is always a draft or unpublished theme. Nothing is edited, pushed or published on the live theme, with or without a yes (`references/theme-target.md`, `references/ship-to-draft.md`).
-- **Only verified changes are pushed, and only the touched files.** No bare pushes.
+- **Only verified changes are pushed, and only the touched files.** No bare pushes. (Connector
+  route: nothing renders before the write, so the rendered verification follows the write on the
+  private draft; `references/verify.md`.)
 - **Only picked rows are acted on.** A recommendation nobody chose stays an open row.
 - **Never type a password or credential** for the person; blocked access is reported and handed back.
 - **Brand facts come from the brand files** (`BRAND.md`, `BRAND-VOICE.md`, `design.md`), never from
@@ -132,7 +143,8 @@ step, stop after it.
 |---|---|
 | `references/baseline-and-change-pack.md` | What to capture before any edit, and the one-file record carried through a change |
 | `references/verify.md` | The checks that prove a change on the rendered page |
-| `references/setup-check.md` | What each skill needs set up first, and how to guide a non-technical person through each missing piece |
+| `references/setup-check.md` | What each skill needs set up first, which route to the theme to use, and how to guide a non-technical person through each missing piece |
+| `references/connector-route.md` | Changing a draft through the Shopify connector when there is no CLI: detection, the exact calls, the guards, the read-back proof |
 | `references/theme-target.md` | Which theme to work on: ask once, remember it, protect the live theme |
 | `references/ship-to-draft.md` | Pushing to the chosen theme, pull-back proof, the log, publishing a draft to live |
 | `references/revert-mode.md` | Restoring a theme to its baseline and proving it |

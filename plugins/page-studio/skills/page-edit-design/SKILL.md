@@ -6,10 +6,11 @@ description: >-
   colour scheme, typography, button and card styles, and how the page behaves on phones and tablets.
   Uses the narrowest technique that works (a theme setting, then a token override, then scoped CSS,
   and section code only last), takes every visual value from the design spec, checks every other
-  page that shares the section or style, captures a baseline, edits a local working copy, verifies
-  on the rendered page across breakpoints and colour schemes, and pushes only the touched files to
-  the theme the person chose (always a draft, never the live theme). Also acts on audit rows a person picked
-  in PAGE-AUDIT.md. Brand-agnostic, written for the Site Editor. Use for "move the booking section
+  page that shares the section or style, captures a baseline, edits a local working copy (or,
+  without the Shopify CLI, the files on the draft through the Shopify connector when it can change
+  themes), verifies on the rendered page across breakpoints and colour schemes, and sends only the
+  touched files to the theme the person chose (always a draft, never the live theme). Also acts on
+  audit rows a person picked in PAGE-AUDIT.md. Brand-agnostic, written for the Site Editor. Use for "move the booking section
   up", "make the hero shorter on mobile", "change this section's colour scheme", "increase the
   spacing", "restyle this button", "fix the second h1", "do row HOME-01" when the row is about
   layout, order or style. Not for the words, images or links (use page-edit-content), a new page or
@@ -24,6 +25,11 @@ component styles, responsive behaviour) and nothing about what it says. The skil
 narrowest technique, captures a baseline, edits a local working copy, proves nothing else moved
 across breakpoints and colour schemes, and puts only the touched files on the theme the person chose
 (always a draft, never the live theme). The live theme is never edited: work goes to a draft theme, created if there isn't one.
+
+It works one of two ways, chosen by the setup check: with the Shopify CLI and a local working copy
+(the default), or, when the CLI isn't installed and the Shopify connector can change themes, through
+that connector (`../page-studio/references/connector-route.md`). The rules and the safety are the
+same; the steps below say where the connector route differs.
 
 ```
 0. Setup check -> 1. Context -> 2. Understand the request -> 3. Resolve the target and working copy ->
@@ -56,7 +62,13 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 ## Rules
 
 - **Working copy first, on the theme the person chose.** Never push from the working copy except
-  through the ship step. The theme is asked once and remembered (`theme-target.md`); it is always a draft or unpublished theme, never the live theme (if there is none, `theme-target.md` asks for one or creates one) (`theme-target.md`, `ship-to-draft.md`).
+  through the ship step (connector route: no copy of the whole theme; build in `work/` and write
+  nothing except through the ship step). The theme is asked once and remembered (`theme-target.md`); it is always a draft or unpublished theme, never the live theme (if there is none, `theme-target.md` asks for one or creates one) (`theme-target.md`, `ship-to-draft.md`).
+- **The connector route changes the order, not the rules.** With no Shopify CLI, nothing can be
+  rendered before the files are written, so the rendered checks run on the private draft right after
+  the write (the live theme is never touched), and `theme check` can't run. Say both in the plan and
+  get the person's agreement once. The calls and guards are in
+  `../page-studio/references/connector-route.md`.
 - **Design only.** If the request also changes words, images or links, do that in
   `page-edit-content` as its own change.
 - **Narrowest technique that works:** a theme setting, then a token override, then scoped CSS,
@@ -88,8 +100,10 @@ visitors see changes until they say go; these skills never edit the live theme, 
 ## 0. Setup check
 
 Before anything else, run `../page-studio/references/setup-check.md` for this skill's column: a
-browser, the page address, brand files, Node.js, the Shopify CLI signed in to the store, and a
-folder for the theme copy. Assume the person isn't technical: check silently yourself, then walk
+browser, the page address, brand files, a way to reach the theme (Node.js and the Shopify CLI signed
+in to the store, or, when the CLI isn't ready, the Shopify connector with permission to change
+themes: the check picks the route, and the CLI wins when both are ready) and a folder for the work
+files. Assume the person isn't technical: check silently yourself, then walk
 them through anything missing one step at a time, in plain words, and re-check after each step.
 Skip it if it already passed in this conversation (for example, `page-studio` ran it before handing
 off). Nothing else starts until the required items pass.
@@ -130,8 +144,15 @@ reported, not edited here.
 2. Confirm the theme settled in step 1, with its id and role recorded.
 3. Get a working copy: follow the store repo's workflow if it names one (usually pull the theme
    first so admin-side edits aren't lost); otherwise pull the theme's files into a scratch folder.
+   **Connector route:** no whole-theme pull. Read the page's template and then only the files the
+   change touches, from the chosen draft, through the connector (`connector-route.md` sections 2
+   and 4); they become `baseline/` and `work/` in step 5. If there is no local store repo its rules
+   aren't available: say which gates you can't confirm (`../page-audit/references/intake.md`
+   section 1).
 4. List every other page and template that uses the section, snippet, token or style you expect to
-   touch.
+   touch. Connector route: search the template, section-group and layout files read through the
+   connector; for a snippet, stylesheet or token that most of the theme uses, that search is heavy
+   (`connector-route.md` section 6), so offer the CLI route if it is too much.
 
 ## 4. Pick the narrowest technique
 
@@ -154,7 +175,9 @@ Before the first edit, start the change pack as set out in
 `../page-studio/references/baseline-and-change-pack.md`: theme id and role, section
 inventory, total height, `theme check` count, heading outline, the link map, overlays, and a copy of
 each file to edit. Desktop and mobile, plus tablet for responsive work, **and the same inventory for
-each other page that uses the shared code**, so nothing else can move unnoticed.
+each other page that uses the shared code**, so nothing else can move unnoticed. Connector route:
+`theme check` is "Can't tell"; also save the theme manifest, and check each saved file's md5 against
+the store's checksum (`baseline-and-change-pack.md`).
 
 ## 6. Show the exact change
 
@@ -167,7 +190,8 @@ value or anything that touches shared code. The change is always on a draft them
 
 Make exactly that change; no drive-by clean-ups. Follow the repo's rules for scoping, naming and where
 changes go. Run `theme check`; the count must not be higher than the baseline's. Record the files
-touched, with lines added and removed, in section 4 of the change pack.
+touched, with lines added and removed, in section 4 of the change pack. Connector route: `theme check`
+can't run; edit in `work/` and run the pre-write checks in `verify.md` instead.
 
 ## 8. Verify
 
@@ -175,19 +199,22 @@ Run `../page-studio/references/verify.md` on the rendered page. For a design cha
 that matter most are: nothing else moved on this page (check 2) **and on every page that shares the
 code** (check 7), other breakpoints and colour schemes hold (check 6), values come from the spec
 (check 12), tracked links unchanged (check 3), and accessibility basics including contrast and tap
-targets (check 9). Any failure goes back to step 7; nothing ships on a failed check.
+targets (check 9). Any failure goes back to step 7; nothing ships on a failed check. **Connector
+route:** step 9 comes first (the pre-write checks, then the write to the draft), and this step runs
+on the draft right after it, on every page that shares the code. Nothing renders before the write; a
+failed check means the draft is not ready, so fix it or revert.
 
 ## 9. Ship to the chosen theme
 
 Run `../page-studio/references/ship-to-draft.md`: check nobody edited the files since the
 baseline, push only the touched files to the chosen theme, pull them back as proof, re-check the
 preview, write the QA entry (`../page-studio/references/qa-entry-format.md`), and set any
-audit rows to `done`. Never push to the live theme. Publishing a draft is done by the person in the store admin; say where (`ship-to-draft.md` section 8). To undo, use `../page-studio/references/revert-mode.md`.
+audit rows to `done`. Connector route: the calls are in `connector-route.md`, and the proof is a read-back, not a pull-back. Never push to the live theme. Publishing a draft is done by the person in the store admin; say where (`ship-to-draft.md` section 8). To undo, use `../page-studio/references/revert-mode.md`.
 
 ## 10. Hand back
 
 Give a short, plain summary: what changed and where it can be seen, what was verified with the
-numbers (including the other pages checked), what was flagged and not done, and whether it is on a draft only (the live theme is never edited here).
+numbers (including the other pages checked), what was flagged and not done, and whether it is on a draft only (the live theme is never edited here). On the connector route, say that the code checker (`theme check`) could not run.
 
 ## Checklist before finishing
 
@@ -199,6 +226,7 @@ numbers (including the other pages checked), what was flagged and not done, and 
 - [ ] Exact change shown and agreed where it wasn't a single setting
 - [ ] Only design changed; any wording request handed to `page-edit-content`
 - [ ] Verified at desktop, mobile and tablet where relevant, across colour schemes; tracked links unchanged
-- [ ] Theme settled once (remembered or asked); pushed only to it, only the touched files, pulled back identical;
-      never the live theme
+- [ ] Theme settled once (remembered or asked); pushed only to it, only the touched files, pulled back
+      (connector route: read back) identical; never the live theme
+- [ ] Connector route only: route and its two differences (checked on the draft after the write; no `theme check`) said in the plan and agreed
 - [ ] No credential typed; QA entry written; audit rows updated only when verified

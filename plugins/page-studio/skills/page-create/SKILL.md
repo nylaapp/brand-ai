@@ -5,10 +5,12 @@ description: >-
   treatment page, region or location page), a new section added to an existing page, or a new
   section type built to the theme's own rules. Plans it from what its page type needs (the
   playbook's must-haves, primary action in the first screen), reuses existing sections before
-  building anything new, shows a plain-language plan for a yes, then builds it in a local working
-  copy, verifies it on the rendered page including the theme editor's controls, and pushes only the
-  new and touched files to the theme the person chose (always a draft, never the live theme). Can recreate a
-  page from a live reference URL by capturing measured values, never from a text-only fetch.
+  building anything new, shows a plain-language plan for a yes, then builds it (in a local working
+  copy with the Shopify CLI, or, without the CLI, directly on the draft through the Shopify
+  connector when it can change themes), verifies it on the rendered page including the theme
+  editor's controls, and sends only the new and touched files to the theme the person chose (always
+  a draft, never the live theme). Can recreate a page from a live reference URL by capturing
+  measured values, never from a text-only fetch.
   Brand-agnostic, written for the Site Editor. Use for "build a page for X", "make a landing page
   for the new treatment", "create a region page", "add a testimonials section to the homepage",
   "build a new section for team members", "recreate this page from the live site". Not for changing
@@ -23,6 +25,11 @@ Make something **new**: a page, a section on a page, or a new kind of section. I
 what that kind of page needs, built from existing pieces first, and made in a local working copy.
 The skill proves the result on the rendered page and puts only the new and touched files on the
 theme the person chose (always a draft, never the live theme). The live theme is never edited: work goes to a draft theme, created if there isn't one.
+
+It works one of two ways, chosen by the setup check: with the Shopify CLI and a local working copy
+(the default), or, when the CLI isn't installed and the Shopify connector can change themes, through
+that connector (`../page-studio/references/connector-route.md`). The rules and the safety are the
+same; the steps below say where the connector route differs.
 
 ```
 0. Setup check -> 1. Context -> 2. Understand what is being created -> 3. Reference or playbook ->
@@ -55,7 +62,13 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 ## Rules
 
 - **Working copy first, on the theme the person chose.** Never push from the working copy except
-  through the ship step. The theme is asked once and remembered (`theme-target.md`); it is always a draft or unpublished theme, never the live theme (if there is none, `theme-target.md` asks for one or creates one) (`theme-target.md`, `ship-to-draft.md`).
+  through the ship step (connector route: no copy of the whole theme; build in `work/` and write
+  nothing except through the ship step). The theme is asked once and remembered (`theme-target.md`); it is always a draft or unpublished theme, never the live theme (if there is none, `theme-target.md` asks for one or creates one) (`theme-target.md`, `ship-to-draft.md`).
+- **The connector route changes the order, not the rules.** With no Shopify CLI, nothing can be
+  rendered before the files are written, so the rendered checks run on the private draft right after
+  the write (the live theme is never touched), and `theme check` can't run. Say both in the plan and
+  get the person's agreement once. The calls and guards are in
+  `../page-studio/references/connector-route.md`.
 - **Reuse first.** For every region choose, in order: an existing section that fits; the same section
   with one small new setting; a native base-theme section or block; a new section only when the layout
   is genuinely different. One section per visual region; blocks are for repeated items inside a region.
@@ -87,8 +100,10 @@ it comes up: on a draft, nothing visitors see changes until they say go; these s
 ## 0. Setup check
 
 Before anything else, run `../page-studio/references/setup-check.md` for this skill's column: a
-browser, the page address, brand files, Node.js, the Shopify CLI signed in to the store, and a
-folder for the theme copy. Assume the person isn't technical: check silently yourself, then walk
+browser, the page address, brand files, a way to reach the theme (Node.js and the Shopify CLI signed
+in to the store, or, when the CLI isn't ready, the Shopify connector with permission to change
+themes: the check picks the route, and the CLI wins when both are ready) and a folder for the work
+files. Assume the person isn't technical: check silently yourself, then walk
 them through anything missing one step at a time, in plain words, and re-check after each step.
 Skip it if it already passed in this conversation (for example, `page-studio` ran it before handing
 off). Nothing else starts until the required items pass.
@@ -116,7 +131,10 @@ visual spec or the theme's settings; never invent a hex, font, size or radius.
 - **Is there a reference** to match (a live URL, inspiration, existing brand pages), or is it from
   scratch?
 - **Which theme?** Settled in step 1; record its id and role. Get a working copy (pull the theme first,
-  per the store repo's workflow, so admin-side edits aren't lost).
+  per the store repo's workflow, so admin-side edits aren't lost). Connector route: no whole-theme
+  pull; read only the files this work touches or copies from, through the connector
+  (`connector-route.md` sections 2 and 4). With no local store repo its rules aren't available:
+  copy the closest sibling section and say which gates you can't confirm.
 
 **From an audit.** If the request is a row ID or points at a `PAGE-AUDIT.md` (rules in
 `../page-audit/references/audit-file.md`), read the rows marked `picked` that call for something new and
@@ -183,6 +201,8 @@ Before the first edit, start the change pack as set out in
 list of existing templates plus the site-wide numbers (a few existing pages' section inventory, total
 height and the `theme check` count), so the new page can be shown not to disturb anything. For a
 **section added to an existing page**, capture that page's full baseline first, as for any edit.
+Connector route: record `theme check` as "Can't tell", and save the theme manifest and each file
+you will touch as `baseline/` (`baseline-and-change-pack.md`).
 
 ## 6. Build in the working copy
 
@@ -191,7 +211,8 @@ settings with real, approved values or obvious placeholders; leave image pickers
 unconfirmed; keep every number inside the schema's range. Add CSS only if the existing sections truly
 can't do it, following the repo's cascade, scoping and breakpoint rules. Run `theme check`; the count
 must not be higher than the baseline's. Record the intended structure and the files touched in sections
-3 and 4 of the change pack.
+3 and 4 of the change pack. Connector route: `theme check` can't run; build in `work/` and run the
+pre-write checks in `verify.md` instead.
 
 ## 7. Verify
 
@@ -200,14 +221,17 @@ that matter most are: it exists and reads as planned (checks 1 and 5), the theme
 reorder and duplicate controls work and empty fields and long headings don't break layout (check 10),
 other breakpoints and colour schemes hold (check 6), values come from the spec (check 12), and nothing
 that already existed moved (check 2). Any failure goes back to step 6; nothing ships on a failed check.
-Never say a page "matches" a reference without a measured parity table.
+Never say a page "matches" a reference without a measured parity table. **Connector route:** step 8
+comes first (the pre-write checks, then the write to the draft), and this step runs on the draft
+right after it. Nothing renders before the write; a failed check means the draft is not ready, so
+fix it or revert.
 
 ## 8. Ship to the chosen theme
 
 Run `../page-studio/references/ship-to-draft.md`: check nobody edited the touched files
 since the baseline, push only the new and touched files to the chosen theme, pull them back as
 proof, re-check the preview, write the QA entry
-(`../page-studio/references/qa-entry-format.md`), and set any audit rows to `done`. Never push to the live theme. Publishing a draft is done by the person in the store admin; say where (`ship-to-draft.md` section 8). To undo, use
+(`../page-studio/references/qa-entry-format.md`), and set any audit rows to `done`. Connector route: the calls are in `connector-route.md`, and the proof is a read-back, not a pull-back. Never push to the live theme. Publishing a draft is done by the person in the store admin; say where (`ship-to-draft.md` section 8). To undo, use
 `../page-studio/references/revert-mode.md`.
 
 ## 9. Hand back
@@ -215,6 +239,7 @@ proof, re-check the preview, write the QA entry
 Give a short, plain summary: what now exists and where it can be seen on the draft, what was verified
 with the numbers, and what the person still has to supply or do (images, final copy, creating the page
 in the store admin and choosing the template, publishing). Say whether it is on the draft only or live.
+On the connector route, say that the code checker (`theme check`) could not run.
 
 ## Checklist before finishing
 
@@ -227,5 +252,6 @@ in the store admin and choosing the template, publishing). Say whether it is on 
 - [ ] No hardcoded colours, fonts or text; numbers inside schema ranges; images blank where unconfirmed; placeholders obvious
 - [ ] Verified at desktop and mobile including the editor controls; nothing existing moved
 - [ ] Theme settled once (remembered or asked); pushed only to it, only the new and touched files, pulled back
-      identical; never the live theme
+      (connector route: read back) identical; never the live theme
+- [ ] Connector route only: route and its two differences (checked on the draft after the write; no `theme check`) said in the plan and agreed
 - [ ] No credential typed; the person knows what they still must supply
