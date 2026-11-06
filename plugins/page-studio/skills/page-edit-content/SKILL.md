@@ -13,7 +13,7 @@ description: >-
   "make this link go to", "do row HOME-02" when the row is about words, images or links. Not for
   layout, spacing, colour, type or section order (use page-edit-design), a new page or section
   (page-create), open-ended "improve this page" (page-audit), blog posts (blog-generator) or
-  accessibility audits (accessibility-audit).
+  accessibility, speed and theme-code audits (theme-audit).
 ---
 
 # Page edit: content

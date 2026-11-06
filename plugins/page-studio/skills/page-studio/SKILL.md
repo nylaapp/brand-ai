@@ -10,7 +10,7 @@ description: >-
   links of something that exists) or page-edit-design (change the layout, order, spacing, colour or
   style of something that exists), and chains them in order. For a request that clearly names one
   job, those skills trigger directly. Brand-agnostic, built for the Site Editor. Not for blog posts
-  (use blog-generator or blog-rewriter) and not for accessibility audits (use accessibility-audit).
+  (use blog-generator or blog-rewriter) and not for accessibility, speed or theme-code audits (use theme-audit).
 ---
 
 # Page content studio

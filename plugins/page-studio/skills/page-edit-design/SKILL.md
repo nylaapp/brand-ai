@@ -13,8 +13,8 @@ description: >-
   up", "make the hero shorter on mobile", "change this section's colour scheme", "increase the
   spacing", "restyle this button", "fix the second h1", "do row HOME-01" when the row is about
   layout, order or style. Not for the words, images or links (use page-edit-content), a new page or
-  section (page-create), open-ended "improve this page" (page-audit), or accessibility audits
-  (accessibility-audit).
+  section (page-create), open-ended "improve this page" (page-audit), or accessibility, speed
+  and theme-code audits (theme-audit).
 ---
 
 # Page edit: design

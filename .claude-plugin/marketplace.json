@@ -51,10 +51,10 @@
       "version": "0.2.1"
     },
     {
-      "name": "accessibility-audit",
-      "source": "./plugins/accessibility-audit",
-      "description": "Lighthouse accessibility scoring for Shopify themes with additive fixes and re-scoring.",
-      "version": "0.4.1"
+      "name": "theme-audit",
+      "source": "./plugins/theme-audit",
+      "description": "Lighthouse audit for Shopify theme pages (speed, accessibility, best practices, SEO) plus Shopify Theme Check, with owners named for every cost, safe fixes on a draft theme and re-scoring. Replaces accessibility-audit.",
+      "version": "0.5.0"
     },
     {
       "name": "seo-audit",
@@ -66,13 +66,13 @@
       "name": "cro-audit",
       "source": "./plugins/cro-audit",
       "description": "Full CRO audit suite, strictly read-only: technical and speed, heuristic and competitive review, Shopify Analytics read through the Shopify CLI (or supplied numbers) with data-validity checks, behavioural review, voice of customer, survey and user-test plans, prioritisation, experiment planning and an A/B result checker. Never changes store settings or setup.",
-      "version": "0.3.4"
+      "version": "0.3.5"
     },
     {
       "name": "page-studio",
       "source": "./plugins/page-studio",
       "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme.",
-      "version": "0.11.0"
+      "version": "0.11.1"
     },
     {
       "name": "analytics",
@@ -84,7 +84,7 @@
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.1.12"
+      "version": "0.1.13"
     }
   ]
 }
