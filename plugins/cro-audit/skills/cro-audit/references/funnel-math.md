@@ -18,8 +18,10 @@ that you did not verify it.
 ## Reading it
 
 - A leak shows where to look, not why. Pair it with the heuristic findings for that stage.
-- Do not compare against an "industry benchmark" unless the person supplies one with its
-  source. Compare the store with itself over time, or one step with another.
+- Compare against a target only when it has a source: the person's or agency's own targets, or a
+  published benchmark you looked up, with its publisher, date and definition
+  (`funnel-stages.md` section 3). Otherwise compare the store with itself: segment against segment,
+  or this period against the last. `scripts/stages.py` does both.
 - Different tools count differently (sessions vs. users, orders vs. checkouts started). If
   steps come from different tools, say so.
 - Mix of device or traffic source hides the picture. If the person can read the same numbers
