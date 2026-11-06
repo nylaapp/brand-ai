@@ -20,6 +20,19 @@ additive or a guard, no change a visitor can see.
 | `valid-source-maps` | whoever ships the file | report only |
 | `doctype`, `charset` | theme layout | fix in `layout/theme.liquid` if missing (very rare) |
 
+## AI-assistant readiness (Lighthouse "agentic browsing", still in development)
+
+New in Lighthouse 13.6, and Google says it is subject to change, so it is a side note, never part of
+the headline. It checks whether AI assistants can read and use the page. From the summary read
+`failing["agentic-browsing"]`:
+
+| Finding | Usual owner | What to do |
+|---|---|---|
+| `agent-accessibility-tree` (the accessibility tree is not well-formed) | the same elements as the accessibility lane (for example `aria-hidden` on something focusable) | fix them there; one fix clears both |
+| `llms-txt` | store (a file at `/llms.txt`, if present) | report only; Shopify stores can't add it in the theme |
+| `webmcp-*` | not a theme issue today | informative only; mention if tools are registered |
+| `cumulative-layout-shift` | the speed lane | same finding |
+
 ## SEO (the quick Lighthouse check)
 
 Lighthouse's SEO check covers basics only. For a deeper SEO review of a blog post (structured data,

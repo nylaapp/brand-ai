@@ -53,8 +53,8 @@
     {
       "name": "theme-audit",
       "source": "./plugins/theme-audit",
-      "description": "Lighthouse audit for Shopify theme pages (speed, accessibility, best practices, SEO) plus Shopify Theme Check, with owners named for every cost, safe fixes on a draft theme and re-scoring. Replaces accessibility-audit.",
-      "version": "0.5.0"
+      "description": "Full Lighthouse suite from the command line (speed, accessibility, best practices, SEO), Shopify Theme Inspector (server timing of theme code) and Theme Check, with owners named for every cost, a plain-language readout, and safe fixes on a draft theme. Replaces accessibility-audit.",
+      "version": "0.6.0"
     },
     {
       "name": "seo-audit",
@@ -84,7 +84,7 @@
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.1.13"
+      "version": "0.1.14"
     }
   ]
 }

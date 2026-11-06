@@ -60,6 +60,10 @@ Speed scores move between runs. For every page and form factor:
   more runs (5 in all).
 - Report the **median** and the spread, never a single run.
 
+Use the full-suite command from `SKILL.md` step 3a with the preview address (every category, JSON and
+HTML saved), so the speed runs and the other scores come from the same runs. When only speed is
+being re-measured after a fix, `--only-categories=performance` is enough:
+
 ```bash
 for i in 1 2 3; do
   npx lighthouse "<preview url>" --output=json --output-path=<scratch>/perf-<handle>-mobile-$i.json \
@@ -68,7 +72,10 @@ done
 node <skill>/scripts/lh_summary.mjs <scratch>/perf-<handle>-mobile-*.json > <scratch>/perf-<handle>-mobile.summary.json
 ```
 
-Desktop: add `--preset=desktop` and name the files `-desktop-`.
+Desktop: add `--preset=desktop` and name the files `-desktop-`. If the summary shows the wait for
+the server (`server-response-time`, or "Time to first byte" in `lcp_breakdown`) is a large part of
+the delay, add the Theme Inspector (`liquid-profile.md`): Lighthouse says the server is slow, the
+Theme Inspector says which theme files made it so.
 
 Good thresholds, for the plain-language readout: LCP (main content shown) 2.5 s or less, CLS
 (layout jumping) 0.1 or less, TBT (page frozen while loading, lab only) 200 ms or less, INP (reacts
