@@ -24,9 +24,15 @@ that looks like a write and never passes `--allow-mutations`.
 Fields that work in the `sessions` dataset: `sessions`, `sessions_with_cart_additions`,
 `sessions_that_reached_checkout`, `sessions_that_completed_checkout`, `conversion_rate`, `bounce_rate`,
 `average_session_duration`, `pageviews_per_session`; group by `session_device_type`,
-`landing_page_path`, `referrer_source`, `referrer_name`; filter with `WHERE`; `TIMESERIES day|week`. In
-`sales`: `orders`, `gross_sales`, `net_sales`, grouped by `sales_channel`. Shopify's sessions data reports
-entry (landing) pages, not every page viewed, so drop-off on a later page needs recordings or GA4.
+`landing_page_path`, `landing_page_type`, `referrer_source`, `referrer_name`, `referring_medium`,
+`traffic_type`, and the yes/no flags `session_viewed_product` and `session_viewed_collection`; filter
+with `WHERE` (`human_or_bot_session = 'human'` leaves bots out); `TIMESERIES day|week`. In `sales`:
+`orders`, `gross_sales`, `net_sales`, grouped by `sales_channel`.
+
+Limits: the sessions data reports entry (landing) pages and whether a product or collection was viewed,
+not every page viewed, so drop-off on a later content page needs recordings or GA4. It has no
+new-vs-returning split; ask for that from GA4. `--preset stages` builds the stage counts for
+`funnel-stages.md`.
 
 ## 1. Validate the data first
 
@@ -37,7 +43,7 @@ Before reading any rate, check the numbers can be trusted. Report the result in 
 | Orders match | Compare orders (or booking requests) in the store admin with transactions in analytics for the same dates | A gap over a few percent means lost or double tracking: say so, send to `analytics-audit` |
 | No duplicate firing | One purchase event per order; one pageview per page | Duplicates inflate conversion; fix first |
 | Consent effect | A cookie banner can hide a share of visitors from analytics | Rates are of tracked visitors only: say so |
-| Bots and internal traffic | Rows with no device type and near-100% bounce; spikes of zero-engagement sessions; the team's and agency's own visits (often desktop, "direct", higher bounce, especially around a launch) | Leave bot rows out; say internal traffic can't be filtered if it can't |
+| Bots and internal traffic | Shopify's `human_or_bot_session` (the presets leave bots out; `check-data` shows both per day); rows with no device type and near-100% bounce; spikes of zero-engagement sessions; the team's and agency's own visits (often desktop, "direct", higher bounce, especially around a launch) | Leave bot rows out; say internal traffic can't be filtered if it can't |
 | Date range | At least two full weeks, ideally four or more, with no big promotion unless it is the subject | Note seasonality and promotions |
 | Step changes | Sessions per day: a jump or collapse from one day to the next (a new storefront, theme or tracking change) | Use only the window after the change; earlier data isn't comparable |
 | Orders by channel | Orders by sales channel against completed checkouts: subscription renewals (for example Recharge), other storefronts, draft orders and POS aren't website conversions | Count only website checkouts as website conversions; say what the rest are |
