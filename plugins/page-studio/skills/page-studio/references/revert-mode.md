@@ -5,6 +5,10 @@ failed, or verification of a pushed change found a regression that can't be fixe
 
 A revert is a push, so everything in `ship-to-draft.md` applies: scoped files only, no bare push, no live flag, and never the live theme: a revert happens on the draft the change was made on.
 
+On the **connector route** (`connector-route.md`; no CLI, no local copy of the theme) a revert is a
+write too: the same guards apply (role read right before, explicit theme id, only the listed files),
+and the paragraphs marked **Connector route** below say what changes.
+
 ## 1. Find the baseline
 
 In order of preference:
@@ -23,6 +27,9 @@ Pull the files you would restore from the target theme and compare them with the
 "after" state (the working copy that was shipped). Identical: continue. Different: someone edited
 the theme after the ship (often in the admin). Stop, show which files differ, and ask whether those
 edits should be kept, because restoring the baseline would erase them.
+
+**Connector route:** read those files from the draft and compare each one's `checksumMd5` (or body)
+with the md5 of the matching file in `work/`, which is what was written. Same rule if they differ.
 
 ## 3. Work out exactly what to restore
 
@@ -43,6 +50,11 @@ Restore the files in the working copy, then push only those files to the target 
 explicit `--only` for each. Allow deletion only for the files the revert itself removes, and name
 each one. Order matters: push the templates that stop referencing a file before deleting the file.
 
+**Connector route:** write the baseline copies back with `themeFilesUpsert` (whole files, an
+explicit list, at most 50 per call), then remove the files the change added with `themeFilesDelete`,
+each named, in that order. Role gate first, as for any write. A baseline copy whose md5 did not
+match its `checksumMd5` when it was taken is not a backup: don't restore from it.
+
 ## 5. Prove it
 
 1. Pull the whole target theme to a fresh scratch folder.
@@ -51,6 +63,12 @@ each one. Order matters: push the templates that stop referencing a file before 
    them. Differences: list them; the revert is not complete.
 3. Load the page on the theme and confirm the baseline numbers return: section inventory, total
    height, heading outline, tracked links, and the `theme check` count.
+
+**Connector route:** instead of pulling the whole theme, read the restored files back (retrying for
+up to about 30 seconds, because writes are asynchronous) and compare them with `baseline/`, then
+read the whole-theme manifest and compare it with `baseline/manifest.json`: it should match, apart
+from files someone else edited, which you name. The `theme check` count is "Can't tell" on this
+route, as it was at the baseline.
 
 ## 6. Log it
 

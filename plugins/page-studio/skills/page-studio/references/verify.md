@@ -20,6 +20,40 @@ Reading the source you just wrote is not verification; loading the rendered page
 - **Don't invent a baseline.** With no change pack, capture the current state now and say what that
   can't prove (see below).
 
+## On the connector route
+
+When `setup-check.md` chose the connector route (`connector-route.md`: no Shopify CLI, no local
+copy of the theme), the rules above still hold, and three things differ.
+
+**1. The rendered checks run after the write, on the draft.** There is nothing to render on this
+computer first. The order is: pre-write checks (below), write to the draft (`ship-to-draft.md`),
+then every check in section 3 on the draft's preview address. A draft is private, so visitors never
+see the change while it is checked. "Verified before the push" cannot hold for the rendered checks
+on this route, so don't say it: say "checked on the draft after it was written."
+
+**2. Pre-write checks are source checks, and they are not verification.** Run them on the files in
+`work/` before anything is written, and record them as one line ("Pre-write checks: ...") in the
+change pack's section 3, never as passes in section 5:
+
+- the files in `work/` differ from `baseline/` only as sections 3 and 4 of the change pack say;
+- every JSON file parses, and every setting value is inside its schema's min, max or options;
+- the approved copy appears exactly as approved, and no placeholder text is left unless meant;
+- every colour, font and size traces to `design.md` or the theme settings;
+- new copy that makes a claim has been through `fact-check`;
+- the guards in `ship-to-draft.md` sections 2 and 3 passed.
+
+Any failure goes back to the editing step before the write.
+
+**3. Check 8 (`theme check`) is "Can't tell".** The code checker is part of the Shopify CLI. Record
+"Can't tell: the code checker needs the Shopify CLI", in the baseline too. The plan step tells the
+person once, and their agreement is the "reason the person accepted" that lets the change go on.
+Shopify's own refusal of a bad file (the `userErrors` of the write) and the pre-write JSON and range
+checks cover part of what it would have caught; say that it is only part. A baseline captured
+without the checker can't prove the count didn't grow, so never write "theme check unchanged".
+
+A failed rendered check means the draft is **not ready**: fix it with the same guards or revert
+(`revert-mode.md`). The live theme was never touched.
+
 ## 1. Load the change pack
 
 Read the request, target theme, baseline and files touched (format and rules in
@@ -48,7 +82,7 @@ run it; "all" means every change.
 | 5 | Words as intended | Read the text from the rendered DOM | Matches the approved copy exactly; no placeholder text left unless it was meant to stay | content, create |
 | 6 | Other breakpoints and colour schemes | Check tablet and each colour scheme the section offers | No overflow, overlap or clipped text | design, create |
 | 7 | Shared code | For a change to a shared section or style, check every other page that uses it | Those pages unchanged, or changed only as agreed | design |
-| 8 | `theme check` | Run it on the working copy | The offense count is not higher than the baseline's | all |
+| 8 | `theme check` | Run it on the working copy (connector route: it can't run; see above) | The offense count is not higher than the baseline's (connector route: "Can't tell") | all |
 | 9 | Accessibility basics | One h1, no skipped heading levels, icon-only controls have names, images have alt text, tap targets meet the threshold the playbook states, contrast per colour scheme | No new problem versus the baseline; list any that were already there | all |
 | 10 | New page or section: editor behaviour | Add, remove, reorder and duplicate the new sections in the theme editor; empty fields; a very long heading | Controls work and layout holds. "Can't tell" if there is no editor access | create |
 | 11 | No new overlay or console error from the change | Overlays at 1 s and about 15 s; browser console | Nothing new that the change caused | all |
@@ -61,7 +95,9 @@ A baseline captured at different widths than you can observe makes a check "Can'
 Write section 5 of the change pack: each check, its result, number and viewport. Then report in
 plain words:
 
-- **Verdict:** safe to put on the target theme, or not, and why.
+- **Verdict:** safe to put on the target theme, or not, and why. (Connector route: it is already
+  on the draft; "safe" means ready to leave there and offer for publishing, "not safe" means fix
+  or revert.)
 - **The numbers:** before and after for the changed thing, the section inventory result, the
   `theme check` count, and anything "Can't tell" with its reason.
 - **What it does not prove:** that the change will improve results, and anything not observable
@@ -74,6 +110,6 @@ step. Never ship a change whose verdict is not safe.
 
 | Verdict | Next |
 |---|---|
-| Every check passed, or "Can't tell" with a reason the person accepted | Ship to the target theme (`ship-to-draft.md`) |
+| Every check passed, or "Can't tell" with a reason the person accepted | Ship to the target theme (`ship-to-draft.md`). Connector route: the files are already on the draft, so go on to the log (`ship-to-draft.md` section 7) |
 | A check failed | Back to the editing step with the failing check and numbers |
 | The baseline is stale, or the theme was edited in the admin | Re-capture the baseline, then verify again |
