@@ -60,6 +60,16 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Formal and professional.** Polite and neutral. No exclamation marks, emoji or hype words.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
+- **Every question goes in the option window.** Ask each question to the person with the question tool
+  (`AskUserQuestion` in Claude Code and the Claude desktop app; load it first with ToolSearch if it is only
+  listed by name). Never write a question as plain chat text with numbered lists or "reply same" when the tool
+  exists. Each question gets a short header, 2 to 4 clear options with a one-line meaning each, the best
+  guess first and marked "(Recommended)", and the tool's built-in "Other" for typed answers (a link, a name, a
+  folder path). Put what a previous capture or the repo already shows into the options, so the person only
+  clicks. The tool takes at most 4 questions per call, so split longer sets into calls of up to 4 (several
+  calls in a row is fine). Only when the environment has no question tool (a plain chat, ChatGPT, Codex), write
+  the questions as one numbered message instead. Applies to every question in this skill and its references:
+  Step 0 folder, Step 1, Step 6b shared copy, Step 7 linking, and the mode choice when BRAND.md already exists.
 
 ## Effort (read before starting)
 
@@ -202,7 +212,9 @@ each other's files.
    - **BRAND.md exists and the request is anything else:** don't rewrite it. A change of direction (a rebrand, a
      new name) is a new capture: rename the old file `BRAND-<YYYY-MM-DD>.md` and run **new**. Other change
      requests go to `BRAND-REQUESTS.md`, and are applied in an apply-answers run only once the client confirms
-     them. (Verify, refresh and upgrade modes come in a later version.)
+     them. (Verify, refresh and upgrade modes come in a later version.) When the request is ambiguous, ask in the
+     option window: "Fresh capture (rename the old BRAND.md and start again)" or "Refresh only (check the site, log
+     changes in BRAND-REQUESTS.md)".
    - **split-voice:** BRAND.md exists from before BRAND-VOICE.md did (no `voice_doc` in its front matter, Voice
      written out in full; the scan's `repo.brand_md.voice_doc` is empty) and the client or reviewer asks for the
      voice to be separated. Move, don't rewrite: create BRAND-VOICE.md from `references/voice-template.md` with the
@@ -227,29 +239,37 @@ If a site URL is already known (Step 0), you may start Step 2's scan on it in th
 Code, run it as a background command): a question tool usually waits for the answer, so a scan started after asking
 would sit idle. If the answer names a different site, drop that scan and run it again on the right one. Likewise, if
 the store is known (the repo's theme config, a connected store), list its themes now (`references/theme-target.md`
-section 2) so C can offer them; if they can't be listed, ask for the draft's name or id. Then ask, in one message,
-with your environment's question tool if it has one:
+section 2) so C can offer them; if they can't be listed, ask for the draft's name or id through "Other". Then ask
+with the question tool, in **two calls** (the tool takes at most 4 questions each):
 
-> Before I start on **<brand or site>**, what can I work from, and where should the brand files go?
-> **A. Does the brand have an existing store or website?** *(If a URL is known:)* I found <url> (<where>): is that
-> the right one, and are there others I should read, such as another store, a marketplace page or social profiles?
-> *(Otherwise:)* Please send the link or links. "Not yet" is a fine answer.
-> **B. Is there an existing brand book I can use?** Brand guidelines, a style or voice guide, a logo or press kit, a
-> messaging or pitch deck, a Google Doc or Figma export: anything already written about the brand. Send the file or a
-> link, or paste the text. "Not yet" is a fine answer.
-> **C. Which draft theme should the brand files be saved in?** They are kept in that theme's folder on your computer,
-> next to its code, so later customization and every other skill finds them there. Nothing is sent to your store.
-> *(If themes were listed:)* Your draft themes are <name (id)>, <name (id)>: which one? *(If a draft was used before:)*
-> Same draft as before, <name>? *(Otherwise:)* Please give the store's .myshopify.com address and the draft theme's
-> name, and the folder where its files are (I'll use this folder if it is the theme). "No draft yet" is a fine answer.
->
-> And four quick questions:
-> 1. **Who are your top 3 competitors?** Names or websites. Fewer is fine.
-> 2. **Who are 2 or 3 brands you admire that don't compete with you?** Any industry: for tone, look, or how they talk to customers.
-> 3. **Who in your company needs to approve things to make sure they're on brand?** Name and role. "Nobody yet" is a fine answer.
-> 4. **Is there anything we should never say or claim about your brand or products?** Words, claims or topics. "Nothing" is fine.
+**Call 1: sources and the draft theme** (header, then the question and its options):
 
-(An add-design run asks only A and B, and C only when the files aren't already in a draft theme's folder.) Then act on
+- **Site** (A). "Is <url> (<where it came from>) the site to read?" Options: "Yes, only this site
+  (Recommended)", "This site and others (I will add links)", "No, a different site". With no known site:
+  "Do you have a website or store?" Options: "Yes, I will send the link", "Not yet". Links come through "Other".
+- **Brand book** (B). "Is there an existing brand book I can use?" Add a line saying what counts: brand
+  guidelines, a style or voice guide, a logo or press kit, a messaging deck, a Google Doc or Figma export.
+  Options: "Use the one from last time" (only when one was found in Step 0), "Yes, I will send a file or link",
+  "Not yet".
+- **Draft theme** (C). "Which draft theme should the brand files be saved in? They are kept in that theme's folder
+  on your computer. Nothing is sent to your store." Options: each listed draft as "<name> (<id>)", with the one
+  used before or the one matching the current folder first and marked "(Recommended)"; plus "No draft yet".
+  Without a list, options "I will give the store address and theme name" and "No draft yet".
+
+**Call 2: the four setup questions** (header, question, options):
+
+1. **Competitors.** "Who are your top 3 competitors?" Options: "Use the list from last time" (only when
+   COMPETITORS.md or BRAND.md has one; name them in the description), "I will type them (names or websites)",
+   "Skip for now".
+2. **Inspiration.** "Which 2 or 3 brands do you admire that don't compete with you? Any industry: for tone,
+   look, or how they talk to customers." Options: "Use the list from last time" (only when one exists),
+   "I will type them", "Skip for now".
+3. **Approver.** "Who needs to approve things to make sure they're on brand?" Options: "I will type a name and
+   role", "Nobody yet".
+4. **Never say.** "Is there anything we should never say or claim about your brand or products?" Options:
+   "Keep the current list" (only when one exists), "I will type words, claims or topics", "Nothing".
+
+(An add-design run asks only A and B, and C only when the files aren't already in a draft theme's folder: Call 1 only.) Then act on
 the answers to A, B and C:
 
 | Answer | What to do |
@@ -391,7 +411,7 @@ python3 scripts/link_brand.py <theme-folder> --apply all  # after the person say
 It adds one short marked pointer to the theme folder's agent files (AGENTS.md for Codex and similar tools, CLAUDE.md
 for Claude Code, unless CLAUDE.md already imports AGENTS.md) and to every skill or workflow doc in it that writes
 customer-facing words. Show the dry-run list, drop anything that doesn't write copy, and ask once: "Link these N files
-to BRAND.md?" Apply only what they approve. It never edits skills installed outside the project, and `--remove` undoes
+to BRAND.md?" (option window: "Yes, link all", "Let me choose", "No") Apply only what they approve. It never edits skills installed outside the project, and `--remove` undoes
 it exactly. In a Shopify theme repo, root-level files such as AGENTS.md and CLAUDE.md are not part of the theme, so
 theme pushes never send them to the store. Where the project lives decides the rest:
 

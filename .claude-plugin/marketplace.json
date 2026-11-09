@@ -30,7 +30,7 @@
       "name": "brand-capture",
       "source": "./plugins/brand-capture",
       "description": "One-time brand setup: scans a site, reads any brand book, and writes BRAND.md, BRAND-VOICE.md, a complete design.md and BRAND-QUESTIONS.md in a draft theme's folder, where every other skill reads them.",
-      "version": "0.6.0"
+      "version": "0.6.1"
     },
     {
       "name": "styles-builder",
