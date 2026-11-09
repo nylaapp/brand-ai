@@ -42,8 +42,9 @@ The folder on this computer that holds the draft theme's files: it has `layout/t
 
 **First, is there a local folder at all?** Check before asking which draft theme (section 1), and ask only when
 there is none. A folder counts if it is remembered (`BRAND-HOME.md`'s `path`, or the folder holding
-`THEME-TARGET.md`) or if the current folder looks like a theme (step 1 below). If none counts, ask once, in one
-short message:
+`THEME-TARGET.md`) or if the current folder looks like a theme (step 1 below). If none counts, ask once, in the
+option window (options: "I created it, I will give the path", "Create it for me (I will confirm the path)", "No
+draft theme yet"), with this text as the question:
 
 > I don't see a folder on this computer for **<store or brand>** yet. Please create one named **<slug>**, where
 > you keep your project files (for example `~/Documents/<slug>/`), and tell me its path.
@@ -153,13 +154,13 @@ It adds a copy and changes nothing in that folder.
 
 ### Ask once
 
-After the local files are written, ask once, with your environment's question tool if it has one:
+After the local files are written, ask once in the option window (`AskUserQuestion`, multi-select on; plain
+numbered message only if there is no question tool):
 
 > Do you also want a shared copy of the brand files for the rest of the team? Your local folder stays the master:
-> the copy is only a copy, and if the two ever differ, the local file wins. Choose one, both, or neither:
-> 1. **A shared Google Drive folder**
-> 2. **A `brand/` folder in the theme repo**
-> 3. **No, local only**
+> the copy is only a copy, and if the two ever differ, the local file wins.
+> Options: **A shared Google Drive folder**, **A `brand/` folder in the theme repo**, **No, local only** (this one
+> cannot be combined with the others).
 
 ### Option 1: a shared Google Drive folder
 
