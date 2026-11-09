@@ -1,6 +1,6 @@
 ---
 name: cro-audit
-description: "Conversion-rate (CRO) audit for a Shopify page or store, run as a quick first pass or as the full research suite CRO agencies use, with no analytics or heatmap integration required. Streams: technical and speed, expert heuristic review, competitive review, web analytics analysis (read-only Shopify Analytics through the Shopify CLI when it is authorised, otherwise numbers the person supplies, with a data-validity check and segment cuts), behavioural review of heatmaps and session recordings the person supplies, voice of customer (reviews, support text, surveys) and user testing (it writes the survey questions and test scripts and analyses the results; it does not collect them). Labels every finding by evidence type and confidence, sorts each issue into a bucket (just do it, instrument, investigate, test, hypothesize), scores with ICE or PIE, and plans the experiments with hypotheses, metrics, sample size and duration, plus an A/B result checker with a sample-ratio check. Strictly read-only: it never changes a store's settings, setup, theme, content or apps, even when its access would allow it. Use for \"CRO audit\", \"conversion audit\", \"full CRO audit\", \"why isn't this converting\", \"heuristic review\", \"what should we test\", \"analyse our funnel\", \"plan an A/B test\", \"how many visitors do we need for a test\", \"read these A/B results\", or \"is the site fast enough\". Not for fixing the page (use page-edit-content, page-edit-design or page-create), a general page gap analysis (page-audit), tagging and consent (analytics-audit) or Lighthouse scoring and fixing speed, accessibility or theme code (theme-audit)."
+description: "Conversion-rate (CRO) audit for a Shopify page or store, run as a quick first pass or as the full research suite CRO agencies use, with no analytics or heatmap integration required. Streams: technical and speed, expert heuristic review, competitive review, web analytics analysis (read-only Shopify Analytics through the Shopify CLI when it is authorised, otherwise numbers the person supplies, with a data-validity check and segment cuts), behavioural review of heatmaps and session recordings the person supplies, voice of customer (reviews, support text, surveys) and user testing (it writes the survey questions and test scripts and analyses the results; it does not collect them). Labels every finding by evidence type and confidence, sorts each issue into a bucket (just do it, instrument, investigate, test, hypothesize), scores with ICE or PIE, and writes the report the way agencies present it: the funnel stage by stage (each stage's rate by device, channel and entry page against a target or the store's own average, with a verdict) and every key finding shown on a screenshot of the real page with numbered boxes. It also plans the experiments with hypotheses, metrics, sample size and duration, plus an A/B result checker with a sample-ratio check. Strictly read-only: it never changes a store's settings, setup, theme, content or apps, even when its access would allow it. Use for \"CRO audit\", \"conversion audit\", \"full CRO audit\", \"why isn't this converting\", \"heuristic review\", \"what should we test\", \"analyse our funnel\", \"plan an A/B test\", \"how many visitors do we need for a test\", \"read these A/B results\", or \"is the site fast enough\". Not for fixing the page (use page-edit-content, page-edit-design or page-create), a general page gap analysis (page-audit), tagging and consent (analytics-audit) or Lighthouse scoring and fixing speed, accessibility or theme code (theme-audit)."
 ---
 
 # CRO audit
@@ -66,8 +66,8 @@ Ask which mode in the intake. If unsure, run the quick audit and offer the full 
 - **Don't act as a visitor who changes anything.** No test bookings, orders, sign-ups or form submits.
   Don't accept or decline the cookie banner. A popup may be closed with its own close button to see the
   page behind it; nothing else on the page is clicked except links being followed to read them.
-- **The only files you write** are `CRO-AUDIT.md` and, if asked, instruments (survey questions, test
-  scripts) beside it.
+- **The only files you write** are `CRO-AUDIT.md`, its evidence pictures in `cro-evidence/`, the stage
+  counts (`stages.csv`) and, if asked, instruments (survey questions, test scripts) beside it.
 - **No integrations required.** Work from the public page, public tools, read-only access the person
   already set up (such as an authorised Shopify CLI) and what the person gives you. Never ask them to
   connect a new tool, and never type a password or token for them. Behavioural
@@ -142,6 +142,9 @@ partial.
   close-button size, then close a popup with its own close button to see the page. Leave the cookie
   banner unanswered. A popup you closed won't come back in the same browser, so measure first-visit
   behaviour on the first load of each device.
+- **Evidence pictures** (`references/visual-evidence.md`): for each problem you can see, take a picture
+  of that section on the device it happens on with `scripts/evidence_shot.py --capture`, with numbered
+  boxes on the elements. Take first-visit pictures (popups, banners) at the moment they appear.
 - **Follow the conversion path read-only.** Click through each step of the main action (for example
   Book, then choose a region, then a location) to count the steps and spot dead or looping links. Stop
   at the first page of an off-site system (a booking or checkout site) and don't enter anything.
@@ -168,7 +171,8 @@ partial.
 Follow `references/analytics-analysis.md`.
 
 1. **Shopify CLI first, read-only.** Run `scripts/shopifyql.py --store <shop>.myshopify.com --check`.
-   If it reports "Analytics: ready", pull the data with `--preset all --since <start> --until <end>`.
+   If it reports "Analytics: ready", pull the data with `--preset all --since <start> --until <end>
+   --stages-out stages.csv` (bots are left out with Shopify's own filter).
    If `read_reports` (or `read_orders`) is missing, or the CLI isn't authorised, stop there: tell the
    person what's missing and give them the `shopify store auth` command to run themselves if they want to
    grant it, or ask for the CSV exports instead. Never run that command for them.
@@ -177,8 +181,12 @@ Follow `references/analytics-analysis.md`.
    channel with completed checkouts (subscriptions, other storefronts, draft orders and POS aren't
    website conversions); drop bot rows (no device type, near-100% bounce); flag internal traffic; and
    say whether the main conversion even happens on the store.
-3. **Read by segment:** the funnel by device with `scripts/funnel.py` (use `--csv` output), entry pages,
-   sources by device, social networks and their entry pages, the homepage by device and source.
+3. **Read by stage** (`references/funnel-stages.md`): pick the stages for the business (shop, booking or
+   lead), add any stage measured elsewhere (GA4, the booking system) to `stages.csv`, set the reference
+   (the person's targets, a benchmark you look up and cite, or the store against itself), and run
+   `scripts/stages.py --csv stages.csv`. A stage nobody measures stays in the report as "Not measured".
+4. **Read by segment:** entry pages, sources by device, social networks and their entry pages, the
+   homepage by device and source.
 
 Tag everything `[Reported]` with the window and source. If there are no numbers at all, name the three
 the person can read off their analytics in a minute (sessions, add-to-cart or booking starts, orders)
@@ -204,7 +212,8 @@ severity scale. Tag `[Test]`. No sessions yet: attach the script and mark "prepa
 
 ## 8. Synthesis, prioritise, plan experiments
 
-1. Merge the streams into one issue list. For each issue note every kind of evidence behind it.
+1. Merge the streams into one issue list. For each issue note every kind of evidence behind it and the
+   funnel stage it affects.
 2. Rate confidence and assign a bucket (`references/prioritization.md`): Just do it, Instrument,
    Investigate, Test or Hypothesize.
 3. Score with `scripts/prioritize.py ideas.json --evidence-confidence` (write the JSON from the issue
@@ -218,7 +227,9 @@ severity scale. Tag `[Test]`. No sessions yet: attach the script and mark "prepa
 
 ## 9. Write CRO-AUDIT.md
 
-Use `references/report-template.md` for the file. Then write the chat message with
+Use `references/report-template.md` for the file. Its spine is **Funnel by stage**
+(`references/funnel-stages.md`): one block per stage with its verdict, the segment grid, what the
+numbers say, the evidence pictures with numbered changes, the key question and next steps. Then write the chat message with
 `references/chat-readout.md`: a plain-language readout in a fixed order (headline, what I looked at,
 what changed, a five-row "Fix these first" table, quick wins, what's worth testing, what the numbers
 say, what I couldn't check, then the link and one next-step question). The file keeps the analyst
@@ -245,6 +256,10 @@ always go to a draft theme (those skills never edit the live theme).
 | `references/user-testing-playbook.md` | Stream 7 |
 | `references/prioritization.md`, `references/experiment-design.md` | Stream 8 |
 | `references/report-template.md` | The file you write |
+| `references/funnel-stages.md` | The report's spine: stages per business type, references and targets, one block per stage |
+| `references/visual-evidence.md` | Screenshots with numbered boxes; a deck or page only when asked |
 | `references/chat-readout.md` | The chat message: layout, writing rules, glossary, example |
 | `scripts/shopifyql.py` | Read-only Shopify Analytics through the Shopify CLI (access check, presets, refuses writes) |
+| `scripts/stages.py` | Stage rates by segment against a target or the store's own rate, with 95% ranges |
+| `scripts/evidence_shot.py` | Captures a page section as a phone or desktop and draws numbered boxes (read-only) |
 | `scripts/pagespeed.py`, `funnel.py`, `sample_size.py`, `ab_result.py`, `prioritize.py` | Measurement and maths (stdlib only) |
