@@ -80,6 +80,13 @@ Never `--live`, `--allow-live` or `--publish`; never a bare `shopify theme push`
 doesn't accept `--json`. Same rule as above: push changed section files first, templates in a second push, then pull
 the template back to check.
 
+**Publishing (Launch or Stop only):**
+`shopify theme publish --store <store> --theme <copy-id>`. Only when one of these is true:
+- the owner says to publish in this chat;
+- campaign.md records their pre-approved automatic publish (`references/launch-stop.md`).
+
+Always run the drift check first. The connector can't publish, so with the connector the owner presses Publish.
+
 ## Offline
 
 Copy the local theme folder, edit the copy, validate it, and report the result as a dry run with the exact files and

@@ -89,8 +89,8 @@
     {
       "name": "charlotte-welch",
       "source": "./plugins/charlotte-welch",
-      "description": "Charlotte Welch (Hautebox) website: run a sale on the homepage and match the site's colours to the style guide (campaign-launcher, theme-editor).",
-      "version": "0.2.0"
+      "description": "Charlotte Welch (Hautebox) website: plan and launch a campaign (website now; email, SMS and ads as stubs) with scheduled Launch and Stop, and match the site's colours to the style guide (campaign-launcher, theme-editor).",
+      "version": "0.3.0"
     }
   ]
 }

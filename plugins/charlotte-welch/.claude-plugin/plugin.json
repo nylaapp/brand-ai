@@ -1,7 +1,7 @@
 {
   "name": "charlotte-welch",
-  "version": "0.2.0",
-  "description": "Charlotte Welch (Hautebox) website skills: campaign-launcher puts a time-boxed sale on the homepage and announcement bar and takes it down after; theme-editor matches the theme's colours (and fonts if asked) to the style guide. Both work on an unpublished copy through the Shopify connector or CLI and read BRAND.md, BRAND-VOICE.md and THEME-SPECIFICS.md.",
+  "version": "0.3.0",
+  "description": "Charlotte Welch (Hautebox) website skills: campaign-launcher plans a campaign from one sentence or its materials (one-line plan, calendar file), readies the website on an unpublished copy, drafts email, SMS and ads as stubs, and schedules Launch and Stop; theme-editor matches the theme's colours (and fonts if asked) to the style guide. Both work through the Shopify connector or CLI and read BRAND.md, BRAND-VOICE.md and THEME-SPECIFICS.md.",
   "author": {
     "name": "Nyla",
     "email": "michael@nyla.app"
@@ -14,6 +14,8 @@
     "sale",
     "campaign",
     "brand-colors",
-    "theme"
+    "theme",
+    "launch",
+    "calendar"
   ]
 }
