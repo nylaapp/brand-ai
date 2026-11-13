@@ -1,0 +1,19 @@
+{
+  "name": "charlotte-welch",
+  "version": "0.1.0",
+  "description": "Charlotte Welch (Hautebox) website skills: cw-sale-campaign puts a time-boxed sale on the homepage and announcement bar and takes it down after; cw-brand-theme matches the theme's colours (and fonts if asked) to the style guide. Both work on an unpublished copy through the Shopify connector or CLI and read BRAND.md, BRAND-VOICE.md and THEME-SPECIFICS.md.",
+  "author": {
+    "name": "Nyla",
+    "email": "michael@nyla.app"
+  },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": [
+    "shopify",
+    "charlotte-welch",
+    "hautebox",
+    "sale",
+    "campaign",
+    "brand-colors",
+    "theme"
+  ]
+}

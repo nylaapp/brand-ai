@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: fonts-from-guide
+expected_outcome: |
+  Heading and body fonts change to the guide's Minion Pro or, since it is not in Shopify's font library, to a close library serif such as crimson_pro_n4, using a valid handle, with a note on loading the licensed font via Adobe Fonts; local files only.
+  Fixture: the client project folder (BRAND.md, BRAND-VOICE.md, AGENTS.md, Theme/, Assets/, Brand/), not bundled here.

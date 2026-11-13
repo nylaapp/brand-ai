@@ -85,6 +85,12 @@
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
       "version": "0.1.14"
+    },
+    {
+      "name": "charlotte-welch",
+      "source": "./plugins/charlotte-welch",
+      "description": "Charlotte Welch (Hautebox) website: run a sale on the homepage and match the site's colours to the style guide (cw-sale-campaign, cw-brand-theme).",
+      "version": "0.1.0"
     }
   ]
 }
