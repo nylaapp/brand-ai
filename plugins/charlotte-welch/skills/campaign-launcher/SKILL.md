@@ -1,5 +1,5 @@
 ---
-name: cw-sale-campaign
+name: campaign-launcher
 description: Charlotte Welch (Hautebox) store. Put a time-boxed sale or campaign on a Shopify store's theme (homepage hero, announcement bar, optional countdown, sale colours) in the brand's own voice, on an unpublished preview copy, with a revert plan for when it ends. Works through the Shopify connector in a normal Claude chat (no terminal), or the Shopify CLI. Reads BRAND.md and BRAND-VOICE.md for names, tone and claim limits. Use whenever someone says "put the sale on the homepage", "update the site for our campaign", "the homepage should reflect the X% off sale", "add a countdown", "BFCM / Black Friday / holiday sale prep", "launch the promo", "take the sale down", "revert the campaign", or sends a campaign video, graphic or brief and wants the website to match, even if they don't say "theme" or "Shopify".
 ---
 

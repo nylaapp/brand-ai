@@ -1,5 +1,5 @@
 ---
-name: cw-brand-theme
+name: theme-editor
 description: Charlotte Welch (Hautebox) store. Make a Shopify store's theme match its brand guide. Maps the palette, gradients and (when asked) typography in BRAND.md or a brand book onto the theme's colour settings, fonts and the colours set on individual sections, checks every text/background pair for readable contrast, and delivers it on an unpublished preview copy with a before/after table. Works through the Shopify connector in a normal Claude chat (no terminal), or the Shopify CLI. Use whenever someone says "change the brand colors on the website", "make the site match our brand guide / style guide", "update the fonts", "apply the new branding", "our site doesn't look on brand", "rebrand the store", or sends hex codes, a palette or a brand book and wants the website updated, even if they don't say "theme".
 ---
 
