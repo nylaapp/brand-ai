@@ -1,6 +1,6 @@
 ---
 name: theme-editor
-description: Charlotte Welch (Hautebox) store. Make a Shopify store's theme match its brand guide. Maps the palette, gradients and (when asked) typography in BRAND.md or a brand book onto the theme's colour settings, fonts and the colours set on individual sections, checks every text/background pair for readable contrast, and delivers it on an unpublished preview copy with a before/after table. Works through the Shopify connector in a normal Claude chat (no terminal), or the Shopify CLI. Use whenever someone says "change the brand colors on the website", "make the site match our brand guide / style guide", "update the fonts", "apply the new branding", "our site doesn't look on brand", "rebrand the store", or sends hex codes, a palette or a brand book and wants the website updated, even if they don't say "theme".
+description: Make a Shopify store's theme match its brand guide. Maps the palette, gradients and (when asked) typography in BRAND.md or a brand book onto the theme's colour settings, fonts and the colours set on individual sections, checks every text/background pair for readable contrast, and delivers it on an unpublished preview copy with a before/after table. Works through the Shopify connector in a normal Claude chat (no terminal), or the Shopify CLI. Use whenever someone says "change the brand colors on the website", "make the site match our brand guide / style guide", "update the fonts", "apply the new branding", "our site doesn't look on brand", "rebrand the store", or sends hex codes, a palette or a brand book and wants the website updated, even if they don't say "theme".
 ---
 
 # Shopify brand theme
@@ -29,7 +29,7 @@ not measured). Past 15 minutes, stop and say what's blocking.
 - **The owner's signature stays.** A surface already in a brand colour (an orange header when orange is in the
   guide) is kept; only its text and buttons are fixed. Read the guide's own labels: a colour it lists as *primary* may
   be the brand's main surface colour, not just an accent. Repaint a surface only when its colour is off-palette.
-  (Learned on Charlotte Welch: the skill moved her orange header to the dark gradient; her team said orange is the
+  (Learned on a client store: the skill moved their orange header to the dark gradient; their team said orange is the
   site's main colour.)
 - Every text-on-background pair passes WCAG AA (4.5:1 body text, 3:1 large text and UI). Fix failures by changing
   the pairing, not the brand colour.

@@ -1,6 +1,6 @@
 ---
 name: campaign-launcher
-description: Charlotte Welch (Hautebox) store. Plans and runs a time-boxed campaign (seasonal, product launch, discount or promotion, or a mix) from one sentence, uploaded materials or links. It shows a one-line plan (name, type, exact dates, channels) and a calendar file, then readies the website on an unpublished preview copy (announcement bar, homepage hero, optional countdown) in the brand's voice, drafts email, SMS and ads as stubs, and schedules Launch and Stop. Works through the Shopify connector in a normal Claude chat (no terminal) or the Shopify CLI. Reads BRAND.md and BRAND-VOICE.md. Use whenever someone says "new campaign", "plan a campaign", "put the sale on the homepage", "we're launching a new product", "launch the promo", "BFCM or holiday sale prep", "add a countdown", "launch or stop the campaign", "take the sale down", "the sale's over", or sends a campaign brief, graphic or video, even without saying "theme" or "Shopify".
+description: Plans and runs a time-boxed campaign (seasonal, product launch, discount or promotion, or a mix) from one sentence, uploaded materials or links. It shows a one-line plan (name, type, exact dates, channels) and a calendar file, then readies the website on an unpublished preview copy (announcement bar, homepage hero, optional countdown) in the brand's voice, drafts email, SMS and ads as stubs, and schedules Launch and Stop. Works through the Shopify connector in a normal Claude chat (no terminal) or the Shopify CLI. Reads BRAND.md and BRAND-VOICE.md. Use whenever someone says "new campaign", "plan a campaign", "put the sale on the homepage", "we're launching a new product", "launch the promo", "BFCM or holiday sale prep", "add a countdown", "launch or stop the campaign", "take the sale down", "the sale's over", or sends a campaign brief, graphic or video, even without saying "theme" or "Shopify".
 ---
 
 # Campaign launcher
@@ -97,7 +97,7 @@ Work out each fact from what they gave, the project and the store. Ask only for 
 
 | Fact | Values | Rule |
 |---|---|---|
-| Name | e.g. "Cousin Walk Sale" | From the materials; otherwise suggest one |
+| Name | e.g. "Autumn Stroll Sale" | From the materials; otherwise suggest one |
 | Status | New · Exists, not live (where) · Live now (since when, which channels) | From Step 0.4. Never ask what you can see |
 | Type | **One or more** of: Seasonal · Product launch (a new or changed product or line) · Discount or promotion | Multi-select. A Thanksgiving 35% off sale is Seasonal + Discount |
 | Dates | Start date and time, end date and time, store time zone (Step 0.5) | **Exact calendar dates only.** Turn "a week from now, for three days" into real dates and show them. A date or time that reads two ways ("Dec 1 at midnight") becomes a question with two options: the countdown, the copy and the discount must end at the same moment |
@@ -123,7 +123,7 @@ re-plan it: its materials may need a new version.
 format never varies. Where Python can't run, write it by hand in the same format.
 
 ```
-Campaign: Cousin Walk Sale · Seasonal + Discount · Nov 10 2026, 00:00 to Nov 17 2026, 23:59 (America/New_York) · Website, Email, SMS, Ads
+Campaign: Autumn Stroll Sale · Seasonal + Discount · Nov 10 2026, 00:00 to Nov 17 2026, 23:59 (America/New_York) · Website, Email, SMS, Ads
 Status: new · Route: ready (materials final)
 Website: homepage hero and announcement bar (countdown offered as an extra)
 Email, SMS, Ads: not connected yet, so I'll draft them for you to send
@@ -132,7 +132,7 @@ Assumed: <anything not confirmed yet, e.g. the end time>
 ```
 
 Keep the same lines when the campaign already exists or is live, but say what's already done and what's left. For
-example, "Website: already on preview #188494086362; only a drift check is left" or "Launch: already live since
+example, "Website: already on preview #<id>; only a drift check is left" or "Launch: already live since
 Nov 10".
 
 Then ask once, in the option window (`AskUserQuestion` in Claude Code and the desktop app; load it with ToolSearch if
@@ -144,7 +144,7 @@ The yes approves the plan and the work on the preview copy and the drafts. It do
 to store data (discounts, product tags or metafields). Each connector write still shows its own confirmation.
 
 **After the yes**, write `campaigns/<slug>/campaign.md` with the plan, if you can write files. Use a short slug
-(`cousin-walk`): Windows refuses paths over 260 characters. Then make the calendar file with
+(`autumn-stroll`): Windows refuses paths over 260 characters. Then make the calendar file with
 `scripts/campaign_calendar.py ... --slug <slug> --out campaigns/<slug>/<slug>.ics` and give it to the owner ("open
 it to add the campaign, Launch and Stop to your calendar"). If the plan changes later, make the file again.
 

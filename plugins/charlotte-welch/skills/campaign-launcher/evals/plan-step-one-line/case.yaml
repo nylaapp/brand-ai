@@ -1,5 +1,0 @@
-schema_version: "1.1"
-name: plan-step-one-line
-expected_outcome: |
-  From one sentence and the campaign video, the skill shows the one-line plan (name, Seasonal + Discount, exact start and end with time and time zone, all four channels), notices the Cousin Walk campaign already exists (preview copy, live hero) and plans from where it stands, asks which sale is meant when the request (Thanksgiving week) and the video (Nov 10 to 17) disagree, asks only what's open with options, and changes no file before the owner approves the plan.
-  Fixture: the client project folder (BRAND.md, BRAND-VOICE.md, AGENTS.md, Theme/, Assets/, Brand/, campaigns/), not bundled here.

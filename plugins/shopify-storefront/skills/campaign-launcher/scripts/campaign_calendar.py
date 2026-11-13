@@ -7,10 +7,10 @@ reminder and the exact sentence to say to Claude, so the owner can act on time e
 can't run scheduled tasks.
 
 Usage:
-  python campaign_calendar.py --name "Cousin Walk Sale" --types "Seasonal,Discount" \
+  python campaign_calendar.py --name "Autumn Stroll Sale" --types "Seasonal,Discount" \
       --start "2026-11-10 00:00" --end "2026-11-17 23:59" --tz America/New_York \
       --channels "Website,Email,SMS,Ads" --offer "35% off sitewide" \
-      --preview "https://example.com/?preview_theme_id=123" --out campaigns/cousin-walk/cousin-walk.ics
+      --preview "https://example.com/?preview_theme_id=123" --out campaigns/autumn-stroll/autumn-stroll.ics
 
   --tz needs Python's time zone data (built in on macOS and Linux; on Windows, `pip install tzdata`).
   Without it, pass --utc-offset=-05:00 instead (the offset in force on the start date; keep the "=").

@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: autumn-stroll-homepage
+expected_outcome: |
+  Homepage, announcement bar and countdown all show the Autumn Stroll Sale, 35% off sitewide, Nov 10 to 17, in the brand voice, without claiming gift cards are discounted; changes are made only to local theme files, with a snapshot and revert plan.
+  Fixture: the client project folder (BRAND.md, BRAND-VOICE.md, AGENTS.md, Theme/, Assets/, Brand/), not bundled here.

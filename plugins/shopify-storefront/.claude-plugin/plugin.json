@@ -1,0 +1,19 @@
+{
+  "name": "shopify-storefront",
+  "version": "0.4.0",
+  "description": "Two Shopify skills: campaign-launcher plans a campaign from one sentence or its materials (one-line plan, calendar file), readies the website on an unpublished copy, drafts email, SMS and ads as stubs, and schedules Launch and Stop; theme-editor matches the theme's colours (and fonts if asked) to the style guide. Both work through the Shopify connector or CLI and read BRAND.md, BRAND-VOICE.md and THEME-SPECIFICS.md.",
+  "author": {
+    "name": "Nyla",
+    "email": "michael@nyla.app"
+  },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": [
+    "shopify",
+    "sale",
+    "campaign",
+    "brand-colors",
+    "theme",
+    "launch",
+    "calendar"
+  ]
+}
