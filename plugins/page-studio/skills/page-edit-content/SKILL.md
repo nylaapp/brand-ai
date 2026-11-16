@@ -53,6 +53,7 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 
 ## Rules
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **Working copy first, on the theme the person chose.** Never push from the working copy except
   through the ship step. The theme is asked once and remembered (`theme-target.md`); it is always a draft or unpublished theme, never the live theme (if there is none, `theme-target.md` asks for one or creates one) (`theme-target.md`, `ship-to-draft.md`).
 - **Content only.** If the request also changes layout, spacing, colour, type or section order,
@@ -121,6 +122,11 @@ the one-line goal check in `../page-audit/references/intake.md` section 3.
 owned by this theme. Work only on those and carry each row's baseline number. Rows about layout or
 style go to `page-edit-design`; rows owned by store settings, an app or an off-site page are
 reported, not edited here.
+
+**Offer a refresh.** After the asked change is clear, follow `../page-studio/references/freshness.md`
+for this page or section and offer up to three content ideas (new angle, proof, offer, imagery,
+shorter copy) that would make it feel current, checked at desktop and mobile. Suggest only; do
+nothing until the person picks one, and treat a pick as its own change with its own baseline.
 
 ## 3. Resolve the target and the working copy
 
@@ -194,6 +200,7 @@ on a draft only (the live theme is never edited here).
 - [ ] Baseline captured before the first edit; change pack started
 - [ ] Exact change shown and agreed where it wasn't a single value
 - [ ] Only content changed; any design request handed to `page-edit-design`
+- [ ] Refresh ideas for the page or section offered (suggested only, none applied unpicked)
 - [ ] Verified on the rendered page at desktop and mobile; tracked links unchanged
 - [ ] Theme settled once (remembered or asked); pushed only to it, only the touched files, pulled back identical;
       never the live theme

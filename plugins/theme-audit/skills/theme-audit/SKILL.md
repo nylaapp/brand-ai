@@ -95,6 +95,7 @@ skipped silently.
 
 ## 0. Non-negotiables
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **Nothing a visitor can see changes.** Accessibility, best-practices and SEO fixes are additive: an
   `aria-*` attribute, a `role`, a visually-hidden label, a guard around a blank or broken dynamic
   value, a missing `<head>` tag, or a minimum contrast nudge. Speed fixes may change *how* the page

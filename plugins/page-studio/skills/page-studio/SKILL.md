@@ -115,6 +115,7 @@ step, stop after it.
 
 ## Rules that hold for every step
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **A draft theme, asked once or created.** It is always a draft or unpublished theme. Nothing is edited, pushed or published on the live theme, with or without a yes (`references/theme-target.md`, `references/ship-to-draft.md`).
 - **Only verified changes are pushed, and only the touched files.** No bare pushes.
 - **Only picked rows are acted on.** A recommendation nobody chose stays an open row.
@@ -131,6 +132,7 @@ step, stop after it.
 | Where | What |
 |---|---|
 | `references/baseline-and-change-pack.md` | What to capture before any edit, and the one-file record carried through a change |
+| `references/freshness.md` | Content and layout refresh ideas offered by `page-audit`, `page-edit-content` and `page-edit-design` |
 | `references/verify.md` | The checks that prove a change on the rendered page |
 | `references/setup-check.md` | What each skill needs set up first, and how to guide a non-technical person through each missing piece |
 | `references/theme-target.md` | Which theme to work on: ask once, remember it, protect the live theme |

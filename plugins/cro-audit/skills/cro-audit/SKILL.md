@@ -57,6 +57,7 @@ Ask which mode in the intake. If unsure, run the quick audit and offer the full 
 
 ## Rules
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **Store access is read-only, always.** Whatever access you have (the Shopify CLI, a connector, the
   admin, a signed-in browser), only read and pull data. Never create, change or delete anything on the
   store: no settings, themes, content, products, files, apps, discounts, tags, pixels or permissions,

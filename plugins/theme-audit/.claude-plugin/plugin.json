@@ -1,6 +1,6 @@
 {
   "name": "theme-audit",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Full Lighthouse suite from the command line (speed, accessibility, best practices, SEO), Shopify Theme Inspector (server timing of theme code) and Theme Check, with owners named for every cost, a plain-language readout, and safe fixes on a draft theme.",
   "author": { "name": "Nyla", "email": "michael@nyla.app" },
   "repository": "https://github.com/nylaapp/brand-ai",
