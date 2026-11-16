@@ -26,8 +26,13 @@ themselves and approve it in the browser.
   social          social sessions by network and by entry page
   orders-channel  orders and net sales by sales channel (subscriptions, other storefronts, POS)
   homepage        homepage entries by device and by source
+  stages          the shop funnel stage by stage (visit, product view, cart, checkout, purchase) for every
+                  device, channel and entry-page type, as a CSV for stages.py (--stages-out <file>)
   all             all of the above
 --csv prints the device funnel as Name=count steps ready for funnel.py.
+
+Sessions presets count people only: Shopify's own `human_or_bot_session` filter leaves bots out.
+check-data shows humans and bots per day, so a bot spike isn't mistaken for a traffic change.
 """
 import argparse, datetime, json, re, subprocess, sys
 
@@ -145,29 +150,59 @@ def store_today(store):
         return datetime.date.today(), "local time (store time zone unavailable)"
 
 FUNNEL = "sessions, sessions_with_cart_additions, sessions_that_reached_checkout, sessions_that_completed_checkout"
+HUMAN = "human_or_bot_session = 'human'"
 
 def presets(win):
+    h = f"WHERE {HUMAN}"
     return {
-        "check-data": ("Sessions per day", f"FROM sessions SHOW sessions TIMESERIES day {win}"),
-        "device-funnel": ("Shop funnel by device", f"FROM sessions SHOW {FUNNEL} GROUP BY session_device_type {win}"),
-        "landing": ("Top entry pages", f"FROM sessions SHOW sessions, bounce_rate, average_session_duration GROUP BY landing_page_path {win} ORDER BY sessions DESC LIMIT 15"),
-        "sources": ("Traffic by source and device", f"FROM sessions SHOW sessions, bounce_rate GROUP BY referrer_source, session_device_type {win} ORDER BY sessions DESC LIMIT 15"),
-        "social": ("Social by network", f"FROM sessions SHOW sessions GROUP BY referrer_name WHERE referrer_source = 'social' {win} ORDER BY sessions DESC LIMIT 10"),
-        "social-landing": ("Social by entry page", f"FROM sessions SHOW sessions, bounce_rate GROUP BY landing_page_path WHERE referrer_source = 'social' {win} ORDER BY sessions DESC LIMIT 10"),
+        "check-data": ("Sessions per day (people and bots)", f"FROM sessions SHOW sessions GROUP BY human_or_bot_session TIMESERIES day {win}"),
+        "device-funnel": ("Shop funnel by device", f"FROM sessions SHOW {FUNNEL} GROUP BY session_device_type {h} {win}"),
+        "landing": ("Top entry pages", f"FROM sessions SHOW sessions, bounce_rate, average_session_duration GROUP BY landing_page_path {h} {win} ORDER BY sessions DESC LIMIT 15"),
+        "sources": ("Traffic by source and device", f"FROM sessions SHOW sessions, bounce_rate GROUP BY referrer_source, session_device_type {h} {win} ORDER BY sessions DESC LIMIT 15"),
+        "social": ("Social by network", f"FROM sessions SHOW sessions GROUP BY referrer_name {h} AND referrer_source = 'social' {win} ORDER BY sessions DESC LIMIT 10"),
+        "social-landing": ("Social by entry page", f"FROM sessions SHOW sessions, bounce_rate GROUP BY landing_page_path {h} AND referrer_source = 'social' {win} ORDER BY sessions DESC LIMIT 10"),
         "orders-channel": ("Orders by sales channel", f"FROM sales SHOW orders, net_sales GROUP BY sales_channel {win}"),
-        "homepage": ("Homepage entries by device", f"FROM sessions SHOW sessions, bounce_rate, average_session_duration, pageviews_per_session GROUP BY session_device_type WHERE landing_page_path = '/' {win}"),
-        "homepage-source": ("Homepage entries by source", f"FROM sessions SHOW sessions, bounce_rate GROUP BY referrer_source WHERE landing_page_path = '/' {win}"),
+        "homepage": ("Homepage entries by device", f"FROM sessions SHOW sessions, bounce_rate, average_session_duration, pageviews_per_session GROUP BY session_device_type {h} AND landing_page_path = '/' {win}"),
+        "homepage-source": ("Homepage entries by source", f"FROM sessions SHOW sessions, bounce_rate GROUP BY referrer_source {h} AND landing_page_path = '/' {win}"),
     }
+
+# The stage report: each segment is split by whether the visit viewed a product, so one query per
+# segment gives every stage. Shopify's sessions data has no new-vs-returning split.
+STAGE_SEGMENTS = [("Device", "session_device_type"), ("Channel", "referring_medium"), ("Entry page", "landing_page_type")]
+STAGE_COLS = ["Visits", "Viewed a product", "Added to cart", "Reached checkout", "Purchased"]
+
+def stage_rows(store, win):
+    rows_out = []
+    for label, dim in STAGE_SEGMENTS:
+        q = f"FROM sessions SHOW {FUNNEL} GROUP BY session_viewed_product, {dim} WHERE {HUMAN} {win}"
+        _, rows = shopifyql(store, q)
+        agg = {}
+        for r in rows:
+            v = r.get(dim) or "(none)"
+            a = agg.setdefault(v, [0, 0, 0, 0, 0])
+            n = int(float(r.get("sessions") or 0))
+            a[0] += n
+            if str(r.get("session_viewed_product")).lower() in ("1", "true"):
+                a[1] += n
+            a[2] += int(float(r.get("sessions_with_cart_additions") or 0))
+            a[3] += int(float(r.get("sessions_that_reached_checkout") or 0))
+            a[4] += int(float(r.get("sessions_that_completed_checkout") or 0))
+        if not rows_out:  # the overall row, once, from the first segment's totals
+            rows_out.append(["All", "All visits"] + [sum(a[i] for a in agg.values()) for i in range(5)])
+        for v, a in sorted(agg.items(), key=lambda kv: -kv[1][0]):
+            rows_out.append([label, v] + a)
+    return rows_out
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--store", required=True, help="<shop>.myshopify.com")
     ap.add_argument("--check", action="store_true", help="show the shop and the CLI connection's scopes, then stop")
-    ap.add_argument("--preset", choices=["check-data", "device-funnel", "landing", "sources", "social", "orders-channel", "homepage", "all"])
+    ap.add_argument("--preset", choices=["check-data", "device-funnel", "landing", "sources", "social", "orders-channel", "homepage", "stages", "all"])
     ap.add_argument("--query", help="a ShopifyQL query (read-only)")
     ap.add_argument("--since", default="-28d")
     ap.add_argument("--until", default="-1d")
     ap.add_argument("--csv", action="store_true", help="print the device funnel as funnel.py --steps strings")
+    ap.add_argument("--stages-out", help="with --preset stages or all: write the stage CSV for stages.py to this file")
     a = ap.parse_args(join_dash_values(sys.argv[1:]))
 
     if a.check:
@@ -196,15 +231,27 @@ def main():
     if not a.preset:
         sys.exit("give --check, --preset or --query")
     p = presets(win)
-    names = list(p) if a.preset == "all" else ([a.preset] + (["social-landing"] if a.preset == "social" else []) + (["homepage-source"] if a.preset == "homepage" else []))
+    if a.preset == "stages":
+        names = []
+    else:
+        names = list(p) if a.preset == "all" else ([a.preset] + (["social-landing"] if a.preset == "social" else []) + (["homepage-source"] if a.preset == "homepage" else []))
     print(f"Window: {since} to {until} (both days included, {tz}; asked for {a.since} to {a.until}). "
-          "Source: Shopify Analytics via ShopifyQL, read-only.")
+          "Source: Shopify Analytics via ShopifyQL, read-only. Bots left out.")
+    if a.preset in ("stages", "all"):
+        rows = stage_rows(a.store, win)
+        lines = [",".join(["Segment", "Value"] + STAGE_COLS)] + [",".join(str(x).replace(",", " ") for x in r) for r in rows]
+        print("\n### Stage counts (for stages.py)\n")
+        print("\n".join(lines))
+        if a.stages_out:
+            with open(a.stages_out, "w") as f:
+                f.write(f"# Shopify Analytics, {since} to {until}, people only\n" + "\n".join(lines) + "\n")
+            print(f"\nWritten: {a.stages_out}")
     for n in names:
         title, q = p[n]
         cols, rows = shopifyql(a.store, q)
         table(title, cols, rows, 40 if n == "check-data" else 25)
         if n == "device-funnel" and a.csv:
-            print("\nfunnel.py steps by device (unknown-device rows are usually bots; leave them out):")
+            print("\nfunnel.py steps by device:")
             for r in rows:
                 if r.get("session_device_type") in (None, "other"):
                     continue

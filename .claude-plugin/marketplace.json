@@ -30,7 +30,7 @@
       "name": "brand-capture",
       "source": "./plugins/brand-capture",
       "description": "One-time brand setup: scans a site, reads any brand book, and writes BRAND.md, BRAND-VOICE.md, a complete design.md and BRAND-QUESTIONS.md in a draft theme's folder, where every other skill reads them.",
-      "version": "0.6.1"
+      "version": "0.6.2"
     },
     {
       "name": "styles-builder",
@@ -65,14 +65,14 @@
     {
       "name": "cro-audit",
       "source": "./plugins/cro-audit",
-      "description": "Full CRO audit suite, strictly read-only: technical and speed, heuristic and competitive review, Shopify Analytics read through the Shopify CLI (or supplied numbers) with data-validity checks, behavioural review, voice of customer, survey and user-test plans, prioritisation, experiment planning and an A/B result checker. Never changes store settings or setup.",
-      "version": "0.3.6"
+      "description": "Full CRO audit suite, strictly read-only: technical and speed, heuristic and competitive review, Shopify Analytics read through the Shopify CLI (or supplied numbers) with data-validity checks, behavioural review, voice of customer, survey and user-test plans, prioritisation, experiment planning and an A/B result checker, reported funnel stage by stage with annotated screenshots of the page. Never changes store settings or setup.",
+      "version": "0.4.1"
     },
     {
       "name": "page-studio",
       "source": "./plugins/page-studio",
-      "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme.",
-      "version": "0.12.0"
+      "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme, with the Shopify CLI or, without it, the Shopify connector.",
+      "version": "0.12.1"
     },
     {
       "name": "analytics",
@@ -84,7 +84,13 @@
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.1.14"
+      "version": "0.1.15"
+    },
+    {
+      "name": "shopify-storefront",
+      "source": "./plugins/shopify-storefront",
+      "description": "Plan and launch a campaign (website now; email, SMS and ads as stubs) with scheduled Launch and Stop, and match the site's colours to the style guide (campaign-launcher, theme-editor).",
+      "version": "0.4.0"
     }
   ]
 }

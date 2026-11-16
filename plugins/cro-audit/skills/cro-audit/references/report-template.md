@@ -2,7 +2,9 @@
 
 Write in the project root (or where the person names). If the file exists, update it: keep resolved
 rows marked `Done` with the date, mark rows that no longer apply `Gone`, add new rows with the next
-number, and bump `runs_completed`. Quick audits fill sections 1 to 8; full audits fill all of them.
+number, and bump `runs_completed`. Quick audits fill sections 1, 2 and 4 to 9; full audits fill all
+of them. A quick audit without analytics still writes section 2, with each stage "Not measured" and
+its evidence pictures.
 Skipped sections stay in the file with "Not run: <reason>".
 
 ```
@@ -17,14 +19,14 @@ last_run: <YYYY-MM-DD>
 runs_completed: <n>
 streams: {technical: done|partial|not run, heuristic: ..., competitive: ..., analytics: ..., behavioural: ..., voice-of-customer: ..., user-testing: ...}
 next_review: <last_run + about 3 months>
-analyzed_by: cro-audit 0.2.0
+analyzed_by: cro-audit 0.4.0
 ---
 
 # <Brand>: CRO audit (<date>)
 
 ## Read this first
 The same plain-language readout given in chat (`chat-readout.md`): headline, what was looked at, what
-changed since last time, the five-row "Fix these first" table, quick wins, what's worth testing, what
+changed since last time, where visitors stop (the stage table), the five-row "Fix these first" table, quick wins, what's worth testing, what
 the numbers say and what couldn't be checked. Everything below is the full detail behind it.
 
 > What this is: <one line saying which streams ran and which kinds of evidence back it. State plainly
@@ -36,52 +38,68 @@ the numbers say and what couldn't be checked. Everything below is the full detai
 - The three to five things that matter most, one line each, with evidence tags and confidence.
 - What was not done.
 
-## 2. Data validity (full audits)
-The checks from `analytics-analysis.md` section 1 and their results, so readers know how far to trust
-section 6.
+## 2. Funnel by stage
+The spine of the report (`funnel-stages.md`). First the summary table from `scripts/stages.py` (stage,
+rate, 95% range, reference and its source, visits lost, verdict). Then one block per stage, in funnel
+order:
 
-## 3. Findings (ranked)
-| ID | Bucket | Evidence | Confidence | Where | What we saw | Principle or number | Why it likely matters | Fix or next step | Owner | Impact | Effort | Score | Status |
+### Stage <n>: <from> → <to> (<verdict, e.g. "the biggest leak" or "not a bottleneck">)
+- **The grid:** rate by device, channel and entry page against the reference.
+- **What the numbers say:** three to five bullets, each with a number.
+- **Where it happens on the page:** `![<ID> · <device> · <where>](cro-evidence/<file>.svg)`.
+- **What to change:** numbered to match the boxes, each with its finding ID, the specific change and why.
+- **Key question to investigate:** and the stream that would answer it.
+- **Next steps:** fix now, measure first or test, each with an owner.
+
+A stage that isn't measured keeps its block. It says what's missing and how to measure it.
+
+## 3. Data validity (full audits)
+The checks from `analytics-analysis.md` section 1 and their results, so readers know how far to trust
+sections 2 and 7.
+
+## 4. Findings (ranked)
+| ID | Stage | Bucket | Evidence | Confidence | Where | What we saw | Principle or number | Why it likely matters | Fix or next step | Owner | Impact | Effort | Score | Status |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 
-Bucket: Just do it, Instrument, Investigate, Test or Hypothesize. Evidence is one or more of Heuristic,
+Stage is the funnel stage the finding affects (or "Whole page"). Each row that has a picture links
+it in "What we saw". Bucket: Just do it, Instrument, Investigate, Test or Hypothesize. Evidence is one or more of Heuristic,
 Measured, Reported, Behavioural, Customer voice, Survey, Test. Confidence is High, Medium or Low
 (`prioritization.md` section 3). Score is from `scripts/prioritize.py` and the method is named in
-section 8. Owner is one of: this theme, store admin, store settings, an installed app, images and
+section 9. Owner is one of: this theme, store admin, store settings, an installed app, images and
 media, a third-party embed, content (copy), the person.
 
-## 4. Technical and speed
+## 5. Technical and speed
 Mobile and desktop: LCP, INP or TBT, CLS, lab vs. field labelled, the top opportunities with owners,
 browser and device issues found.
 
-## 5. Heuristic and mobile review
+## 6. Heuristic and mobile review
 Failed checks (from `heuristics-checklist.md` and `mobile-checklist.md`) and a one-line list of passed
 checks. Competitive comparison (`competitor-benchmark.md`) if run.
 
-## 6. Analytics (full audits)
-Funnel tables by segment from `scripts/funnel.py`, the source and date range, the largest leak by
-segment, small-sample flags. Marked Reported.
+## 7. Analytics (full audits)
+The full `scripts/stages.py` output and any `scripts/funnel.py` tables, the source and date range,
+entry pages, sources and social, small-sample flags. Marked Reported.
 
-## 7. Behavioural, customer voice, surveys and user testing
+## 8. Behavioural, customer voice, surveys and user testing
 What each stream found, with the sample size ("seen in 9 of 24 recordings", "5 participants"), the
 themes with counts and quotes, and the stream's limits. For a stream prepared but awaiting data, attach
 the instrument (survey questions, test script, recording plan) and say what to send back.
 
-## 8. Prioritisation
+## 9. Prioritisation
 The method (ICE or PIE) and the inputs; the ranked list from `scripts/prioritize.py`; the bucket for
 each item.
 
-## 9. Experiment roadmap
+## 10. Experiment roadmap
 For each Test item: the hypothesis (`experiment-design.md`), primary and guardrail metrics, the
 sample size and duration from `scripts/sample_size.py`, feasibility, and the order to run in. For items
 that can't be tested at the available traffic, the alternative.
 
-## 10. Quick wins (Just do it)
+## 11. Quick wins (Just do it)
 The short list that can be fixed now with the owner of each. Offer to hand rows to `page-edit-content`,
 `page-edit-design`, `page-create` or `fact-check`.
 
-## 11. Open questions
+## 12. Open questions
 What still needs data or research, phrased as questions, and which stream would answer each.
 
-## 12. What this audit did not do
+## 13. What this audit did not do
 Every skipped stream or check and why (no data supplied, no browser, quota, not run).

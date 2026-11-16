@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: colors-from-guide
+expected_outcome: |
+  Theme colour groups, badge colours and section-level hex colours are remapped to the brand palette (#152E38, #111B18, #104F4C gradient, #c93d0d accent, black, white) with a contrast check that passes AA, a gradient applied where the theme supports it, and a before/after table; local files only.
+  Fixture: the client project folder (BRAND.md, BRAND-VOICE.md, AGENTS.md, Theme/, Assets/, Brand/), not bundled here.

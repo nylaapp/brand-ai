@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: bfcm-code-sale
+expected_outcome: |
+  Announcement bar, hero and countdown show 25% off with code FRIDAY25 and the exact dates, mention the code, do not say everything is discounted, link to the shop-all collection, and keep the old campaign recoverable; local files only.
+  Fixture: the client project folder (BRAND.md, BRAND-VOICE.md, AGENTS.md, Theme/, Assets/, Brand/), not bundled here.
