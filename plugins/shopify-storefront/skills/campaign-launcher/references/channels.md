@@ -52,6 +52,7 @@ For a campaign with several types, combine the rows.
 ## Every stub, every time
 
 - Same facts as the website: offer, dates, link, exclusions. Same brand voice and claim limits.
+- Written with `copywriting.md`: the brand's own words first, no generic sale-speak, every line through its checks.
 - Short. The owner should be able to read every draft in under a minute.
 - Use only the owner's own materials for creative; never invent images, testimonials or numbers.
 - In the hand-over, each stub is one line: what was drafted, where it is, and the owner's to-do.

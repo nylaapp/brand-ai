@@ -4,4 +4,4 @@ focus: trace
 weight: 1
 ---
 
-A countdown or stated deadline uses the Dec 1 midnight Pacific end (2026-12-01 00:00 or 2026-11-30 23:59, with the choice explained)
+The sale ends 2026-12-01 at 23:59 Pacific (end of Dec 1, inclusive), and the skill does not ask the user to choose between readings of "Dec 1 at midnight"

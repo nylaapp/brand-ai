@@ -100,7 +100,7 @@ Work out each fact from what they gave, the project and the store. Ask only for 
 | Name | e.g. "Autumn Stroll Sale" | From the materials; otherwise suggest one |
 | Status | New · Exists, not live (where) · Live now (since when, which channels) | From Step 0.4. Never ask what you can see |
 | Type | **One or more** of: Seasonal · Product launch (a new or changed product or line) · Discount or promotion | Multi-select. A Thanksgiving 35% off sale is Seasonal + Discount |
-| Dates | Start date and time, end date and time, store time zone (Step 0.5) | **Exact calendar dates only.** Turn "a week from now, for three days" into real dates and show them. A date or time that reads two ways ("Dec 1 at midnight") becomes a question with two options: the countdown, the copy and the discount must end at the same moment |
+| Dates | Start date and time, end date and time, store time zone (Step 0.5) | **Exact calendar dates only.** Turn "a week from now, for three days" into real dates and show them. **Date ranges are inclusive, and this is never asked:** "Nov 27 to Dec 1" runs from Nov 27 at 00:00 through Dec 1 at 23:59 in the store time zone, so the sale is on for the whole of the last day. "Dec 1 at midnight", "through Dec 1" and "ends Dec 1" mean the same end. Only a time the owner states (like "starts at 6am") replaces 00:00 or 23:59. The countdown, the copy and the discount all end at that same moment |
 | Stop time | When the website goes back | The end, by default. If the end is after 9 pm, offer the next morning at 9:00 as an option; the discount and the countdown still end on time |
 | Offer | What, how it applies (automatic or code), exclusions | Discount type only. Shopify discounts never apply to gift cards, so on any store that sells them say "sitewide", never "everything". A code must appear in the copy, so if neither the materials nor the store show whether there's a code, ask it as an open question (options: "Automatic at checkout" and "A code"). Check the discount exists if the connector can read discounts; otherwise it goes in the owner's to-do. A sale banner over a checkout that charges full price is the worst outcome of this skill |
 | Channels | Website · Email · SMS · Ads | All four by default. Only the website is connected; the rest are stubs (`references/channels.md`) |
@@ -128,7 +128,7 @@ Status: new · Route: ready (materials final)
 Website: homepage hero and announcement bar (countdown offered as an extra)
 Email, SMS, Ads: not connected yet, so I'll draft them for you to send
 Launch: Nov 10, 00:00 (the discount starts itself; you publish the preview) · Stop: Nov 18, 09:00
-Assumed: <anything not confirmed yet, e.g. the end time>
+Assumed: <anything not confirmed yet, e.g. whether the discount is automatic or a code>
 ```
 
 Keep the same lines when the campaign already exists or is live, but say what's already done and what's left. For
@@ -182,8 +182,10 @@ surface, decide: change, add or leave. Reuse what the owner built: an existing s
 - the facts are identical everywhere;
 - the brand's names are exact (BRAND.md → Terminology);
 - Claim limits are respected (no "everything" with exclusions, no fake scarcity);
-- the copy follows BRAND-VOICE.md's length, humour and turns of phrase, echoing the campaign materials' own words
-  (the owner already approved them);
+- the copy is unmistakably the brand's: **write it with `references/copywriting.md`**. Read all of BRAND-VOICE.md
+  first, start from the campaign materials' own words and the signature phrases, draft three directions for the hero
+  and the bar, recommend one, and run every line through its checks (the swap test, the three words, the do/don't
+  pairs). Generic sale-speak ("Don't miss out", "Shop now and save") is a failure even when the facts are right;
 - dates read the way shoppers read them ("Nov 10 to 17", never "11/17");
 - no em dashes in customer copy.
 
