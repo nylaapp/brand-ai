@@ -64,6 +64,7 @@ Reference files (read each when you reach its step, not all up front):
 
 ## House rules (these override anything in `references/`)
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 If a reference file says otherwise, this section wins.
 
 1. **Media has two options only:** "I'll upload my own" or "Pick free stock photos for me". There is no "both" option. Ignore any "both" wording in `setup-questions.md` or `images.md`.

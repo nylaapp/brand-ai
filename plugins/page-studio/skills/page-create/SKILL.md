@@ -61,6 +61,7 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 
 ## Rules
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **Working copy first, on the theme the person chose.** Never push from the working copy except
   through the ship step (connector route: no copy of the whole theme; build in `work/` and write
   nothing except through the ship step). The theme is asked once and remembered (`theme-target.md`); it is always a draft or unpublished theme, never the live theme (if there is none, `theme-target.md` asks for one or creates one) (`theme-target.md`, `ship-to-draft.md`).

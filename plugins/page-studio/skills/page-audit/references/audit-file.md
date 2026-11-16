@@ -63,6 +63,10 @@ suggestion, `status`, baseline number to re-check.
   first appearance. Never renumber or reuse an ID, even when a row is closed.
 - **Status values:** `open`, `picked` (the person chose it), `done` (acted on and verified),
   `parked` (chosen to leave for later), `handed-off` (someone else owns the fix).
+- **Type:** `finding` (a failed check with evidence), `suggestion` (a weaker idea) or `refresh`
+  (a content or layout freshness idea from `../../page-studio/references/freshness.md`; it needs no
+  failed check, only an observation of what looks or reads dated). Refresh rows use the same IDs,
+  owners and statuses.
 - **Effort:** S is a setting value, a link change or reordering sections. M is a new setting,
   a small section change or a section with new content. L is a new section type or a new
   page structure.

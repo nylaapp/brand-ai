@@ -20,7 +20,9 @@ const median = (xs) => {
   return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2;
 };
 const pct = (s) => (typeof s === 'number' ? Math.round(s * 100) : null);
-const CATS = ['performance', 'accessibility', 'best-practices', 'seo'];
+// Every category the report has: performance, accessibility, best-practices and seo, plus any newer
+// ones (Lighthouse 13.6 adds 'agentic-browsing').
+const CATS = [...new Set(runs.flatMap((r) => Object.keys(r.categories || {})))];
 const METRICS = {
   lcp_ms: 'largest-contentful-paint',
   fcp_ms: 'first-contentful-paint',

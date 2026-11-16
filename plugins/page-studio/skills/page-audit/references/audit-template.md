@@ -64,6 +64,8 @@ Short, plain words, in this order:
 2. **Result:** the page's counts (Pass, Partial, Missing, Can't tell).
 3. **The top rows** (about five) as a table: part, playbook check with grade, what was
    observed, owner, effort, finding or suggestion. Then "also noticed" in one line each.
+   Then **Ideas to make the page feel fresh** (about three `refresh` rows): what to change,
+   how it looks on desktop and on mobile, size, and the next skill.
 4. **Not observed and why:** blocked access, quotas, missing analytics. Say which checks stay
    "Can't tell".
 5. **Recommendation:** which rows to take first and why, which need a decision or another

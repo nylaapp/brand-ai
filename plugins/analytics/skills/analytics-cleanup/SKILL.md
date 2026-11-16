@@ -37,6 +37,7 @@ If the project has its own instructions file (AGENTS.md, CLAUDE.md), read it fir
 
 ## 0. Non-negotiables
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **Audit first.** Use a tagging or full audit from `analytics-audit` that is less than 30 days old and matches the current live GTM version (`analytics-guardrails` drift check); otherwise run the tagging audit first.
 - **Never touch what a core event depends on** in a quick cleanup: anything in the tracking plan, the dependency register, the rules, consent tools, conversion tags, or the only path to a destination.
 - **Disable before delete.** Pause, disconnect, or remove in a duplicate theme; delete after a quiet week with the owner's OK.

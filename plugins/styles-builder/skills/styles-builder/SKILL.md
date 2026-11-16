@@ -315,6 +315,11 @@ Do not eyeball rendered colors or guess font names from how text looks — measu
 - Identify each font from the page, not from how it looks: the computed `font-family` stack, the
   `@font-face` rules (family name, weight, style, source host) and any font-service stylesheet link.
   Record the weights and styles actually used.
+- **Font file check, now, not at the end.** For each family, note whether it is free and in Shopify's
+  font library, and whether its files are already in the working directory. Any family that is
+  neither (a paid or custom font, or a free font not in the library with no file on hand) goes on one
+  list, and the person is asked for those files once, using rung 2 of "Sourcing a font that isn't in
+  the theme or Shopify's library", before Step 4.
 - Also measure: the logo's rendered height and file at desktop and mobile; the favicon links in the page head; transitions and hover effects (see `references/motion.md`); a real form's input styles in every state; and, on a product page with variants, every variant-picker and swatch state.
 - If no rendered view is possible, say so plainly and name what failed — do not guess values from a
   text-only fetch, exactly as `page-studio` requires for its own captures.
@@ -454,8 +459,9 @@ kind of token, and treating them all the same way is the most common way this st
 - Never hardcode a token into Liquid/CSS where a theme setting already exists to hold it — this is the
   same rule `page-studio` enforces, and it applies doubly here since this skill is what makes
   those settings exist in the first place.
-- If a brand font isn't already in the theme or Shopify's font library, follow "Sourcing a font that
-  isn't in the theme or Shopify's library" below. Never substitute a lookalike silently, and flag the
+- If a brand font isn't already in the theme or Shopify's font library, or it is a free font whose
+  files are not yet in the working directory, follow "Sourcing a font that isn't in the theme or
+  Shopify's library" below, which starts by asking the person for the font files. Never substitute a lookalike silently, and flag the
   font in `design.md` as an asset-based font, not a `font_picker` value.
 
 ### Logo and favicon
@@ -478,9 +484,26 @@ Work down this ladder and stop at the first rung that works. Never skip to a loo
    family is in Shopify's font library (search for it in the theme editor's font picker; if you
    can't check, say so and treat it as not confirmed). If it is, set it with the existing
    `font_picker` setting: nothing to download, and it stays swappable in the theme editor.
-2. **Files supplied.** If the client gave font files (in the brand book package or from the foundry),
-   confirm they are licensed for web use and for this store, then install them (next subsection).
-3. **Free and exact, found online, only with permission.** Do this only when every point holds:
+2. **Files supplied, or ask for them.** Look for the font files in the working directory (the
+   theme's `assets/`, the brand book package, the repo's font folder). If the family is not a free
+   font that Shopify's library serves, **and** its files are not in the working directory, stop and
+   ask the person for the files. Do this for every family in that state, in one message, before
+   writing the font into the theme. Say, in plain words:
+   - which family and which weights and styles are needed (only those the brand uses);
+   - why: "This font is not in Shopify's free library, so the theme needs its own copy";
+   - what to send: `woff2` files preferred (`woff` or `ttf` also work), one per weight and style,
+     with the licence or purchase proof, from the brand's designer, the foundry or the brand book
+     package;
+   - where to put them: the working folder, or paste the file path. Give numbered steps if they
+     need to find or move the files.
+
+   Also offer the free route (rung 3) when the family is free and open-licence, and "use a named
+   substitute" (rung 4) if they have no files. Wait for the answer. If they don't answer, mark the
+   family `unconfirmed` in `design.md`, keep the theme's current font and say so in the summary;
+   never guess or swap silently. Once files arrive, confirm they are licensed for web use and for
+   this store, then install them (next subsection).
+3. **Free and exact, found online, only with permission.** Only for a free, open-licence family
+   when the person prefers it to supplying files. Do this only when every point holds:
    - **Identify the exact family** from the brand book or from the live site: the computed
      `font-family`, the `@font-face` rules and the font URLs it loads. Match the same family, the same
      weights and the same styles the brand actually uses. A near match is a lookalike, so it doesn't
@@ -495,7 +518,7 @@ Work down this ladder and stop at the first rung that works. Never skip to a loo
    - **Check what you got:** the file type (prefer `woff2`), that it has the weights and styles
      needed, and that the licence text came with it.
 4. **Can't be sourced legitimately.** Say so plainly and offer two choices: the user supplies
-   licensed files, or approves a named free substitute. A substitute is a deviation: record it in
+   licensed files (asked for again, with the same details as rung 2), or approves a named free substitute. A substitute is a deviation: record it in
    `design.md` with the reason, who approved it and the date. Never choose one silently, and never
    download an unlicensed copy.
 
@@ -519,6 +542,7 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
 
 ## Step 5: Verify
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - Load the theme in `shopify theme dev` (or the repo's dev command) and visually confirm colors/fonts/
   buttons/radius/shadows actually render as specified — reading the JSON back is not verification.
 - Spot-check at least one page in each defined color scheme and at least one button in each state

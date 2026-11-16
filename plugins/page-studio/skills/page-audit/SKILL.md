@@ -13,7 +13,7 @@ and `BRAND-VOICE.md` (see `references/intake.md`), never invented.
 0. Setup check -> 1. Intake: brand/theme context, page and type, goal questions ->
 2. Observe the rendered page -> 3. Gap analysis against the playbook ->
 4. Measure -> 5. Qualitative evidence -> 6. Pair, score, name owners ->
-7. Write PAGE-AUDIT.md and the readout -> 8. Hand off the rows they pick
+6b. Freshness review (content and layout ideas) -> 7. Write PAGE-AUDIT.md and the readout -> 8. Hand off the rows they pick
 ```
 
 ## How to reply (every message)
@@ -48,6 +48,7 @@ is also on your contact page").
 
 ## Rules
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **Read-only.** Never write to a theme or a store. You may pull theme files into a scratch
   folder, load pages and fetch public destinations. The only file you write is `PAGE-AUDIT.md`
   (and a readout the person asks for).
@@ -134,6 +135,15 @@ how many visitors reach it ("unknown" with no traffic data); **effort** S, M or 
 action, tagged **on-goal** or **off-goal** (off-goal last). Keep about five rows and list the
 rest as "also noticed".
 
+## 6b. Freshness review
+
+Fixes are not enough: say how the page could feel fresher. Follow
+`../page-studio/references/freshness.md` at desktop and mobile and suggest content and layout
+changes (a new angle, proof, offer or imagery; a reorder, a different layout type, a redesign of a
+section or a relayout of the page), even when every check passed. Add each idea as a row with Type
+`refresh`, ranked and sized like the others, kept apart from the fixes in the readout. Ideas are
+suggestions, never findings, and each cites what was seen.
+
 ## 7. Write the file and the readout
 
 1. Create or update `PAGE-AUDIT.md` following `references/audit-file.md` and
@@ -153,8 +163,8 @@ Then point to the next skill:
 
 | Picked row | Next |
 |---|---|
-| Words, images, links or alt text on an existing page | `page-edit-content`, which reads the row from `PAGE-AUDIT.md` |
-| Layout, section order, spacing, colour, type or style of an existing page | `page-edit-design`, which reads the row from `PAGE-AUDIT.md` |
+| Words, images, links or alt text on an existing page, including a content refresh | `page-edit-content`, which reads the row from `PAGE-AUDIT.md` |
+| Layout, section order, spacing, colour, type or style of an existing page, including a relayout or redesign of a section | `page-edit-design`, which reads the row from `PAGE-AUDIT.md` |
 | A new page, a new section, or a section the audit says is missing | `page-create` |
 | Brand files missing, or copy needs brand approval | `brand-capture` |
 | Unsourced, numeric or regulated claims | `fact-check` |
@@ -169,6 +179,7 @@ Then point to the next skill:
 - [ ] Theme id confirmed and viewports noted; blocked checks marked "Can't tell"
 - [ ] Every shortfall has an observation behind it; no check failed from guesswork
 - [ ] Grades stated; no grade B or H item presented as research; figures have source and date
+- [ ] Freshness review done at desktop and mobile; content and layout refresh ideas listed as `refresh` rows, apart from fixes
 - [ ] Rows have owners; theme-owned rows are separated from handed-off ones
 - [ ] `PAGE-AUDIT.md` created or updated, IDs stable, no secrets in it
 - [ ] Nothing was written to a theme or store; no credential was typed

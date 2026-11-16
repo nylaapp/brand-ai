@@ -10,11 +10,18 @@ Write "not run" for anything that wasn't run, never a guess.
 ## Entry template
 
 ```markdown
-## <YYYY-MM-DD>: <pages in scope>, theme "<theme name>" (<theme id>)
+## <YYYY-MM-DD>: <pages in scope>, theme "<theme name>" (<theme id>, <live or draft>)
 
-Scope: <lanes run>. Measured with the Lighthouse command-line tool <version>, not the Chrome
-extension. Accessibility, best practices and SEO on the local preview; speed on the draft's
-preview address, median of <n> runs (or: local only, because the store is password protected).
+### Read this first
+
+<the readout, exactly as written in chat: `readout.md`>
+
+### How this was measured
+
+Scope: <lanes run, and any "not run" with the reason>. Mode: <audit only or audit and fix>.
+Lighthouse <version> from the command line, not the Chrome extension, full suite (performance,
+accessibility, best practices, SEO), <n> runs per form factor, median reported. Reports: <folder
+with the HTML and JSON files, one per run>. Server timing: `shopify theme profile`, <n> runs.
 
 ### Scores
 
@@ -31,12 +38,29 @@ preview address, median of <n> runs (or: local only, because the store is passwo
 
 Real-visitor numbers take 28 days to show a change.
 
+### Server timing (Theme Inspector)
+
+Total Liquid time in the profile: <median ms> (<heavy / OK / light>); real wait for the server from
+Lighthouse: <ms>. Profiles: <files>.
+
+| Theme file | Kind | Own time | With what it renders | Times rendered | Share of total |
+|---|---|---|---|---|---|
+
+Costliest lines: `<file:line>` (<tag>, <ms>, <runs> runs). Anything an app owns: <name, ms>.
+
 ### Theme code check
 
 Offenses: <before> -> <after>. Broken: <n> -> <n>. Speed: <n> -> <n>. Style findings: <n>, left as they are.
 
 | Check | What it means | Count | Files | Status |
 |---|---|---|---|---|
+
+### All findings
+
+Every finding with an ID (TA-01, TA-02...), in rank order, with the evidence behind it.
+
+| ID | Lane | Finding | Evidence (audit, element, file:line, number) | Owner | Bucket | Effort | How we know |
+|---|---|---|---|---|---|---|---|
 
 ### Fixed
 
@@ -62,12 +86,8 @@ Largest cost first.
 Pushed <files> to "<theme name>" (<id>). Pulled back and compared: identical. (Or: not pushed.)
 ```
 
-## Chat readout (short)
+## Chat readout
 
-Plain words, no technical terms without a short explanation. In this order:
-
-1. One line per page: the four scores before and after, mobile and desktop.
-2. The single biggest cost the theme doesn't own, with its owner.
-3. What was fixed, in one sentence per kind of fix.
-4. What needs the store owner.
-5. Where the full report is (`THEME-AUDIT.md`).
+Follow `readout.md` (headline, what I looked at, scorecard, speed in plain words, fix these first,
+quick wins, not the theme's to fix, what I couldn't check, close). The same text is **Read this
+first** at the top of the entry.

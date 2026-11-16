@@ -9,6 +9,7 @@ Reading the source you just wrote is not verification; loading the rendered page
 
 ## Rules
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **Rendered, not source.** A check passes only from what loaded on the target theme. If the page
   can't be loaded, the check is "Can't tell", never a pass.
 - **Same method as the baseline:** same viewports, same recipes, same theme id, so numbers are

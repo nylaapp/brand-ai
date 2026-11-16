@@ -125,6 +125,7 @@ each other's files.
 
 ## Rules
 
+- **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **It's for any business.** Never ask a question or write a rule that only fits one category unless the scan
   found that category. A jewellery store gets no medical questions; a clinic gets no materials questions.
 - **BRAND.md and BRAND-VOICE.md are identity only**, and only this skill writes them, only when the client asks.
