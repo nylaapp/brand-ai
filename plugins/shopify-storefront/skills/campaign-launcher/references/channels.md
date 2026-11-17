@@ -14,14 +14,18 @@ For a campaign with several types, combine the rows.
 |---|---|---|---|
 | Seasonal | homepage hero, announcement bar | | countdown to a real date, seasonal collection order |
 | Product launch | homepage hero, the product's page | announcement bar, the collection it sits in | "New" badge (a product tag), launch countdown |
-| Discount or promotion | homepage hero, announcement bar | | countdown (real deadline only), sale colours, sale badges |
+| Discount or promotion | homepage hero, announcement bar | campaign page when ads or email run | countdown (real deadline only), sale colours, sale badges, compare-at prices on featured products, tiered offer (spend more, save more) |
+
+When ads or email will send traffic, the buttons land on a campaign page built by the `campaign-page` skill, not on
+a plain collection. That page repeats the ad's offer in its first screen (`../campaign-page/references/effective-page.md`).
 
 ## Stub: Email
 
 - **Status:** not connected. When it is (Shopify Email, Klaviyo or the store's own platform), this step will build
   the emails, schedule them for Launch and cancel what's left at Stop.
 - **Now:** write `campaigns/<slug>/email.md` (or put it in the chat). One block per send: the launch email, plus a
-  last-chance email on the final day for a discount longer than two days. Each block: subject (under 50
+  last-chance email on the final day for a discount longer than two days, and an early-access email to subscribers
+  when the plan has that phase (with the gated code). Each block: subject (under 50
   characters), preview text (under 90), three short lines of body, button text and link, send date and time.
 - **First line of the file:** `Draft: not sent. Email isn't connected yet.`
 - **Owner to do:** build and schedule it in their email platform, or wait for the connection.
@@ -42,12 +46,33 @@ For a campaign with several types, combine the rows.
   - three headlines under 30 characters (Google's limit; they fit Meta too);
   - two primary texts under 125 characters;
   - which piece of the owner's creative fits which shape: square 1:1, vertical 9:16, landscape 1.91:1;
-  - the landing page, the same link as the website button;
+  - the landing page, the same link as the website button, tagged for the platform (Links per channel below);
+  - **message match:** each headline states the same offer, in the same words, as the landing page's hero. If the
+    hero changes, the ads change with it;
   - start and end, the same as the campaign.
 - **Rules:**
   - Claim limits matter even more in ads, because platforms reject over-claims.
   - For a discount, the landing page must show the offer.
 - **First line of the file:** `Draft: not sent. Ads aren't connected yet.`
+
+## Links per channel
+
+Every channel gets its own tagged link to the same landing page, so the owner can see in Shopify's or GA4's reports
+what sold. List them in campaign.md and put each one in its stub.
+
+| Channel | utm_source | utm_medium |
+|---|---|---|
+| Email | the platform (`klaviyo`, `shopify_email`) | `email` |
+| SMS | the platform (`postscript`, `attentive`) | `sms` |
+| Meta ads | `meta` | `paid_social` |
+| Google ads | `google` | `cpc` |
+| Instagram or TikTok post | `instagram` / `tiktok` | `social` |
+
+Format: `https://<domain>/pages/<handle>?utm_source=<source>&utm_medium=<medium>&utm_campaign=<slug>`. Keep tags
+lower case and the slug the same as the campaign folder. For a code campaign, use the shareable discount link
+(`/discount/<CODE>?redirect=/pages/<handle>`) and check once on the preview that the tags survive the redirect. If
+they don't, use the tagged page link and show the code in the hero. This skill doesn't check that pixels fire;
+offer `analytics:analytics-audit` or list it in the owner's before-launch checks.
 
 ## Every stub, every time
 

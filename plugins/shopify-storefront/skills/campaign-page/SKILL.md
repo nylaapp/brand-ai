@@ -1,6 +1,6 @@
 ---
 name: campaign-page
-description: Builds a campaign landing page template for a Shopify store where every part (hero or banner, offer and dates, countdown, products, terms and FAQ, closing call to action) is its own section that is easy to swap, either in the Shopify theme editor (switch a part on or off, reorder, or change one setting) or by asking Claude ("swap the hero for the video one"). Uses only the theme's existing sections, keeps the same offer, dates and link as the campaign plan, ships each swappable part with ready alternates, and can produce a design draft page that shows 2 or 3 copy options per section side by side before the homepage changes. Always an unpublished copy, never the live theme. Use whenever someone says "campaign landing page", "sale page", "landing page template for the campaign", "make the sections swappable", "swap the hero", "change the banner on the campaign page", "design draft", "show me options for the page", or "a page for the Black Friday sale", even without saying "template".
+description: Builds a campaign landing page for a Shopify store that sells. The offer, end date and one button sit in the first screen on mobile; urgency is real; products are curated with the saving shown; the shipping cutoff and FAQ sit near the button; it has an email signup and a tagged link per channel; phases from coming soon to ended run on one URL. Each part (hero, trust row, countdown, products, FAQ, signup, closing call to action) is its own section with ready alternates, swapped in the theme editor or by asking Claude. Uses only the theme's sections and the plan's facts, and can make a design draft with 2 or 3 copy options per section. Never the live theme. Use for "campaign landing page", "sale page", "BFCM page", "gift guide page", "swap the hero", "design draft" or "a page for the Black Friday sale".
 ---
 
 # Campaign page
@@ -27,8 +27,8 @@ mean changing one section, never rebuilding the page.
    groups chosen by each section's `background` setting, and its own list (hero-image, hero-video, countdown,
    featured-collection, featured-product, collection-list, multicolumn, media with text, collage, collapsible content,
    rich text, email signup and more). Other themes pick a colour scheme.
-2. **One section per region.** Hero, offer, countdown, products, terms and FAQ, closing call to action are separate
-   sections. Blocks are only for repeated items inside a region (cards, questions).
+2. **One section per region.** Hero, trust row, countdown, products, gifting, reviews, FAQ, signup and closing call
+   to action are separate sections. Blocks are only for repeated items inside a region (cards, questions).
 3. **Reuse before building.** Existing section, then the same section with one new setting, then a new section only
    when nothing produces the layout. No hardcoded colours, fonts or copy that a setting could hold.
 4. **Unpublished, always.** The page is created unpublished on a preview copy of the theme. Never edit the live theme,
@@ -44,18 +44,52 @@ mean changing one section, never rebuilding the page.
    would otherwise show (a collapsible section's default "Use this text to share more information about your
    store." appears unless its description is set).
 
+## What makes it sell
+
+Read `references/effective-page.md` before planning the regions. It holds nine rules, and these are the ones a
+page most often misses:
+- **The first screen does the job.** At 375 px it shows the offer in concrete terms, the end date, the code or
+  "applied at checkout", and one button.
+- **The page matches the ad or email** that sent the visitor.
+- **Urgency is real.** A countdown only to a real end, which never resets. Phases (coming soon, early access, live,
+  last chance, ended) all run on one URL.
+- **The products are curated.** Lead with best sellers and the deepest discounts, never the whole catalog. Each
+  card shows the saving, and quick add is on where the theme has it.
+- **Trust sits near the button:** the shipping cutoff, returns and real reviews only. The FAQ covers stacking and
+  exclusions.
+- **A low-pressure email signup** catches visitors who aren't ready to buy.
+- **The page is mobile first and lean.** No new apps.
+- **One tagged URL per channel**, and the owner's pre-launch checks go in the hand-over.
+
+Each rule names its owner: the page, store data (ask first) or the owner. Never fake a rule to meet it. No reviews
+in the store means no reviews region. An unknown cutoff stays `[confirm: …]`.
+
 ## The template
 
 Default order, dropping any region the campaign doesn't need:
 
 | # | Region | Typical section | Notes |
 |---|---|---|---|
-| 1 | Hero or banner | hero-image / hero-video | Name, one supporting line, one button; same text as the homepage hero |
-| 2 | Offer and dates | rich text or multicolumn | Offer, exclusions, exact dates |
-| 3 | Countdown (optional) | countdown | Only for a real deadline; ends at the plan's end time |
-| 4 | Featured products or collection | featured-collection / featured-product | An existing collection or product; check it exists |
-| 5 | Terms and FAQ | collapsible content | Exclusions, shipping, gift-card rule, how a code works |
-| 6 | Closing call to action | rich text with a button, or a banner | Same link as the website button |
+| 1 | Hero or banner | hero-image / hero-video | Offer in concrete terms as the headline, end date and code (or "applied at checkout") in the supporting line, one button to the products region; same facts as the homepage hero and the ad |
+| 2 | Trust row | multicolumn or an icon row | Shipping cutoff, returns, delivery estimate; confirmed facts only |
+| 3 | Countdown (optional) | countdown | Only for a real deadline; ends at the plan's end time; never resets |
+| 4 | Featured products | featured-collection / featured-product | Best sellers and deepest discounts first, from an existing collection; compare-at prices and the theme's sale badge show the saving; quick add on if the section has it |
+| 5 | Gifting, bundle or gift with purchase (optional) | collection-list / multicolumn / featured-product | Only existing collections or products; "Under $50", gift sets |
+| 6 | Reviews (optional) | the theme's or reviews app's own section | Real reviews only; leave out if the store has none |
+| 7 | Terms and FAQ | collapsible content | Stacking, exclusions and final sale, end time and zone, shipping cutoff, how the code or gift applies |
+| 8 | Email signup | newsletter / email-signup | Low-pressure, in the brand's voice ("Get first access to the next sale") |
+| 9 | Closing call to action | rich text with a button, or a banner | The offer and end date again, same link as the hero button |
+
+The offer and dates sit in the hero and the FAQ, so a separate offer region is optional. Keep one only when the
+offer needs more than a line, for example tiers or several exclusions. Give the products region an anchor the hero
+button can link to, where the theme supports it.
+
+**Phases.** If the plan has phases, the hero and countdown each get one hidden alternate per phase (`hero_soon`,
+`hero_live`, `hero_last`, `hero_ended`). Every alternate carries its phase's copy, and the swap map lists when each
+one switches on. The Ended alternate is never optional.
+
+**Recurring campaigns.** Use a page handle with no year (`black-friday`). If last year's page exists, point it at
+the new template rather than making a second page (`references/effective-page.md` → Recurring campaigns).
 
 Theme templates are JSON with a comment header the editor rewrites; keep that header on existing files and write
 new ones as plain JSON. Name the file `templates/page.campaign-<slug>.json` (the campaign slug) and create the Shopify page that uses it
@@ -105,11 +139,25 @@ design draft is never linked from the live site and is deleted or kept unpublish
   the file it names and fix it. Theme names are at most 50 characters.
 - If the Shopify page can't be created (connector not signed in), preview the template on any existing page with
   `?view=<slug>&preview_theme_id=<id>`, and say the real page is still to create.
-- Open the page at desktop (1440x900) and mobile (375x812). Nothing cut off, one clear button above the fold, the
-  countdown reads the right time zone, and exactly one alternate per region is visible.
-- Every link, date and offer matches `campaign.md`.
-- Record the template, page handle, swap map and preview link in `campaign.md`. Stop (in `campaign-launcher`) removes
-  or unpublishes the page.
+- Open the page at desktop (1440x900) and mobile (375x812), and check:
+  - **Mobile first screen:** at 375x812, without scrolling, the offer, the end date, the code (or "applied at
+    checkout") and one button all show.
+  - Nothing is cut off.
+  - The countdown reads the right time zone.
+  - Exactly one alternate per region is visible.
+  - Buttons and FAQ rows are at least 44 px tall.
+- **Score it** against `references/effective-page.md`. Give one line per rule: met, not met (why), or not
+  applicable. Fix what the page can fix. List store-data gaps as offers, for example "no compare-at prices, so cards
+  show no saving". List owner gaps in the to-do.
+- Every link, date and offer matches `campaign.md`, and the hero states the same offer as `ads.md` and `email.md`
+  where they exist.
+- Record these in `campaign.md`:
+  - the template, page handle, swap map and preview link;
+  - the tagged link per channel;
+  - the phase schedule;
+  - the owner's pre-launch checks: a test order, stacking, stock, tracking events.
+- **At Stop** (in `campaign-launcher`), a one-off page is unpublished. A recurring page switches to its Ended
+  alternate and stays published.
 - Anything unrelated spotted on the way (a hero height problem, an old colour) is one line in the hand-over for later,
   never offered inside the campaign.
 - The preview link is the very last line of the message.
