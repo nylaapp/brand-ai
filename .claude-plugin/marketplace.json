@@ -33,6 +33,12 @@
       "version": "0.6.2"
     },
     {
+      "name": "voice-builder",
+      "source": "./plugins/voice-builder",
+      "description": "Guided brand-voice wizard that refines BRAND-VOICE.md from the owner's own words and picks, then writes effective on-brand copy for store sections and campaigns.",
+      "version": "0.1.0"
+    },
+    {
       "name": "styles-builder",
       "source": "./plugins/styles-builder",
       "description": "Generate design.md from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates.",
@@ -89,8 +95,8 @@
     {
       "name": "shopify-storefront",
       "source": "./plugins/shopify-storefront",
-      "description": "Plan and launch a campaign (website now; email, SMS and ads as stubs) with scheduled Launch and Stop, and match the site's colours to the style guide (campaign-launcher, theme-editor).",
-      "version": "0.5.0"
+      "description": "Plan and launch a campaign (website now; email, SMS and ads as stubs) with scheduled Launch and Stop, and match the site's colours to the style guide, and build a campaign landing page whose sections swap in the theme editor or by asking Claude (campaign-launcher, campaign-page, theme-editor).",
+      "version": "0.6.0"
     }
   ]
 }

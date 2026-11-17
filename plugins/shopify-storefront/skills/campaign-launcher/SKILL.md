@@ -177,6 +177,9 @@ surface, decide: change, add or leave. Reuse what the owner built: an existing s
    least 4.5:1.
 6. **Product badges and per-product timers** (an extra): product tags or metafields are store data. List exactly which
    products would change, and record them so Stop can remove them.
+7. **Campaign page** (an extra, only when asked or the button needs a destination): a landing page with one
+   section per region (each swappable in the theme editor or by asking Claude), or a design draft with 2 to 3 copy
+   options per region. Hand it to the `campaign-page` skill with the plan's facts.
 
 **Copy rules, in order:**
 - the facts are identical everywhere;
