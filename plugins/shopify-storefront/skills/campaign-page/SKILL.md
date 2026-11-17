@@ -35,7 +35,14 @@ mean changing one section, never rebuilding the page.
    and never link the page from the live site.
 5. **Same facts everywhere.** Offer, exclusions, exact dates in shopper form ("Nov 27 to Dec 1") and link come from the
    plan and appear identically in every region.
-6. **Leave image pickers blank** when image rights aren't confirmed.
+6. **Leave image pickers blank** when image rights aren't confirmed, then check the text still reads: a hero with
+   no image or video falls back to the theme's pale default, so set the text colour from the section's colour group
+   (or a dark value) and confirm 4.5:1 contrast in the screenshot. Hero text left white on that default was
+   unreadable in testing.
+7. **Respect each setting's range.** Read `min`, `max` and `step` in the schema before writing a number (a scrim of
+   40 on a step of 15 is rejected and fails the whole template). Empty every placeholder text setting the section
+   would otherwise show (a collapsible section's default "Use this text to share more information about your
+   store." appears unless its description is set).
 
 ## The template
 
@@ -50,7 +57,8 @@ Default order, dropping any region the campaign doesn't need:
 | 5 | Terms and FAQ | collapsible content | Exclusions, shipping, gift-card rule, how a code works |
 | 6 | Closing call to action | rich text with a button, or a banner | Same link as the website button |
 
-Name the file `templates/page.campaign-<slug>.json` (the campaign slug) and create the Shopify page that uses it
+Theme templates are JSON with a comment header the editor rewrites; keep that header on existing files and write
+new ones as plain JSON. Name the file `templates/page.campaign-<slug>.json` (the campaign slug) and create the Shopify page that uses it
 unpublished. Each campaign gets its own template, so the next campaign starts from this structure, not from a blank
 page and not by editing the last campaign's.
 
@@ -62,7 +70,8 @@ Do all three, so it works in the editor and through Claude:
    to action), put a second and, if the theme has it, a third section of a different type in the template with
    `"disabled": true`, directly under the active one. Give every section a readable id: `hero_a`, `hero_b`,
    `offer_a`, `products_a`. In the editor the owner switches a part by hiding one section and showing the other (the
-   eye icon), or removes one and adds another with "Add section". Only one alternate per region is ever on.
+   eye icon), or removes one and adds another with "Add section". Only one alternate per region is ever on. Tested on Honey 11: hidden sections are not rendered, and the live store
+   already keeps a hidden hero beside the active one, so this matches how the owner edits.
 2. **Same content in every alternate.** Fill each alternate with the same heading, supporting line, button label and
    link (from the plan), so a swap never loses the words. Where the alternate has an image or video the owner has not
    supplied, leave it blank and say so.
@@ -92,6 +101,10 @@ design draft is never linked from the live site and is deleted or kept unpublish
 
 ## Check and hand over
 
+- Push to the preview copy and read the push result: "pushed with errors" means a setting was rejected, so find
+  the file it names and fix it. Theme names are at most 50 characters.
+- If the Shopify page can't be created (connector not signed in), preview the template on any existing page with
+  `?view=<slug>&preview_theme_id=<id>`, and say the real page is still to create.
 - Open the page at desktop (1440x900) and mobile (375x812). Nothing cut off, one clear button above the fold, the
   countdown reads the right time zone, and exactly one alternate per region is visible.
 - Every link, date and offer matches `campaign.md`.
