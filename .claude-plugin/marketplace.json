@@ -33,8 +33,8 @@
       "version": "0.6.2"
     },
     {
-      "name": "brand-voice",
-      "source": "./plugins/brand-voice",
+      "name": "voice-builder",
+      "source": "./plugins/voice-builder",
       "description": "Guided brand-voice wizard that refines BRAND-VOICE.md from the owner's own words and picks, then writes effective on-brand copy for store sections and campaigns.",
       "version": "0.1.0"
     },

@@ -1,5 +1,5 @@
 ---
-name: brand-voice
+name: voice-builder
 description: >-
   Builds a brand's voice and then writes effective copy with it. Two modes. Wizard: a short guided run
   (10 to 15 minutes, one question at a time, every step skippable) that comes right after brand-capture
