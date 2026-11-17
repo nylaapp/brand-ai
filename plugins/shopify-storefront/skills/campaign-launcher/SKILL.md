@@ -1,6 +1,6 @@
 ---
 name: campaign-launcher
-description: Plans and runs a time-boxed campaign (seasonal, product launch, discount or promotion, or a mix) from one sentence, uploaded materials or links. It shows a one-line plan (name, type, exact dates, channels) and a calendar file, then readies the website on an unpublished preview copy (announcement bar, homepage hero, optional countdown) in the brand's voice, drafts email, SMS and ads as stubs, and schedules Launch and Stop. Works through the Shopify connector in a normal Claude chat (no terminal) or the Shopify CLI. Reads BRAND.md and BRAND-VOICE.md. Use whenever someone says "new campaign", "plan a campaign", "put the sale on the homepage", "we're launching a new product", "launch the promo", "BFCM or holiday sale prep", "add a countdown", "launch or stop the campaign", "take the sale down", "the sale's over", or sends a campaign brief, graphic or video, even without saying "theme" or "Shopify".
+description: Plans and runs a time-boxed campaign (seasonal, product launch, discount or promotion, or a mix) from one sentence, uploaded materials or links. It shows a one-line plan (name, type, exact dates, channels) and a calendar file, then readies the website on an unpublished preview copy (announcement bar, homepage hero, optional countdown, and a campaign landing page that sells, with phases and tagged links per channel) in the brand's voice, drafts email, SMS and ads as stubs, and schedules Launch and Stop. Works through the Shopify connector in a normal Claude chat (no terminal) or the Shopify CLI. Reads BRAND.md and BRAND-VOICE.md. Use whenever someone says "new campaign", "plan a campaign", "put the sale on the homepage", "we're launching a new product", "launch the promo", "BFCM or holiday sale prep", "add a countdown", "launch or stop the campaign", "take the sale down", "the sale's over", or sends a campaign brief, graphic or video, even without saying "theme" or "Shopify".
 ---
 
 # Campaign launcher
@@ -37,6 +37,9 @@ stop and say what's blocking.
 - **Every surface and draft tells the same story** with the same facts: offer, dates, link. A shopper never sees
   "35% off" in the hero and "Free shipping" alone in the bar.
 - The copy sounds like the brand (BRAND-VOICE.md) and never over-claims (BRAND.md → Claim limits).
+- **The landing spot sells.** Wherever the buttons, ads and emails land, the first screen on a phone shows the
+  offer in concrete terms ("25% off sitewide", never "Our biggest sale"), the end date, the code or "applied at
+  checkout", and one button. It repeats what the ad or email said.
 - **Only what was planned.** Extras (countdown, badges, sale colours) are offered as a short list, never added
   unasked.
 - **Nothing goes live without the owner.** The live theme is untouched until they publish.
@@ -102,10 +105,12 @@ Work out each fact from what they gave, the project and the store. Ask only for 
 | Type | **One or more** of: Seasonal · Product launch (a new or changed product or line) · Discount or promotion | Multi-select. A Thanksgiving 35% off sale is Seasonal + Discount |
 | Dates | Start date and time, end date and time, store time zone (Step 0.5) | **Exact calendar dates only.** Turn "a week from now, for three days" into real dates and show them. **Date ranges are inclusive, and this is never asked:** "Nov 27 to Dec 1" runs from Nov 27 at 00:00 through Dec 1 at 23:59 in the store time zone, so the sale is on for the whole of the last day. "Dec 1 at midnight", "through Dec 1" and "ends Dec 1" mean the same end. Only a time the owner states (like "starts at 6am") replaces 00:00 or 23:59. The countdown, the copy and the discount all end at that same moment |
 | Stop time | When the website goes back | The end, by default. If the end is after 9 pm, offer the next morning at 9:00 as an option; the discount and the countdown still end on time |
-| Offer | What, how it applies (automatic or code), exclusions | Discount type only. Shopify discounts never apply to gift cards, so on any store that sells them say "sitewide", never "everything". A code must appear in the copy, so if neither the materials nor the store show whether there's a code, ask it as an open question (options: "Automatic at checkout" and "A code"). Check the discount exists if the connector can read discounts; otherwise it goes in the owner's to-do. A sale banner over a checkout that charges full price is the worst outcome of this skill |
+| Offer | What, how it applies (automatic or code), exclusions, whether it stacks | Discount type only. Prefer automatic: nothing to copy. For a code, every channel links through Shopify's shareable discount link (`/discount/<CODE>?redirect=<landing path>`) so the code applies itself. Shopify discounts never apply to gift cards, so on any store that sells them say "sitewide", never "everything". A code must appear in the copy, so if neither the materials nor the store show whether there's a code, ask it as an open question (options: "Automatic at checkout" and "A code"). Check the discount exists if the connector can read discounts; otherwise it goes in the owner's to-do. A sale banner over a checkout that charges full price is the worst outcome of this skill |
 | Channels | Website · Email · SMS · Ads | All four by default. Only the website is connected; the rest are stubs (`references/channels.md`) |
 | Materials | Final · In progress · None | Decides the route |
-| Link | Where the buttons go | An existing collection or product: check it exists |
+| Link | Where the buttons go: a collection, a product or a campaign page | An existing collection or product: check it exists. **Recommend a campaign page** when ads or email are in the channels, or when the offer needs terms (exclusions, stacking, a shipping cutoff). Paid and email traffic should land on a page that repeats their offer, not on a plain catalog |
+| Phases | None · Coming soon · Early access · Live · Last chance · Ended | Optional, multi-select; Live and Ended are implied. Each phase is a dated swap of the bar, hero and countdown on the same URL, scheduled like Launch and Stop. Early access needs a gated code or customer segment (store data). Offer "Last chance" for a discount of three days or more |
+| Shipping cutoff | "Order by Dec 15 for delivery by Christmas" | Seasonal and gifting campaigns only. From the owner or the store's shipping policy. Never guessed: if unknown, it's an open question or a `[confirm: …]` |
 | Media | What the hero will show | Look at what the live hero already plays first: owners often uploaded a clean cut of the same footage, which works better behind theme text than a video with words burned in. A new file has to be uploaded by the owner to Content → Files (neither the connector nor the CLI uploads local files) |
 
 **When the request and the materials disagree** (for example "Thanksgiving week" in the request, but "Nov 10 to
@@ -125,7 +130,8 @@ format never varies. Where Python can't run, write it by hand in the same format
 ```
 Campaign: Autumn Stroll Sale · Seasonal + Discount · Nov 10 2026, 00:00 to Nov 17 2026, 23:59 (America/New_York) · Website, Email, SMS, Ads
 Status: new · Route: ready (materials final)
-Website: homepage hero and announcement bar (countdown offered as an extra)
+Website: homepage hero, announcement bar and campaign page /pages/autumn-stroll (countdown offered as an extra)
+Phases: coming soon Nov 3 · live Nov 10 · last chance Nov 16 · ended Nov 18 (leave the line out when there are none)
 Email, SMS, Ads: not connected yet, so I'll draft them for you to send
 Launch: Nov 10, 00:00 (the discount starts itself; you publish the preview) · Stop: Nov 18, 09:00
 Assumed: <anything not confirmed yet, e.g. whether the discount is automatic or a code>
@@ -167,7 +173,8 @@ the original text of every file before changing it:
 surface, decide: change, add or leave. Reuse what the owner built: an existing sale hero is a head start.
 1. **Announcement bar:** offer, end date, link. It's on every page, so it does the most work. One line, under about
    60 characters on mobile. Make sure it stands apart from the header colour.
-2. **Homepage hero:** a headline (the campaign name), one supporting line (offer and dates) and one button. The text
+2. **Homepage hero:** a headline that states the offer in concrete terms (the campaign name only if it says the
+   offer), one supporting line (end date, and the code or "applied at checkout") and one button. The text
    needs a scrim or enough contrast against the media. If the hero video is vertical, check its desktop height (theme
    reference).
 3. **Product page** (product launch): the launched product's page and the collection it sits in.
@@ -177,9 +184,11 @@ surface, decide: change, add or leave. Reuse what the owner built: an existing s
    least 4.5:1.
 6. **Product badges and per-product timers** (an extra): product tags or metafields are store data. List exactly which
    products would change, and record them so Stop can remove them.
-7. **Campaign page** (an extra, only when asked or the button needs a destination): a landing page with one
-   section per region (each swappable in the theme editor or by asking Claude), or a design draft with 2 to 3 copy
-   options per region. Hand it to the `campaign-page` skill with the plan's facts.
+7. **Campaign page** (in the plan when the Link row says so, otherwise an extra): a landing page with one section
+   per region, each swappable in the theme editor or by asking Claude, or a design draft with 2 to 3 copy options
+   per region. Hand it to the `campaign-page` skill with the plan's facts, phases and shipping cutoff. Its
+   `references/effective-page.md` sets what the page must do: offer above the fold on mobile, curated products with
+   the saving shown, trust near the button, FAQ, email signup, phases and one tagged URL per channel.
 
 **Copy rules, in order:**
 - the facts are identical everywhere;
@@ -231,6 +240,9 @@ Send one message:
 - **Website:** the before → after table (surface · before · after) and the preview link, plus the editor link;
 - **Stubs:** one line per drafted channel (what it is, where it is);
 - extras you're offering, freshness suggestions, and anything you couldn't confirm (the discount, media);
+- **Before launch** (`references/launch-stop.md` → Before launch): the owner's checks, one line each. These are a
+  test order, discount stacking and exclusions, stock on featured products, and tracking events;
+- **Links per channel:** the landing URL with UTM tags for each channel in the plan (`references/channels.md`);
 - the question, which depends on the route:
   - **Ready:** "Launch it?" in the option window. Offer "Launch at <start> (Recommended)" when the start is still
     ahead, or "Launch now" when it has passed, plus "Not yet".
@@ -296,7 +308,9 @@ Preview: <link>   Editor: <link>
 Changed: <surface: before → after, one line each>
 Drafted, not sent: <email / SMS / ads: file>
 Offered, not done: <extras>
-Owner to do: <approve / publish / confirm discount / upload media / send drafts>
+Phases: <phase: date, one per line, if any>
+Links: <channel: tagged URL, one per line>
+Owner to do: <approve / publish / confirm discount / upload media / send drafts / before-launch checks>
 Launch: <date time> · <how>   Stop: <date time> · <how>
 Calendar: campaigns/<slug>/<slug>.ics · Hand-over: campaigns/<slug>/campaign.md
 ```

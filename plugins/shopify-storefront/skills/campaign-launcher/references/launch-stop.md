@@ -22,6 +22,7 @@ about a sale.
 
 | Channel | Stop |
 |---|---|
+| Campaign page | A one-off page: unpublish it (the owner's call, ask first). A recurring page with a handle that has no year (`/pages/black-friday`): switch it to its Ended alternate and keep it published, so it keeps its search ranking and can open a Coming soon phase next year |
 | Website | Put the "before" values back on a fresh copy of the theme that's live at that point. Preview it, then the owner publishes. **Shortcut:** if nobody edited the live theme during the campaign and the campaign copy held only campaign changes, publishing the previous theme again is a clean Stop. It's still in the theme library |
 | Discount | It ends itself at its end date: confirm it did |
 | Countdown | Already hidden |
@@ -30,6 +31,24 @@ about a sale.
 
 Keep anything the owner changed since the campaign began, and everything in THEME-SPECIFICS.md. Then mark
 `campaigns/<slug>/campaign.md` with `Stopped <date>`.
+
+## Phases
+
+When the plan has phases (coming soon, early access, live, last chance, ended), each one is a dated swap of the bar,
+the hero and the countdown on the same URL. Schedule each swap like Launch, with a `<slug>-<phase>` task and a
+calendar event, and record it in campaign.md. The Ended swap always happens: an expired offer left on the site is a
+broken promise. Without phases, Stop does that job.
+
+## Before launch (owner's checks, in the hand-over)
+
+At least a week before the start, the owner (or Claude, where it can) checks:
+- **A test order** with the code or the automatic discount, on a full-price item and an excluded item. The price is
+  right, excluded items stay full price, and the discount doesn't stack with another one by accident.
+- **Stock** on every featured product, and sold-out products drop out of the campaign page or show as sold out.
+- **Tracking:** page view, view item, add to cart and begin checkout fire for GA4 and the ad pixels. Offer
+  `analytics:analytics-audit`. Each channel's tagged link opens the right page (`channels.md` → Links per channel).
+- **Speed:** the campaign page has no new apps or scripts, and its hero media is compressed. For a big expected
+  spike, the owner can ask Shopify support. Shopify's checkout scales, but heavy apps and media slow the page.
 
 ## Drift check (before every publish)
 
