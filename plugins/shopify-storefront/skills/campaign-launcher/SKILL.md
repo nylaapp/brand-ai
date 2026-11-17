@@ -1,6 +1,6 @@
 ---
 name: campaign-launcher
-description: Plans and runs a time-boxed campaign (seasonal, product launch, discount or promotion, or a mix) from one sentence, uploaded materials or links. It shows a one-line plan (name, type, exact dates, channels) and a calendar file, then readies the website on an unpublished preview copy (announcement bar, homepage hero, optional countdown) in the brand's voice, drafts email, SMS and ads as stubs, and schedules Launch and Stop. Works through the Shopify connector in a normal Claude chat (no terminal) or the Shopify CLI. Reads BRAND.md and BRAND-VOICE.md. Use whenever someone says "new campaign", "plan a campaign", "put the sale on the homepage", "we're launching a new product", "launch the promo", "BFCM or holiday sale prep", "add a countdown", "campaign landing page", "design draft for the campaign", "launch or stop the campaign", "take the sale down", "the sale's over", or sends a campaign brief, graphic or video, even without saying "theme" or "Shopify".
+description: Plans and runs a time-boxed campaign (seasonal, product launch, discount or promotion, or a mix) from one sentence, uploaded materials or links. It shows a one-line plan (name, type, exact dates, channels) and a calendar file, then readies the website on an unpublished preview copy (announcement bar, homepage hero, optional countdown) in the brand's voice, drafts email, SMS and ads as stubs, and schedules Launch and Stop. Works through the Shopify connector in a normal Claude chat (no terminal) or the Shopify CLI. Reads BRAND.md and BRAND-VOICE.md. Use whenever someone says "new campaign", "plan a campaign", "put the sale on the homepage", "we're launching a new product", "launch the promo", "BFCM or holiday sale prep", "add a countdown", "launch or stop the campaign", "take the sale down", "the sale's over", or sends a campaign brief, graphic or video, even without saying "theme" or "Shopify".
 ---
 
 # Campaign launcher
@@ -178,7 +178,8 @@ surface, decide: change, add or leave. Reuse what the owner built: an existing s
 6. **Product badges and per-product timers** (an extra): product tags or metafields are store data. List exactly which
    products would change, and record them so Stop can remove them.
 7. **Campaign page** (an extra, only when asked or the button needs a destination): a landing page with one
-   section per region, or a design draft with 2 to 3 copy options per region. Read `references/campaign-page.md`.
+   section per region (each swappable in the theme editor or by asking Claude), or a design draft with 2 to 3 copy
+   options per region. Hand it to the `campaign-page` skill with the plan's facts.
 
 **Copy rules, in order:**
 - the facts are identical everywhere;
