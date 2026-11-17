@@ -53,8 +53,10 @@ page most often misses:
 - **The page matches the ad or email** that sent the visitor.
 - **Urgency is real.** A countdown only to a real end, which never resets. Phases (coming soon, early access, live,
   last chance, ended) all run on one URL.
-- **The products are curated.** Lead with best sellers and the deepest discounts, never the whole catalog. Each
-  card shows the saving, and quick add is on where the theme has it.
+- **The products are curated.** Lead with best sellers and the deepest discounts, never the whole catalog. A big
+  catalog starts with category tiles that each carry their own offer. Each card shows the saving (and a value line
+  on sets), and quick add is on where the theme has it.
+- **Coming soon still sells:** an early offer, best sellers, and notify-me or a signup.
 - **Trust sits near the button:** the shipping cutoff, returns and real reviews only. The FAQ covers stacking and
   exclusions.
 - **A low-pressure email signup** catches visitors who aren't ready to buy.
@@ -123,7 +125,8 @@ is new), update the swap map, show the preview link. Never touch other sections,
 
 Show before the owner picks: owners choose widgets they have never seen ("I thought it'd be a little '10 days
 until'"). For each unfamiliar region, show a screenshot or a link to an existing example (a store page, the theme
-demo), one line each: what it is, what it looks like. Where nothing can be shown, say so.
+demo, or a brand from `references/examples.md`), one line each: what it is, what it looks like. Those brand notes
+are dated, so open the page live before showing it. Where nothing can be shown, say so.
 
 ## Design draft (options before the homepage changes)
 
