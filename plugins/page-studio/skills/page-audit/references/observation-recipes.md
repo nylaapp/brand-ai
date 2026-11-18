@@ -5,6 +5,20 @@ run measures the same way. Run these in the browser on the real page (a draft th
 is fine), at desktop (1440x900) and mobile (375x812). Record each number with its source,
 date and device.
 
+## Fastest route: the site reader
+
+If the `site-reader` plugin is installed, run it first. One command reads the page at desktop and mobile and
+returns a short text summary (sections with positions and heights, the first screen, calls to action, popups in
+the way, fonts and colours, tap targets, theme id), with no browser pane and few tokens:
+
+```bash
+python <site-reader>/skills/site-reader/scripts/site_read.py <url> --out site-read/<page> --expect-theme-id <id>
+```
+
+Use the browser snippets below for anything it does not cover (a state that needs a click, a logged-in page, a
+specific element). Its numbers and the snippets' numbers are the same kind of measurement; record which one a
+figure came from.
+
 ## Protocol
 
 1. **Set a real viewport first.** A browser pane can report a 0x0 viewport, which makes

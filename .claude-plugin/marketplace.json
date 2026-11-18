@@ -97,6 +97,12 @@
       "source": "./plugins/shopify-storefront",
       "description": "Plan and launch a campaign (website now; email, SMS and ads as stubs) with scheduled Launch and Stop, and match the site's colours to the style guide, and build a campaign landing page whose sections swap in the theme editor or by asking Claude (campaign-launcher, campaign-page, theme-editor).",
       "version": "0.7.1"
+    },
+    {
+      "name": "site-reader",
+      "source": "./plugins/site-reader",
+      "description": "Read a page's text and layout at desktop and mobile with a short text summary, without the browser pane: plain HTTP read plus headless Chrome measurements (sections, first screen, calls to action, popups, type, colours, tap targets). Pictures only on request.",
+      "version": "0.1.0"
     }
   ]
 }
