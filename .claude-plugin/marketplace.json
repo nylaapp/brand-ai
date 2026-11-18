@@ -78,7 +78,7 @@
       "name": "page-studio",
       "source": "./plugins/page-studio",
       "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme, with the Shopify CLI or, without it, the Shopify connector.",
-      "version": "0.12.1"
+      "version": "0.12.2"
     },
     {
       "name": "analytics",
