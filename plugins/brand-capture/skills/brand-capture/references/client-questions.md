@@ -8,7 +8,7 @@ Rules for the agent:
 - One entry per open item in BRAND.md, same id (`Q-01`, `Q-02` ...). Ids are never reused.
 - Pick the 4 with `references/discovery.md` §3b: claims needing proof or permission, then facts that disagree,
   then names, then unsourced proof points. Merge items one answer settles.
-- Setup questions 3 and 4 (approver, never say) were asked at the start. If the client skipped them, they
+- Setup questions 3 and 4 (approvers for brand and copy, never say) were asked at the start. If the client skipped them, they
   are the first two questions here and count toward the 4.
 - Offer choices whenever the evidence allows (A/B/C plus "other"). Quote both sides of a conflict with where each
   appears. Plain language: no file names, section names or ids in the question text itself.

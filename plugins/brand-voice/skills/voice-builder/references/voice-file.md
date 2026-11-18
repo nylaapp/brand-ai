@@ -16,6 +16,12 @@ BRAND.md wins.
 placeholders: an unknown is a question in BRAND.md and `BRAND-QUESTIONS.md`, and the voice line waits (is left out)
 until it is answered. The validator fails a placeholder here.
 
+**One default voice, then the exceptions.** The brand's expression will and should vary by surface (the website, an
+email, Instagram, a restricted ad platform). The file still leads with **one default**: the version of the brand that
+makes the most sense in general, written under How it sounds, which every writer starts from. Only the important
+departures from it are listed under Where it changes, one line per surface ("Instagram: far less formal, one short
+wink"). A surface not listed there uses the default. Never write a separate voice per channel.
+
 **Budget:** aim for 40 to 70 lines. The validator warns above 90 lines or 1,200 words and fails above 140 lines or
 2,000 words. Never copy from the site at length: short verbatim quotes only, each from a saved page.
 
@@ -48,10 +54,19 @@ source: <where it came from, e.g. "brand-capture 1.3.0 scan of https://example.c
 ("premium, quality")*
 
 ## How it sounds
+*The default voice: what makes the most sense for the brand in general, on any surface not listed below. Four to
+six bullets.*
 - <sentence length and headline length>
 - <point of view: we / you, and how often>
 - <formality and technical depth; how clinical or technical words are used>
 - <how it handles reassurance, humour, urgency>
+
+## Where it changes
+*Only the important exceptions to the default, one line per surface or channel, each saying what changes and how
+far ("Instagram: far less formal; one short wink per caption"). A platform that restricts the category gets its own
+line here and its hard rules in BRAND.md's Claim limits. At most 6 lines; with no real exceptions, write "None: the
+default applies everywhere".*
+- <surface>: <what changes from the default>
 
 ## Signature phrases
 "<verbatim>", "<verbatim>", "<verbatim>" (from site) *two to five, each quoted exactly from a saved page*

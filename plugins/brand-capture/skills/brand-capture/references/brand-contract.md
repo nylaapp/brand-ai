@@ -19,7 +19,7 @@ with no `voice_doc` (older layout) still has the voice written out inside its Vo
 ## 3. It is the only source of brand facts
 Brand facts: names and which to use where, identity, story, audience, catalog topics, voice (in BRAND-VOICE.md),
 terminology, claim limits and disclaimers, competitors, inspiration brands, channels, author, and who approves
-things. Don't ask the
+brand-level decisions (`brand_approver`) and copy (`copy_approver`). Don't ask the
 user about them, don't re-scan the site for them, and don't take them from other docs, a skill's own files, a
 profile or memory. `design.md` (when BRAND.md names it) is the source for visual values only. `COMPETITORS.md`
 (when BRAND.md names it) is dated research: use it for comparisons, never as a brand fact.
@@ -63,7 +63,7 @@ Voice (BRAND-VOICE.md), Terminology and Claim limits tell you what to do.
 | Task | Sections and keys |
 |---|---|
 | Writing posts, pages or product copy | Quick reference, Brand architecture, Audience, Catalog, Voice, Terminology, Blog, Claim limits, Inspiration brands, Author; front matter `brand`, `site`, `markets`, `language`, `currency`, `regulated` |
-| Fact-checking and claim review | front matter `markets`, `regulated`, `brand_approver`; Terminology; Claim limits |
+| Fact-checking and claim review | front matter `markets`, `regulated`, `brand_approver`, `copy_approver`; Terminology; Claim limits |
 | Planning content (what to write next) | front matter `brand`, `site`, `markets`; Catalog (topics); Competitors (feeds); Blog |
 | Reporting and audits | front matter `brand`, `site`, `language`, `search_console_property` |
 | Location or store pages | Brand architecture (Locations); Voice; Claim limits |

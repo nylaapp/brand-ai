@@ -8,7 +8,8 @@ glance, and that points to one next step.
 
 Read all of `BRAND-VOICE.md`, not just the three words:
 - **the three words:** every line fits all three;
-- **How it sounds:** sentence length, we/you, humour, how it handles urgency, and the bullet for this channel;
+- **How it sounds:** the default voice: sentence length, we/you, humour, how it handles urgency;
+- **Where it changes:** the line for this surface or channel, if there is one; any surface not listed uses the default;
 - **Signature phrases:** reuse their rhythm and attitude; quote one where it fits;
 - **Do / don't pairs and words to avoid:** every "don't" is a hard ban.
 

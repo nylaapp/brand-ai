@@ -7,7 +7,7 @@ description: >-
   values pages, careers and news, locations, products with prices, types and colors, site colors and
   fonts, blog style, social links, disclaimers) and reads any brand book it is given, asks four
   short setup questions (top 3 competitors, 2 or 3 non-competitive inspiration brands, who approves
-  things to make sure they're on brand, anything never to say or claim), studies each inspiration
+  brand-level decisions and who approves copy before it goes out, anything never to say or claim), studies each inspiration
   brand for what the brand can learn from it, then writes BRAND.md (the single
   source of truth for brand identity that every other skill reads) and BRAND-VOICE.md (how the brand
   sounds, kept in its own file), design.md (the brand's complete visual system, measured, stated or
@@ -133,6 +133,10 @@ each other's files.
 - **Voice has one home.** The detail (how it sounds, signature phrases, do / don't pairs, words to avoid) is written
   in BRAND-VOICE.md only; BRAND.md's Voice section is a pointer plus the three words. Terminology and Claim limits
   stay in BRAND.md: they are naming and compliance rules, not tone.
+- **One default voice, exceptions below it.** The brand's expression will and should vary by surface (web, email,
+  social, a restricted ad platform), but BRAND-VOICE.md leads with the version of the brand that makes the most sense
+  in general (How it sounds), and itemizes only the important exceptions under Where it changes ("Instagram: far less
+  formal"). Never write a separate voice per channel.
 - **Always ask what to work from.** Step 1 asks whether the brand has an existing store or site and an existing brand
   book, on every new capture and every add-design run, even when the request already names a site, the repo has one,
   or another skill called you. A brand book that is given is read and used; a site that looks like enough is never a
@@ -265,8 +269,10 @@ with the question tool, in **two calls** (the tool takes at most 4 questions eac
 2. **Inspiration.** "Which 2 or 3 brands do you admire that don't compete with you? Any industry: for tone,
    look, or how they talk to customers." Options: "Use the list from last time" (only when one exists),
    "I will type them", "Skip for now".
-3. **Approver.** "Who needs to approve things to make sure they're on brand?" Options: "I will type a name and
-   role", "Nobody yet".
+3. **Approvers.** "Who approves brand-level decisions, and who approves copy before it goes out the door?"
+   Options: "The same person approves both" (type the name and role), "Different people" (type both names and
+   roles, brand first), "Nobody yet". The first goes in `brand_approver`, the second in `copy_approver`; when
+   one person does both, both keys hold that name.
 4. **Never say.** "Is there anything we should never say or claim about your brand or products?" Options:
    "Keep the current list" (only when one exists), "I will type words, claims or topics", "Nothing".
 
@@ -344,7 +350,9 @@ recent posts (about 2 minutes each), and write 2 or 3 patterns the brand can lea
   order. Status `draft`, revision 1. Aim for 150 to 220 lines; every line should earn its place. Its Voice section is
   only the pointer and the three words.
 - **BRAND-VOICE.md:** next to BRAND.md, following `references/voice-template.md` exactly. Same status as BRAND.md,
-  revision 1, 40 to 70 lines. `voice_doc: BRAND-VOICE.md` in BRAND.md's front matter is what links the two.
+  revision 1, 40 to 70 lines. `voice_doc: BRAND-VOICE.md` in BRAND.md's front matter is what links the two. How it
+  sounds is the default voice; channel differences the sources show (the site versus Instagram, a platform the client
+  says is stricter) go under Where it changes, one line each.
 - **design.md:** next to BRAND.md, following `references/design-template.md`. Same status as BRAND.md, revision 1.
   **Skip it if a design.md already exists** in the theme folder, the project or the central folder: set `design_doc`
   to it and write Visual identity as a pointer plus a 3 to 5 line summary that agrees with it. Otherwise measure

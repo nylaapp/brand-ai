@@ -37,8 +37,9 @@ HEADINGS = ["Quick reference", "Identity", "Brand architecture", "Story", "Audie
             "Channels", "Author", "Sources", "Change log"]
 NO_PENDING_WHEN_APPROVED = ["Brand architecture", "Claim limits"]
 VOICE_KEYS = ["brand", "parent_doc", "status", "revision", "last_updated", "source"]
-VOICE_HEADINGS = ["In three words", "How it sounds", "Signature phrases", "Do / don't",
+VOICE_HEADINGS = ["In three words", "How it sounds", "Where it changes", "Signature phrases", "Do / don't",
                   "Words and habits to avoid", "Rules that stay in BRAND.md", "Change log"]
+VOICE_OPTIONAL = {"Where it changes"}               # files written before brand-capture 0.7.0 may lack it
 VOICE_FILE = re.compile(r"[A-Za-z0-9._-]+\.md")   # a plain file name next to BRAND.md, never a path
 VOICE_POINTER_MAX = 8                              # non-empty lines allowed in BRAND.md's Voice when voice_doc is set
 VOICE_LINES_WARN, VOICE_LINES_FAIL, VOICE_WORDS_WARN, VOICE_WORDS_FAIL = 90, 140, 1200, 2000
@@ -148,15 +149,19 @@ def validate_voice(path, brand_front, corpus=None):
         errors.append("revision must be a whole number")
 
     order, secs = sections(body)
-    if order != VOICE_HEADINGS:
-        missing = [h for h in VOICE_HEADINGS if h not in order]
+    expected = [h for h in VOICE_HEADINGS if h in order or h not in VOICE_OPTIONAL]
+    if order != expected:
+        missing = [h for h in expected if h not in order]
         extra = [h for h in order if h not in VOICE_HEADINGS]
         if missing:
             errors.append("missing sections: " + ", ".join(missing))
         if extra:
             errors.append("unknown sections (rename or remove): " + ", ".join(extra))
         if not missing and not extra:
-            errors.append("sections are out of order; expected: " + ", ".join(VOICE_HEADINGS))
+            errors.append("sections are out of order; expected: " + ", ".join(expected))
+    if "Where it changes" not in order:
+        warnings.append("no 'Where it changes' section: keep the default voice under How it sounds and list "
+                        "channel exceptions there (voice-template.md)")
 
     if PLACEHOLDER_ANY.search(text):
         errors.append("no [[CLIENT TO CONFIRM]] placeholders in this file: open items live in BRAND.md and "

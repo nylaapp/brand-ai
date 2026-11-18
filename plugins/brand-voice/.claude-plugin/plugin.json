@@ -1,0 +1,17 @@
+{
+  "name": "brand-voice",
+  "version": "0.2.0",
+  "description": "Two skills: voice-builder, a short guided wizard that builds and refines a brand's voice (BRAND-VOICE.md) from the owner's own words, best-performing ads and picks; and copywriter, which writes effective, on-brand copy for store sections, interface text and campaigns from that voice.",
+  "author": {
+    "name": "Nyla",
+    "email": "michael@nyla.app"
+  },
+  "repository": "https://github.com/nylaapp/brand-ai",
+  "keywords": [
+    "brand-voice",
+    "copywriting",
+    "campaign",
+    "shopify",
+    "onboarding"
+  ]
+}

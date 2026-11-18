@@ -30,13 +30,13 @@
       "name": "brand-capture",
       "source": "./plugins/brand-capture",
       "description": "One-time brand setup: scans a site, reads any brand book, and writes BRAND.md, BRAND-VOICE.md, a complete design.md and BRAND-QUESTIONS.md in a draft theme's folder, where every other skill reads them.",
-      "version": "0.6.2"
+      "version": "0.7.0"
     },
     {
-      "name": "voice-builder",
-      "source": "./plugins/voice-builder",
-      "description": "Guided brand-voice wizard that refines BRAND-VOICE.md from the owner's own words and picks, then writes effective on-brand copy for store sections and campaigns.",
-      "version": "0.1.0"
+      "name": "brand-voice",
+      "source": "./plugins/brand-voice",
+      "description": "Two skills: voice-builder, a guided wizard that builds BRAND-VOICE.md (one default voice plus channel exceptions) from the owner's words, best-performing ads and picks; and copywriter, which writes effective on-brand copy for store sections, interface text and campaigns.",
+      "version": "0.2.0"
     },
     {
       "name": "styles-builder",
@@ -96,7 +96,7 @@
       "name": "shopify-storefront",
       "source": "./plugins/shopify-storefront",
       "description": "Plan and launch a campaign (website now; email, SMS and ads as stubs) with scheduled Launch and Stop, and match the site's colours to the style guide, and build a campaign landing page whose sections swap in the theme editor or by asking Claude (campaign-launcher, campaign-page, theme-editor).",
-      "version": "0.7.0"
+      "version": "0.7.1"
     }
   ]
 }

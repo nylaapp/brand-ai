@@ -2,7 +2,7 @@
 
 A campaign page has one job. It takes a visitor who already wants to buy to the right product fast, with no doubt
 about the offer. Every rule below serves that job. Use it to plan the regions (SKILL.md → The template), to
-write the copy brief for `voice-builder`, and to check the page before the hand-over.
+write the copy brief for `copywriter`, and to check the page before the hand-over.
 
 Each rule says who owns it:
 - **Page:** this skill sets it in the template.
