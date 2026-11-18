@@ -100,3 +100,45 @@ launch"):
 - The scheduled run still does the drift check. If live changed, it doesn't publish: it sends the owner a message
   instead.
 - Never automatically through the connector (it can't publish), and never without that line in campaign.md.
+
+## Calendar invite
+
+Every campaign gets one, never skipped. `scripts/campaign_calendar.py` writes it where Python runs. Where it can't,
+write the same file by hand: plain text, saved as `<slug>.ics`, with three events (campaign, Launch, Stop). Times in
+UTC with a trailing `Z`; one `UID` per event; keep the line breaks.
+
+```
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//brand-ai//campaign-launcher//EN
+BEGIN:VEVENT
+UID:<slug>-campaign@brand-ai
+DTSTAMP:<now, e.g. 20261118T150000Z>
+DTSTART:<start in UTC, e.g. 20261127T050000Z>
+DTEND:<end in UTC, e.g. 20261202T045900Z>
+SUMMARY:<Campaign name> (<offer>)
+DESCRIPTION:<types> · <channels> · Preview: <link>
+END:VEVENT
+BEGIN:VEVENT
+UID:<slug>-launch@brand-ai
+DTSTAMP:<now>
+DTSTART:<start in UTC>
+DURATION:PT30M
+SUMMARY:Launch: <Campaign name>
+DESCRIPTION:Say to Claude: launch <Campaign name>
+BEGIN:VALARM
+TRIGGER:-PT1H
+ACTION:DISPLAY
+DESCRIPTION:Launch: <Campaign name> in 1 hour
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:<slug>-stop@brand-ai
+DTSTAMP:<now>
+DTSTART:<stop in UTC>
+DURATION:PT30M
+SUMMARY:Stop: <Campaign name>
+DESCRIPTION:Say to Claude: stop <Campaign name>
+END:VEVENT
+END:VCALENDAR
+```

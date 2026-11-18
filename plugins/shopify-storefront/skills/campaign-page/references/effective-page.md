@@ -17,7 +17,7 @@ it to show the owner a real example of a region before they pick one.
 ## 1. The offer, above the fold (page)
 
 At 375 px wide, the first screen shows all three of these, with nothing to scroll for:
-- **Headline with the offer in concrete terms.** "25% off sitewide" or "A free OG Hautebox with every order". Never
+- **Headline with the offer in concrete terms.** "25% off sitewide" or "A free tote with every order". Never
   a vague line such as "Our biggest sale". A campaign name that doesn't say the offer goes in the supporting line.
 - **When it ends and how it applies.** The end date ("Ends Dec 1"). The code, if there is one, in plain text the
   shopper can copy.

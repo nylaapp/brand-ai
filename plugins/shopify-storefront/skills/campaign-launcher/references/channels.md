@@ -1,7 +1,9 @@
 # Channels: website now, email, SMS and ads as stubs
 
-Every campaign is planned for four channels: **Website, Email, SMS and Ads**. Assume all four unless the owner
-takes one out in the plan ("website only" is a fine answer). Work them in this order, each as far as it can go
+The channels come from the brand file (BRAND.md → Channels): **only what the brand actually uses**. A brand that
+doesn't text its customers gets no SMS draft; a brand that runs ads on Instagram and TikTok gets one ad set per
+platform. If the brand file is silent, ask once, with Website, Email, SMS and Ads as options ("website only" is a
+fine answer). Work them in this order, each as far as it can go
 before the next: website, email, SMS, ads. In this version only the website is connected. The other three are
 **stubs**: they get a short draft and a to-do for the owner, never a send.
 
@@ -23,7 +25,7 @@ a plain collection. That page repeats the ad's offer in its first screen (`../ca
 
 - **Status:** not connected. When it is (Shopify Email, Klaviyo or the store's own platform), this step will build
   the emails, schedule them for Launch and cancel what's left at Stop.
-- **Now:** write `campaigns/<slug>/email.md` (or put it in the chat). One block per send: the launch email, plus a
+- **Now:** the Email section of the plan artifact (or `campaigns/<slug>/email.md` if the owner wants files). One block per send: the launch email, plus a
   last-chance email on the final day for a discount longer than two days, and an early-access email to subscribers
   when the plan has that phase (with the gated code). Each block: subject (under 50
   characters), preview text (under 90), three short lines of body, button text and link, send date and time.
@@ -33,7 +35,7 @@ a plain collection. That page repeats the ad's offer in its first screen (`../ca
 ## Stub: SMS
 
 - **Status:** not connected. Later it will connect to Shopify Messaging, Postscript, Attentive or Klaviyo SMS.
-- **Now:** write `campaigns/<slug>/sms.md`. One message per send, under 160 characters including the link and
+- **Now:** only when the brand uses SMS: the SMS section of the plan artifact (or `campaigns/<slug>/sms.md`). One message per send, under 160 characters including the link and
   "Reply STOP to opt out". Send times between 9 am and 8 pm in the shopper's time zone. That's inside the 8 am to
   9 pm window US rules allow for marketing texts.
 - **Rules:** texts go only to people who opted in, and that's the platform's job: never collect or import numbers.
@@ -42,7 +44,8 @@ a plain collection. That page repeats the ad's offer in its first screen (`../ca
 ## Stub: Ads
 
 - **Status:** not connected. Later it will connect to Meta, Google Ads or TikTok.
-- **Now:** write `campaigns/<slug>/ads.md`:
+- **Now:** the Ads section of the plan artifact (or `campaigns/<slug>/ads.md`), **one set per platform the brand
+  runs**, each with:
   - three headlines under 30 characters (Google's limit; they fit Meta too);
   - two primary texts under 125 characters;
   - which piece of the owner's creative fits which shape: square 1:1, vertical 9:16, landscape 1.91:1;
@@ -52,6 +55,9 @@ a plain collection. That page repeats the ad's offer in its first screen (`../ca
   - start and end, the same as the campaign.
 - **Rules:**
   - Claim limits matter even more in ads, because platforms reject over-claims.
+  - Platforms differ. TikTok is stricter than Meta for regulated products (cannabis accessories, alcohol,
+    supplements and the like): write a TikTok set that avoids anything its policy is likely to reject, keep it
+    separate from the Instagram or Meta set, and say in the Brief that the two sets differ and why.
   - For a discount, the landing page must show the offer.
 - **First line of the file:** `Draft: not sent. Ads aren't connected yet.`
 

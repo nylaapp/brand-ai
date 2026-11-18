@@ -106,7 +106,7 @@ Work out each fact from what they gave, the project and the store. Ask only for 
 | Dates | Start date and time, end date and time, store time zone (Step 0.5) | **Exact calendar dates only.** Turn "a week from now, for three days" into real dates and show them. **Date ranges are inclusive, and this is never asked:** "Nov 27 to Dec 1" runs from Nov 27 at 00:00 through Dec 1 at 23:59 in the store time zone, so the sale is on for the whole of the last day. "Dec 1 at midnight", "through Dec 1" and "ends Dec 1" mean the same end. Only a time the owner states (like "starts at 6am") replaces 00:00 or 23:59. The countdown, the copy and the discount all end at that same moment |
 | Stop time | When the website goes back | The end, by default. If the end is after 9 pm, offer the next morning at 9:00 as an option; the discount and the countdown still end on time |
 | Offer | What, how it applies (automatic or code), exclusions, whether it stacks | Discount type only. Prefer automatic: nothing to copy. For a code, every channel links through Shopify's shareable discount link (`/discount/<CODE>?redirect=<landing path>`) so the code applies itself. Shopify discounts never apply to gift cards, so on any store that sells them say "sitewide", never "everything". A code must appear in the copy, so if neither the materials nor the store show whether there's a code, ask it as an open question (options: "Automatic at checkout" and "A code"). Check the discount exists if the connector can read discounts; otherwise it goes in the owner's to-do. A sale banner over a checkout that charges full price is the worst outcome of this skill |
-| Channels | Website · Email · SMS · Ads | All four by default. Only the website is connected; the rest are stubs (`references/channels.md`) |
+| Channels | Website · Email · SMS · Ads, and which ad platforms | **From the brand file** (BRAND.md → Channels), never all four by default: a brand that doesn't text its customers gets no SMS draft, and Ads gets one set per platform the brand runs (for example Instagram and TikTok). If the brand file doesn't say, ask once with the four as options. If it names who runs a channel (a marketer or an agency), the plan's Brief is written for that person. Only the website is connected; the rest are drafts (`references/channels.md`) |
 | Materials | Final · In progress · None | Decides the route |
 | Link | Where the buttons go: a collection, a product or a campaign page | An existing collection or product: check it exists. **Recommend a campaign page** when ads or email are in the channels, or when the offer needs terms (exclusions, stacking, a shipping cutoff). Paid and email traffic should land on a page that repeats their offer, not on a plain catalog |
 | Phases | None · Coming soon · Early access · Live · Last chance · Ended | Optional, multi-select; Live and Ended are implied. Each phase is a dated swap of the bar, hero and countdown on the same URL, scheduled like Launch and Stop. Early access needs a gated code or customer segment (store data). Offer "Last chance" for a discount of three days or more |
@@ -127,12 +127,27 @@ re-plan it: its materials may need a new version.
 `python scripts/campaign_calendar.py --name ... --types ... --start ... --end ... --tz ...` (no `--out`), so its
 format never varies. Where Python can't run, write it by hand in the same format.
 
+**The plan is one artifact.** Everything for the campaign lives in a single document that you create once and keep
+updating, never spread across several files or messages: an Artifact in a Claude chat or the desktop app, or
+`campaigns/<slug>/campaign.md` in a project folder (Claude Code, Cowork). Its sections, in order:
+1. **Brief:** written so the owner can forward it as is to whoever makes the creative or runs the ads: campaign,
+   type, offer and how it applies, exact dates, channels and ad platforms, the core message, the recommended copy,
+   which creative is needed in which shapes, and each platform's rules (for example a stricter TikTok set);
+2. **Plan:** the lines below;
+3. **Website:** the before → after table and the preview link;
+4. **Copy:** the recommended lines and the alternatives;
+5. **Drafts:** one section per channel in the plan;
+6. **Links per channel**, **Before launch**, **Launch and Stop**;
+7. **Calendar:** the invite.
+
+Show the plan lines in the chat as well, then ask the question below.
+
 ```
-Campaign: Autumn Stroll Sale · Seasonal + Discount · Nov 10 2026, 00:00 to Nov 17 2026, 23:59 (America/New_York) · Website, Email, SMS, Ads
+Campaign: Autumn Stroll Sale · Seasonal + Discount · Nov 10 2026, 00:00 to Nov 17 2026, 23:59 (America/New_York) · Website, Email, Ads (Instagram, TikTok)
 Status: new · Route: ready (materials final)
 Website: homepage hero, announcement bar and campaign page /pages/autumn-stroll (countdown offered as an extra)
 Phases: coming soon Nov 3 · live Nov 10 · last chance Nov 16 · ended Nov 18 (leave the line out when there are none)
-Email, SMS, Ads: not connected yet, so I'll draft them for you to send
+Email, Ads (Instagram, TikTok): not connected yet, so I'll draft them for you or your marketer to send
 Launch: Nov 10, 00:00 (the discount starts itself; you publish the preview) · Stop: Nov 18, 09:00
 Assumed: <anything not confirmed yet, e.g. whether the discount is automatic or a code>
 ```
@@ -149,10 +164,14 @@ it's only listed by name; in a plain chat, one short numbered message):
 The yes approves the plan and the work on the preview copy and the drafts. It doesn't approve publishing, or changes
 to store data (discounts, product tags or metafields). Each connector write still shows its own confirmation.
 
-**After the yes**, write `campaigns/<slug>/campaign.md` with the plan, if you can write files. Use a short slug
-(`autumn-stroll`): Windows refuses paths over 260 characters. Then make the calendar file with
-`scripts/campaign_calendar.py ... --slug <slug> --out campaigns/<slug>/<slug>.ics` and give it to the owner ("open
-it to add the campaign, Launch and Stop to your calendar"). If the plan changes later, make the file again.
+**After the yes**, create the plan artifact (in a project folder, `campaigns/<slug>/campaign.md`). Use a short slug
+(`autumn-stroll`): Windows refuses paths over 260 characters.
+
+**Always make the calendar invite, every campaign, never skipped.** With Python, run
+`scripts/campaign_calendar.py ... --slug <slug> --out campaigns/<slug>/<slug>.ics`. Without Python (a plain chat
+where scripts can't run), write the `.ics` by hand from `references/launch-stop.md` → Calendar invite. Give it to
+the owner as a file ("open it to add the campaign, Launch and Stop to your calendar") and list it in the plan's
+Calendar section. If the plan changes later, make it again.
 
 ## Step 3: Get every channel as ready as it can be
 
@@ -178,7 +197,10 @@ surface, decide: change, add or leave. Reuse what the owner built: an existing s
    needs a scrim or enough contrast against the media. If the hero video is vertical, check its desktop height (theme
    reference).
 3. **Product page** (product launch): the launched product's page and the collection it sits in.
-4. **Countdown** (an extra unless asked for): only for a real deadline. It hides when it completes, with an "on
+4. **Countdown** (an extra unless asked for): only for a real deadline, and **only if it can look like the brand**.
+   Before offering it, style it on the preview from the brand's palette and fonts (theme reference: Countdown), look
+   at it at phone and desktop width, and show the owner how it looks. If the theme can't make it match the brand,
+   say so and don't offer it: an off-brand timer hurts more than no timer. It hides when it completes, with an "on
    complete" message as a fallback.
 5. **Sale colours** (an extra unless asked for): sale price and promo badge from the brand palette, badge text at
    least 4.5:1.
@@ -194,7 +216,8 @@ surface, decide: change, add or leave. Reuse what the owner built: an existing s
 - the facts are identical everywhere;
 - the brand's names are exact (BRAND.md → Terminology);
 - Claim limits are respected (no "everything" with exclusions, no fake scarcity);
-- the copy is unmistakably the brand's: **write it with `references/copywriting.md`**. Read all of BRAND-VOICE.md
+- the copy is unmistakably the brand's. If the `copywriter` skill (brand-voice plugin) is installed, hand it the
+  plan's facts and the surfaces and use its copy. Otherwise **write it with `references/copywriting.md`**. Read all of BRAND-VOICE.md
   first, start from the campaign materials' own words and the signature phrases, draft three directions for the hero
   and the bar, recommend one, and run every line through its checks (the swap test, the three words, the do/don't
   pairs). Generic sale-speak ("Don't miss out", "Shop now and save") is a failure even when the facts are right;
@@ -230,14 +253,15 @@ stale headline.
 
 ### 3b. Email, SMS and ads (stubs)
 
-Follow `references/channels.md`: a short draft for each channel in the plan, the same facts and voice as the
-website, marked "not sent". Nothing is sent or scheduled on these channels in this version.
+Follow `references/channels.md`: a short draft for each channel in the plan, in the plan artifact's Drafts section,
+the same facts and voice as the website, marked "not sent". Nothing is sent or scheduled on these channels in this version.
 
 ## Step 4: Come back with it ready
 
 Send one message:
 - the plan line again, with any changes;
-- **Website:** the before → after table (surface · before · after) and the preview link, plus the editor link;
+- the plan artifact, brought up to date;
+- **Website:** the before → after table (surface · before · after) and the editor link;
 - **Stubs:** one line per drafted channel (what it is, where it is);
 - extras you're offering, freshness suggestions, and anything you couldn't confirm (the discount, media);
 - **Before launch** (`references/launch-stop.md` → Before launch): the owner's checks, one line each. These are a
@@ -248,6 +272,10 @@ Send one message:
     ahead, or "Launch now" when it has passed, plus "Not yet".
   - **Draft:** no launch question. Say everything is staged, list what's missing, and add: "When the materials are
     final, say 'launch <name>'."
+
+**End the message with the preview link**, on its own last line, after everything else, so the owner sees exactly
+what to click. In a plain chat, put the numbered question above it. Nothing comes after the link (this applies to
+every message in this skill that has a preview link).
 
 ## Step 5: Launch and Stop
 
@@ -274,10 +302,11 @@ Write it, or give the same content in the chat if there's no folder. It holds:
 - the Stop steps.
 
 Then tell the owner briefly:
-- what changed (the table, not a diff) and the preview link;
+- what changed (the table, not a diff);
 - their to-do: approve and publish, or tell you to; confirm the discount; upload media if needed; send the stub
   drafts;
-- what happens at the end: a countdown hides itself, and everything else stays until Stop.
+- what happens at the end: a countdown hides itself, and everything else stays until Stop;
+- last, on its own line: the preview link.
 
 ## Quick path (one change, demo mode)
 
@@ -285,7 +314,7 @@ When the request is a single change to one surface ("change the announcement bar
 orders") rather than a new or changed campaign, skip Steps 1 and 2:
 1. Read only the files for that surface.
 2. Show the before → after for it and get the yes.
-3. Write it, read it back, and give the preview link.
+3. Write it, read it back, and end the message with the preview link on its own last line.
 
 That's about a minute of work. Everything else is an offer for later. If BRAND.md is missing, still say the copy
 hasn't been checked against a brand file.
@@ -304,7 +333,7 @@ assumptions marked and carry on to Step 4. Either way, stop at the launch questi
 ```
 Campaign: <name> · <type(s)> · <start> to <end> (<tz>) · <channels>
 Status: <new | exists | live> · Route: <ready | draft>
-Preview: <link>   Editor: <link>
+Editor: <link>
 Changed: <surface: before → after, one line each>
 Drafted, not sent: <email / SMS / ads: file>
 Offered, not done: <extras>
@@ -312,5 +341,6 @@ Phases: <phase: date, one per line, if any>
 Links: <channel: tagged URL, one per line>
 Owner to do: <approve / publish / confirm discount / upload media / send drafts / before-launch checks>
 Launch: <date time> · <how>   Stop: <date time> · <how>
-Calendar: campaigns/<slug>/<slug>.ics · Hand-over: campaigns/<slug>/campaign.md
+Calendar: campaigns/<slug>/<slug>.ics · Plan: campaigns/<slug>/campaign.md (or the plan artifact)
+Preview: <link>
 ```
