@@ -58,6 +58,12 @@ they come from the brand palette.
 }
 ```
 
+**Make it look on-brand before offering it.** The section takes its colours from its `background` group (`alt-sale`
+uses the promo tag colours, which are often not the brand's). Pick the group whose colours are the brand's own
+(the main background with brand text, or the brand's dark group), keep the theme fonts (headings set the digits),
+match the button style to the hero's, and keep its title and text in the campaign's voice. Look at it on the preview
+at phone and desktop width and show the owner. If no group gets close to the brand book, say so and don't offer it.
+
 `end_date` format yyyy-mm-dd, `end_time` hh:mm 24-hour, store time zone. `background` options: main-background,
 alt-background, alt-background-2, alt-background-3, background-modal, alt-sale. Add the id to `templates/index.json`
 → `order`, after the hero.

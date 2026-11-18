@@ -13,6 +13,10 @@ Never ask for, type or store passwords, tokens or API keys. If the connector say
 user: the **store owner** (or a staff account with every permission the app asks for) connects it once in Claude's
 connector settings; staff accounts often see "You need permission to update Shopify Claude Connector App".
 
+**Live theme connected to GitHub?** (its name looks like `<repo>/<branch>`, or THEME-SPECIFICS.md says so.) Then
+read `github-stores.md` first: work goes to the staging theme, and going live is a merge of `staging` into `main`.
+It replaces the copy-and-publish steps below. Never publish a copy on such a store.
+
 ## Connector
 
 First call `get-shop-info` and check the domain is the store in BRAND.md / AGENTS.md. If it isn't, stop and say so;
