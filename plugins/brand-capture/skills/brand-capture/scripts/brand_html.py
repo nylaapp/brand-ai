@@ -24,7 +24,8 @@ if hasattr(sys.stdout, "reconfigure"):
 # Only what the client recognises. Internal pointers (design_doc, competitors_doc, search_console_property,
 # captured_by) stay out: the client never receives those files.
 GLANCE = [("site", "Website"), ("category", "Category"), ("markets", "Markets"), ("language", "Language"),
-          ("currency", "Currency"), ("regulated", "Regulated"), ("brand_approver", "On-brand approver")]
+          ("currency", "Currency"), ("regulated", "Regulated"), ("brand_approver", "Brand approver"),
+          ("copy_approver", "Copy approver")]
 HIDE_SECTIONS = {"Sources"}
 HIDE_VOICE_SECTIONS = {"Rules that stay in BRAND.md", "Change log"}   # notes for agents, not for the client
 VOICE_FILE = re.compile(r"[A-Za-z0-9._-]+\.md")

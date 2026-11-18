@@ -41,7 +41,8 @@ design_doc: <design.md | none>
 voice_doc: BRAND-VOICE.md
 competitors_doc: COMPETITORS.md
 search_console_property: <property, or blank>
-brand_approver: <name and role from setup question 3, or [[CLIENT TO CONFIRM: Q-.. | who approves things to make sure they're on brand]]>
+brand_approver: <who approves brand-level decisions (name and role, setup question 3), or [[CLIENT TO CONFIRM: Q-.. | who approves brand-level decisions]]>
+copy_approver: <who approves copy before it goes out the door (name and role, setup question 3; the same person is fine), or [[CLIENT TO CONFIRM: Q-.. | who approves copy before it goes out]]>
 status: <draft | approved>
 revision: <1, 2, 3 ... +1 on every write>
 approved_by: <name and role of the client approver, blank while draft>
@@ -66,7 +67,8 @@ captured_by: brand-capture 1.3.0
 - **Call us:** <default name>; see Brand architecture for other names
 - **Sounds like:** <three words> (full voice guide: BRAND-VOICE.md)
 - **Never say:** <the 3 to 5 most important banned claims or words; the client's own answers first>
-- **On-brand approver:** <brand_approver>
+- **Brand approver:** <brand_approver> (brand-level decisions)
+- **Copy approver:** <copy_approver> (copy before it goes out; "same" when it is the brand approver)
 - **Regulated:** <no | yes: categories; approved disclaimers in Claim limits>
 - **Visual system:** <design.md, or "see Visual identity">
 - **Open items:** <n pending, ids Q-..>
@@ -150,8 +152,8 @@ the imagery rule). Only when design.md could not be made, list:*
 - **Not allowed:** <absolutes, superlatives, unsupported results, vendor claims not to reuse>
 - **Required disclaimers:** <verbatim approved text or "pending Q-.."; say where each one is used>
 - **Rules:** <do / don't lines for the category; only the categories the scan found>
-- **Sign-off:** <brand_approver; plus who signs off regulated claims, only if the brand is regulated and it's
-  someone else>
+- **Sign-off:** <copy_approver for copy, brand_approver for brand-level changes; plus who signs off regulated
+  claims, only if the brand is regulated and it's someone else>
 
 ## Competitors
 *The client's top 3 (fewer if that is all they named), as named. Light research only: site, feed, overlap, one line each.*

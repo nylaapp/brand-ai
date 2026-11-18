@@ -17,8 +17,8 @@ mean changing one section, never rebuilding the page.
 - **`page-studio:page-create`** is the builder. When it is available, hand it the region plan below and the swap rules,
   and let it do the working copy, verification and shipping to a draft. This skill does not rebuild that machinery;
   it adds the campaign preset on top: the region order, the alternates, the swap map and the design draft.
-- **`voice-builder`** writes the words (`references/copywriting.md` there). If BRAND-VOICE.md is thin or missing, say so
-  before writing copy.
+- **`copywriter`** (brand-voice plugin) writes the words (`references/copywriting.md` there). If BRAND-VOICE.md is thin
+  or missing, say so before writing copy and offer `voice-builder` (same plugin) first.
 
 ## Rules
 
@@ -132,7 +132,7 @@ are dated, so open the page live before showing it. Where nothing can be shown, 
 
 When the owner wants to choose: build one unpublished page with 2 or 3 copy options **per region**, labelled
 "Option A / B / C" in plain text sections placed side by side, the recommended one first with one line on why it fits
-the voice. Copy comes from `voice-builder`'s three directions (the brand's wink, product-led, plain offer). When they
+the voice. Copy comes from `copywriter`'s three directions (the brand's wink, product-led, plain offer). When they
 pick, rebuild the page with only the chosen options and apply the same choices to the bar and the homepage hero. A
 design draft is never linked from the live site and is deleted or kept unpublished.
 
