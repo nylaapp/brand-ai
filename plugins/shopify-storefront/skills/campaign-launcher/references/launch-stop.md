@@ -50,6 +50,9 @@ At least a week before the start, the owner (or Claude, where it can) checks:
 - **Speed:** the campaign page has no new apps or scripts, and its hero media is compressed. For a big expected
   spike, the owner can ask Shopify support. Shopify's checkout scales, but heavy apps and media slow the page.
 
+**GitHub-connected store:** Launch and Stop are merges of `staging` into `main`, not publishes
+(`github-stores.md`). The drift check still runs, between the staging theme and live.
+
 ## Drift check (before every publish)
 
 Publishing replaces the live theme with the copy, so edits made to live after the copy was made are lost.

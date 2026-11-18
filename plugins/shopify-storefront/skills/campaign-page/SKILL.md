@@ -31,7 +31,8 @@ mean changing one section, never rebuilding the page.
    to action are separate sections. Blocks are only for repeated items inside a region (cards, questions).
 3. **Reuse before building.** Existing section, then the same section with one new setting, then a new section only
    when nothing produces the layout. No hardcoded colours, fonts or copy that a setting could hold.
-4. **Unpublished, always.** The page is created unpublished on a preview copy of the theme. Never edit the live theme,
+4. **Unpublished, always.** The page is created unpublished on a preview copy of the theme (on a store whose live
+   theme is connected to GitHub, that's the staging theme: `../campaign-launcher/references/github-stores.md`). Never edit the live theme,
    and never link the page from the live site.
 5. **Same facts everywhere.** Offer, exclusions, exact dates in shopper form ("Nov 27 to Dec 1") and link come from the
    plan and appear identically in every region.

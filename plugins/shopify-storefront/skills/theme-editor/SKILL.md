@@ -112,7 +112,9 @@ nothing until they say yes.
 
 Tell the owner briefly: the before → after table, what's sitewide, contrast (all pass, or which pairing changed),
 what's unconfirmed and what needs their licence, and the next step (approve, then publish themselves or tell you
-to; if they edited live since the duplicate, re-duplicate and re-apply instead). **End the message with the preview
+to; if they edited live since the duplicate, re-duplicate and re-apply instead. On a store whose live theme is
+connected to GitHub there's no publishing: the work is on the staging theme and going live is a merge of `staging`
+into `main`, see `references/github-stores.md`). **End the message with the preview
 link on its own last line**, after any question, so the owner sees exactly what to click. Nothing comes after it. Save the
 table as `brand-theme-<YYYY-MM-DD>.md` in the project root (or give it in chat), and add to `THEME-SPECIFICS.md` any
 colour-group facts you learned.

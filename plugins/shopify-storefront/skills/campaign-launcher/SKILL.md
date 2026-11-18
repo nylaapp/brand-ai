@@ -42,7 +42,8 @@ stop and say what's blocking.
   checkout", and one button. It repeats what the ad or email said.
 - **Only what was planned.** Extras (countdown, badges, sale colours) are offered as a short list, never added
   unasked.
-- **Nothing goes live without the owner.** The live theme is untouched until they publish.
+- **Nothing goes live without the owner.** The live theme is untouched until they publish, or, on a store whose
+  live theme is connected to GitHub, until they approve merging `staging` into `main` (`references/github-stores.md`).
 - **Launch and Stop each have a time and a way of happening**, and Stop puts the site back exactly as it was.
 
 ## Step 0: Read the project

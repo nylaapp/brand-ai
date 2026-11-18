@@ -96,7 +96,7 @@
       "name": "shopify-storefront",
       "source": "./plugins/shopify-storefront",
       "description": "Plan and launch a campaign (website now; email, SMS and ads as stubs) with scheduled Launch and Stop, and match the site's colours to the style guide, and build a campaign landing page whose sections swap in the theme editor or by asking Claude (campaign-launcher, campaign-page, theme-editor).",
-      "version": "0.8.0"
+      "version": "0.9.0"
     }
   ]
 }
