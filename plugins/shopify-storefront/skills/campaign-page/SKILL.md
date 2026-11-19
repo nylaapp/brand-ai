@@ -1,6 +1,6 @@
 ---
 name: campaign-page
-description: Generates a campaign landing page template for a Shopify store, built to sell and built so any part swaps in one switch. The offer, end date and one button sit in the first screen on mobile; urgency is real; products are curated with the saving shown; the shipping cutoff and FAQ sit near the button; it has an email signup and a tagged link per channel; phases from coming soon to ended run on one URL. Each part (hero, trust row, countdown, products, FAQ, signup, closing call to action) is its own section with ready alternates, swapped in the theme editor or by asking Claude. Uses only the theme's sections and the plan's facts, and can make a design draft with 2 or 3 copy options per section. Built on the store's staging theme, never the live theme. Requires BRAND.md, BRAND-VOICE.md and design.md. Use for "campaign landing page", "sale page", "BFCM page", "gift guide page", "swap the hero", "design draft" or "a page for the Black Friday sale".
+description: Generates a campaign landing page template for a Shopify store, built to sell, built to look designed (reference study, visual check) and built so any part swaps in one switch. The offer, end date and one button sit in the first screen on mobile; urgency is real; products are curated with the saving shown; the shipping cutoff and FAQ sit near the button; it has an email signup and a tagged link per channel; phases from coming soon to ended run on one URL. Each part (hero, trust row, countdown, products, FAQ, signup, closing call to action) is its own section with ready alternates, swapped in the theme editor or by asking Claude. Uses only the theme's sections and the plan's facts, and can make a design draft with 2 or 3 copy options per section. Built on the store's staging theme, never the live theme. Requires BRAND.md, BRAND-VOICE.md and design.md. Use for "campaign landing page", "sale page", "BFCM page", "gift guide page", "swap the hero", "design draft" or "a page for the Black Friday sale".
 ---
 
 # Campaign page
@@ -61,10 +61,33 @@ stricter rule wins.
    no image or video falls back to the theme's pale default, so set the text colour from the section's colour group
    (or a dark value) and confirm 4.5:1 contrast in the screenshot. Hero text left white on that default was
    unreadable in testing.
-7. **Respect each setting's range.** Read `min`, `max` and `step` in the schema before writing a number (a scrim of
+7. **Looks designed, not only complete.** With no reference from the owner, run the reference study in
+   `references/visual-design.md` (similar pages from competitors, inspiration brands and the same industry, then the
+   store's design system) and settle the layout recipe before choosing sections. Run its visual check before the
+   hand-over.
+8. **Respect each setting's range.** Read `min`, `max` and `step` in the schema before writing a number (a scrim of
    40 on a step of 15 is rejected and fails the whole template). Empty every placeholder text setting the section
    would otherwise show (a collapsible section's default "Use this text to share more information about your
    store." appears unless its description is set).
+
+## What makes it look designed
+
+A page that sells but looks like a stack of default sections fails the owner as much as one with weak copy. Read
+`references/visual-design.md` before choosing any section, and again before the hand-over. It sets:
+- **A reference study before any layout.** With no Figma, mockup or link from the owner, study three to five similar
+  live pages first: a competitor, an inspiration brand (both from BRAND.md or `COMPETITORS.md`) and a brand in a
+  similar industry, each doing the same kind of campaign. Read their content and layout at 375 and 1440 px, then the
+  store's own `design.md` and theme settings. Record a Reference study table and a one-line design basis in the plan.
+  Borrow structure, never words, images or the look; the store's brand wins every conflict. If `design.md` is missing,
+  offer `brand-capture` or `styles-builder` first.
+- **A layout recipe per campaign type:** sale, gift guide, product launch, limited drop, values day.
+- **Ten visual rules,** each with its fix: no placeholder hero, background rhythm, one spacing scale, one H1 and a
+  type hierarchy, uniform images, product grids that fill their rows, density, one alignment and button style, no
+  empty regions, and screenshots taken after the fade-in settles.
+- **A scored screenshot check** at 375, 768 and 1440 px, with one fix pass.
+
+Choose the layout first and the copy second, so the words fit the space. Where it conflicts with a selling rule,
+the first screen still shows the offer.
 
 ## What makes it sell
 
@@ -160,11 +183,13 @@ are dated, so open the page live before showing it. Where nothing can be shown, 
 
 ## Design draft (options before the homepage changes)
 
-When the owner wants to choose: build one unpublished page with 2 or 3 copy options **per region**, labelled
-"Option A / B / C" in plain text sections placed side by side, the recommended one first with one line on why it fits
-the voice. Copy comes from `copywriter`'s three directions (the brand's wink, product-led, plain offer). When they
-pick, rebuild the page with only the chosen options and apply the same choices to the bar and the homepage hero. A
-design draft is never linked from the live site and is deleted or kept unpublished.
+When the owner wants to choose: show **two or three layouts first** (recipe rows from `references/visual-design.md`
+adjusted to the design basis), as separate previews or a quick mockup, each with one line on why it fits the brand.
+Then build one unpublished page with 2 or 3 copy options **per region**, labelled "Option A / B / C" in plain text
+sections placed side by side, the recommended one first with one line on why it fits the voice. Copy comes from
+`copywriter`'s three directions (the brand's wink, product-led, plain offer). When they pick, rebuild the page with
+only the chosen options and apply the same choices to the bar and the homepage hero. A design draft is never linked
+from the live site and is deleted or kept unpublished.
 
 ## Check and hand over
 
@@ -183,6 +208,10 @@ design draft is never linked from the live site and is deleted or kept unpublish
   - The countdown reads the right time zone.
   - Exactly one alternate per region is visible.
   - Buttons and FAQ rows are at least 44 px tall.
+- **Score the look** against `references/visual-design.md` → Look, score, fix once: full-length captures at 375, 768
+  and 1440 px taken about 3 seconds after load (sections fade in, so an earlier capture looks faint), one line per
+  check, one fix pass, then one more capture. A missing image or collection image goes in the owner's to-do with the
+  section it affects. Without a browser tool, say the visual check was not run.
 - **Score it** against `references/effective-page.md`. Give one line per rule: met, not met (why), or not
   applicable. Fix what the page can fix. List store-data gaps as offers, for example "no compare-at prices, so cards
   show no saving". List owner gaps in the to-do.

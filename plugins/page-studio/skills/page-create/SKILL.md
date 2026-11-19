@@ -190,10 +190,32 @@ for this page; when they do, theirs win and the plan says which rule they replac
    heading size, the brand's pill buttons instead of square ones. Record each one in the parity table as
    an intended difference with the brand rule it follows, so it isn't counted as a mismatch.
 
-**Without one:** start from the playbook section for this page type
-(`../page-audit/references/page-type-playbook.md`). Its must-have checks decide which regions the page
-or section needs and in what order, with the primary action in the first screen. Take copy facts from
-the brand files and visual values from `design.md`.
+**Without one (no Figma file, mockup or link): study similar pages first, always.** Don't design from
+the playbook alone.
+
+1. **Choose three to five live pages** that do the same job as this page: at least one competitor
+   (`COMPETITORS.md` or BRAND.md → Competitors), at least one inspiration brand (BRAND.md → Inspiration
+   brands) and one or two brands in a similar industry or with similar products found by search. Record
+   each URL and the date you looked.
+2. **Read each at desktop and mobile** with `site-reader` or the browser, scrolling so lazy content loads
+   (the capture rules above apply). If a page can't be rendered, say so and pick another. Never describe a
+   page from memory or a snippet.
+3. **Study three lenses** and write them down: *content* (what the first screen says, how offer, proof and
+   objections are ordered, how things are named and priced, button labels, length); *layout* (section
+   order and count, hero type, how backgrounds alternate, grid columns, density, the mobile first screen);
+   *design system and branding* (their fonts, palette, spacing, corners, buttons and imagery, read to
+   understand why the page feels as it does), then the store's own `design.md` and theme settings, noting
+   where they agree or differ.
+4. **Decide and record.** Put a Reference study table (brand, URL, date, what we borrow, what we leave) and
+   a one-line design basis in the plan. The "Recreating a page from a reference" rules above then apply to
+   what you borrow: structure and patterns yes, words, images, logos and typefaces never, and the store's
+   design system wins every conflict. Show the person two or three borrowed patterns with a link each
+   before building.
+5. **Then the playbook** for this page type (`../page-audit/references/page-type-playbook.md`): its
+   must-have checks decide which regions the page needs and that the primary action sits in the first
+   screen. Copy facts come from the brand files and visual values from `design.md`.
+
+If nothing similar can be read, say the design basis is the brand files and the playbook only, and flag it.
 
 ## 4. Plan
 
@@ -269,7 +291,8 @@ nothing about publishing unless the person asks.
 
 - [ ] Setup check passed (or already passed this conversation); anything missing was explained and fixed step by step
 - [ ] Page, section or section type settled; name and handle checked for clashes
-- [ ] Plan built from the reference's measured values or the playbook's must-haves
+- [ ] Plan built from the reference's measured values, or (with no reference) from a Reference study of
+      similar pages (competitor, inspiration brand, same industry) plus the playbook's must-haves
 - [ ] Existing sections reused first; any new section type called out, approved and built to the repo's rules
 - [ ] Plan table agreed before building
 - [ ] Baseline captured before the first edit; change pack started

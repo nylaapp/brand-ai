@@ -149,7 +149,12 @@ one-line goal check in `../page-audit/references/intake.md` section 3.
 - **Which page, in their words, and what type is it?** Resolve it to an actual template.
 - **What exactly looks wrong or should be different, and on which device?** Reproduce it on the
   render at desktop and mobile before touching anything.
-- **Is there a reference** of what right looks like?
+- **Is there a reference** of what right looks like? If there is none (no Figma file, mockup or link) and
+  the change is a relayout or redesign rather than a small fix, study similar pages first, as in "Without
+  one" in `../page-create/SKILL.md` step 3: a competitor, an inspiration brand and a same-industry brand
+  doing the same job, read at desktop and mobile on content, layout and design system, then the store's
+  own `design.md`. Record the Reference study in the plan, and keep the store's design system over the
+  references'.
 - **What should stay exactly the same?** Default: everything else.
 - **How urgent is it?** Even a quick fix goes through verification and the staging theme.
 
