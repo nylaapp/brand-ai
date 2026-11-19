@@ -40,7 +40,7 @@ channel's link uses Shopify's shareable discount link, which applies the code in
 anywhere.
 
 **Match the ad.** The first screen repeats the offer and wording of the ad, email or post that sent the visitor.
-If `ads.md` or `email.md` exists, the hero headline and the ad headline state the same offer. If they differ,
+If the plan's Ads or Email drafts (or `ads.md` / `email.md`) exist, the hero headline and the ad headline state the same offer. If they differ,
 change one of them; never ship both.
 
 ## 2. Urgency only when it's true (page)

@@ -1,6 +1,6 @@
 ---
 name: campaign-page
-description: Builds a campaign landing page for a Shopify store that sells. The offer, end date and one button sit in the first screen on mobile; urgency is real; products are curated with the saving shown; the shipping cutoff and FAQ sit near the button; it has an email signup and a tagged link per channel; phases from coming soon to ended run on one URL. Each part (hero, trust row, countdown, products, FAQ, signup, closing call to action) is its own section with ready alternates, swapped in the theme editor or by asking Claude. Uses only the theme's sections and the plan's facts, and can make a design draft with 2 or 3 copy options per section. Never the live theme. Use for "campaign landing page", "sale page", "BFCM page", "gift guide page", "swap the hero", "design draft" or "a page for the Black Friday sale".
+description: Generates a campaign landing page template for a Shopify store, built to sell and built so any part swaps in one switch. The offer, end date and one button sit in the first screen on mobile; urgency is real; products are curated with the saving shown; the shipping cutoff and FAQ sit near the button; it has an email signup and a tagged link per channel; phases from coming soon to ended run on one URL. Each part (hero, trust row, countdown, products, FAQ, signup, closing call to action) is its own section with ready alternates, swapped in the theme editor or by asking Claude. Uses only the theme's sections and the plan's facts, and can make a design draft with 2 or 3 copy options per section. Never the live theme. Use for "campaign landing page", "sale page", "BFCM page", "gift guide page", "swap the hero", "design draft" or "a page for the Black Friday sale".
 ---
 
 # Campaign page
@@ -101,7 +101,14 @@ page and not by editing the last campaign's.
 
 ## Making each part swappable
 
-Do all three, so it works in the editor and through Claude:
+Do all three, so it works in the editor and through Claude. `scripts/build_template.py` does the mechanical part:
+describe the regions and their options in a small spec, run it with `--theme <preview copy> --slug <slug> --spec
+spec.json`, and it checks every section type and setting id against the theme's own schemas (and number ranges),
+writes `templates/page.campaign-<slug>.json` with the first option of each region on and the rest off, and prints
+the swap map. `--list` shows the sections the theme has, `--dry-run` only checks. Swapping later is
+`--swap hero_b` (turns that one on, its region's others off). Without Python, write the JSON by hand to the same shape. Each section starts from its first preset in the theme, so a hero keeps its heading and button blocks; the script
+lists any text still left as the theme's placeholder, and you replace it with the plan's copy (blocks hold the copy on
+Horizon-style themes, not section settings). Block types and block settings are checked too.
 
 1. **Ready alternates, switched off.** For regions with a real choice (hero first, then offer layout and closing call
    to action), put a second and, if the theme has it, a third section of a different type in the template with
@@ -112,7 +119,8 @@ Do all three, so it works in the editor and through Claude:
 2. **Same content in every alternate.** Fill each alternate with the same heading, supporting line, button label and
    link (from the plan), so a swap never loses the words. Where the alternate has an image or video the owner has not
    supplied, leave it blank and say so.
-3. **A swap map.** Write a short "Page parts" block in `campaign.md` (or in the hand-over if there is no file):
+3. **A swap map.** Put a short "Page parts" block in the plan artifact (the one document for the campaign, see
+   `campaign-launcher`), or in the hand-over where there is none:
 
    | Part | On now | Alternates (off) | To swap |
    |---|---|---|---|
@@ -121,7 +129,7 @@ Do all three, so it works in the editor and through Claude:
    Keep it one table, with the template name, page handle and preview link under it.
 
 **Swap by asking Claude:** "swap the hero for the video one", "move the countdown above the products", "use the
-plain offer layout". Read the template, toggle `disabled` and `order` (and carry the content across if the alternate
+plain offer layout", "try the other closing banner", "add a reviews section", "drop the gifting row". Read the template, toggle `disabled` and `order` (and carry the content across if the alternate
 is new), update the swap map, show the preview link. Never touch other sections, and never go live.
 
 Show before the owner picks: owners choose widgets they have never seen ("I thought it'd be a little '10 days
@@ -143,6 +151,10 @@ design draft is never linked from the live site and is deleted or kept unpublish
   the file it names and fix it. Theme names are at most 50 characters.
 - If the Shopify page can't be created (connector not signed in), preview the template on any existing page with
   `?view=<slug>&preview_theme_id=<id>`, and say the real page is still to create.
+- **First time only, a swap check in the editor.** The swap is tested on the generated file (theme check is clean) but
+  needs a real push to prove. After the push, open the page in the theme editor, hide the active hero and show its
+  alternate, and confirm the preview changes. Say in the hand-over whether you did it or it is left to the owner
+  (never pretend it was done).
 - Open the page at desktop (1440x900) and mobile (375x812), and check:
   - **Mobile first screen:** at 375x812, without scrolling, the offer, the end date, the code (or "applied at
     checkout") and one button all show.
@@ -155,7 +167,7 @@ design draft is never linked from the live site and is deleted or kept unpublish
   show no saving". List owner gaps in the to-do.
 - Every link, date and offer matches `campaign.md`, and the hero states the same offer as `ads.md` and `email.md`
   where they exist.
-- Record these in `campaign.md`:
+- Record these in the plan artifact (`campaign.md` when there is a project folder):
   - the template, page handle, swap map and preview link;
   - the tagged link per channel;
   - the phase schedule;

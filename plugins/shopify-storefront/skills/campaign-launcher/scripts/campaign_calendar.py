@@ -152,6 +152,11 @@ def main():
     ap.add_argument("--offer", default="")
     ap.add_argument("--preview", default="", help="preview link for the website")
     ap.add_argument("--slug")
+    ap.add_argument("--plan-ref", help="where the plan lives, written into each event (a link to the plan artifact, "
+                    "or a path); default campaigns/<slug>/campaign.md")
+    ap.add_argument("--links", action="store_true",
+                    help="also print an add-to-calendar link per event (Google) and a data link for the .ics, "
+                    "so the plan artifact can carry the invite as clickable links")
     ap.add_argument("--out", help="where to write the .ics; leave out to only print the summary")
     a = ap.parse_args()
 
@@ -183,7 +188,7 @@ def main():
         details.insert(0, f"Offer: {a.offer}")
     if a.preview:
         details.append(f"Website preview: {a.preview}")
-    details.append(f"Campaign file: campaigns/{slug}/campaign.md")
+    details.append(f"Campaign plan: {a.plan_ref or f'campaigns/{slug}/campaign.md'}")
     launch_desc = ("Time to launch. Say to Claude: \"Launch the " + a.name + " campaign.\"\n"
                    "Claude checks the live site hasn't changed since the preview was made, then you publish "
                    "the preview theme (Online Store > Themes > Publish). The discount should start on its own "
@@ -204,6 +209,18 @@ def main():
     lines.append("END:VCALENDAR")
     with open(a.out, "w", encoding="utf-8", newline="") as f:
         f.write("\r\n".join(fold(x) for x in lines) + "\r\n")
+    if a.links:
+        import base64
+        from urllib.parse import quote
+
+        def gcal(title, s_u, e_u, desc):
+            return ("https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + quote(title)
+                    + "&dates=" + stamp(s_u) + "/" + stamp(e_u) + "&details=" + quote(desc))
+        print("Add to calendar (Google): campaign  " + gcal(f"{a.name} ({' + '.join(types)})", start_u, end_u, "\n".join(details)))
+        print("Add to calendar (Google): launch    " + gcal(f"Launch: {a.name}", start_u, start_u + fifteen, launch_desc))
+        print("Add to calendar (Google): stop      " + gcal(f"Stop: {a.name}", stop_u, stop_u + fifteen, stop_desc))
+        data = open(a.out, "rb").read()
+        print("Calendar file link: data:text/calendar;charset=utf-8;base64," + base64.b64encode(data).decode())
     print(f"Calendar file: {a.out} (campaign, Launch at {human(start_l)}, Stop at {human(stop_l)}, {tz_label})")
 
 
