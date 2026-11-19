@@ -1,6 +1,6 @@
 ---
 name: theme-audit
-description: "Audit a Shopify theme's pages with the full Lighthouse suite from the command line (speed and performance, accessibility, best practices and SEO, mobile and desktop, several runs, with the HTML reports saved), plus Shopify's Theme Inspector (how long the theme's Liquid code takes on the server) and Shopify's own Theme Check on the theme code, and present the result as a plain-language readout (headline, scorecard, fix these first) the way the CRO audit does; name who owns every problem (this theme, an app, store content or Shopify); propose minimal fixes for what the theme owns; and after approval apply them on a draft theme, prove nothing visible changed, and re-score. Accessibility is fixed to 1.00; speed is measured as a median of several runs with real-visitor data where it exists, with no 100 target. Use whenever the user says \"run Lighthouse\", \"score this page\", \"audit the theme\", \"theme check\", \"why is the site slow\", \"page speed\", \"performance score\", \"Core Web Vitals\", \"LCP\", \"CLS\", \"best practices\", \"accessibility audit\", \"check accessibility on the product page\", \"get this to 100%\", \"fix the a11y score\", or asks to improve any Lighthouse score on a page template, even if they don't say Lighthouse. Can run one lane alone (for example accessibility only), and can run read-only on a live page with no fixes. Never removes apps, changes words or moves layout; works only on a draft theme (asked once, remembered, or created from the live theme) and never edits the live theme. Not for content and page-type gaps (page-studio's page-audit), conversion audits (cro-audit) or deep blog SEO (seo-audit)."
+description: "Audit a Shopify theme's pages with the full Lighthouse suite from the command line (speed and performance, accessibility, best practices and SEO, mobile and desktop, several runs, with the HTML reports saved), plus Shopify's Theme Inspector (how long the theme's Liquid code takes on the server) and Shopify's own Theme Check on the theme code, and present the result as a plain-language readout (headline, scorecard, fix these first) the way the CRO audit does; name who owns every problem (this theme, an app, store content or Shopify); propose minimal fixes for what the theme owns; and after approval apply them on the staging theme, prove nothing visible changed, and re-score. Accessibility is fixed to 1.00; speed is measured as a median of several runs with real-visitor data where it exists, with no 100 target. Use whenever the user says \"run Lighthouse\", \"score this page\", \"audit the theme\", \"theme check\", \"why is the site slow\", \"page speed\", \"performance score\", \"Core Web Vitals\", \"LCP\", \"CLS\", \"best practices\", \"accessibility audit\", \"check accessibility on the product page\", \"get this to 100%\", \"fix the a11y score\", or asks to improve any Lighthouse score on a page template, even if they don't say Lighthouse. Can run one lane alone (for example accessibility only), and can run read-only on a live page with no fixes. Never removes apps, changes words or moves layout; works only on the store's staging theme (settled once and remembered, or created as \"<live theme name> staging\") and never edits the live theme. Not for content and page-type gaps (page-studio's page-audit), conversion audits (cro-audit) or deep blog SEO (seo-audit)."
 ---
 
 # Theme audit (Lighthouse, Theme Check, classify, fix, re-score)
@@ -27,13 +27,29 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files: not required.** Read this store's design.md when present, to recognise intended visuals.
+- **Audit mode is read-only** and may read any theme, the live one included.
+- **Staging only.** Every change goes to the store's staging theme (an unpublished theme whose name contains
+  "staging"), and to the `staging` branch when the theme is in a git repository. If none is remembered, settle
+  it before the first change, offering to create "<live theme name> staging" (`references/theme-target.md` sections 3
+  and 4). Never edit, push to or commit for the live theme. This applies to fix mode.
+- **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
+  their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `references/theme-target.md` section 7):
+  checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
+  store has not changed."
+
 ## Two modes
 
 - **Audit only (read-only).** The person wants scores and findings ("audit the homepage", "why is the
-  site slow"). Nothing is edited or pushed, so **no draft theme is needed yet**: run the lanes against
+  site slow"). Nothing is edited or pushed, so **no staging theme is needed yet**: run the lanes against
   the live page and the live theme, which only reads. End with the readout and offer the fixes.
 - **Audit and fix.** The person wants the problems fixed ("get this to 100%", "fix the speed
-  issues"), or says yes to the offer after an audit. Settle the draft theme (below), then go through
+  issues"), or says yes to the offer after an audit. Settle the staging theme (below), then go through
   every step.
 
 Say which mode this is in one line. When unclear, start in audit-only mode.
@@ -59,13 +75,14 @@ re-check after each step. Skip it if it already passed in this conversation. Not
 until every required item passes.
 
 **Theme first (audit and fix mode; in audit-only mode, wait until the person asks for fixes).** Before step 1, settle which theme this run is for, following
-`references/theme-target.md`: use the theme the person already chose in this conversation or
-recorded in `THEME-TARGET.md` and say so in one line, or settle a draft: ask whether one already
-exists or create one, never the live theme (the project's theme config may default to the live
-theme, so don't use that default) and remember the answer for every other skill. Don't ask again
-unless the person names a different theme. The local dev server previews the working copy; the
-draft's preview address is where speed is measured; the chosen theme is where approved fixes are
-pushed in step 8.
+`references/theme-target.md`: use the staging theme the person already chose in this conversation
+or recorded in `THEME-TARGET.md` and say so in one line, or settle one (section 3): pick an existing
+staging theme or create "<live theme name> staging" on a yes, never the live theme (the project's
+theme config may default to the live theme, so don't use that default), and remember the answer for
+every other skill. When the theme is in a git repository, settle the `staging` branch too (section
+4). Don't ask again unless the person names a different theme. The local dev server previews the
+working copy; the staging theme's preview address is where speed is measured; the staging theme is
+where approved fixes are pushed in step 8.
 
 ## The lanes
 
@@ -106,9 +123,10 @@ skipped silently.
 - **Never remove, turn off or reconfigure an app**, app embed or app block, and never edit store
   content (products, pages, images, descriptions). Report their cost and owner; the store owner
   decides.
-- **Push only to a draft theme, never the live theme.** Pushing means that theme by id.
-  `--allow-live` is never used, and neither is `--publish` (which makes a draft the live theme): the
-  person publishes in the store admin (`references/theme-target.md` section 5).
+- **Push only to the staging theme, never the live theme.** Pushing means that theme by id.
+  `--allow-live` is never used, and neither is `--publish`. Never suggest publishing. The staging
+  theme goes live only when the person asks in their own words, through the go-live gate
+  (`references/theme-target.md` sections 6 and 7).
 - **Don't edit shared, vendor or base theme files** (global stylesheets, the theme's core scripts,
   shared colour-scheme tokens). If it's unavoidable, keep the edit minimal, mark it with a comment
   saying what and why, and log it.
@@ -131,13 +149,13 @@ Lighthouse won't audit non-200 responses. For each page template:
 
 1. Look for a Shopify Page that uses the template (read-only GraphQL): `query { pages(first: 50) { nodes { handle title templateSuffix } } }`, and paginate past 50 so no page is missed.
 2. Confirm it is published: `query { page(id: "gid://shopify/Page/...") { handle templateSuffix isPublished } }`. `isPublished: false` is why it returns 404.
-3. If it is unpublished, publish it only if every other requested page already follows that pattern. Publishing is a real store write: state it plainly in the summary and get the person's OK first.
+3. If it is unpublished, never publish it to get a 200: making a page visible is a live change (`references/ground-rules.md` section 3). Use another published page with the same template if there is one; otherwise mark that template "not run: its only page is hidden" and say so in the summary. Only if the person asks in their own words to make the page visible, run the go-live gate.
 4. If no Page exists at all, stop and tell the person (it's a content decision).
 5. Confirm the status: `curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:9292/pages/<handle>"`. Product, collection and home templates use their normal routes (pick a real, published product or collection).
 
 ## 2. Theme Check baseline (whole theme, once)
 
-Pull the chosen draft into the working folder if it isn't there yet, then run Theme Check and its
+Pull the staging theme into the working folder if it isn't there yet, then run Theme Check and its
 summary (`references/theme-check.md` section 1). Keep the baseline file: every later comparison
 uses it. Audit-only mode with no theme copy: pulling the live theme to a scratch folder is a read, so
 it is allowed for this check only (`shopify theme pull --theme <live id> --path <scratch>`, never
@@ -185,7 +203,7 @@ npx lighthouse "<local url>" --output=json --output-path=<scratch>/lab-<handle>-
   --only-categories=accessibility,best-practices,seo --preset=desktop --chrome-flags="--headless=new" --quiet
 ```
 
-Speed after a fix is measured on the draft's preview address with several runs
+Speed after a fix is measured on the staging theme's preview address with several runs
 (`references/performance.md` section 1b), never on the dev server.
 
 ### 3c. Theme Inspector: how long the theme's own code takes on the server
@@ -215,8 +233,8 @@ Each finding goes in exactly one bucket, with a reason, using its lane's guide:
 
 Show a table: page, lane, finding, element or file, bucket (fix, skip or ask), exact edit (file,
 before to after), and reason. List skipped items with their evidence and owner, largest speed cost
-first. Make no edits until the person says go; these files render on live pages once published. If
-the chosen theme is the live theme, stop: use or create a draft (`references/theme-target.md`).
+first. Make no edits until the person says go. If the chosen theme is the live theme, stop: settle
+the staging theme instead (`references/theme-target.md` section 3).
 
 ## 6. Apply fixes, verify each on the page
 
@@ -230,20 +248,23 @@ run the visual and working-page proof in `references/performance.md` section 4.
 - Accessibility: repeat 3a. Every page and form factor must score `1.0`; if not, return to step 4
   for what remains. Then prove nothing moved (`references/accessibility.md` section 3).
 - Best practices and SEO: repeat 3a. Every finding marked "fix" must be gone.
-- Speed: the after numbers come from the draft's preview address, so they need the push in step 8.
+- Speed: the after numbers come from the staging theme's preview address, so they need the push in step 8.
   On the local dev server, only check that each fix is in place.
-- Server speed: re-run the Theme Inspector (`references/liquid-profile.md`) on the draft after the push.
+- Server speed: re-run the Theme Inspector (`references/liquid-profile.md`) on the staging theme after the push.
 - Theme Check: `new_offenses` empty; `fixed_offenses` matches the plan.
 
 ## 8. Push, verify, re-check deployed (only after the person approves pushing)
 
 1. Theme Check matches the plan against the baseline (no new offenses).
-2. Re-read the chosen theme's role: if it is live, stop (never push to it) and use or create a draft.
-   Then `shopify theme push --theme <chosen theme id> --only <exact touched files>`, never with
-   `--allow-live`. Never a bare push: the branch may carry unrelated work in progress.
+2. Re-read the staging theme's role: if it is live, stop (never push to it) and settle a new staging
+   theme (`references/theme-target.md` section 3). Then `shopify theme push --theme <staging theme id>
+   --only <exact touched files>`, never with `--allow-live`. Never a bare push: the branch may carry
+   unrelated work in progress. When the theme is in a git repository, bring the `staging` branch up to
+   date with the live branch first, commit only the touched files on `staging`, and push only
+   `staging` (`references/theme-target.md` section 4).
 3. `shopify theme pull` the same files to a scratch folder and `diff` them: they must be
    byte-identical to local. That is the proof, not the CLI's "success" message.
-4. Speed: repeat `references/performance.md` section 1b on the draft's preview address, same runs,
+4. Speed: repeat `references/performance.md` section 1b on the staging theme's preview address, same runs,
    and compare medians (section 5 there).
 5. Accessibility, best practices and SEO on the deployed preview: say plainly that this is the
    Lighthouse command-line tool, not the Chrome extension. Expect lower scores than local (the
@@ -256,12 +277,15 @@ Write the plain-language readout in chat and at the top of `THEME-AUDIT.md` as *
 following `references/readout.md` (headline, scorecard, fix these first, quick wins, what isn't the
 theme's to fix, what I couldn't check). Put the full record in the rest of `THEME-AUDIT.md`,
 following `references/report-template.md`, and give the person the HTML reports' folder. Write "not
-run" for anything not run. The readout is what the person reads; never paste the file.
+run" for anything not run. The readout is what the person reads; never paste the file. In fix mode,
+end with the hand-over line (`references/theme-target.md` section 6): "Done on the staging theme
+<name> (<id>). Preview: <link>. Your live store has not changed." Say nothing about publishing unless
+the person asks.
 
 ## Checklist
 
 - [ ] Setup check passed (or already passed this conversation); anything missing was explained and fixed step by step
-- [ ] Mode stated (audit only, or audit and fix); in fix mode the theme settled once (remembered or asked), a draft, never the live theme
+- [ ] Mode stated (audit only, or audit and fix); in fix mode the staging theme settled once (remembered or created), never the live theme
 - [ ] Lanes in scope stated in one line
 - [ ] Real, published, 200 URL for every page
 - [ ] Theme Check baseline taken from a clean run
@@ -275,7 +299,7 @@ run" for anything not run. The readout is what the person reads; never paste the
 - [ ] Contrast verified on the live composited page
 - [ ] Theme Check: no new offenses after every edit
 - [ ] Accessibility 1.0 on every page, both form factors, locally
-- [ ] Pushed only to the draft, with `--only` touched files; pulled and diffed identical
-- [ ] Speed re-measured on the draft preview; changes inside the spread reported as "no measurable change"
+- [ ] Pushed only to the staging theme, with `--only` touched files; pulled and diffed identical
+- [ ] Speed re-measured on the staging theme's preview; changes inside the spread reported as "no measurable change"
 - [ ] Deployed-domain gaps traced to confirmed non-theme causes
 - [ ] Readout written in plain words (`references/readout.md`) in chat and at the top of `THEME-AUDIT.md`; QA log pointer added if the project keeps one

@@ -21,7 +21,7 @@ developer tool or heard of a "theme CLI". So:
   list on them.
 - **Explain each thing in one plain sentence first**: what it is and why this skill needs it.
   No jargon without a translation ("the Shopify CLI, a small free tool from Shopify that lets me
-  copy your theme to this computer and send changes back to a draft").
+  copy your theme to this computer and send changes back to a private staging theme").
 - **Numbered steps, one action per step**, naming exactly what to click or type. Give commands
   in their own copy-able block. Say what they should see when it worked.
 - **Then say "Tell me when that's done"** and re-run the check yourself. Don't take "done" on
@@ -57,14 +57,14 @@ it is fixed. **Recommended** lets it run with less, and you say what will be mis
 |---|---|---|---|---|
 | A | A browser Claude can use to look at the page | Required | Required (to check each change) | Required (to check each fix) |
 | B | The page's address, and the storefront password if the store has one | Required | Required | Required |
-| C | Brand files (`BRAND.md`, `BRAND-VOICE.md`, `design.md`) | Recommended | Required for new or rewritten words; `design.md` recommended for design changes | Not needed |
+| C | Brand files (`BRAND.md`, `BRAND-VOICE.md`, `design.md`) | Required (all three) | Required: `BRAND.md` always; `BRAND-VOICE.md` for page-create and page-edit-content; `design.md` for page-create and page-edit-design, and for page-edit-content when it changes images | Not needed (reads `design.md` when present) |
 | D | Node.js | Not needed | Required on the CLI route (below) | Required |
 | E | Shopify CLI | Recommended (lets it read theme files) | Required on the CLI route | Required |
 | F | Shopify CLI signed in to the right store, with theme access | Recommended | Required on the CLI route | Required |
 | G | Google Chrome | Not needed | Not needed | Required |
 | H | Lighthouse | Not needed | Not needed | Required |
 | I | A folder on this computer (the theme copy on the CLI route; on the connector route only the change record and backups of the files changed) | Not needed | Required | Required |
-| J | A draft theme | Not needed | Required (settled next, by `theme-target.md`) | Required (settled next, by `theme-target.md`) |
+| J | A staging theme | Not needed | Required (settled next, by `theme-target.md`) | Required (settled next, by `theme-target.md`) |
 | K | The Shopify connector, with theme read and write access to the right store (detected read-only) | Recommended instead of E and F (read access is enough) | Required on the connector route | Not applicable (theme-audit needs the CLI) |
 
 **Two routes to the theme** (`page-create`, `page-edit-content`, `page-edit-design`). One must be
@@ -124,12 +124,14 @@ page name you can resolve from the store), and the page loads.
 **Check:** look for `BRAND.md`, `BRAND-VOICE.md` and `design.md` with the lookup in
 `../page-audit/references/intake.md` section 1 (or, for `theme-audit`, skip this row).
 
-**If missing**, explain: "Your brand files tell me how the brand sounds, what it can and can't
-claim, and its colours and fonts, so I never guess." Offer to run **brand-capture** first (about
-10 to 25 minutes, once per store). If brand-capture isn't installed: in the Claude app open
-**Customize > Plugins**, find **brand-capture** under the Brand AI marketplace and click
-**Install**, then start a new task. What can go ahead without them is in
-`../page-audit/references/intake.md` section 1 (structure-only changes, audits).
+**If a required one is missing**, explain: "Your brand files tell me how the brand sounds, what it
+can and can't claim, and its colours and fonts, so I never guess." Then stop and ask once, as
+`ground-rules.md` section 1 says: create it now (**brand-capture** for `BRAND.md`, about 10 to 25
+minutes, once per store; **voice-builder** for `BRAND-VOICE.md`; **styles-builder** for `design.md`),
+or tell me where it is. If the plugin isn't installed: in the Claude app open **Customize >
+Plugins**, find it under the Brand AI marketplace and click **Install**, then start a new task.
+There is no option to carry on without a required file. An unattended run stops and reports which
+file is missing.
 
 ### D. Node.js
 
@@ -151,7 +153,7 @@ Then re-check. If the check still fails after reopening, restart the computer an
 **Check:** `shopify version` prints a version number.
 
 **If missing**, explain: "The Shopify CLI is a free tool from Shopify. It lets me copy your theme
-to this computer, preview changes privately, and send them to a draft theme that visitors can't
+to this computer, preview changes privately, and send them to a staging theme that visitors can't
 see." Needs Node.js first (row D). Then offer to run the install for them:
 
 ```
@@ -209,23 +211,23 @@ npx" means row D. Anything else, explain it in plain words and offer to try agai
 
 ### I. A folder on this computer for the theme copy
 
-**Check:** you have a working folder you can write to: the project's folder, or the draft theme's
+**Check:** you have a working folder you can write to: the project's folder, or the staging theme's
 folder where the brand files live (`BRAND-HOME.md` or `THEME-TARGET.md` names it).
 
 **If not**, explain: "I'll keep a private copy of your theme in a folder on your computer. I make
-the changes there, check them, and only then send them to the draft." Ask them to pick or create
+the changes there, check them, and only then send them to the staging theme." Ask them to pick or create
 a folder (for example `Documents/<store name> theme`) and, in Cowork, to connect it to this task.
 The skill pulls the theme into it; they don't need to download anything.
 
 On the connector route, say instead: "I'll keep a short record of the change, and a backup of each
 file before I change it, in a folder on your computer, so I can undo exactly what I did."
 
-### J. A draft theme
+### J. A staging theme
 
-Not checked here. Say in one line that the next step is choosing the draft theme the work will
-go to, then follow `theme-target.md`. If the person has never made one, explain once: "A draft
-theme is a private copy of your website's design. I make changes there; visitors keep seeing your
-current site until you choose to publish."
+Not checked here. Say in one line that the next step is settling the staging theme the work will
+go to, then follow `theme-target.md` sections 3 and 4. If the person has never had one, explain
+once: "A staging theme is a private copy of your website's design. I make changes there; visitors
+keep seeing your current site. Nothing goes live unless you ask for it."
 
 ### K. The Shopify connector, with theme read and write access (connector route)
 

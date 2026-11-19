@@ -55,7 +55,7 @@ Use these labels as short bold lines or small headings. Skip a part that has not
 9. **What I couldn't check.** One or two lines.
 10. **Close.** The link to `CRO-AUDIT.md` (it has the stage-by-stage report with pictures, every
    finding, the scores and the plans), then one
-   question offering the next step, such as applying the quick wins on a draft theme.
+   question offering the next step, such as applying the quick wins on the staging theme.
 
 ## Writing rules
 
@@ -142,4 +142,4 @@ Use these labels as short bold lines or small headings. Skip a part that has not
 > **What I couldn't check.** Booking numbers, visitor recordings, survey answers.
 >
 > Everything, including 9 more findings, is in [CRO-AUDIT.md](CRO-AUDIT.md). Want me to apply the quick
-> wins on a draft theme?
+> wins on the staging theme?

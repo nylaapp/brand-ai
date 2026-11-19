@@ -17,7 +17,7 @@ description: >-
 
 The front door. It does no page editing itself: it works out which job a request is, hands it to the
 skill that owns it, and chains the jobs in order when a request needs more than one. The shared
-delivery steps (baseline, verify, ship to a draft, revert, QA log) live here in `references/`, and the
+delivery steps (baseline, verify, ship to the staging theme, revert, QA log) live here in `references/`, and the
 three editing skills run them themselves. Brand-agnostic; brand facts come from the brand files, never
 invented.
 
@@ -43,23 +43,41 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first.** Before handing off, check the files the chosen skill requires: page-audit and page-create
+  need BRAND.md, BRAND-VOICE.md and design.md; page-edit-content needs BRAND.md and BRAND-VOICE.md; page-edit-design
+  needs BRAND.md and design.md. If one is missing, stop and ask once: create it now or tell me where it is
+  (`references/ground-rules.md` section 1). Never carry on without it.
+- **Staging only.** Every change goes to the store's staging theme (an unpublished theme whose name contains
+  "staging"), and to the `staging` branch when the theme is in a git repository. If none is remembered, settle
+  it before the first change, offering to create "<live theme name> staging" (`references/theme-target.md` sections 3
+  and 4). Never edit, push to or commit for the live theme.
+- **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
+  their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `references/theme-target.md` section 7):
+  checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
+  store has not changed."
+
 ## The skills
 
 | Skill | Job | Writes to a theme? |
 |---|---|---|
 | `page-audit` | Find where a page falls short against what its type should do; rank fixes with owners; keep `PAGE-AUDIT.md` | No, read-only |
-| `page-create` | Make something **new**: a page, a section on a page, or a new section type | The chosen draft theme, through a local working copy (Shopify CLI) or the Shopify connector |
-| `page-edit-content` | Change what something that **exists says or shows**: words, images, links, alt text, SEO fields | The chosen draft theme, through a local working copy (Shopify CLI) or the Shopify connector |
-| `page-edit-design` | Change how something that **exists looks or is arranged**: layout, order, spacing, colour, type, styles, responsive behaviour | The chosen draft theme, through a local working copy (Shopify CLI) or the Shopify connector |
+| `page-create` | Make something **new**: a page, a section on a page, or a new section type | The staging theme, through a local working copy (Shopify CLI) or the Shopify connector |
+| `page-edit-content` | Change what something that **exists says or shows**: words, images, links, alt text, SEO fields | The staging theme, through a local working copy (Shopify CLI) or the Shopify connector |
+| `page-edit-design` | Change how something that **exists looks or is arranged**: layout, order, spacing, colour, type, styles, responsive behaviour | The staging theme, through a local working copy (Shopify CLI) or the Shopify connector |
 
 Each editing skill ends with the same steps, defined once in this folder: capture a baseline, verify
-on the rendered page, push only the touched files to the chosen theme (always a draft, never the live theme) and pull them back as proof.
+on the rendered page, push only the touched files to the staging theme (never the live theme) and pull them back as proof.
 
 **Two routes to the theme.** The setup check picks one. The **CLI route** (Shopify CLI signed in, a
 local working copy, `theme check`, a check before anything is sent) is the default and wins when
 both are ready. The **connector route** (`references/connector-route.md`) works with no CLI, when
 the Shopify connector can read and change themes on the right store: it reads and writes only the
-files a change touches, checks the change on the private draft right after writing it, and can't
+files a change touches, checks the change on the private staging theme right after writing it, and can't
 run `theme check`. The safety rules are identical on both.
 
 ## Which job is this?
@@ -74,8 +92,8 @@ run `theme check`. The safety rules are identical on both.
 | "Do row HOME-02" | Read the row; its type decides: words, images or links go to `page-edit-content`; layout, order or style to `page-edit-design`; something new to `page-create` |
 | One request that is both content and design | Do the content first, then the design, each as its own change with its own baseline and check |
 | Only wants an existing change checked | Run `references/verify.md` here; no edits |
-| Only wants an existing change pushed to the draft | Run `references/ship-to-draft.md` here (it needs a passed verification) |
-| "Undo that", "revert the draft" | Run `references/revert-mode.md` here |
+| Only wants an existing change pushed to the staging theme | Run `references/ship-to-draft.md` here (it needs a passed verification) |
+| "Undo that", "revert the change on staging" | Run `references/revert-mode.md` here |
 | Unclear | Ask one short question: "Do you already know what you want changed, or should I review the page first?" |
 
 **The line between content and design.** A section reorder is design. A button's label is content and
@@ -98,10 +116,12 @@ required items pass.
 ## Which theme?
 
 For any job that writes to a theme, settle the theme once, before handing off, with
-`references/theme-target.md`: use the theme the person already chose in this conversation or recorded in
-`THEME-TARGET.md` and say so in one line; if there is none, ask whether a draft theme already exists, or create one from the live theme, and remember it for every skill that follows. Don't ask again unless the person names
-a different theme. The live theme is never edited, and no yes unlocks it. `page-audit` only reads, so it uses the remembered theme if
-there is one and never needs the question.
+`references/theme-target.md`: use the staging theme the person already chose in this conversation or recorded in
+`THEME-TARGET.md` and say so in one line; if there is none, settle it (section 3): pick an existing staging theme, or
+create "<live theme name> staging" on a yes, and remember it for every skill that follows. When the theme is in a git
+repository, settle the `staging` branch too (section 4). Don't ask again unless the person names a different theme.
+The live theme's files are never edited. `page-audit` only reads, so it uses the remembered theme if there is one and
+never needs the question.
 
 ## The chain
 
@@ -110,7 +130,7 @@ page-audit  ->  (the person picks rows)  ->  page-create | page-edit-content | p
                                                          |
                                        baseline -> edit working copy -> verify -> ship to chosen theme
                                                          |
-                                               live theme: never edited (draft only)
+                                               live theme: never edited (staging only)
 ```
 
 1. **Audit** when the person hasn't decided what to change. It writes `PAGE-AUDIT.md` with ranked rows;
@@ -125,14 +145,15 @@ step, stop after it.
 ## Rules that hold for every step
 
 - **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
-- **A draft theme, asked once or created.** It is always a draft or unpublished theme. Nothing is edited, pushed or published on the live theme, with or without a yes (`references/theme-target.md`, `references/ship-to-draft.md`).
+- **The staging theme, settled once or created.** It is always an unpublished theme. The live theme's files are never edited or pushed to. Publishing happens only when the person asks in their own words, through the go-live gate (`references/theme-target.md` sections 6 and 7, `references/ship-to-draft.md`).
 - **Only verified changes are pushed, and only the touched files.** No bare pushes. (Connector
   route: nothing renders before the write, so the rendered verification follows the write on the
-  private draft; `references/verify.md`.)
+  private staging theme; `references/verify.md`.)
 - **Only picked rows are acted on.** A recommendation nobody chose stays an open row.
 - **Never type a password or credential** for the person; blocked access is reported and handed back.
 - **Brand facts come from the brand files** (`BRAND.md`, `BRAND-VOICE.md`, `design.md`), never from
-  memory. Missing brand files block new copy, not structural changes.
+  memory. A missing required brand file stops the job until it is created or found
+  (`references/ground-rules.md` section 1).
 - **Hard limits win.** Tracked booking links, regulated wording, brand look: what the person said must
   not change overrides every recommendation.
 - **Plain language for the Site Editor**: someone on the marketing, content or operations side who
@@ -146,9 +167,9 @@ step, stop after it.
 | `references/freshness.md` | Content and layout refresh ideas offered by `page-audit`, `page-edit-content` and `page-edit-design` |
 | `references/verify.md` | The checks that prove a change on the rendered page |
 | `references/setup-check.md` | What each skill needs set up first, which route to the theme to use, and how to guide a non-technical person through each missing piece |
-| `references/connector-route.md` | Changing a draft through the Shopify connector when there is no CLI: detection, the exact calls, the guards, the read-back proof |
-| `references/theme-target.md` | Which theme to work on: ask once, remember it, protect the live theme |
-| `references/ship-to-draft.md` | Pushing to the chosen theme, pull-back proof, the log, publishing a draft to live |
+| `references/connector-route.md` | Changing the staging theme through the Shopify connector when there is no CLI: detection, the exact calls, the guards, the read-back proof |
+| `references/theme-target.md` | The staging theme and staging branch: settle once, remember, protect the live theme, the go-live gate |
+| `references/ship-to-draft.md` | Pushing to the staging theme, pull-back proof, the log, the hand-over |
 | `references/revert-mode.md` | Restoring a theme to its baseline and proving it |
 | `references/qa-entry-format.md` | The QA log entry |
 | `../page-audit/references/` | Intake and goal questions, the page-type playbook, observation recipes, the `PAGE-AUDIT.md` format |
@@ -162,5 +183,6 @@ Each skill points to the files it needs, so any of them can be used on its own.
       requests excepted)
 - [ ] A mixed request was split into one change per skill, content before design
 - [ ] The person knows where they are in the chain and what comes next
-- [ ] The theme was settled once and reused; nothing was pushed except verified files to it; it was never the live theme
+- [ ] The staging theme was settled once and reused; nothing was pushed except verified files to it; it was never the live theme
+- [ ] Every change ended with the preview link and "Your live store has not changed."; publishing was never suggested
 - [ ] No credential was typed or passed on

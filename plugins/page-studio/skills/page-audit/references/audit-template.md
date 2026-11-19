@@ -23,7 +23,7 @@ audited_by: page-audit <version>
 > What this file is: the evidence and ranked recommendations for the pages listed above.
 > It reports what was observed on <date>; it does not prove what will improve results.
 > Changes are made by page-create, page-edit-content and page-edit-design (each verifies and
-> pushes to a draft theme itself), never by this audit.
+> pushes to the staging theme itself), never by this audit.
 
 ## 1. Brief
 **Homepage**

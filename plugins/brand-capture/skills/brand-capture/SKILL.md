@@ -2,8 +2,9 @@
 name: brand-capture
 description: >-
   One-time brand setup for a new client. Always asks first whether the brand has an existing store
-  or website and an existing brand book (or other brand documents) to work from, and which draft
-  theme to save the brand files in. Scans the brand's public website (About, story, mission and
+  or website and an existing brand book (or other brand documents) to work from, and which theme is
+  the store's staging theme (offering to create one from the live theme when there is none), where
+  the brand files are saved. Scans the brand's public website (About, story, mission and
   values pages, careers and news, locations, products with prices, types and colors, site colors and
   fonts, blog style, social links, disclaimers) and reads any brand book it is given, asks four
   short setup questions (top 3 competitors, 2 or 3 non-competitive inspiration brands, who approves
@@ -13,7 +14,7 @@ description: >-
   sounds, kept in its own file), design.md (the brand's complete visual system, measured, stated or
   clearly proposed where the sources are silent: palette, the full H1 to H6 type scale, spacing,
   corners, components, imagery and a value for every Shopify theme setting), a readable BRAND.html copy for the client, and at
-  most four follow-up questions, all saved in the chosen draft theme's folder so later customization
+  most four follow-up questions, all saved in the staging theme's folder so later customization
   and every other skill find them there, with an optional shared copy of the non-confidential files
   for the rest of the team. Finally points the project's agent files and skills at
   BRAND.md. Works for any kind of store or business, in Claude Code, Cowork, Claude projects, Codex
@@ -26,10 +27,10 @@ description: >-
 
 Build `BRAND.md` once, at a client's setup, so no skill ever asks about the brand again. The brand's own material is
 the source: its website, and any brand book it already has. Read them, don't interview the client. Always ask first
-what exists (a site or store, a brand book) and which draft theme the files are saved in, and in the same message the
-four things neither can say. What the reading can't settle becomes at most four follow-up questions. Every file is
-saved in the draft theme's folder, so the brand files sit with the theme that later customization works on. Once they
-are written, the person can also ask for a shared copy for the rest of the team; the draft theme's folder stays the
+what exists (a site or store, a brand book) and which theme is the staging theme, and in the same message the four
+things neither can say. What the reading can't settle becomes at most four follow-up questions. Every file is saved
+in the staging theme's folder, so the brand files sit with the theme that every later change goes to first. Once they
+are written, the person can also ask for a shared copy for the rest of the team; the staging theme's folder stays the
 source of truth.
 
 ```
@@ -71,6 +72,20 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
   the questions as one numbered message instead. Applies to every question in this skill and its references:
   Step 0 folder, Step 1, Step 6b shared copy, Step 7 linking, and the mode choice when BRAND.md already exists.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **This skill makes the brand files** (BRAND.md, BRAND-VOICE.md, design.md) that every other skill requires. It
+  reads any it finds first and never overwrites one without reading it.
+- **The staging theme is settled here, at the start of the store project.** Step 1 (question C) asks which theme is
+  the staging theme, offers to create "<live theme name> staging" when there is none, and settles the `staging`
+  branch when the theme is in a git repository (`references/theme-target.md` sections 3 and 4). The brand files are
+  saved in that theme's folder. Nothing is pushed to the store.
+- **Live only when the person asks.** This skill never publishes, merges or pushes anything live, and never
+  suggests it.
+
 ## Effort (read before starting)
 
 Single use and high value: it runs once per client, and every other skill relies on the result.
@@ -108,8 +123,8 @@ each other's files.
 | File | Read at |
 |---|---|
 | `references/discovery.md` | Steps 2 and 3: where facts live, the reading checklist, reading a brand book, conflicts, choosing the 4 questions, claim rules by category, competitors, studying inspiration brands |
-| `references/brand-home.md` | Steps 0, 1, 6b and 7: asking for a local folder and the draft theme, finding and writing its folder, `BRAND-HOME.md`, moving existing files, the optional shared copy |
-| `references/theme-target.md` | Step 1: choosing and remembering the theme (the same file the theme skills use; sections 2 to 4 and 6 apply here) |
+| `references/brand-home.md` | Steps 0, 1, 6b and 7: asking for a local folder and the staging theme, finding and writing its folder, `BRAND-HOME.md`, moving existing files, the optional shared copy |
+| `references/theme-target.md` | Step 1: choosing or creating the staging theme, the staging branch when the theme is in a git repository, and remembering both (the same file the theme skills use; sections 1 to 5 and 8 apply here) |
 | `references/brand-context.md` | Step 0: the lookup order for files that already exist |
 | `references/brand-template.md` | Step 4: the exact layout of BRAND.md (other skills depend on its headings) |
 | `references/voice-template.md` | Step 4: the exact layout of BRAND-VOICE.md (the validator checks its headings) |
@@ -141,11 +156,12 @@ each other's files.
   book, on every new capture and every add-design run, even when the request already names a site, the repo has one,
   or another skill called you. A brand book that is given is read and used; a site that looks like enough is never a
   reason to skip the question.
-- **Always ask where the files go.** Step 1 also asks which draft theme the brand files are saved in, on every new
-  capture (a remembered draft is offered first). Everything is written in that theme's folder, at its root: not in the
-  theme's own folders, never in `assets/` (public), and nothing is pushed to the store. Without a draft theme, say so
-  and use the central brand directory (`references/brand-home.md`).
-- **A shared copy is only a copy.** Step 6b offers it once, after the files are written. The draft theme's folder
+- **Always settle the staging theme.** Step 1 also asks which theme is the store's staging theme, on every new
+  capture (a remembered staging theme is offered first), and offers to create "<live theme name> staging" when there
+  is none. The brand files are written in that theme's folder, at its root: not in the theme's own folders, never in
+  `assets/` (public), and nothing is pushed to the store. Without a staging theme ("Not now", or not a Shopify store),
+  say so and use the central brand directory (`references/brand-home.md`).
+- **A shared copy is only a copy.** Step 6b offers it once, after the files are written. The staging theme's folder
   stays the source of truth: copy, never move, and the local file wins if the two differ. Only BRAND.md,
   BRAND-VOICE.md, design.md, BRAND.html and COMPETITORS.md go; BRAND-QUESTIONS.md and BRAND-REQUESTS.md never leave
   the local folder (`references/brand-home.md` section 8).
@@ -178,20 +194,21 @@ each other's files.
 1. **Site URL (a first guess only):** from the request; else from the repo (README, theme config, a design doc).
    Step 1 always asks the person to confirm it, so it is never taken as settled.
 2. **Look for existing files first**, following `references/brand-context.md` (project root, user local environment,
-   central brand directory and the folder its `BRAND-HOME.md` names, then memory, CLAUDE.md and connected knowledge).
-   **Where the files go:** the folder of the draft theme the person chooses in Step 1 (question C;
+   central brand directory and the folder its `BRAND-HOME.md` names; memory, CLAUDE.md and connected knowledge add
+   supporting facts only and never count as an existing BRAND.md).
+   **Where the files go:** the folder of the staging theme the person chooses or creates in Step 1 (question C;
    `references/brand-home.md`): BRAND.md, BRAND-VOICE.md, BRAND-QUESTIONS.md, BRAND-REQUESTS.md and BRAND.html in
    uppercase, and design.md (lowercase, as other docs already refer to it), all at that folder's root. Nothing is
    written until the theme is settled. If the folder already has a `design.md` (any case), it is the visual source:
    don't generate another (Step 4). Files found in the central directory or another folder are moved in only on the
-   person's yes (`brand-home.md` section 7). With no draft theme (no Shopify store, no draft yet) or no filesystem (a
-   chat), `brand-home.md` section 6 says where they go.
+   person's yes (`brand-home.md` section 7). With no staging theme (no Shopify store, or "Not now") or no filesystem
+   (a chat), `brand-home.md` section 6 says where they go.
 3. **A local folder to save in.** If item 2 found no remembered folder (no `BRAND-HOME.md` `path`, no
    `THEME-TARGET.md`) and the current folder isn't a theme's, ask once, before Step 1's message, for the person to
    create one and tell them where (`brand-home.md` section 2 has the wording). Create nothing, and no parent
    folders, without saying the exact path first. Once the folder exists and is remembered, never ask again for
-   that project. Skip it with no file system, with no Shopify store, or when the person says there is no draft
-   theme yet.
+   that project. Skip it with no file system, with no Shopify store, or when the person says "Not now" to a staging
+   theme.
 4. **Mode:**
    - **new:** no BRAND.md yet. Full run; it writes BRAND.md, BRAND-VOICE.md and design.md.
    - **add-design:** BRAND.md exists but no design.md does (`design_doc: none`, or the key is missing), or a design.md
@@ -199,7 +216,7 @@ each other's files.
      items, show the person what would be added, and on their yes append just those sections: existing values and
      `(client)` lines are never changed or overwritten, `revision` goes up and the file's Change log gets a row.
      The steps below are for the first case. Run Step 1's
-     sources question, and its draft theme question if the files aren't already in a draft theme's folder (not
+     sources question, and its staging theme question if the files aren't already in a staging theme's folder (not
      the four setup questions), then Steps 2, 3 (visual part only), 4 (design.md), 5 and 6, then
      set `design_doc: design.md` in BRAND.md, replace its Visual identity with the pointer and summary, add a Visual
      identity row to Sources, bump `revision` and add a Change log row (Mode `add-design`, Sections: Visual identity,
@@ -232,22 +249,25 @@ each other's files.
 
 ## Step 1: Ask what to work from and where to save, then the four setup questions
 
-**Sources and the draft theme: always asked, first.** Ask on every new capture (add-design asks A and B, and C only
-when the files aren't already in a draft theme's folder), before anything is read, even when the request names a site,
+**Sources and the staging theme: always asked, first.** Ask on every new capture (add-design asks A and B, and C only
+when the files aren't already in a staging theme's folder), before anything is read, even when the request names a site,
 the repo has one, or another skill called you (then relay it to the person). A site that looks like enough is no
 reason to skip A and B: a brand book often holds what a site can't (the mission as the brand wrote it, a voice guide,
-logo rules, the exact palette) and settles conflicts the site leaves open. C settles where every file this run writes
-will live, so nothing is written before it is answered (`references/brand-home.md`). If Step 0 asked the person to
-create a folder, that is settled first, and C builds on it.
+logo rules, the exact palette) and settles conflicts the site leaves open. C settles the store's staging theme: the
+theme every later change goes to first, and the folder where every file this run writes will live, so nothing is
+written before it is answered (`references/brand-home.md`, `references/theme-target.md` section 3). If Step 0 asked
+the person to create a folder, that is settled first, and C builds on it.
 
 If a site URL is already known (Step 0), you may start Step 2's scan on it in the background while you ask (in Claude
 Code, run it as a background command): a question tool usually waits for the answer, so a scan started after asking
 would sit idle. If the answer names a different site, drop that scan and run it again on the right one. Likewise, if
 the store is known (the repo's theme config, a connected store), list its themes now (`references/theme-target.md`
-section 2) so C can offer them; if they can't be listed, ask for the draft's name or id through "Other". Then ask
-with the question tool, in **two calls** (the tool takes at most 4 questions each):
+section 3, step 2) so C can offer them; if they can't be listed, ask for the staging theme's name or id through
+"Other" and say you couldn't check its role. If the theme's folder is a git repository, also find its live branch
+and any staging branch now (`theme-target.md` section 4) so D can offer them. Then ask with the question tool, in
+**two calls** (the tool takes at most 4 questions each):
 
-**Call 1: sources and the draft theme** (header, then the question and its options):
+**Call 1: sources, the staging theme and the staging branch** (header, then the question and its options):
 
 - **Site** (A). "Is <url> (<where it came from>) the site to read?" Options: "Yes, only this site
   (Recommended)", "This site and others (I will add links)", "No, a different site". With no known site:
@@ -256,10 +276,20 @@ with the question tool, in **two calls** (the tool takes at most 4 questions eac
   guidelines, a style or voice guide, a logo or press kit, a messaging deck, a Google Doc or Figma export.
   Options: "Use the one from last time" (only when one was found in Step 0), "Yes, I will send a file or link",
   "Not yet".
-- **Draft theme** (C). "Which draft theme should the brand files be saved in? They are kept in that theme's folder
-  on your computer. Nothing is sent to your store." Options: each listed draft as "<name> (<id>)", with the one
-  used before or the one matching the current folder first and marked "(Recommended)"; plus "No draft yet".
-  Without a list, options "I will give the store address and theme name" and "No draft yet".
+- **Staging theme** (C). "Which theme should be your staging theme? Every change goes there first, so you can
+  preview it before anything reaches your live store. The brand files are saved in its folder; nothing is sent to
+  your store." Options, at most four (more themes go through "Other"; the live theme is never offered):
+  - the one remembered from before, or the one matching the current folder, first;
+  - each unpublished theme whose name contains "staging", marked "(Recommended)" when there is exactly one;
+  - other unpublished themes, as "<name> (<id>)", the most recently updated first;
+  - "Create a new staging theme: <live theme name> staging", marked "(Recommended)" when no theme's name contains
+    "staging";
+  - "Not now".
+  Without a list, options "I will give the store address and theme name" and "Not now".
+- **Staging branch** (D, only when the theme's folder is a git repository or the live theme is connected to
+  GitHub). "Which branch should hold the staging work?" Options: the existing staging branch "(Recommended)",
+  "Create a `staging` branch from <live branch>", and other branches (`theme-target.md` section 4). The live branch
+  is never offered.
 
 **Call 2: the four setup questions** (header, question, options):
 
@@ -276,8 +306,8 @@ with the question tool, in **two calls** (the tool takes at most 4 questions eac
 4. **Never say.** "Is there anything we should never say or claim about your brand or products?" Options:
    "Keep the current list" (only when one exists), "I will type words, claims or topics", "Nothing".
 
-(An add-design run asks only A and B, and C only when the files aren't already in a draft theme's folder: Call 1 only.) Then act on
-the answers to A, B and C:
+(An add-design run asks only A and B, and C and D only when the files aren't already in a staging theme's folder:
+Call 1 only.) Then act on the answers to A, B, C and D:
 
 | Answer | What to do |
 |---|---|
@@ -287,8 +317,11 @@ the answers to A, B and C:
 | No site yet, but a brand book | Skip the scan, set `site: none`, and capture from the book (`discovery.md` §2b) |
 | Neither a site nor any document | There is nothing to capture from. Say so, ask for at least one site, document or set of social profiles, and stop until it arrives. Never write BRAND.md from memory |
 | A or B left unanswered | Go on with the known site, if any, and put "sources not confirmed" in the report. With no known site, treat it as "Neither" |
-| A draft theme (and its folder) | Settle the folder (`brand-home.md` §2); every file this run writes goes there. Remember the theme in `THEME-TARGET.md` and write `BRAND-HOME.md` (§4). If brand files already exist elsewhere, offer once to move them in (§7) |
-| No draft yet, not a Shopify store, or C left unanswered | Don't create a theme. Carry on and save in the central brand directory (`brand-home.md` §6), or wait while they duplicate one in Admin if they prefer. The report says "no draft theme yet" |
+| An existing theme as the staging theme (and its folder) | Confirm its role is not live (`theme-target.md` §3, step 7). Settle the folder (`brand-home.md` §2); every file this run writes goes there. Remember the theme in `THEME-TARGET.md` and write `BRAND-HOME.md` (§4). If brand files already exist elsewhere, offer once to move them in (§7) |
+| "Create a new staging theme" | Duplicate the live theme and name the copy "<live theme name> staging" (`theme-target.md` §3, step 4). Say in one line that it is a private copy customers can't see; nothing on the live store changes. Then settle its folder and remember it, as in the row above |
+| The live theme named as the staging theme | Say in one line that the live theme can't be the staging theme, and ask C again (`theme-target.md` §3, step 6) |
+| Not now, not a Shopify store, or C left unanswered | Carry on and save in the central brand directory (`brand-home.md` §6). The report says "no staging theme yet"; the next skill that changes a theme asks again |
+| A staging branch (D) | Use it, or create `staging` from the live branch on a yes (`theme-target.md` §4, step 3; pushing it is a separate yes). Remember both branches in `THEME-TARGET.md`. Never commit to the live branch |
 
 Questions 1 to 4 are not asked in an add-design run. Unanswered or skipped ones become the first follow-up questions
 (they count toward the 4). If the person answers on behalf of the client (an agency kickoff), record who in the Change
@@ -404,7 +437,7 @@ designers and developers, not for sign-off). Re-run it after every change to BRA
 
 Once BRAND.html is written, ask once whether the person also wants a shared copy for the rest of the team, and make
 it if they do. `references/brand-home.md` section 8 has the question, the two places it can go (a shared Google
-Drive folder, a `brand/` folder in the theme repo, both, or neither) and what is never copied. The draft theme's
+Drive folder, a `brand/` folder in the theme repo, both, or neither) and what is never copied. The staging theme's
 folder stays the source of truth: the copy is only a copy. Record the answer as `shared_copy` in `BRAND-HOME.md`.
 Don't ask in apply-answers, add-design or split-voice runs: after Step 6, update the copies `shared_copy` names, if
 any. Skip it when the files were saved in the central brand directory or handed over for download
@@ -426,17 +459,18 @@ theme pushes never send them to the store. Where the project lives decides the r
 
 | Where you run | BRAND.md lives | Also do |
 |---|---|---|
-| Claude Code, Codex (a repo) | the draft theme's folder (the repo root when the theme is checked out as a repo) | Suggest committing BRAND.md, BRAND-VOICE.md, design.md and the links (don't commit unless asked; BRAND-QUESTIONS.md and COMPETITORS.md are internal, `brand-home.md` section 3) |
-| Cowork (a project with a local folder) | the draft theme's folder (the project's folder when the theme is connected as it) | Ask the person to paste into the project's Instructions: "Brand facts live in BRAND.md in the draft theme's folder (its voice is in BRAND-VOICE.md and its look in design.md, next to it); read them before writing anything customers will see." |
-| Claude or ChatGPT project, or a plain chat (no folder) | handed over for download | Ask the person to save BRAND.md, BRAND-VOICE.md and design.md in the root of the draft theme's folder (`brand-home.md` section 6), add them to the project's files, and paste the same instruction line into the project instructions |
+| Claude Code, Codex (a repo) | the staging theme's folder (the repo root when the theme is checked out as a repo) | Suggest committing BRAND.md, BRAND-VOICE.md, design.md and the links, on the staging branch only (don't commit unless asked; BRAND-QUESTIONS.md and COMPETITORS.md are internal, `brand-home.md` section 3) |
+| Cowork (a project with a local folder) | the staging theme's folder (the project's folder when the theme is connected as it) | Ask the person to paste into the project's Instructions: "Brand facts live in BRAND.md in the staging theme's folder (its voice is in BRAND-VOICE.md and its look in design.md, next to it); read them before writing anything customers will see." |
+| Claude or ChatGPT project, or a plain chat (no folder) | handed over for download | Ask the person to save BRAND.md, BRAND-VOICE.md and design.md in the root of the staging theme's folder (`brand-home.md` section 6), add them to the project's files, and paste the same instruction line into the project instructions |
 
 ## Step 8: Report
 
 Follow `references/report-template.md`: what it worked from (the site, the brand book, or that none was available),
-which draft theme and folder the files were saved in (or that there was no draft theme yet), where the shared copy
+which staging theme (and staging branch, if any) and folder the files were saved in (or that there was no staging
+theme yet), where the shared copy
 is (or that none was chosen), where everything was saved, the 3 or 4 most useful findings, the questions sent and
 held, what the agency (not the client) should fix, what was linked, and the run time. End by offering the
 competitor-research skill for COMPETITORS.md (the top 3 competitors only), which saves next to BRAND.md.
 
 When another skill called this one, return to it as soon as BRAND.md is validated, with one line on what's still to
-confirm and the draft theme and folder you settled.
+confirm and the staging theme and folder you settled.

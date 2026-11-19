@@ -1,4 +1,4 @@
-# Connector route: change a draft theme through the Shopify connection, with no Shopify CLI
+# Connector route: change the staging theme through the Shopify connection, with no Shopify CLI
 
 The second way to do the shared steps in this folder. `page-create`, `page-edit-content` and
 `page-edit-design` use it only when `setup-check.md` chose it: the Shopify CLI is not installed and
@@ -10,16 +10,16 @@ The connector is any connected Shopify tool that runs Admin GraphQL (`graphql_qu
 `graphql_mutation`, `graphql_schema`). If a call is rejected for an unknown field, check the field
 with `graphql_schema` before retrying; never guess.
 
-Every promise in `ship-to-draft.md` holds on this route: never the live theme, never publish, only
+Every promise in `ship-to-draft.md` holds on this route: never the live theme, no publishing outside the go-live gate, only
 the files the change pack lists, proof that the write landed, nobody's edits overwritten, no
 credential typed. Only the means differ.
 
 | Step | CLI route | Connector route |
 |---|---|---|
-| List themes, make a draft | `shopify theme list`, `shopify theme duplicate` | `themes` query, `themeDuplicate` (section 2) |
+| List themes, create the staging theme | `shopify theme list`, `shopify theme duplicate` | `themes` query, `themeDuplicate` (section 2) |
 | Working copy | The whole theme, pulled to a scratch folder | **No local copy of the theme.** Only the files the change touches: read, saved as `baseline/`, edited in `work/` |
 | `theme check` | Runs on the working copy | **Cannot run** (it is part of the CLI): check 8 is "Can't tell" (section 6) |
-| First rendered check | Local preview, before anything is sent | **On the draft, after the write** (safe: visitors never see a draft) (section 5) |
+| First rendered check | Local preview, before anything is sent | **On the staging theme, after the write** (safe: visitors never see an unpublished theme) (section 5) |
 | Send the files | `shopify theme push --only ... --nodelete` | `themeFilesUpsert` with an explicit file list |
 | Proof it landed | Pull back and diff | Read back and compare checksums (section 4) |
 | Revert | Push the baseline copies | Write the baseline copies back; delete the files the change added |
@@ -42,8 +42,8 @@ query { themes(first: 50) { nodes { id name role processing } } }
 Scopes alone do not prove the connector may change themes. Shopify's docs say changing theme files
 needs `write_themes` **and** an exemption from Shopify, and the exemption cannot be read. Do not
 test it with a trial write. The first real write (the duplicate in section 2, or the first upsert to
-the chosen draft) is the test: if Shopify refuses it with an access or exemption error, nothing was
-changed (read the draft again to confirm), and `setup-check.md` falls back to the CLI guidance.
+the staging theme) is the test: if Shopify refuses it with an access or exemption error, nothing was
+changed (read the theme again to confirm), and `setup-check.md` falls back to the CLI guidance.
 
 ## 2. The calls
 
@@ -59,7 +59,7 @@ admin address show. Pass values as variables, never by editing the query text.
 query ($id: ID!) { theme(id: $id) { id name role processing processingFailed } }
 ```
 
-**Make a draft** (`theme-target.md` section 3, step 4). This is the only call that takes the live
+**Create the staging theme** (`theme-target.md` section 3, step 4; only when there is none yet). This is the only call that takes the live
 theme's id, as the thing to copy; it reads the live theme and changes nothing on it.
 
 ```graphql
@@ -71,7 +71,7 @@ mutation ($id: ID!, $name: String) {
 }
 ```
 
-Name it `<live theme name> draft <YYYY-MM-DD>`. Read the new theme back: its role must be
+Name it `<live theme name> staging` (add the date if that name is taken). Read the new theme back: its role must be
 `UNPUBLISHED` (or `DEVELOPMENT`), never `MAIN`, and `processing` must be false before any write.
 Wait and read again until it is; if `processingFailed` is true, say so and stop.
 
@@ -134,11 +134,12 @@ These are the connector route's version of the CLI route's flags. They are not o
 2. **Role gate, every time.** Right before every read-for-edit, write and delete, read the target's
    role from the store (section 2). Continue only when it is `UNPUBLISHED` or `DEVELOPMENT`. `MAIN`
    is live: stop and say "This is the LIVE theme, so I won't edit it." Also stop for `DEMO`,
-   `LOCKED`, `ARCHIVED` or anything else unexpected. A draft published since you chose it is live.
+   `LOCKED`, `ARCHIVED` or anything else unexpected. A staging theme published since you chose it is live.
 3. **Right store, every time.** `myshopifyDomain` still matches the page's store.
 4. **Only these mutations:** `themeDuplicate`, `themeFilesUpsert` and `themeFilesDelete`. Never
-   `themePublish`, `themeCreate`, `themeUpdate`, `themeDelete` or `themeFilesCopy`, and no mutation on
-   products, pages, menus, metafields or anything outside theme files. Publishing is the person's step.
+   `themePublish` (outside the go-live gate, `theme-target.md` section 7), `themeCreate`, `themeUpdate`,
+   `themeDelete` or `themeFilesCopy`, and no mutation on products, pages, menus, metafields or anything
+   outside theme files. Never suggest publishing.
 5. **Only the files the change pack lists.** An explicit filename list in every write, equal to the
    change pack's section 4: this is the connector route's `--only`. An upsert never deletes anything,
    which is the equivalent of `--nodelete`; a delete names each file and happens only when the change
@@ -184,20 +185,20 @@ A success message is still not proof; the read-back is.
 
 ## 5. Preview and the first rendered check
 
-There is no local preview. The first time the change is rendered is on the draft, which visitors
-never see:
+There is no local preview. The first time the change is rendered is on the staging theme, which
+visitors never see:
 
-`https://<store>.myshopify.com/<path>?preview_theme_id=<draft id>`
+`https://<store>.myshopify.com/<path>?preview_theme_id=<staging theme id>`
 
 Open it in the browser Claude uses (a real browser session: the same address fetched without one
 returns the live theme), read the id the page reports (`Shopify.theme.id`) and confirm it is the
-draft's, then run `verify.md`. A bar at the top of the page says it is a preview; expect that.
+staging theme's, then run `verify.md`. A bar at the top of the page says it is a preview; expect that.
 Before the write, only source checks are possible; they are not verification (`verify.md`, "On the
 connector route").
 
-Say this once in the plan, in plain words: the change is checked on the private draft after it is
-written, not on this computer first. If the draft is one other people work in, offer a fresh copy
-instead (section 2), because a failed check is visible there until it is fixed or reverted.
+Say this once in the plan, in plain words: the change is checked on the private staging theme after
+it is written, not on this computer first. If other people also work on the staging theme, say so,
+because a failed check is visible to them there until it is fixed or reverted.
 
 ## 6. What cannot run
 
@@ -213,6 +214,6 @@ instead (section 2), because a failed check is visible there until it is fixed o
 
 ## 7. If the connection stops
 
-Stop. Read the draft's touched files to see exactly what was written, and tell the person which
+Stop. Read the staging theme's touched files to see exactly what was written, and tell the person which
 files changed, in plain words. Ask them to reconnect the Shopify connection themselves, then start
 again from the guards. Never retry a write blind, and never move to a different theme to get past it.

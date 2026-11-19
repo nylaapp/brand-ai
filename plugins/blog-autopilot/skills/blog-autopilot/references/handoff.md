@@ -15,8 +15,8 @@ This is the contract between the two skills. It pre-answers every setup question
 **Format:** match | match-layout | best-practice (profile default: match-layout)
 **Action:** new post | REFRESH of /blogs/<blog>/<handle> (create a NEW hidden draft titled "[REFRESH] <original title>"; don't edit the live article)
 
-## Brand (from the central brand file; profile as fallback)
-- Brand file: <path>. The writer reads it for voice, competitors, inspiration brands, claim limits and blog house style; don't paste them here.
+## Brand (from BRAND.md and BRAND-VOICE.md; the profile never stands in for them)
+- Brand files: BRAND.md <path>, BRAND-VOICE.md <path>. The writer reads them for voice, competitors, inspiration brands, claim limits and blog house style; don't paste them here.
 - Brand: <name> — <store_url>
 - One-liner: <brand.one_liner>
 - Voice: <voice>; avoid: <words_to_avoid>

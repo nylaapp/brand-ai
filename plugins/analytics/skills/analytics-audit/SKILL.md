@@ -27,6 +27,17 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files: not required.** If this store's BRAND.md (and design.md) are there, read them for context; never
+  write them.
+- **Read-only.** Changes nothing on the store, the theme or the repository, so it never asks for a staging theme
+  and never publishes. It may read any theme, the live one included. Fixes it suggests are made by a skill that
+  works on the staging theme. It writes only `ANALYTICS.md` and its run folder.
+
 ## Effort (read before starting)
 
 Tagging audit: about 15 to 30 minutes of agent time for one site with a booking or checkout domain at access levels 0 to 2; most of it goes to the page inventory and the write-up. This is one measurement (one client, 2026-10-15: about 20 minutes over 14 page loads on 4 hosts); re-measure on the next clients. Full audit: add about 1 to 2 hours for the privacy matrix and core-event tests, more if test orders or bookings must be arranged (not yet measured). Stop and report if a tagging audit passes 1 hour or a full audit passes 4.
@@ -47,7 +58,7 @@ If the project has its own instructions file (AGENTS.md, CLAUDE.md) with analyti
 
 ## 1. Set up the audit
 
-1. **Which site and which depth.** Ask once if unclear: the URL, tagging or full, and the business's main conversions (purchase, booking, lead). For Shopify, get the store domain and whether a theme preview or staging exists.
+1. **Which site and which depth.** Ask once if unclear: the URL, tagging or full, and the business's main conversions (purchase, booking, lead). For Shopify, get the store domain and whether a staging theme exists (to read only).
 2. **Find the client file.** Follow `references/analytics-file.md` to find `ANALYTICS.md` (or legacy `ANALYTICS_GUARDRAILS.md`). If one exists, read it fully: it holds the tracking plan, past findings and the last test baseline, so this audit updates it rather than starting over. If none exists, create it from `references/analytics-template.md` at the end. Read `BRAND.md` if available for business type, markets and whether the category is regulated.
 3. **Establish the access level** and say it in one line. Ask for what is missing only if the depth needs it:
 

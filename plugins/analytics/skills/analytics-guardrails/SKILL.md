@@ -27,6 +27,17 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files: not required.** If this store's BRAND.md (and design.md) are there, read them for context; never
+  write them.
+- **Read-only.** Changes nothing on the store, the theme or the repository, so it never asks for a staging theme
+  and never publishes. It may read any theme, the live one included. Fixes it suggests are made by a skill that
+  works on the staging theme. It writes only `ANALYTICS.md` and its run folder.
+
 ## Effort (read before starting)
 
 Build: about 45 to 90 minutes from a GTM export and the site code; refreshing from a new export about 20 to 40 minutes. Check: 5 minutes when nothing is at risk, 20 to 40 minutes with live checks. Watch: about 1 minute per run once set up. Estimates, not yet measured. Stop and report if a build passes 3 hours.
@@ -64,7 +75,7 @@ Follow `references/change-check.md`.
 
 - **Before:** list the touched components, look them up in the register and the impact matrix, name the events at risk and their tiers, and plan the after-check. Tier 1 at risk with a rule broken: stop and ask for the owner's OK.
 - **After:** run the static checks for those rows, the live checks for the events at risk (accept state; reject too for Tier 1), update the register's reality and add any new dependency, and log the impact line in the project's QA log: `Analytics impact: none (checked D-x..D-y, G-a..G-b) | checked: <what, how> | NOT verified: <reason>`.
-- Theme switches and base-theme upgrades are full checks: diff tracking between themes and run the privacy matrix on the new theme's preview before it is published.
+- Theme switches and base-theme upgrades are full checks: diff tracking between themes and run the privacy matrix on the new theme's preview (usually the staging theme) before it goes live. Going live happens only when the person asks, through the go-live gate (`references/ground-rules.md` section 3); this skill never suggests it.
 
 ## 4. Watch mode: drift
 

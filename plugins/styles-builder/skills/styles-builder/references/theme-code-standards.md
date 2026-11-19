@@ -40,8 +40,8 @@ set of changes that a developer can review and that survives the next update of 
   tokens, and no `!important` unless documented with the reason.
 - **Fonts and motion:** custom fonts as assets with `@font-face` and a documented licence; honour reduced
   motion.
-- **One concern per commit,** on a branch named by the repo's pattern, with the files touched listed in
-  the message. Don't commit anything the repo says to keep out of git.
+- **One concern per commit,** on the `staging` branch (or a `staging-<slug>` branch merged into it), never
+  the live branch (`theme-target.md` section 4), with the files touched listed in the message. Don't commit anything the repo says to keep out of git.
 
 ## Leave a map for the next developer
 Write an "Implementing this in the theme" section in `design.md`: for each token, the setting id or custom

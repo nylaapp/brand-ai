@@ -24,4 +24,4 @@ Skills that write content (blog posts, product pages, location pages, treatment 
 
 ## Theme upgrades and theme switches
 
-Treat as a full change: diff the tracking code and app embeds between the old and new theme, re-run every static check, and run the privacy matrix for Tier 1 and Tier 2 events on the new theme's preview before publishing (pixels apply to previews too; theme code and embeds are the new theme's).
+Treat as a full change: diff the tracking code and app embeds between the old and new theme, re-run every static check, and run the privacy matrix for Tier 1 and Tier 2 events on the new theme's preview (usually the staging theme) before it goes live, which happens only when the person asks (`ground-rules.md` section 3) (pixels apply to previews too; theme code and embeds are the new theme's).

@@ -27,6 +27,23 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md and BRAND-VOICE.md; COMPETITORS.md when present).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing.
+- **Hidden first.** Everything this skill creates in the store is saved hidden (`isPublished: false`), so the
+  person can preview it before customers see it. Any theme change goes to the staging theme, never the live one.
+- **Visible only when the person asks.** Never suggest, offer or schedule making a post visible, and never do it
+  in an automated run. Only when the person asks in their own words in this chat, run the go-live gate
+  (`references/ground-rules.md` section 3): checks (fact-check and review checklist done, preview seen), then two
+  confirmations, the second typed.
+
 ## Effort (read before starting)
 
 | | Guided post | Fully automated post |
@@ -35,7 +52,7 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 | Web requests (research) | 20 to 60 | 20 to 60 |
 | Budget | about $1 to $3 | about $1 to $2 |
 
-Runs often, so keep it cheap: a mid-tier model is enough for routine posts; use the strongest model for pillar posts. Estimate, not yet measured. Stop and tell the person if a run passes 30 minutes or $5. Set up the brand first (brand-capture, then competitor-research): without them each run spends more and guesses more.
+Runs often, so keep it cheap: a mid-tier model is enough for routine posts; use the strongest model for pillar posts. Estimate, not yet measured. Stop and tell the person if a run passes 30 minutes or $5. The brand files (BRAND.md and BRAND-VOICE.md) are required; brand-capture makes them. Competitor research is recommended: without it each run spends more.
 
 Write blog posts that make a Shopify brand easier to find (in classic search, in featured snippets and in AI answer engines) and that serve the post's purpose: teach, tell the brand's story, rank, or promote.
 
@@ -78,7 +95,7 @@ If a reference file says otherwise, this section wins.
 
 ## Setup check (before anything else)
 
-Run `references/setup-check.md` for the `blog-generator` column: web search, brand files and, recommended, competitor research, Shopify connected (for a hidden draft instead of HTML), a browser, Python 3 for the QA script, a folder for the run files, and fact-check installed. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback and list what's missing under "Needs your attention". In an autopilot-triggered run the autopilot already ran it; don't repeat it.
+Run `references/setup-check.md` for the `blog-generator` column: web search, brand files and, recommended, competitor research, Shopify connected (for a hidden draft instead of HTML), a browser, Python 3 for the QA script, a folder for the run files, and fact-check installed. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback for recommended items and list what's missing under "Needs your attention". A missing BRAND.md or BRAND-VOICE.md has no fallback: stop with `stopped: missing <file>`. In an autopilot-triggered run the autopilot already ran it; don't repeat it.
 
 ## Getting-started questions
 
@@ -91,10 +108,10 @@ If the user asks how to use this skill, how to get started, or what the Shopify 
 If the request comes from the **blog-autopilot** skill (you'll see an "Autopilot brief", a file like `runs/<date>-<handle>-autopilot-brief.md`, or a message saying the autopilot triggered it), the user has already been asked and has approved the post, or has set that brand to auto-draft. The brief answers the setup questions:
 
 - **Skip Step 0.** Take **intent, media, format, delivery and mode** from the brief. If a field is missing: intent inferred from the trigger, media = stock photos, format = `match-layout`, delivery = hidden Shopify draft, mode = fully automated.
-- **If the brief says `Mode: fully automated`: ask nothing, not one question or confirmation.** Do not call AskUserQuestion; nobody is there, and a stalled run means no draft. Use the Step 0b rules: read BRAND.md, discover from the store, fill gaps with defaults, list assumptions, never invent first-party material (leave it out and list it as missing input).
+- **If the brief says `Mode: fully automated`: ask nothing, not one question or confirmation.** Do not call AskUserQuestion; nobody is there, and a stalled run means no draft. Use the Step 0b rules: read BRAND.md and BRAND-VOICE.md (if either is missing, stop with `stopped: missing <file>`), discover from the store, fill gaps with defaults, list assumptions, never invent first-party material (leave it out and list it as missing input).
 - **If the brief says `Mode: guided`** (the user picked "do it together" when the autopilot asked), the user is present in this session: run Step 0c as normal, but skip the questions the brief already answers.
 - **Use the brief's inputs as given:** brand facts, voice, author, keywords, intent, post type, products to link, CTA, tags, and for a refresh the original article. Still run the Step 1 research that changes every time.
-- **Create the Shopify draft directly** (Option 1A via the connector; 1B via the browser only if there's no connector), **hidden** (`isPublished: false`), in the brief's blog, tagged as the brief says (always including `autopilot`). Never publish.
+- **Create the Shopify draft directly** (Option 1A via the connector; 1B via the browser only if there's no connector), **hidden** (`isPublished: false`), in the brief's blog, tagged as the brief says (always including `autopilot`). Never publish or make it visible: autopilot runs never go live.
 - **If the draft is blocked** (no connector, blog handle not found, handle taken, API error): don't stop to ask. Retry once with the handle plus `-2` if it was taken; otherwise fall back to HTML delivery, saving `<handle>.html`, `<handle>-shopify-fields.md`, `<handle>-brief.md` and `<handle>-fields.json` (in the store's `blog-runs/<date>-<handle>/` folder, see Step 0b) next to the brief, and say why.
 - **Return a short machine-friendly summary** the autopilot can log: delivery (`draft` or `html`), article ID, handle, admin location, title, primary keyword, intent, word count, QA result, fact-check result, missing input.
 
@@ -108,7 +125,7 @@ If the request is **not** from the autopilot, follow Step 0.
 
 *(Skipped for autopilot-triggered runs. For those, still run the brand checks below first.)*
 
-**Before any setup question:** run the brand checks in Step 0b (identify the store, find its brand files through the fallback chain, confirm it matches, stop if none is found). This comes first, in every mode, so nobody answers setup questions for a run that has to stop. A stop for a wrong or missing BRAND.md, or for regulated content without one, overrides "fully automated".
+**Before any setup question:** run the brand checks in Step 0b (identify the store, find BRAND.md and BRAND-VOICE.md through the lookup order, confirm they match, stop if either is missing). This comes first, in every mode, so nobody answers setup questions for a run that has to stop. A stop for a wrong or missing BRAND.md or BRAND-VOICE.md overrides "fully automated".
 
 The user stays in control of the post's purpose, media, format, how involved they are, and where it ends up. Read `references/setup-questions.md` for the exact wording (the house rules above override it). Ask before any research, with AskUserQuestion where available. **Every question is asked once in the whole run.**
 
@@ -128,11 +145,11 @@ If the user already stated some of this in their request or in an earlier answer
 
 ### 0a. Fully automated mode
 
-After the setup answers, **ask nothing else for the rest of the run** (the Step 0b stops for a missing or mismatched BRAND.md still apply and come first): no brief approval, no image picks, no delivery confirmation. Their setup choices are the go-ahead.
-- Read BRAND.md; scan the store for gaps; apply the defaults in `setup-questions.md`; list every assumption at the top of the brief and in the final summary.
+After the setup answers, **ask nothing else for the rest of the run** (the Step 0b stops for a missing or mismatched BRAND.md or BRAND-VOICE.md still apply and come first): no brief approval, no image picks, no delivery confirmation. Their setup choices are the go-ahead.
+- Read BRAND.md and BRAND-VOICE.md; scan the store for gaps; apply the defaults in `setup-questions.md`; list every assumption at the top of the brief and in the final summary.
 - If they said "suggest topics", choose the strongest researched topic yourself and explain why in the summary.
 - Where first-party material is missing, leave it out and list it as missing input. Automation never means inventing it.
-- Deliver as chosen. For the Shopify draft, create it **hidden** (never published). If something blocks the draft (no connector, several stores and none clearly matching, handle taken), don't stop: fall back to HTML and explain why.
+- Deliver as chosen. For the Shopify draft, create it **hidden**. A fully automated run never publishes or makes a post visible. If something blocks the draft (no connector, several stores and none clearly matching, handle taken), don't stop: fall back to HTML and explain why.
 
 ### 0c. Guided mode
 
@@ -152,11 +169,11 @@ If you're running with no user at all (a scheduled or test run), behave as fully
 This skill never captures or researches the brand itself. Brand facts come only from the files the **brand-capture** skill writes (`BRAND.md`, its voice guide `BRAND-VOICE.md`, the open questions in `BRAND-QUESTIONS.md` and any change requests in `BRAND-REQUESTS.md`) and the **competitor-research** skill writes (`COMPETITORS.md`). Reading them instead of asking keeps every post faithful to what the client approved, and saves the client from answering the same questions again. Do these checks before any setup question, in every mode, so nobody answers questions for a run that has to stop.
 
 1. **Which store?** From the request (URL, name or myshopify handle), the autopilot brief, or the connected Shopify store. With several clients present and no clear answer, ask "which store?": the only brand question this skill may ask.
-2. **Find that store's brand files** by following brand-capture `references/brand-context.md`: project root, then the user's local environment, then the central brand directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then central knowledge, memory and instructions. Read it before any prompt. A BRAND.md for a different store counts as missing; never use it. More than one match at the same level: stop and list the paths.
+2. **Find that store's brand files** by following brand-capture `references/brand-context.md`: project root, then the user's local environment, then the central brand directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then connected knowledge sources. Memory, `CLAUDE.md` and connector notes can add supporting facts, but they never stand in for a missing file. Read the files before any prompt. A BRAND.md for a different store counts as missing; never use it. More than one match at the same level: stop and list the paths.
 3. **Confirm it matches** the store you will write for and, for a draft, the store the connector or browser is signed in to. A mismatch is a stop in every mode.
-4. **If nothing usable is found in any location:** stop. With a person present, say which locations you checked, then offer to run brand-capture (about 10 to 25 minutes, once per store; it asks which draft theme to save the files in, and saves them there). Unattended, don't create one and don't guess: return `delivery: stopped` with the reason and the locations checked. Nothing is researched or drafted.
+4. **If BRAND.md or BRAND-VOICE.md is missing (or is for another store):** stop before any work. With a person present, say which file is missing and which locations you checked, then ask once, in the option window: "Create it now (Recommended)" (BRAND.md: brand-capture, about 10 to 25 minutes, once per store, saved in the staging theme's folder; BRAND-VOICE.md: brand-capture or voice-builder), then come back and continue here; or "I will tell you where it is". There is no option to carry on without it (`references/ground-rules.md` section 1). Unattended, don't create one and don't guess: return `delivery: stopped` with `stopped: missing <file>` and the locations checked. Nothing is researched or drafted.
 5. **Read only what a writing task needs.** First the Quick reference, then: front matter (`brand`, `site`, `store`, `markets`, `language`, `currency`, `regulated`, `brand_approver`, `competitors_doc`), Brand architecture (which name to use where), Audience, Catalog (including "Topics the brand can credibly own"), Voice, Terminology, Blog (default blog, typical post, byline), Claim limits, Inspiration brands, Story and Author. If `competitors_doc` names a file, read that `COMPETITORS.md` too.
-   - **Voice lives in `BRAND-VOICE.md`.** If BRAND.md's front matter has `voice_doc` (usually `BRAND-VOICE.md`, next to BRAND.md), read that file in full: it holds how the brand sounds, signature phrases, do and don't pairs and words to avoid, and BRAND.md's own Voice section is then only a pointer plus three words. If there is no `voice_doc`, use BRAND.md's Voice section (an older capture). Terminology and Claim limits always come from BRAND.md.
+   - **Voice lives in `BRAND-VOICE.md`.** If BRAND.md's front matter has `voice_doc` (usually `BRAND-VOICE.md`, next to BRAND.md), read that file in full: it holds how the brand sounds, signature phrases, do and don't pairs and words to avoid, and BRAND.md's own Voice section is then only a pointer plus three words. If there is no `voice_doc`, look for `BRAND-VOICE.md` next to BRAND.md; if it isn't there, it is missing (step 4). BRAND.md's own Voice section never stands in for it. Terminology and Claim limits always come from BRAND.md.
    - **`BRAND-QUESTIONS.md`:** when a line you need is a `[[CLIENT TO CONFIRM: Q-.. | …]]` placeholder, look up that Q-id here to see whether it is still open or already answered, and say which in the summary. Never answer it yourself.
 
 **How to use what you read**
@@ -218,7 +235,7 @@ Follow `references/writing-quality.md` for voice and substance (specifics over v
 
 **Never fabricate first-party material.** Testimonials, customer stats, testing results, founder or clinician quotes, offers, prices and certifications come from the user or the live store. Where the post would need them and you don't have them, leave them out (no placeholder text in the body) and list them under "Missing input you could add" in the summary. Health, safety, ingredient, sustainability and performance claims need a source; soften or cite them. Regulated wording (for example "FDA approved") needs particular care: see Step 6.
 
-Write in the brand's voice from `BRAND-VOICE.md` (via `voice_doc`) and BRAND.md's Terminology; otherwise clear, warm, expert, second person.
+Write in the brand's voice from `BRAND-VOICE.md` (via `voice_doc`) and BRAND.md's Terminology.
 
 ## Step 4: Media
 
@@ -255,7 +272,7 @@ It is intent-aware (a brand journal isn't failed for lacking an FAQ) and honors 
 
 Read `references/publishing.md` and deliver as chosen in Step 0. Do not ask about delivery again.
 
-1. **Shopify draft**: create the article **hidden**, complete with title, formatted body HTML, excerpt, tags, author, handle, featured image with alt text, images, SEO title and meta description. Never publish. Verify every field afterwards, then **give the person a preview link of the actual blog page** (storefront preview URL, plus the admin edit link; if no storefront preview is obtainable, a local rendered preview; see `publishing.md`).
+1. **Shopify draft**: create the article **hidden**, complete with title, formatted body HTML, excerpt, tags, author, handle, featured image with alt text, images, SEO title and meta description. Never make it visible yourself (see "Making a post visible" below). Verify every field afterwards, then **give the person a preview link of the actual blog page** (storefront preview URL, plus the admin edit link; if no storefront preview is obtainable, a local rendered preview; see `publishing.md`).
    - *Connector available* → Option 1A. *No connector, browser available* → Option 1B.
    - **Author:** the author the blog's existing posts use (or the user's stated author), never the signed-in user. Follow "Author: never the signed-in user" in `references/publishing.md`: find the author on the latest published posts, pass `author: {name}` (connector) and read it back; in the browser select it if listed, otherwise set it through the API, or flag it as the first line of the summary and the first item of the review checklist.
    - *No confirmation question* in any mode. The setup choice is the go-ahead. If anything blocks the draft, fully automated and autopilot runs fall back to HTML and say why; guided runs say what blocked it and offer the HTML fallback.
@@ -265,7 +282,8 @@ Always also save `<handle>-brief.md` and `<handle>-fields.json` (in the store's 
 
 **This is a first draft, not a finished post.** Never describe it as complete or ready to publish. The summary always says it needs human polish, and ends by handing it back to the person.
 
-**Review checklist (every delivery).** Save `<handle>-review-checklist.md` in the run folder and, for a Shopify draft, add the tag `needs-review`. It lists what a human must check before publishing: facts and claims to verify (including the fact-check result), links to click, images and alt text, voice against `BRAND-VOICE.md`, missing input you left out, SEO fields, and any `draft` or `(inferred)` brand lines relied on. Return its path (the autopilot expects it). A draft that passed QA has not been reviewed.
+**Review checklist (every delivery).** Save `<handle>-review-checklist.md` in the run folder and, for a Shopify draft, add the tag `needs-review`. It lists what a human must check before the post is made visible: facts and claims to verify (including the fact-check result), links to click, images and alt text, voice against `BRAND-VOICE.md`, missing input you left out, SEO fields, and any `draft` or `(inferred)` brand lines relied on. Return its path (the autopilot expects it). A draft that passed QA has not been reviewed.
 
-**Final summary** (short): "First draft ready for your review and edits." Then: how it was delivered; **the preview link** (for a Shopify draft: the storefront preview of the actual page first, then the admin edit link; for HTML: the file path or local preview); the author used (and a warning if it isn't the brand byline); intent; primary keyword; word count; QA result; fact-check result; **missing input you could add** (a short list of what a human could supply and where it would fit); and, per `house-style.md` §4, one line comparing the post's length and layout with the brand's usual posts and why they differ. Add the CTA used and the net-new value in one line each, and what the human should check (facts, images including the featured image, tone). Close with: "Please edit and polish in Shopify, then publish when you're happy." Add the `Brand facts: BRAND.md rev …` line, the `BRAND-REQUESTS.md` lines you added (if any), and any `draft`/`(inferred)` brand lines you relied on. Then offer a next step such as a follow-up post in the same cluster. For autopilot runs, return the machine-friendly summary instead.
+**Final summary** (short): "First draft ready for your review and edits." Then: how it was delivered; **the preview link** (for a Shopify draft: the storefront preview of the actual page first, then the admin edit link; for HTML: the file path or local preview); the author used (and a warning if it isn't the brand byline); intent; primary keyword; word count; QA result; fact-check result; **missing input you could add** (a short list of what a human could supply and where it would fit); and, per `house-style.md` §4, one line comparing the post's length and layout with the brand's usual posts and why they differ. Add the CTA used and the net-new value in one line each, and what the human should check (facts, images including the featured image, tone). Close with: "The post is hidden. Please edit and polish it in Shopify. Your live store has not changed." Don't suggest or offer making it visible. Add the `Brand facts: BRAND.md rev …` line, the `BRAND-REQUESTS.md` lines you added (if any), and any `draft`/`(inferred)` brand lines you relied on. Then offer a next step such as a follow-up post in the same cluster. For autopilot runs, return the machine-friendly summary instead.
 
+**Making a post visible.** Only when the person asks in their own words in this chat (for example "make the post visible"). Never in a fully automated or autopilot run. Run the go-live gate in `references/ground-rules.md` section 3: checks (fact-check and review checklist done, preview seen), then two confirmations, the second typed (the post's title). If the person only asks how, explain both ways: they set it to Visible themselves in Shopify admin (give numbered steps), or they ask Claude to do it, which runs those checks.

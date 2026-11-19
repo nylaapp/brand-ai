@@ -1,7 +1,7 @@
 # Observation recipes
 
 How to observe a rendered page so the playbook's checks are marked from evidence and every
-run measures the same way. Run these in the browser on the real page (a draft theme preview
+run measures the same way. Run these in the browser on the real page (a staging theme preview
 is fine), at desktop (1440x900) and mobile (375x812). Record each number with its source,
 date and device.
 

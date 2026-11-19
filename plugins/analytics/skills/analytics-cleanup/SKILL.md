@@ -1,6 +1,6 @@
 ---
 name: analytics-cleanup
-description: "Clean up and optimise a site's analytics and marketing tags, for any store or business. Quick Cleanup removes what is clearly dead, duplicated or left behind (double installs, uninstalled-app leftovers, Universal Analytics, paused and orphan GTM items, unused pixels, idle A/B and heatmap tools) without touching anything a conversion depends on. Deep Tag Cleanup is zero-based budgeting: measure pages with every tag off, add tags back one group at a time with repeated Lighthouse runs, require an owner and a question per tag, allow one heatmap tool at a time during a study, and load each tag no earlier than needed. Blocks tags in the test browser, so live stores are benchmarked safely. Writes the load policy to ANALYTICS.md. Use for \"clean up our tags\", \"quick cleanup\", \"deep tag cleanup\", \"zero-based\", \"too many pixels\", \"are tags slowing the site\", \"remove old tracking\". Never removes or publishes without approval."
+description: "Clean up and optimise a site's analytics and marketing tags, for any store or business. Quick Cleanup removes what is clearly dead, duplicated or left behind (double installs, uninstalled-app leftovers, Universal Analytics, paused and orphan GTM items, unused pixels, idle A/B and heatmap tools) without touching anything a conversion depends on. Deep Tag Cleanup is zero-based budgeting: measure pages with every tag off, add tags back one group at a time with repeated Lighthouse runs, require an owner and a question per tag, allow one heatmap tool at a time during a study, and load each tag no earlier than needed. Blocks tags in the test browser, so live stores are benchmarked safely. Writes the load policy to ANALYTICS.md. Use for \"clean up our tags\", \"quick cleanup\", \"deep tag cleanup\", \"zero-based\", \"too many pixels\", \"are tags slowing the site\", \"remove old tracking\". Theme-code changes go to the staging theme, never the live theme. Never removes anything without approval, and never publishes a container or changes a live pixel unless its owner asks."
 ---
 
 # Analytics cleanup (quick and deep)
@@ -27,6 +27,24 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files: not required.** If this store's BRAND.md (and design.md) are there, read them for context; never
+  write them.
+- **Staging only.** Every change goes to the store's staging theme (an unpublished theme whose name contains
+  "staging"), and to the `staging` branch when the theme is in a git repository. If none is remembered, settle
+  it before the first change, offering to create "<live theme name> staging" (`references/theme-target.md` sections 3
+  and 4). Never edit, push to or commit for the live theme. This applies when a fix changes theme code.
+- **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
+  their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `references/theme-target.md` section 7):
+  checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
+  store has not changed."
+- **Tag-manager versions and live pixels count as live.** Publishing a container version or changing a live pixel
+  happens only when that tool's owner asks for that change in their own words, through the same gate.
+
 ## Effort (read before starting)
 
 Quick cleanup: about 1 to 2 hours for a typical store once an audit exists, plus owner turnaround. Deep cleanup: about half a day to a day of work spread over a week (owners, approvals, re-measurement), plus a field-data check 28 days later. Each `tag_cost.py` configuration takes about 30 to 60 seconds per Lighthouse run. Estimates, not yet measured. Stop and check in if a quick cleanup passes 3 hours or a deep cleanup's measurement passes 2.
@@ -40,8 +58,8 @@ If the project has its own instructions file (AGENTS.md, CLAUDE.md), read it fir
 - **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
 - **Audit first.** Use a tagging or full audit from `analytics-audit` that is less than 30 days old and matches the current live GTM version (`analytics-guardrails` drift check); otherwise run the tagging audit first.
 - **Never touch what a core event depends on** in a quick cleanup: anything in the tracking plan, the dependency register, the rules, consent tools, conversion tags, or the only path to a destination.
-- **Disable before delete.** Pause, disconnect, or remove in a duplicate theme; delete after a quiet week with the owner's OK.
-- **Approval per item**, from the person who owns that tool. Publishing a GTM version or changing a live pixel needs that owner's explicit OK for that change. The live theme is never edited. Which theme code changes go on is settled once, the first time a change touches theme code (`../analytics-setup/references/theme-target.md`); it is always a draft theme, never the live theme.
+- **Disable before delete.** Pause, disconnect, or remove on the staging theme; delete after a quiet week with the owner's OK.
+- **Approval per item**, from the person who owns that tool. Publishing a GTM version or changing a live pixel counts as going live: only when that tool's owner asks for that change in their own words in this chat, through the go-live gate (`references/ground-rules.md` section 3). Never suggest or schedule it. The live theme is never edited. Which theme code changes go on is settled once, the first time a change touches theme code (`references/theme-target.md` sections 3 and 4); it is always the staging theme, never the live theme. End each theme change with its hand-over (section 6).
 - **Benchmarks block in the browser, never on the store.** `tag_cost.py` changes nothing on the site.
 - **Never trade a Tier 1 event for speed.** Change how an expensive conversion tag loads; never drop the conversion.
 - **Lab numbers are lab numbers.** Report them as comparisons, not as real-user promises.

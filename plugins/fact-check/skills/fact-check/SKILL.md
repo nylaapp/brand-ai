@@ -27,6 +27,19 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first.** When the copy is for a store in this project, BRAND.md is required: its claim limits, market
+  and terminology set the guardrails. If it is missing, stop and ask once: create it now (brand-capture) or tell me
+  where it is (`references/ground-rules.md` section 1). For text not written for any brand, it isn't needed; say so in
+  the report.
+- **Read-only.** Changes nothing on the store, the theme or the repository, so it never asks for a staging theme
+  and never publishes. It may read any theme, the live one included. Fixes it suggests are made by a skill that
+  works on the staging theme. It reports; it never posts or edits the content.
+
 ## Effort (read before starting)
 
 About 3 to 8 minutes and under $1 for a 1,000-word post with 10 to 20 claims; up to 15 minutes for a heavily regulated post. Estimate, not yet measured. Stop and tell the person if a run passes 20 minutes or $3.
@@ -53,16 +66,16 @@ It stands alone: it doesn't depend on any writing skill, and any writing skill c
 - **Don't add claims.** Rewrites may only make a claim narrower, more precise or better qualified, never stronger.
 - **Not legal or medical advice.** Say so once in the report. Flag claims needing expert or legal sign-off instead of ruling on them.
 - **Spend research where the risk is.** Check every high-risk claim; sample the medium-risk ones; leave plain common knowledge alone.
-- **Read-only by default.** Don't edit a live article or any store content unless the user asks you to apply fixes, and even then produce the revised text for them to publish.
+- **Read-only by default.** Don't edit a live article or any store content unless the user asks you to apply fixes, and even then produce the revised text for them to apply. Never suggest publishing or making content visible.
 
 ## Setup check (before Step 0)
 
-Run `references/setup-check.md` for the `fact-check` column: web search is required, because claims are checked against the original sources; brand files and Python 3 (for the pre-screen) are recommended; Shopify, a browser, Google Drive or a Word reader only when the content comes from one. When another skill hands content over, it has already run the check. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback and list what's missing under "Needs your attention".
+Run `references/setup-check.md` for the `fact-check` column: web search is required, because claims are checked against the original sources; `BRAND.md` is required when the copy is for a store in this project (Step 0); Python 3 (for the pre-screen) is recommended; Shopify, a browser, Google Drive or a Word reader only when the content comes from one. When another skill hands content over, it has already run the check. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback for recommended items and list what's missing under "Needs your attention". A missing BRAND.md for a store in this project has no fallback: stop with `stopped: missing BRAND.md`.
 
 ## Step 0: Get the content and the context
 
 1. **Content:** pasted text, a file, a URL (fetch it), or a Shopify article (via the connector or browser, read-only). If the user says "the post we just wrote", use the writer's HTML.
-2. **Brand context (optional but useful):** find the right store's `BRAND.md` using the lookup order in brand-capture `references/brand-context.md` if that plugin is installed (project root, user local environment, central brand directory `$BRAND_AI_HOME/brands/<slug>/` or `~/.brand-ai/brands/<slug>/`, then memory and connected knowledge); otherwise the project root. The file whose `site`, `store` or `brand` matches the content wins; if unclear, ask which store. Read only: front matter `markets` (which regulator applies), `regulated` and `brand_approver`; Terminology; and Claim limits (Approved claims, Never say (client), Not allowed, Required disclaimers). Only Approved claims may be treated as brand-confirmed; flag anything under Never say or Not allowed. Never edit BRAND.md: when you find something that should change, append a line to `BRAND-REQUESTS.md` next to it. If there's no file, ask one short question only if it matters: which country or countries is this for, and what do the products or treatments do? Otherwise infer from the content and state your assumption.
+2. **Brand context (required when the copy is for a store in this project):** find the right store's `BRAND.md` using the lookup order in brand-capture `references/brand-context.md` if that plugin is installed (project root, user local environment, central brand directory `$BRAND_AI_HOME/brands/<slug>/` or `~/.brand-ai/brands/<slug>/`, then connected knowledge sources; memory adds supporting facts only, never a missing file); otherwise the project root. The file whose `site`, `store` or `brand` matches the content wins; if unclear, ask which store. Read only: front matter `markets` (which regulator applies), `regulated` and `brand_approver`; Terminology; and Claim limits (Approved claims, Never say (client), Not allowed, Required disclaimers). Only Approved claims may be treated as brand-confirmed; flag anything under Never say or Not allowed. Never edit BRAND.md: when you find something that should change, append a line to `BRAND-REQUESTS.md` next to it. If the copy is for a store in this project and its BRAND.md is missing (or is for another store), stop before checking and ask once: "Create it now (Recommended)" (brand-capture), then continue here; or "I will tell you where it is". There is no option to check without it; unattended, stop with `stopped: missing BRAND.md`. Only for text not written for any brand in this project: ask one short question if it matters (which country or countries is this for, and what do the products or treatments do?), otherwise infer from the content, and state in the report that no brand file applies.
 3. **Mode:** *report only* (default) or *report and apply fixes* (also returns revised text). If unclear, do the report and offer the revision.
 
 ## Step 1: Pre-screen

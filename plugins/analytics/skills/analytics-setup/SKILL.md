@@ -1,6 +1,6 @@
 ---
 name: analytics-setup
-description: "Get a client's analytics working, as a partner through the whole critical path: collect the client's issue list (double tracking, anomalies, numbers that don't match), agree the tracking plan, run a full audit across privacy states, build a prioritised action list for approval, make approved fixes one at a time with a rollback ready, and re-test every core event. Also sets up tracking from zero. Any store or business; Shopify-first (Google & YouTube app, Meta app, pixels, Customer Privacy API, consent mode), also WordPress and custom sites. Keeps state in ANALYTICS.md. Use for \"fix our analytics\", \"get tracking working\", \"set up GA4\", \"conversions aren't showing in Google Ads\", \"Meta shows more purchases than we have\", \"set up consent mode\", or a list of analytics problems. Never publishes a container, changes consent or makes a test purchase without explicit approval."
+description: "Get a client's analytics working, as a partner through the whole critical path: collect the client's issue list (double tracking, anomalies, numbers that don't match), agree the tracking plan, run a full audit across privacy states, build a prioritised action list for approval, make approved fixes one at a time with a rollback ready, and re-test every core event. Also sets up tracking from zero. Any store or business; Shopify-first (Google & YouTube app, Meta app, pixels, Customer Privacy API, consent mode), also WordPress and custom sites. Keeps state in ANALYTICS.md. Use for \"fix our analytics\", \"get tracking working\", \"set up GA4\", \"conversions aren't showing in Google Ads\", \"Meta shows more purchases than we have\", \"set up consent mode\", or a list of analytics problems. Theme-code fixes go to the staging theme, never the live theme. Never publishes a container or changes a live pixel unless its owner asks, and never changes consent or makes a test purchase without explicit approval."
 ---
 
 # Analytics setup (getting it working)
@@ -27,6 +27,24 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files: not required.** If this store's BRAND.md (and design.md) are there, read them for context; never
+  write them.
+- **Staging only.** Every change goes to the store's staging theme (an unpublished theme whose name contains
+  "staging"), and to the `staging` branch when the theme is in a git repository. If none is remembered, settle
+  it before the first change, offering to create "<live theme name> staging" (`references/theme-target.md` sections 3
+  and 4). Never edit, push to or commit for the live theme. This applies when a fix changes theme code.
+- **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
+  their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `references/theme-target.md` section 7):
+  checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
+  store has not changed."
+- **Tag-manager versions and live pixels count as live.** Publishing a container version or changing a live pixel
+  happens only when that tool's owner asks for that change in their own words, through the same gate.
+
 ## Effort (read before starting)
 
 Intake and tracking plan: 30 to 60 minutes with the client's answers in hand. Audit: see `analytics-audit` (1 to 3 hours for a full audit). Fixes: 15 to 60 minutes each plus waiting on owners; plan for several sessions over days when GTM or ad accounts belong to someone else. Estimates, not yet measured. Stop and check in with the person at each approval point, and if a single fix passes 2 hours.
@@ -40,12 +58,12 @@ If the project has its own instructions file (AGENTS.md, CLAUDE.md), read it fir
 - **No change without approval.** Plan first, then change only the approved items. Approval names the item; "looks good" for a list approves that list only.
 - **One change at a time, tested before the next.** Batch only changes that are tested together and owned by the same person.
 - **Rollback ready before every change** (`references/fix-playbooks.md` P12).
-- **Never edit, push to or publish a live theme.** Theme code changes go on a draft theme (`references/theme-target.md`).
-- **Never publish** a GTM container, or a pixel or consent change on a live store unless the owner explicitly asks for that specific publish. Prefer that the owner presses publish.
+- **Never edit, push to or publish a live theme.** Theme code changes go on the staging theme (`references/theme-target.md` sections 3 and 4).
+- **Never publish** a GTM container version, or make a pixel or consent change on a live store, unless that tool's owner asks for that specific change in their own words in this chat; then run the go-live gate (`references/ground-rules.md` section 3). Never suggest or schedule it. Prefer that the owner presses publish.
 - **Consent is the client's legal decision.** Propose settings and mappings; the client (and their counsel) decides regions, categories and banner wording. Not legal advice.
 - **Never sign in for anyone**, type credentials or 2FA codes, or accept terms on their behalf.
 - **No real orders, bookings or form submissions** without the owner's OK for that test and an agreed test method; never real customer data.
-- **Theme and site code follow the project's rules** (for a Shopify theme: prefer new files, mark and log any edit to a core file). Which theme the code goes on is asked once and remembered (`references/theme-target.md`), settled the first time a change touches theme code, not before; it is always a draft or dev theme, never the live theme.
+- **Theme and site code follow the project's rules** (for a Shopify theme: prefer new files, mark and log any edit to a core file). Which theme the code goes on is asked once and remembered (`references/theme-target.md` sections 2 and 5), settled the first time a change touches theme code, not before; it is always the staging theme, never the live theme.
 
 ## 1. Intake
 
@@ -73,7 +91,7 @@ For each approved item, in order:
 
 1. Prepare the rollback (P12) and say what it is.
 2. Make the change with the matching playbook in `references/fix-playbooks.md` (P1 one path per destination, P2 remove a duplicate, P3 Shopify purchases, P4 storefront events for pixels, P5 consent, P6 GTM changes, P7 cross-domain, P8 lead and booking signals, P9 dataLayer pushes, P10 stale trigger conditions, P11 deduplication).
-   - Changes we make: site or theme code, on the theme settled with `references/theme-target.md` (asked once, at the first theme-code change; a draft is recommended), following the project's rules.
+   - Changes we make: site or theme code, on the staging theme settled with `references/theme-target.md` (asked once, at the first theme-code change: sections 3 and 4), following the project's rules. End with its hand-over (section 6).
    - Changes the owner makes: GTM publishes, ad accounts, Shopify settings, consent. Give them exact, numbered steps naming each object and value, and wait for them to confirm.
 3. Verify right away (step 6) before the next item. If verification fails, roll back first, then investigate.
 
@@ -103,6 +121,6 @@ What was fixed and verified, what is waiting on whom, what the client will notic
 - [ ] Full audit run or reused (less than 14 days old, no drift)
 - [ ] Action plan ordered, with exact objects, owners, tests and rollbacks; approved per item or batch
 - [ ] Each change made with its rollback ready, verified before the next
-- [ ] No publish, consent change or test conversion without the named approval
+- [ ] No GTM publish, live pixel change or theme publish unless the owner asked in their own words (go-live gate); no consent change or test conversion without the named approval
 - [ ] Final full matrix for Tier 1 and 2; regions not tested listed
 - [ ] ANALYTICS.md, QA log and client note updated; follow-up check dated

@@ -23,8 +23,8 @@ Not a quick-cleanup item: anything in the dependency register, anything a Tier 1
 1. **Evidence:** the inventory row, the export line or the snippet path.
 2. **Dependency check:** search ANALYTICS.md sections 1, 4 and 6 for the tag, its trigger, its ID and its host. Any hit means it is not a quick item.
 3. **Owner OK:** list the items in one message, plain words, with evidence; ask for a yes per item or for the list.
-4. **Backup:** fix playbook P12 (duplicate theme, note the GTM version, screenshot pixel settings).
-5. **Disable, do not delete:** pause, disconnect, remove from a duplicate theme. Delete after a quiet week with the owner's OK.
+4. **Backup:** fix playbook P12 (theme code on the staging theme with a commit on the staging branch, note the GTM version, screenshot pixel settings).
+5. **Disable, do not delete:** pause, disconnect, remove on the staging theme (`theme-target.md`). Delete after a quiet week with the owner's OK.
 6. **Verify:** the inventory no longer shows it; a quick accept-state check that every Tier 1 and Tier 2 event still fires once; `theme check` unchanged if theme code moved.
 7. **Log:** ANALYTICS.md section 2 (inventory status `removed YYYY-MM-DD`), section 5 statuses, section 10 changelog.
 

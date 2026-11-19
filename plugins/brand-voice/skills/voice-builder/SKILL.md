@@ -48,6 +48,19 @@ skill in this plugin.
 - **Show less, deliver more.** No plan file, no interim write-up repeating what was asked. After the last answer the
   next thing the owner sees is the three examples (step 7).
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md; if it is missing, brand-capture comes first).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing.
+- **Saves beside BRAND.md, nothing to the store.** BRAND-VOICE.md is written in the staging theme's folder next to
+  BRAND.md (`references/theme-target.md`). This skill never changes a theme, never publishes and never suggests it.
+
 ## Rules
 
 - **Words come from the owner.** Quote them exactly and name the source. Never invent a signature phrase, a statistic,
@@ -76,11 +89,14 @@ skill in this plugin.
 
 1. **Note the start time first** (machine clock), for the report. Then find the brand files as `brand-capture`'s
    lookup order says: the project root, then `~/` and `~/.claude/`, then `$BRAND_AI_HOME/brands/<slug>/` (default
-   `~/.brand-ai/brands/<slug>/`, which may hold a `BRAND-HOME.md` naming the draft theme's folder), then memory and
-   connected knowledge. A file's `brand`, `site` or `store` must match.
+   `~/.brand-ai/brands/<slug>/`, which may hold a `BRAND-HOME.md` naming the staging theme's folder). Memory and
+   connected knowledge can add supporting facts, but never stand in for a brand file. A file's `brand`, `site` or
+   `store` must match.
 2. Read `BRAND.md` and any `BRAND-VOICE.md` in full, plus `BRAND-QUESTIONS.md` and `COMPETITORS.md` if present.
-3. **No BRAND.md:** offer brand-capture first (one line, once). If the owner prefers to go on, continue with the
-   store's site as the source and say BRAND.md is still missing; Claim limits can't be checked until it exists.
+3. **No BRAND.md:** stop before any question of the wizard and ask once: "I can't find BRAND.md for <store>. I
+   looked in <places>." Options: "Create it now (Recommended)", which runs brand-capture in this conversation and
+   then comes back to step 0, and "I will tell you where it is". There is no option to go on without it
+   (`references/ground-rules.md` section 1). A missing BRAND-VOICE.md is not a stop: this skill makes it.
 4. Say in one line what exists: "I have a draft voice from your site: <three words>. Let's make it sound like you."
 5. **A BRAND-VOICE.md already exists:** ask once, "Build on the current voice (Recommended)" or "Start clean". Either
    way, before step 6 writes, save the current file as `BRAND-VOICE-<YYYY-MM-DD>.md` (never overwrite an earlier
@@ -184,8 +200,11 @@ names and roles only, no contact details, as a request in `BRAND-REQUESTS.md` (s
 
 ## 6. Write and validate
 
-Save the previous file first (step 0.5). Write BRAND-VOICE.md in the same folder as BRAND.md (never inside the theme's
-own folders and never in `assets/`, which is public). Follow `references/voice-file.md` exactly: the headings are
+Save the previous file first (step 0.5). Write BRAND-VOICE.md in the same folder as BRAND.md: the staging theme's
+folder, remembered in `THEME-TARGET.md` beside it (`references/theme-target.md` sections 2 and 5). Say one line:
+"Saving to the staging theme <name>, folder <path>." If BRAND.md is in the central brand directory because no staging
+theme was settled yet, save next to it all the same and say so; the files are moved together later. Never inside the
+theme's own folders and never in `assets/`, which is public. Follow `references/voice-file.md` exactly: the headings are
 validated, in order, with no extras. How it sounds holds the default; Where it changes holds the exceptions from
 step 3. `revision` goes up by one and the Change log gets a row (with the date).
 

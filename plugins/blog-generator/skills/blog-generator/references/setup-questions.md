@@ -27,7 +27,7 @@ Use AskUserQuestion (max 4 questions per call). Put sensible defaults first and 
 
 **Q3 — Delivery** (header: "Delivery")
 > Where should the finished post go?
-- **Post to Shopify as a draft** — created hidden with title, formatting, excerpt, tags, images and SEO fields, ready to review and publish. *(Offer only if a Shopify connector or a browser tool is available. Say how: connector, or the user's signed-in browser.)*
+- **Post to Shopify as a draft** — created hidden with title, formatting, excerpt, tags, images and SEO fields, ready to review. It stays hidden. *(Offer only if a Shopify connector or a browser tool is available. Say how: connector, or the user's signed-in browser.)*
 - **Generate as HTML** — paste-ready HTML plus a fields sheet, to post to Shopify later.
 
 **Q4 — Mode** (header: "Mode")
@@ -43,7 +43,7 @@ Use AskUserQuestion (max 4 questions per call). Put sensible defaults first and 
 - Which store, only if it isn't clear from the request or the connected folder (skip if BRAND.md or the conversation already has it)
 - The topic, or "suggest topics"
 
-Then **identify the store and load its BRAND.md** (Step 0b in SKILL.md). Competitors, inspiration brands, claim limits, voice and author are never asked: they are in BRAND.md. The only brand-related question allowed is "which store is this for?" when several clients are present and the request doesn't say. If BRAND.md is missing, Step 0b applies: stop and offer brand-capture; don't interrogate the user. If BRAND.md is `draft`, mention in one line that some lines are unconfirmed and which ones you rely on.
+Then **identify the store and load its BRAND.md** (Step 0b in SKILL.md). Competitors, inspiration brands, claim limits, voice and author are never asked: they are in BRAND.md. The only brand-related question allowed is "which store is this for?" when several clients are present and the request doesn't say. If BRAND.md or BRAND-VOICE.md is missing, Step 0b applies: stop and ask once (create it now, or tell me where it is); don't interrogate the user. If BRAND.md is `draft`, mention in one line that some lines are unconfirmed and which ones you rely on.
 
 **If the draft goes through the browser**, check right away that the browser is signed in to the right store's Shopify admin (`publishing.md`, Option 1B). If not, ask the user to sign in themselves; if they can't, switch to HTML.
 
@@ -56,7 +56,7 @@ These setup questions are the only required ones. Nothing else is asked after th
 One AskUserQuestion call with two multi-select questions:
 
 **The no-repeat rule.** Never ask, in any mode, what is already established: in the user's request, in an earlier setup answer, in BRAND.md, or implied by the intent. Check those first; ask only the gap, and only once. Specifically, guided mode has **no** voice, tone, author, topic or keyword question:
-- Voice, tone, author and brand facts come from BRAND.md (or the defaults in §4).
+- Voice and tone come from BRAND-VOICE.md; author and brand facts from BRAND.md (or the defaults in §4).
 - The topic was already asked in setup (call B) or given in the request. If the user chose "suggest topics", offer 3–5 researched options as a choice, not as a menu group.
 - Keywords come from research and are shown in the brief; the user changes them at the brief checkpoint if they want. If they supply a keyword list or Search Console data, use it.
 The user can still change any of these unprompted ("use a different tone this time", "target this keyword"); then follow their instruction.
@@ -85,7 +85,7 @@ Ask the chosen groups' questions in as few calls as possible, each with a defaul
 - Media: pick free stock photos
 - Format: `match-layout` for education and search, `match` for brand and promotion; `best-practice` if the blog has fewer than 3 posts (when the post count can't be checked, use the intent default)
 - Author: BRAND.md's Blog byline or Author, else "The [Brand] Team" with a placeholder bio (never asked in guided mode)
-- Voice: BRAND.md Voice and Terminology, else matched to the store's home and about pages and flagged as an assumption, else clear, warm, expert, second person
+- Voice: BRAND-VOICE.md and BRAND.md's Terminology. No default: if BRAND-VOICE.md is missing, the run stops (SKILL.md Step 0b)
 - Market: BRAND.md `markets`, else the shop's country; never assume one
 - Disclaimer: BRAND.md's required blog disclaimer, verbatim, if it names one
 - Blog handle: the store's existing blog, else `news`

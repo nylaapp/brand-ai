@@ -38,6 +38,20 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md; BRAND-VOICE.md and design.md when present).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing.
+- **Read-only.** Changes nothing on the store, the theme or the repository, so it never asks for a staging theme
+  and never publishes. It may read any theme, the live one included. Fixes it suggests are made by a skill that
+  works on the staging theme.
+
 ## Who this is for
 
 A store owner, marketer or Site Editor who wants to know what to fix first and what to test, not a
@@ -121,9 +135,11 @@ unanswered, state the assumption and continue.
    conversion happens (on the store, or on another system such as a booking site). "None" is fine.
 
 Also gather: what has already been changed or tested (so you don't re-recommend it), the platform and
-installed apps, and any promotion running. Brand context: read `BRAND.md` if present (brand name,
-what is sold, claim limits) using brand-capture's lookup order; if missing, continue and say claims
-can't be checked against brand rules. If `CRO-AUDIT.md` exists, read it first: this is a re-audit that
+installed apps, and any promotion running. Brand context: read `BRAND.md` (required: brand name,
+what is sold, claim limits) using brand-capture's lookup order. If it is missing or is for another
+store, stop before the audit and ask once: "Create it now (Recommended)" (brand-capture) or "I will
+tell you where it is" (Ground rules). Unattended, stop with `stopped: missing BRAND.md`. Read
+`BRAND-VOICE.md` and `design.md` too when present. If `CRO-AUDIT.md` exists, read it first: this is a re-audit that
 updates it (`references/report-template.md`).
 
 ## 2. Technical
@@ -132,9 +148,9 @@ Load the real page at desktop (1440x900), at 1024 wide, and at 375x812 in the bu
 whichever tool is available). If no browser is available, work from fetched HTML and say the review is
 partial.
 
-- **Confirm which theme you are looking at.** A browser that has previewed a draft keeps showing it.
-  Read `Shopify.theme.id` and `Shopify.theme.role` on the page; if the role isn't `main` and the person
-  didn't ask for a draft, load `?preview_theme_id=<live theme id>` (or use a fresh browser profile) and
+- **Confirm which theme you are looking at.** A browser that has previewed an unpublished theme (such
+  as the staging theme) keeps showing it. Read `Shopify.theme.id` and `Shopify.theme.role` on the page;
+  if the role isn't `main` and the person didn't ask for the staging theme, load `?preview_theme_id=<live theme id>` (or use a fresh browser profile) and
   check again. Say which theme was audited.
 - **Scroll like a visitor.** Use real wheel or touch scrolling. Many themes override scripted scrolling
   (`window.scrollTo`), so a page that "won't scroll" from a script may scroll fine for people. Never
@@ -159,7 +175,7 @@ partial.
 - **Console errors, broken links, missing images, layout that differs by browser or device**, if the
   tool reads them.
 - **Which theme**: confirm the page is the live theme (read `Shopify.theme.id` and role) unless the
-  person named a draft; say which was audited.
+  person named the staging theme or another unpublished theme; say which was audited.
 
 ## 3. Heuristic and competitive review
 
@@ -242,7 +258,7 @@ that reference. Put the same readout at the top of the file as **Read this first
 Offer to apply the "Just do it" rows the person picks: copy, images and links go to
 `page-edit-content`, layout, order and style to `page-edit-design`, new sections to `page-create`,
 tracking to `analytics-setup`, claims to `fact-check`. Do not apply them from this skill. Theme changes
-always go to a draft theme (those skills never edit the live theme).
+always go to the staging theme (those skills never edit the live theme).
 
 ## Files
 

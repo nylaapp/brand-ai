@@ -45,7 +45,7 @@
         "Onboard a new client"
       ],
       "steps": [
-        "It asks whether the brand has an existing store or website and a brand book, and which draft theme should hold the brand files.",
+        "It asks whether the brand has an existing store or website and a brand book, and which theme is your staging theme (it offers to create one named \"<live theme> staging\" if you have none). The brand files are saved in its folder.",
         "It scans the website and reads the brand book if you provided one.",
         "It asks four questions in one message: top 3 competitors, inspiration brands, who approves things, and anything the brand must never say or claim.",
         "It studies each inspiration brand and records in BRAND.md what the brand can learn from it.",
@@ -310,7 +310,7 @@
     {
       "name": "page-studio",
       "group": "pages",
-      "tagline": "Audit a page, suggest what to change or refresh, then change it or build a new one on a draft theme.",
+      "tagline": "Audit a page, suggest what to change or refresh, then change it or build a new one on your staging theme.",
       "what": "Five skills behind one front door. page-audit is read-only: it checks a page against what its type should do, ranks the fixes, and also suggests content and layout refreshes so the page feels current, not only fixed. page-create builds a new page, section or section type. page-edit-content changes words, images and links. page-edit-design changes layout, order, spacing, colour and style, and also offers a layout refresh. page-studio is the front door that picks the right one and chains them. Every visual check is done at both desktop and mobile. It is built for the Site Editor, for marketing and ops people who aren't developers.",
       "skills": [
         {
@@ -325,7 +325,7 @@
         },
         {
           "name": "page-create",
-          "tagline": "Build a new page, a section, or a section type on a draft theme.",
+          "tagline": "Build a new page, a section, or a section type on your staging theme.",
           "prompts": [
             "Make a landing page for X",
             "Add a testimonials section to the homepage",
@@ -374,7 +374,7 @@
       ],
       "produces": [
         "A client-ready audit report and PAGE-AUDIT.md (fixes and refresh ideas)",
-        "Changes or new pages on a draft theme, each checked at desktop and mobile"
+        "Changes or new pages on your staging theme, each checked at desktop and mobile"
       ],
       "requires": [
         "brand-capture (BRAND.md, BRAND-VOICE.md, design.md) for new or rewritten words.",
@@ -383,7 +383,7 @@
       ],
       "guardrails": [
         "page-audit never edits a theme or store.",
-        "Changes go only to a draft theme (asked for or created). The live theme is never edited."
+        "Changes go only to your staging theme (chosen once, or created for you). The live theme is never edited, and nothing is published unless you ask in your own words, with two confirmations."
       ],
       "next": [
         "theme-audit",
@@ -393,8 +393,8 @@
     {
       "name": "theme-audit",
       "group": "pages",
-      "tagline": "The full Lighthouse suite, Shopify's Theme Inspector and Theme Check, read out in plain words, with safe fixes on a draft theme.",
-      "what": "Scores a page with the full Lighthouse suite from the command line (speed, accessibility, best practices and SEO, on phone and desktop, several runs each, with the HTML reports saved). It also runs Shopify's Theme Inspector, which shows which theme files take the server longest, and Theme Check, Shopify's own checker for theme code. The result is a plain-language readout like the CRO audit's: a headline, a scorecard, and the first things to fix, each with who owns it (this theme, an app, the store's own content or Shopify). It can run read-only on any live page, or fix what the theme owns on a draft theme after your approval and prove nothing visible changed. Accessibility is fixed to 1.00; speed is reported as a middle value with real-visitor data where Google has it, with no 100 target. It never removes apps, changes words or moves layout. Replaces accessibility-audit, which it includes.",
+      "tagline": "The full Lighthouse suite, Shopify's Theme Inspector and Theme Check, read out in plain words, with safe fixes on your staging theme.",
+      "what": "Scores a page with the full Lighthouse suite from the command line (speed, accessibility, best practices and SEO, on phone and desktop, several runs each, with the HTML reports saved). It also runs Shopify's Theme Inspector, which shows which theme files take the server longest, and Theme Check, Shopify's own checker for theme code. The result is a plain-language readout like the CRO audit's: a headline, a scorecard, and the first things to fix, each with who owns it (this theme, an app, the store's own content or Shopify). It can run read-only on any live page, or fix what the theme owns on your staging theme after your approval and prove nothing visible changed. Accessibility is fixed to 1.00; speed is reported as a middle value with real-visitor data where Google has it, with no 100 target. It never removes apps, changes words or moves layout. Replaces accessibility-audit, which it includes.",
       "prompts": [
         "Audit the homepage",
         "Run Lighthouse on the product page",
@@ -405,16 +405,16 @@
       ],
       "steps": [
         "It checks what it needs (Node.js, the Shopify CLI, Chrome, Lighthouse) and walks you through setting up anything missing.",
-        "It says whether this is an audit only (read-only, no draft needed) or an audit with fixes (it asks once which draft theme to use; the live theme is never edited).",
+        "It says whether this is an audit only (read-only, no staging theme needed) or an audit with fixes (it uses your staging theme, asked once or created; the live theme is never edited).",
         "It runs the full Lighthouse suite three times on phone and desktop, the Theme Inspector on the page, Theme Check on the theme, and reads Google's real-visitor data.",
         "It gives you a short readout: headline, scorecard, the first things to fix with who owns each, quick wins, and what is not the theme's to fix.",
-        "If you choose fixes, it applies the safe ones on a draft theme, checks the page looks and works the same, and re-scores."
+        "If you choose fixes, it applies the safe ones on your staging theme, checks the page looks and works the same, and re-scores."
       ],
       "produces": [
         "A plain-language readout in chat and at the top of THEME-AUDIT.md",
         "Lighthouse HTML and JSON reports for every run",
         "Server timing by theme file, and a theme code check summary",
-        "Approved fixes on a draft theme (fix mode only)"
+        "Approved fixes on your staging theme (fix mode only)"
       ],
       "requires": [
         "Node.js, the Shopify CLI signed in to your store with theme access, Google Chrome, Lighthouse (downloads itself), a browser Claude can use, and a folder on your computer for the theme copy.",
@@ -422,7 +422,7 @@
       ],
       "guardrails": [
         "Audit-only mode changes nothing: no theme, store, app or content is edited.",
-        "Never edits the live theme: fixes go to a draft theme, asked for or created.",
+        "Never edits the live theme: fixes go to your staging theme. Nothing is published unless you ask.",
         "Never removes or turns off apps and never changes store content; it reports their cost and owner.",
         "Roughly 30 to 60 minutes per page template for every check, 15 to 40 for accessibility alone. These are estimates."
       ],
@@ -593,11 +593,11 @@
       "name": "shopify-storefront",
       "group": "storefront",
       "tagline": "Plan and launch a campaign, build its landing page, and match the theme to the brand guide.",
-      "what": "Three skills for a busy founder who wants results without touching theme settings, all working through the Shopify connector in a normal chat (no terminal) or the Shopify CLI, and always on an unpublished preview copy. campaign-launcher plans a time-boxed campaign from one sentence or your materials, keeps the whole plan in one artifact, generates the calendar invite, readies the website, drafts email, SMS and ads as stubs, and schedules Launch and Stop. campaign-page generates a landing page template that sells, in which every part (hero, trust row, countdown, products, FAQ, signup, closing banner) is its own section with ready alternates you swap with one switch in the theme editor or by asking Claude. theme-editor makes the theme's colours (and fonts if asked) match the brand guide, with a contrast check.",
+      "what": "Three skills for a busy founder who wants results without touching theme settings, all working through the Shopify connector in a normal chat (no terminal) or the Shopify CLI, and always on your staging theme. campaign-launcher plans a time-boxed campaign from one sentence or your materials, keeps the whole plan in one artifact, generates the calendar invite, readies the website, drafts email, SMS and ads as stubs, and puts Launch and Stop reminders on your calendar (it never publishes on its own). campaign-page generates a landing page template that sells, in which every part (hero, trust row, countdown, products, FAQ, signup, closing banner) is its own section with ready alternates you swap with one switch in the theme editor or by asking Claude. theme-editor makes the theme's colours (and fonts if asked) match the brand guide, with a contrast check.",
       "skills": [
         {
           "name": "campaign-launcher",
-          "tagline": "One-line plan, one plan artifact, calendar invite with add-to-calendar links, website on a preview copy, channel drafts, scheduled Launch and Stop.",
+          "tagline": "One-line plan, one plan artifact, calendar invite with add-to-calendar links, website on your staging theme, channel drafts, Launch and Stop reminders.",
           "prompts": [
             "New campaign",
             "Put the sale on the homepage",
@@ -632,9 +632,9 @@
       ],
       "steps": [
         "Describe the campaign in a sentence and drop in anything you have (a brief, copy, images, a video, links). campaign-launcher shows one plan line: name, type, exact dates with time zone, and channels, plus a calendar invite. You say yes once.",
-        "It readies the announcement bar, homepage hero and an optional countdown, and a landing page, on an unpublished preview copy, in the brand's voice. The landing page template is generated from your theme's own sections: each part (hero, trust row, products, FAQ, signup, closing banner) is its own section with ready alternates switched off. Swap one with the eye icon in the theme editor, or say \"swap the hero to the video hero\". The generator checks every section, block and setting against your theme first, and lists any placeholder text still to replace. Email, SMS and ads are drafted as stubs for you to send.",
-        "It schedules Launch and Stop. Stop puts the site back exactly as it was. Nothing goes live without you publishing the preview.",
-        "For brand colours, give theme-editor your brand guide or hex codes. It shows a before and after table, checks every text and background pair for readable contrast, and delivers it on the preview copy."
+        "It readies the announcement bar, homepage hero and an optional countdown, and a landing page, on your staging theme, in the brand's voice. The landing page template is generated from your theme's own sections: each part (hero, trust row, products, FAQ, signup, closing banner) is its own section with ready alternates switched off. Swap one with the eye icon in the theme editor, or say \"swap the hero to the video hero\". The generator checks every section, block and setting against your theme first, and lists any placeholder text still to replace. Email, SMS and ads are drafted as stubs for you to send.",
+        "It puts Launch and Stop reminders on your calendar. When you ask, Launch publishes the staging theme after the checks and two confirmations, and Stop puts the site back exactly as it was. Nothing goes live unless you publish it yourself or ask Claude to, with two confirmations.",
+        "For brand colours, give theme-editor your brand guide or hex codes. It shows a before and after table, checks every text and background pair for readable contrast, and delivers it on your staging theme."
       ],
       "produces": [
         "A one-line campaign plan, the whole plan in one artifact (brief, plan, website, copy, drafts, links, launch steps), and a calendar invite: add-to-calendar links for the campaign, Launch and Stop, plus a .ics file",
@@ -647,11 +647,11 @@
         "BRAND.md and BRAND-VOICE.md from brand-capture and voice-builder help; without them, copy is not checked against a brand file."
       ],
       "guardrails": [
-        "Never edits the live theme: all work is on an unpublished copy, and publishing is your step.",
-        "For a store whose live theme is connected to GitHub, work goes to the staging theme and going live is a merge you approve.",
+        "Never edits the live theme: all work is on your staging theme. Going live is your decision: publish it yourself, or ask Claude and confirm twice.",
+        "For a store whose live theme is connected to GitHub, work goes to the staging theme and the staging branch, and going live is a merge you ask for and confirm twice.",
         "Email, SMS and ads are drafts only; only the website is connected.",
         "Extras (countdown, badges, sale colours) are offered, never added unasked.",
-        "The editor swap is proven on a real preview copy only once; until then the hand-over says it is left for you to check."
+        "The editor swap is proven on a real staging theme only once; until then the hand-over says it is left for you to check."
       ],
       "next": [
         "brand-voice",

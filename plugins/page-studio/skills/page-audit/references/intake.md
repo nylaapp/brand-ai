@@ -19,28 +19,31 @@ directory, then memory and connected knowledge). Record each file's path, tier a
 
 - **Found:** this is the source for every brand fact. Never copy a brand name, colour, claim
   or proper noun from memory; read it from the file each time.
-- **Not found:** an audit can still run, because it only observes and reports. Say plainly
-  that claims can't be checked against brand rules and that new or rewritten copy should wait
-  for brand-capture (about 10 to 25 minutes, once per store). A change with no new copy
-  (reordering sections, a settings toggle) can proceed without `BRAND.md` if the person
-  would rather not wait.
+- **Not found:** if a file the skill requires is missing, or belongs to another store, stop
+  before any work and ask once, as `references/ground-rules.md` section 1 says: create it now
+  (brand-capture for `BRAND.md`, about 10 to 25 minutes, once per store; voice-builder for
+  `BRAND-VOICE.md`; styles-builder for `design.md`), or tell me where it is. There is no option
+  to carry on without it. An unattended run stops and reports which file is missing.
 
-Resolve each file separately and handle a partial set explicitly:
+Resolve each file separately. What each skill requires:
 
-| `BRAND.md` | `BRAND-VOICE.md` | What to do |
-|---|---|---|
-| found | found | Normal path. |
-| found | missing | Structure, settings and existing-copy work proceed. For new or rewritten copy use only the voice facts inside `BRAND.md`, say voice guidance is missing, and offer brand-capture. |
-| missing | found | Treat as missing: voice without claim limits and naming rules isn't enough for brand-facing copy. Offer brand-capture. |
-| missing | missing | As "Not found" above. |
+| Skill | Required brand files |
+|---|---|
+| `page-audit`, `page-create` | `BRAND.md`, `BRAND-VOICE.md`, `design.md` |
+| `page-edit-content` | `BRAND.md`, `BRAND-VOICE.md`; `design.md` too when the change touches images |
+| `page-edit-design` | `BRAND.md`, `design.md` |
+
+A file the skill does not require is still read when it is there. If it is missing, say so in one
+line and go on.
 
 **Visual spec.** `BRAND.md`'s `design_doc` key points to `design.md` (lowercase, written by
 brand-capture): palette, type, spacing, corners and component values. When it exists it is
 the source for every visual value and wins over `BRAND.md` on visual values (`BRAND.md` still
 wins on names, voice and claims). Values marked `(from site)` are measured; treat
-`(inferred)` ones as unconfirmed and flag them. With no `design.md`, fall back to the store
-repo's own visual spec or the theme's settings and say which you used. Never invent a hex,
-font, size or radius to fill a gap.
+`(inferred)` ones as unconfirmed and flag them. A skill that requires `design.md` never works
+without it (see "Not found" above). Only where it is not required (`page-edit-content` with no
+image change) and missing, use the store repo's own visual spec or the theme's settings and say
+which you used. Never invent a hex, font, size or radius to fill a gap.
 
 **Theme rules.** Theme-engineering rules (where changes go, naming, file ownership, section
 conventions, verification gates) live in the store's own repo, usually `AGENTS.md` or
@@ -63,10 +66,11 @@ with), `COMPETITORS.md`, and an existing `PAGE-AUDIT.md` (see `audit-file.md`).
   playbook checks apply to only one.
 - **New or existing?** If they're not sure, it is settled by checking the store; never ask
   them to know the difference between a template and a section.
-- **Which theme?** Use the remembered theme if there is one (section 1 of
-  `../../page-studio/references/theme-target.md`); otherwise ask once, as that file describes.
-  Observing any theme, the live one included, is read-only; only editing is restricted to drafts. Name the
-  exact theme id you observed.
+- **Which theme?** Use the remembered staging theme if there is one (section 2 of
+  `../../page-studio/references/theme-target.md`). Observing any theme, the live one included, is
+  read-only, so an audit never asks for a staging theme. The editing skills settle the staging
+  theme as that file's section 3 describes before their first change. Name the exact theme id
+  you observed.
 
 ## 3. Guided goal questions: what is the page for?
 

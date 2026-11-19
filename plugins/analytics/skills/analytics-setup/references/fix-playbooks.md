@@ -22,9 +22,9 @@ Steps: list each destination's current paths (audit inventory) · pick the keepe
 
 ## P2. Remove a duplicate or dead install point
 
-1. Back up: duplicate the theme (Shopify: Online Store > Themes > Duplicate) or commit the code; note the GTM version currently live; screenshot the pixel's settings.
-2. Disable before deleting: disconnect a pixel, disable an app embed, pause a GTM tag, comment out or remove a theme snippet in the duplicate theme first.
-3. Verify on a preview where possible; pixels and GTM have no preview on Shopify, so verify immediately after the live change.
+1. Back up: theme code changes are made on the staging theme (`theme-target.md`), with a commit on the staging branch when the theme is in a repository; note the GTM version currently live; screenshot the pixel's settings.
+2. Disable before deleting: disconnect a pixel, disable an app embed, pause a GTM tag, comment out or remove a theme snippet on the staging theme first.
+3. Verify theme changes on the staging theme's preview. Pixels and GTM have no preview on Shopify: a live pixel change or a GTM publish happens only when that tool's owner asks for it in their own words, through the go-live gate (`ground-rules.md` section 3). Verify right after it.
 4. After a quiet period (a week of normal data) delete for good, with the owner's OK.
 Undo: reconnect, re-enable, republish the previous GTM version, restore the theme file.
 
@@ -58,7 +58,7 @@ Verify: full privacy matrix for every core event. Undo: previous banner settings
 1. Work in a new workspace named for the change. Never edit the default workspace someone else is using.
 2. Make the change; name things clearly; add a note in the tag or trigger with the finding ID.
 3. Preview with Tag Assistant on the affected pages and states; save the HAR.
-4. The container owner publishes with a version name and description that cite the finding IDs. We publish only if the owner explicitly asks us to, for that version.
+4. The container owner publishes with a version name and description that cite the finding IDs. We publish only if the owner asks us to in their own words in this chat, for that version, through the go-live gate (`ground-rules.md` section 3). Never suggest it.
 5. Export the published version, run `../analytics-audit/scripts/gtm_export_summary.py --diff old.json new.json` (path from this skill's folder), and update the dependency register.
 Undo: publish the previous version (GTM Versions > the previous one > Publish).
 
@@ -86,7 +86,7 @@ One `event_id` generated once per event (order id for purchases), passed to the 
 
 | Changed | Prepare before | Undo |
 |---|---|---|
-| Theme code | Duplicate theme or commit | Republish the previous theme or revert the file |
+| Theme code | Work on the staging theme; commit on the staging branch | Revert the file on staging (after a go-live: `theme-target.md` section 7) |
 | App embed | Note its on/off state per theme | Toggle back |
 | Shopify pixel | Screenshot settings and permissions | Reconnect or restore settings |
 | Customer privacy settings | Screenshot every panel | Restore by hand |

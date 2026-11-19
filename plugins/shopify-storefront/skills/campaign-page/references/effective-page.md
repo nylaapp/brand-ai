@@ -66,7 +66,8 @@ change one of them; never ship both.
   sale first"). A coming-soon page that only says "come back later" wastes the visit.
 
   Each phase is a swap of the hero and countdown (hidden alternates, SKILL.md → Making each part swappable). Phase
-  changes are scheduled like Launch and Stop (campaign-launcher → `references/launch-stop.md`). An early-access
+  changes are planned and go live like Launch and Stop: prepared on staging, live only when the owner asks
+  (campaign-launcher → `references/launch-stop.md`). An early-access
   phase needs a gated discount (a code sent only to subscribers, or a customer segment). That's store data, so say
   what it needs.
 
@@ -166,7 +167,7 @@ Most peak-season traffic is on phones. Check at 375 px:
   or are marked sold out.
 - Load test: for a store expecting a big spike, ask Shopify support or the owner's developer. Shopify's own checkout
   scales; a slow page usually means apps and media, so see 7.
-- Build and check the page at least a week before the start. Swaps are scheduled: phases, then Ended. An expired
+- Build and check the page at least a week before the start. Every swap has a date in the plan: phases, then Ended. An expired
   offer left on the page is a broken promise, so the Ended swap is never optional.
 
 ## Recurring campaigns: same URL every year
@@ -179,7 +180,7 @@ Before you create the page, look for last year's page:
 Between campaigns the page stays published in its Ended or Coming soon state. It's never deleted, so it keeps
 its search ranking. A redirect to a general sale page loses the page; a 404 loses the page and every old link to
 it. Both are worse than an Ended state that names when the next one opens. Publishing or unpublishing the page is
-still the owner's call.
+still the owner's call: Claude does it only when they ask, through the go-live gate (`ground-rules.md` section 3).
 
 ## Region order this produces
 

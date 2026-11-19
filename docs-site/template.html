@@ -165,7 +165,7 @@ pages.start = () => `
     <h2>Before you begin</h2>
     <ul class="list">
       <li><b>Claude Cowork</b>, in the Claude desktop app.</li>
-      <li><b>A Shopify store</b> to work on. Skills that write to Shopify use the Shopify connector or the Shopify CLI. Use a draft theme while you learn.</li>
+      <li><b>A Shopify store</b> to work on. Skills that write to Shopify use the Shopify connector or the Shopify CLI. Every change goes to your staging theme, never the live one.</li>
       <li><b>Access to the marketplace repository.</b> While this project is in development it is shared with invited people only. If adding the marketplace reports a permission error, ask for access first.</li>
     </ul>
     <p>Some skills need a little more, and you don't have to set it up in advance. The Blog and content and the Pages and theme skills check what they need when they start. If something is missing, they explain what it is and give you numbered steps to set it up, one at a time.</p>
@@ -173,10 +173,19 @@ pages.start = () => `
       <thead><tr><th>Skills</th><th>What they may ask you to set up</th></tr></thead>
       <tbody>
         <tr><td>Blog and content</td><td>Web search in Claude, the Shopify connector (for hidden drafts), a browser, Python 3, Google Search Console access, and for the autopilot a folder and review exports</td></tr>
-        <tr><td>Pages and theme</td><td>A browser, a draft theme, and either Node.js with the Shopify CLI signed in to your store, or the Shopify connector when it is allowed to change themes (page changes only); for accessibility audits Google Chrome</td></tr>
-        <tr><td>Brand foundation</td><td>Your site address and brand book; styles-builder also needs the Shopify CLI and a draft theme</td></tr>
+        <tr><td>Pages and theme</td><td>A browser, a staging theme (offered and created for you if you don't have one), and either Node.js with the Shopify CLI signed in to your store, or the Shopify connector when it is allowed to change themes (page changes only); for accessibility audits Google Chrome</td></tr>
+        <tr><td>Brand foundation</td><td>Your site address and brand book; a staging theme (asked once, at the start of the project); styles-builder also needs the Shopify CLI</td></tr>
       </tbody>
     </table></div>
+  </section>
+  <section>
+    <h2>How every skill keeps your store safe</h2>
+    <p>Every skill follows the same three rules, on every run:</p>
+    <ul class="list">
+      <li><b>Brand files first.</b> Skills that write, design or judge anything for your brand read <code>BRAND.md</code>, <code>BRAND-VOICE.md</code> and <code>design.md</code> before they start, and follow them. If a file they need is missing, they stop and ask: create it now (with brand-capture) or tell them where it is. They never work from memory or guesses.</li>
+      <li><b>Every change goes to your staging theme.</b> At the start of a store project, you choose one unpublished theme as your staging theme. If you don't have one, Claude offers to create it, named "<i>your live theme</i> staging". Every skill puts its changes there, so you can preview them before customers see them. Blog posts and other store content are saved hidden. When your theme is in a git repository, work goes on a <code>staging</code> branch, never on the branch your live theme comes from. The live theme is never edited directly.</li>
+      <li><b>Going live is your decision.</b> No skill offers or schedules publishing. You publish the staging theme yourself in the store admin, or you ask Claude in your own words. Then Claude checks what would change, whether the live site was edited since, and how to undo it, and asks you to confirm twice, the second time by typing the theme's name.</li>
+    </ul>
   </section>
   <section>
     <h2>How the skills talk to you</h2>
