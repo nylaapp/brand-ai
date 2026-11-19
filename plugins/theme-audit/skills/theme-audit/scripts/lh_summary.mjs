@@ -61,6 +61,10 @@ const trimItem = (it) => {
 const itemsOf = (audit) => {
   const d = audit.details || {};
   let items = d.items || [];
+  // newer insight audits (for example document latency) are a checklist whose items are an object
+  if (!Array.isArray(items) && typeof items === 'object') {
+    items = Object.values(items).filter((c) => c && c.value === false).map((c) => ({ description: `not met: ${c.label}` }));
+  }
   // some audits (Lighthouse 12+ insights) nest tables, nodes and checklists inside a list
   if (d.type === 'list') {
     items = items.flatMap((x) => {
