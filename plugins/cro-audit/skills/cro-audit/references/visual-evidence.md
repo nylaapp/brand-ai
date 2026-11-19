@@ -23,8 +23,8 @@ Use `scripts/evidence_shot.py`, best source first:
    - It boxes elements by CSS selector (`--mark-el "1=<selector>"`). Get selectors from the page in
      the browser you're auditing with. Shopify section wrappers have stable ids
      (`#shopify-section-…`).
-   - It prints which theme the page showed. If the role isn't `main` and the person didn't ask for a
-     draft, add `?preview_theme_id=<live id>` to the URL.
+   - It prints which theme the page showed. If the role isn't `main` and the person didn't ask for the
+     staging theme, add `?preview_theme_id=<live id>` to the URL.
 2. **`--image <file>`**: a screenshot the person sends, or one your browser tool saved, with
    `--css-width` set to the page width it was taken at. Place boxes with `--box "1:x,y,w,h"` in CSS
    pixels, measured at that width.
@@ -39,7 +39,7 @@ weren't possible.
 
 - **Read-only.** Loading and scrolling only. Never click, type, submit or answer the cookie banner to
   get a picture. If a popup must be gone, take the picture before it opens (a shorter `--wait`).
-- **The live theme**, unless the person asked about a draft. The caption says which.
+- **The live theme**, unless the person asked about the staging theme. The caption says which.
 - **No personal data in a picture.** Don't capture a signed-in account, an order or a filled form. Crop
   out anything personal that appears.
 - **One idea per picture.** Crop to the section (`--selector`), not the whole page. Use at most four
@@ -47,7 +47,7 @@ weren't possible.
 - **Caption:** `<finding ID> · <device> · <where or when>`, for example "CRO-02 · phone · 8 s after
   load".
 - **Before and after.** For copy or layout changes, a "Next" picture can show the proposed version only
-  once it exists on a draft theme (made by `page-edit-content` or `page-edit-design`). Never mock up
+  once it exists on the staging theme (made by `page-edit-content` or `page-edit-design`). Never mock up
   the client's page by editing it. Describe the change in words until then.
 
 ## 4. Where the files go

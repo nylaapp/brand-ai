@@ -30,7 +30,7 @@ heading and button blocks); put copy in "blocks": {"text_1": {"type": "text", "s
 
 Checks before writing: every type exists in sections/, every setting id is in that section's schema,
 numbers sit inside min/max/step, ids are unique. Exits 2 with the reason on a bad spec. Standard
-library only. Never touches the live theme: point --theme at a preview copy.
+library only. Never touches the live theme: point --theme at the staging theme's folder.
 """
 import argparse
 import json
@@ -128,7 +128,7 @@ def swap(path, target):
 
 def main():
     ap = argparse.ArgumentParser(description="Build a swappable campaign landing-page template.")
-    ap.add_argument("--theme", required=True, help="theme folder (a preview copy, never the live theme)")
+    ap.add_argument("--theme", required=True, help="theme folder (the staging theme, never the live theme)")
     ap.add_argument("--slug", help="campaign slug, e.g. black-friday")
     ap.add_argument("--spec", help="JSON spec of regions and options")
     ap.add_argument("--list", action="store_true", help="list the theme's sections and exit")

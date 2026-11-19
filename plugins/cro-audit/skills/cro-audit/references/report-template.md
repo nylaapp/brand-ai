@@ -10,7 +10,7 @@ Skipped sections stay in the file with "Not run: <reason>".
 ```
 ---
 cro_audit_schema: 2.0
-brand: <name from BRAND.md or "not provided">
+brand: <name from BRAND.md>
 scope: <page URL, or "store main path">
 mode: <quick | full>
 conversion: <what counts>

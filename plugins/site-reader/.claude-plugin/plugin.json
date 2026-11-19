@@ -1,6 +1,6 @@
 {
   "name": "site-reader",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Read what a web page says and how it is laid out, cheaply and reliably, without the browser pane or any extension: a text read over plain HTTP, then a headless-Chrome layout read at desktop and mobile (sections, first screen, calls to action, overlays, type, colours, tap targets), as a short text summary. Pictures only on request. Other Brand AI skills use it for observing pages.",
   "author": { "name": "Nyla", "email": "michael@nyla.app" },
   "repository": "https://github.com/nylaapp/brand-ai",

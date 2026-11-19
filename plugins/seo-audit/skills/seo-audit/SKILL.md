@@ -37,6 +37,11 @@ The reader is usually not a developer. Write reports in short, plain language an
 
 ## Ground rules
 
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files: not required.** If this store's BRAND.md (and design.md) are there, read them for context; never
+  write them.
 - **Read-only.** Never edit, hide, unhide or publish any post, page or theme, and never touch old posts. Suggest fixes; the user decides.
 - **No made-up numbers.** If a tool is blocked or not signed in, say so and ask the user to sign in or to paste an export. Do not estimate Search Console or PageSpeed numbers.
 - **Never enter passwords** or 2FA codes. If Google or Shopify asks for sign-in, ask the user to do it.

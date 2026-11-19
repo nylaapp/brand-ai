@@ -48,7 +48,8 @@ checks; they're quick and silent when everything is fine.
 In a **scheduled run, a test run, or a run the autopilot triggered in fully automated mode**, nobody can
 answer. Check silently, never ask or guide, use the skill's own fallback for anything missing, and put
 each missing item with its fix steps under "Needs your attention" in the run report (or the summary),
-so the person can set it up later.
+so the person can set it up later. A required brand file (row C) has no fallback: stop and report
+`stopped: missing <file>` with the places checked (`ground-rules.md` section 1).
 
 ## 3. What each skill needs
 
@@ -59,7 +60,7 @@ Opt = only when that situation applies, blank = not needed.
 |---|---|---|---|---|---|---|
 | A | The Claude desktop app with a folder on this computer | Rec | Rec | R | | Rec |
 | B | Web search and web pages turned on in Claude | R | R | R | R | Rec |
-| C | Brand files (`BRAND.md`, `BRAND-VOICE.md`) | R | R | R | Rec | |
+| C | Brand files (`BRAND.md`, `BRAND-VOICE.md`) | R | R | R | R (`BRAND.md` only, when the copy is for a store in this project) | Read if present |
 | D | Competitor research (`COMPETITORS.md`) | Rec | | Rec | | |
 | E | The other Brand AI plugins this one works with | Rec (fact-check) | R (blog-generator) | R (blog-generator) | | |
 | F | Shopify connected (connector, or a browser signed in to the Shopify admin) | Rec | Rec | R | Opt (to check a Shopify article) | Rec |
@@ -116,8 +117,16 @@ be turned on, say plainly that the research and fact-check will be limited to wh
 **Why:** "Your brand files tell me how the brand sounds, what it sells, and what it can and can't
 claim, so I don't have to guess or ask you every time."
 
-**If missing:** offer to run **brand-capture** now (about 10 to 25 minutes, once per store). If it isn't
-installed, guide the install as in row E.
+**If missing:** this is required, so stop before any work and ask once, in the option window, with two
+options:
+- **Create it now (Recommended):** run **brand-capture** (about 10 to 25 minutes, once per store) for
+  `BRAND.md`, or **voice-builder** (or brand-capture) for `BRAND-VOICE.md`, then come back and continue.
+  If it isn't installed, guide the install as in row E.
+- **I will tell you where it is:** the person gives a path or attaches the file. Check it is for this
+  store, then continue.
+
+There is no "carry on without it" option, and the live site or memory never stands in for it
+(`ground-rules.md` section 1). seo-audit reads the brand files when present and never stops for them.
 
 ### D. Competitor research
 
@@ -147,7 +156,7 @@ it is the **same store** the brand files are for. If there's no connector, check
 signed in to that store's Shopify admin (`https://admin.shopify.com`).
 
 **Why:** "Connecting Shopify lets me read your existing posts and products for links, and put the
-finished post into your store as a **hidden draft** that only you can see until you publish it.
+finished post into your store as a **hidden draft** that customers can't see.
 Without it you get the post as HTML to paste in yourself."
 
 **If missing**, guide the connector first:

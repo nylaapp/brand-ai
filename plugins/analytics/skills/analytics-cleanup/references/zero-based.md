@@ -20,7 +20,7 @@ The benchmark blocks tags in the test browser; it never removes them from the st
 - `scripts/tag_cost.py` runs Lighthouse with URL patterns blocked: all-on, all-off, then each group added back (`--mode addback`) or each group removed (`--mode removal`). Median of at least 5 runs per row on the final pass; 3 is fine for a first look.
 - This works on the live URL or a preview, and covers store-wide installs (Shopify app pixels, GTM) that a preview theme cannot switch off.
 - Add client-specific groups with `--groups` (first-party or server-side endpoints, an unusual vendor).
-- For theme code and app embeds you can also build a real all-off variant: an unpublished duplicate theme with them removed. Pixels and the tag manager stay on there, so combine it with blocking.
+- For theme code and app embeds you can also build a real all-off variant: an unpublished duplicate of the staging theme with them removed, for measurement only and never published. Pixels and the tag manager stay on there, so combine it with blocking.
 - Test pages: home, a top landing page for paid traffic, a product or service page, and cart. Mobile form factor first.
 - Lab caveats: one machine and network, no real users, no INP in the lab (Total Blocking Time and main-thread time are the proxies). Use the numbers to rank tags against each other.
 

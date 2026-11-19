@@ -1,6 +1,6 @@
 ---
 name: competitor-research
-description: Deep research on the client's top 3 competitors, named in BRAND.md, written to COMPETITORS.md next to it. Competitors only; inspiration brands are asked and studied by brand-capture. Compares where each competitor operates against the client (shared cities, neighbourhoods, channels or marketplaces), what it sells and at what prices, its pricing model (flat prices, packages, bundles, memberships, subscriptions), offers and referral programs, how often it publishes content and who writes it, and how it positions itself. Ends with concrete openings for the client. Dated research, re-run every few months; never changes BRAND.md. Saved in the folder of the draft theme that holds the brand files, and asks which draft theme when none is remembered; copied to the team's shared copy too when one was chosen. Works for any kind of business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "research the competitors", "competitor analysis", "build COMPETITORS.md", "how do we compare", "refresh the competitor research", or when brand-capture offers it after setup.
+description: Deep research on the client's top 3 competitors, named in BRAND.md, written to COMPETITORS.md next to it. Competitors only; inspiration brands are asked and studied by brand-capture. Compares where each competitor operates against the client (shared cities, neighbourhoods, channels or marketplaces), what it sells and at what prices, its pricing model (flat prices, packages, bundles, memberships, subscriptions), offers and referral programs, how often it publishes content and who writes it, and how it positions itself. Ends with concrete openings for the client. Dated research, re-run every few months; never changes BRAND.md. Saved in the folder of the staging theme that holds the brand files, and asks which theme is the staging theme when none is remembered; copied to the team's shared copy too when one was chosen. Works for any kind of business, in Claude Code, Cowork, Claude projects, Codex and ChatGPT. Use when the user says "research the competitors", "competitor analysis", "build COMPETITORS.md", "how do we compare", "refresh the competitor research", or when brand-capture offers it after setup.
 ---
 
 # Competitor research
@@ -10,7 +10,7 @@ overlaps the client, how it prices and promotes, how it publishes, and what that
 only: inspiration brands are asked for and studied by brand-capture, and live in BRAND.md. BRAND.md says who the brand is; COMPETITORS.md says what the market around it looks like this quarter.
 
 ```
-0. Read BRAND.md, settle the draft theme → 1. Confirm the top 3 and plan → 2. Research each competitor
+0. Read BRAND.md, settle the staging theme → 1. Confirm the top 3 and plan → 2. Research each competitor
 → 3. Compare and find openings → 4. Write COMPETITORS.md → 5. Report
 ```
 
@@ -36,6 +36,20 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md, which names the competitors).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing.
+- **Saves beside BRAND.md, nothing to the store.** COMPETITORS.md is written in the staging theme's folder
+  (`references/theme-target.md` sections 2, 3 and 5; asked only when none is remembered). It never changes a theme,
+  never publishes and never suggests it.
+
 ## Effort (read before starting)
 
 Occasional and high value: run it on the strongest model available, at high effort.
@@ -56,7 +70,8 @@ offers go stale within weeks.
 |---|---|
 | `references/research-guide.md` | Steps 1 to 3: what to compare for each kind of business, where to find it, how to judge it |
 | `references/competitors-template.md` | Step 4: the layout of COMPETITORS.md |
-| brand-capture `references/brand-home.md` and `references/theme-target.md` | Steps 0b and 4: asking for the draft theme, finding its folder, moving existing brand files, the optional shared copy (brand-capture is a dependency of this plugin) |
+| `references/theme-target.md` | Step 0b: finding the remembered staging theme (section 2), asking or creating it when there is none (section 3), remembering it (section 5) |
+| brand-capture `references/brand-home.md` | Steps 0b and 4: finding the staging theme's folder, moving existing brand files, the optional shared copy (brand-capture is a dependency of this plugin) |
 
 ## Rules
 
@@ -64,19 +79,20 @@ offers go stale within weeks.
   If it lists more, say in one line which 3 you are using. Never research inspiration brands here: brand-capture
   owns them. Never add or suggest competitors unless the person explicitly asks; if they do, label them `(suggested)`.
 - **One question at most.** Ask only when BRAND.md names no competitors (Step 1). Never ask about inspiration brands.
-- **BRAND.md is read only.** Facts about the client come from BRAND.md, never re-researched. If BRAND.md is
-  missing, stop and offer brand-capture first. If something in it looks wrong, add a line to `BRAND-REQUESTS.md`.
+- **BRAND.md is required and read only.** Facts about the client come from BRAND.md, never re-researched. If BRAND.md
+  is missing, stop before any research and ask once (Step 0); never carry on without it. If something in it looks
+  wrong, add a line to `BRAND-REQUESTS.md`.
 - **Everything is dated and sourced.** Every price, offer and count carries the page URL and the date seen.
   COMPETITORS.md is research, not a source of truth: label inferences `(inferred)`.
 - **Summaries, not post lists.** For content, record cadence (posts in the last 90 days), typical length,
   authorship and the topics they cover. Never list individual posts.
 - **Never copy.** Quote competitors' wording only to show positioning or claims, briefly.
-- **It saves in a draft theme's folder.** COMPETITORS.md goes next to BRAND.md, in the folder of a draft theme the
-  person chose, so later customization and every other skill find it with the brand files. Step 0b settles which theme
+- **It saves in the staging theme's folder.** COMPETITORS.md goes next to BRAND.md, in the folder of the store's
+  staging theme, so later customization and every other skill find it with the brand files. Step 0b settles which theme
   before anything is researched. It's written at the folder's root, never inside the theme's own folders and never in
   `assets/` (public), and nothing is pushed to the store.
 - **A shared copy is only a copy.** If the person chose one in brand-capture, COMPETITORS.md is added to it after
-  it is saved here. The draft theme's folder stays the source of truth, and the local file wins if the two differ.
+  it is saved here. The staging theme's folder stays the source of truth, and the local file wins if the two differ.
   This skill never asks for a shared copy itself and never copies BRAND-QUESTIONS.md or BRAND-REQUESTS.md
   (`brand-home.md` section 8).
 - **Read only on the web.** Public pages, robots.txt honoured. Never sign in, book, add to cart or submit forms.
@@ -87,28 +103,37 @@ offers go stale within weeks.
 ## Step 0: Read BRAND.md
 
 Find it with the lookup order in brand-capture `references/brand-context.md` (project root, user local environment,
-central brand directory and the folder its `BRAND-HOME.md` names, then memory and connected knowledge); don't ask
-first.
+central brand directory and the folder its `BRAND-HOME.md` names); don't ask first. Memory and connected knowledge can
+add supporting facts, but never stand in for BRAND.md. Confirm its `brand`, `site` or `store` matches this client.
+
+**If BRAND.md is missing** (or belongs to another store), stop before any research and ask once, in the option
+window: "I can't find BRAND.md for <store>. I looked in <places>." Options: "Create it now (Recommended)", which runs
+brand-capture in this conversation and then comes back here, and "I will tell you where it is". There is no option to
+carry on without it (`references/ground-rules.md` section 1). With no person present, stop and report
+`stopped: missing BRAND.md` with the places checked.
 
 From BRAND.md take: `brand`, `site`, `category`, `markets`, `currency`, `regulated`; Identity (positioning, proof
 points, locations or reach); Brand architecture (locations); Catalog (what they sell, price bands, topics);
 Competitors (names, sites, feeds, overlap; the first 3). Note its `revision` for the header.
 If a COMPETITORS.md already exists, read it: the new run replaces it, and the report says what changed.
 
-## Step 0b: Which draft theme?
+## Step 0b: Which staging theme?
 
-COMPETITORS.md is saved in the folder of a draft theme, next to BRAND.md. Follow brand-capture
-`references/brand-home.md` (sections 1, 2 and 7) and `references/theme-target.md`:
+COMPETITORS.md is saved in the folder of the store's staging theme, next to BRAND.md. Follow
+`references/theme-target.md` (sections 2, 3 and 5) and brand-capture `references/brand-home.md` (sections 1, 2 and 7):
 
-1. **A draft theme is remembered** (this conversation, `THEME-TARGET.md` next to BRAND.md, or the folder
-   `BRAND-HOME.md` names): say one line ("Saving COMPETITORS.md in the draft theme <name>, folder <path>."), check the
-   folder still exists, and go on. The person can name another draft at any time.
+1. **A staging theme is remembered** (this conversation, `THEME-TARGET.md` next to BRAND.md, or the folder
+   `BRAND-HOME.md` names) and its role is still unpublished: say one line ("Saving COMPETITORS.md in the staging theme
+   <name>, folder <path>."), check the folder still exists, and go on. The person can name another unpublished theme
+   at any time.
 2. **None is remembered** (BRAND.md was found in the central brand directory or in a folder that isn't a theme's): ask
-   once, before researching, which draft theme to save in (drafts only; "no draft yet" is an answer) and the folder
-   where its files are. If no local folder exists for the project yet, `brand-home.md` section 2 first asks the
-   person to create one. Then offer to copy the existing brand files in unchanged (`brand-home.md` section 7), and save
-   COMPETITORS.md next to wherever BRAND.md ends up.
-3. **No draft yet, not a Shopify store, or no file system:** `brand-home.md` section 6.
+   once, before researching, which theme is the staging theme (`theme-target.md` section 3: unpublished themes only,
+   those named "staging" first; "Create a new staging theme: <live theme name> staging"; "Not now") and the folder
+   where its files are. On "create", duplicate the live theme with that name (`theme-target.md` section 3, step 4);
+   it is a private copy customers can't see. If no local folder exists for the project yet, `brand-home.md` section 2
+   first asks the person to create one. Then offer to copy the existing brand files in unchanged (`brand-home.md`
+   section 7), and save COMPETITORS.md next to wherever BRAND.md ends up.
+3. **"Not now", not a Shopify store, or no file system:** `brand-home.md` section 6.
 
 ## Step 1: Confirm the top 3 and plan
 
@@ -123,7 +148,7 @@ person asks for suggestions.
 
 **The plan.** Pick the client's business type in `research-guide.md` §1 and list the comparison rows that apply. Tell
 the person in one line what you'll compare and roughly how long it takes, then start. Ask nothing else beyond the
-draft theme in Step 0b.
+staging theme in Step 0b.
 
 ## Step 2: Research each competitor
 
@@ -153,7 +178,7 @@ what is measured (a price, a count) from what is judged (`(inferred)`).
 
 ## Step 4: Write COMPETITORS.md
 
-Follow `references/competitors-template.md`. Save it in the draft theme's folder, next to BRAND.md (Step 0b), at the
+Follow `references/competitors-template.md`. Save it in the staging theme's folder, next to BRAND.md (Step 0b), at the
 folder's root: never inside the theme's own folders, and never in `assets/`, which is public. If BRAND.md stays
 somewhere else (the person said no to moving it), save next to BRAND.md. Aim for 120 to 250 lines. Keep the client's
 facts as BRAND.md states them; don't restate BRAND.md sections.
@@ -164,7 +189,7 @@ absent, don't ask: the shared copy is offered by brand-capture, and a person who
 
 ## Step 5: Report
 
-About ten lines: where COMPETITORS.md was saved (the draft theme and its folder), where its shared copy is (or that
+About ten lines: where COMPETITORS.md was saved (the staging theme and its folder), where its shared copy is (or that
 none was chosen), the three most useful findings, the openings, anything you couldn't read (blocked pages,
 client-rendered prices), the run time and model, and the suggested next review date. If you found something BRAND.md
 should hold (a competitor's site moved, a new location of the client's), list it as a BRAND-REQUESTS.md line instead

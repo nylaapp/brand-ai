@@ -34,7 +34,7 @@ brand: <name>
 brand_md_revision: <rev | none>
 last_audit: <YYYY-MM-DD>
 playbook: <date of references/page-type-playbook.md, or plugin version>
-theme_tested: <theme id and name, role: draft | preview | live>
+theme_tested: <theme id and name, role: staging | unpublished | live>
 pages: [<page keys audited>]
 audited_by: page-audit <plugin version>
 ---

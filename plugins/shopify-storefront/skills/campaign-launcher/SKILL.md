@@ -1,6 +1,6 @@
 ---
 name: campaign-launcher
-description: Plans and runs a time-boxed campaign (seasonal, product launch, discount or promotion, or a mix) from one sentence, uploaded materials or links. It shows a one-line plan (name, type, exact dates, channels) and a calendar file, then readies the website on an unpublished preview copy (announcement bar, homepage hero, optional countdown, and a campaign landing page that sells, with phases and tagged links per channel) in the brand's voice, drafts email, SMS and ads as stubs, and schedules Launch and Stop. Works through the Shopify connector in a normal Claude chat (no terminal) or the Shopify CLI. Reads BRAND.md and BRAND-VOICE.md. Use whenever someone says "new campaign", "plan a campaign", "put the sale on the homepage", "we're launching a new product", "launch the promo", "BFCM or holiday sale prep", "add a countdown", "launch or stop the campaign", "take the sale down", "the sale's over", or sends a campaign brief, graphic or video, even without saying "theme" or "Shopify".
+description: Plans and runs a time-boxed campaign (seasonal, product launch, discount or promotion, or a mix) from one sentence, uploaded materials or links. It shows a one-line plan (name, type, exact dates, channels) and a calendar file, then readies the website on the store's staging theme (announcement bar, homepage hero, optional countdown, and a campaign landing page that sells, with phases and tagged links per channel) in the brand's voice, drafts email, SMS and ads as stubs, and plans Launch and Stop with calendar reminders. Nothing goes live unless the owner asks. Works through the Shopify connector in a normal Claude chat (no terminal) or the Shopify CLI. Requires BRAND.md, BRAND-VOICE.md and design.md. Use whenever someone says "new campaign", "plan a campaign", "put the sale on the homepage", "we're launching a new product", "launch the promo", "BFCM or holiday sale prep", "add a countdown", "launch or stop the campaign", "take the sale down", "the sale's over", or sends a campaign brief, graphic or video, even without saying "theme" or "Shopify".
 ---
 
 # Campaign launcher
@@ -10,14 +10,37 @@ channel as ready as it can be on its own, and launch and stop the campaign on ti
 a solo founder with ten minutes: ask one question, show one plan, come back with something ready to approve, and
 keep them out of the JSON.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md, BRAND-VOICE.md and design.md).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing.
+- **Staging only.** Every change goes to the store's staging theme (an unpublished theme whose name contains
+  "staging"), and to the `staging` branch when the theme is in a git repository. If none is remembered, settle
+  it before the first change, offering to create "<live theme name> staging" (`references/theme-target.md` sections 3
+  and 4). Never edit, push to or commit for the live theme.
+- **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
+  their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `references/theme-target.md` section 7):
+  checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
+  store has not changed."
+  A discount that turns itself on at a date is a scheduled go-live: create it only when the person asks for it, and
+  run the gate first, naming the date it starts.
+
 ## Words
 
 - **Campaign:** one named push with an exact start and end, on one or more channels.
 - **Launch / Stop:** make it visible to shoppers / take it down and put everything back (`references/launch-stop.md`).
-- **Preview copy:** an unpublished copy of the live theme. All website work happens there; the live theme is never
-  edited.
-- **Ready / Draft route:** materials final, so prepare everything for a one-step launch approval / materials still
-  in progress, so stage and draft only, and launch nothing.
+- **Staging theme:** the store's one unpublished theme whose name contains "staging", shared by every skill
+  (`references/theme-target.md`). All website work happens there; the live theme is never edited. If this campaign
+  must be kept apart from other work on staging, the owner can ask for a separate theme whose name still contains
+  "staging" ("<live theme name> staging <campaign>").
+- **Ready / Draft route:** materials final, so prepare everything on staging, ready for when the owner wants it
+  live / materials still in progress, so stage and draft only.
 
 ## Effort
 
@@ -42,27 +65,32 @@ stop and say what's blocking.
   checkout", and one button. It repeats what the ad or email said.
 - **Only what was planned.** Extras (countdown, badges, sale colours) are offered as a short list, never added
   unasked.
-- **Nothing goes live without the owner.** The live theme is untouched until they publish, or, on a store whose
-  live theme is connected to GitHub, until they approve merging `staging` into `main` (`references/github-stores.md`).
+- **Nothing goes live unless the owner asks.** The live theme is never edited. It changes only when the owner
+  publishes the staging theme in the admin, or asks Claude in their own words and the go-live gate passes (on a
+  store whose live theme is connected to GitHub, a merge of `staging` into the live branch:
+  `references/github-stores.md`).
 - **Launch and Stop each have a time and a way of happening**, and Stop puts the site back exactly as it was.
 
 ## Step 0: Read the project
 
 1. **Files.** Look for these:
    - `AGENTS.md` / `CLAUDE.md`: the store, the live theme id and the house rules;
-   - `BRAND.md` and `BRAND-VOICE.md`;
+   - `BRAND.md`, `BRAND-VOICE.md` and `design.md` (all three required);
    - `THEME-SPECIFICS.md`.
 
-   Look in the project folder, in the chat project's files, or in what's attached to the message. If BRAND.md is
-   missing, say so and offer the brand-capture skill. You can continue with the site's own copy as the voice
-   reference, but say the copy hasn't been checked against a brand file.
+   Look where `references/ground-rules.md` section 1 says, in the chat project's files, or in what's attached to the
+   message. If any of the three is missing or belongs to another store, stop and ask once: create it now
+   (brand-capture, voice-builder or styles-builder) or tell me where it is. An unattended run stops and reports what
+   is missing.
 2. **Store access:** read `references/store-access.md` and pick connector, CLI or offline. Say which in one line.
+   Find the staging theme (`references/theme-target.md` sections 2 and 5) and say "Using the staging theme <name>
+   (<id>)". If none is remembered, settle it before the first change (section 3).
 3. **Theme:** read `theme_info` in `config/settings_schema.json`. Read `THEME-SPECIFICS.md` if the project has one: it
    records this store's quirks and every code change already made, so don't undo them. Then read the theme
    reference: **Honey** (Archer Commerce) → `references/honey.md`; anything else → `references/other-themes.md`.
 4. **Existing campaigns.** Check what already exists, so you never ask what you can look up:
    - `campaigns/*/campaign.md`;
-   - unpublished themes named for a campaign;
+   - campaign work already on the staging theme, and any older unpublished theme named for a campaign;
    - discounts, if the connector can read them;
    - what the live site's announcement bar and hero say right now (offline: use the latest pulled theme and say how
      old it is).
@@ -152,12 +180,12 @@ Status: new · Route: ready (materials final)
 Website: homepage hero, announcement bar and campaign page /pages/autumn-stroll (countdown offered as an extra)
 Phases: coming soon Nov 3 · live Nov 10 · last chance Nov 16 · ended Nov 18 (leave the line out when there are none)
 Email, Ads (Instagram, TikTok): not connected yet, so I'll draft them for you or your marketer to send
-Launch: Nov 10, 00:00 (the discount starts itself; you publish the preview) · Stop: Nov 18, 09:00
+Launch: Nov 10, 00:00 · Stop: Nov 18, 09:00 (nothing goes live until you ask)
 Assumed: <anything not confirmed yet, e.g. whether the discount is automatic or a code>
 ```
 
 Keep the same lines when the campaign already exists or is live, but say what's already done and what's left. For
-example, "Website: already on preview #<id>; only a drift check is left" or "Launch: already live since
+example, "Website: already on the staging theme #<id>; only a drift check is left" or "Launch: already live since
 Nov 10".
 
 Then ask once, in the option window (`AskUserQuestion` in Claude Code and the desktop app; load it with ToolSearch if
@@ -165,8 +193,10 @@ it's only listed by name; in a plain chat, one short numbered message):
 - "Does this plan look right?" Options: "Yes, go (Recommended)" and "Change something".
 - Each fact that's still open as its own question in the same call, with options (up to 4 questions per call).
 
-The yes approves the plan and the work on the preview copy and the drafts. It doesn't approve publishing, or changes
-to store data (discounts, product tags or metafields). Each connector write still shows its own confirmation.
+The yes approves the plan and the work on the staging theme and the drafts. It doesn't approve going live, or changes
+to store data (discounts, product tags or metafields). Each connector write still shows its own confirmation. A
+discount that turns itself on at a date is a scheduled go-live: create it only when the owner asks for it, and run
+the go-live gate first, naming the date it starts.
 
 **After the yes**, create the plan artifact (in a project folder, `campaigns/<slug>/campaign.md`). Use a short slug
 (`autumn-stroll`): Windows refuses paths over 260 characters.
@@ -192,9 +222,12 @@ something blocks a channel, note it, do what you can, and move on. Collect every
 
 ### 3a. Website
 
-**Safe copy and "before" values.** Never edit the live theme. The owner edits it in the editor, so local files go
-stale fast. Make or reuse an unpublished copy and read the files you'll touch (`references/store-access.md`). Keep
-the original text of every file before changing it:
+**Staging theme and "before" values.** Never edit the live theme. Work on the staging theme
+(`references/store-access.md`). The owner edits live in the editor, so staging and local files go stale fast: compare
+live with staging for the files you'll touch, and if live changed, bring staging up to date first
+(`references/theme-target.md` section 4 with git; otherwise say what changed). If staging holds other unfinished work,
+say so before adding to it. Read the files you'll touch, and keep the original text of every file before changing
+it:
 - **Project folder available:** `python scripts/snapshot.py save <theme-folder> campaigns/<slug> <files...>` writes
   `campaigns/<slug>/before/` and a `manifest.json` (`restore` puts them back). Keep `campaigns/` outside the theme
   folder, so it's never pushed.
@@ -247,7 +280,7 @@ stale headline.
    - the section types exist;
    - every setting id exists in that section's schema;
    - dates match the theme's format.
-2. **Write to the preview copy only** (`references/store-access.md`: section code before templates). Read the files
+2. **Write to the staging theme only** (`references/store-access.md`: section code before templates). Read the files
    back and confirm only the planned values changed. Stop on any error and quote it.
 3. **Look at it on desktop and mobile**, for every visual change, every time. With a browser tool, open the preview
    at about 390, 768, 1440 and 1920 pixels wide and check:
@@ -279,28 +312,31 @@ Send one message:
 - **Before launch** (`references/launch-stop.md` → Before launch): the owner's checks, one line each. These are a
   test order, discount stacking and exclusions, stock on featured products, and tracking events;
 - **Links per channel:** the landing URL with UTM tags for each channel in the plan (`references/channels.md`);
-- the question, which depends on the route:
-  - **Ready:** "Launch it?" in the option window. Offer "Launch at <start> (Recommended)" when the start is still
-    ahead, or "Launch now" when it has passed, plus "Not yet".
-  - **Draft:** no launch question. Say everything is staged, list what's missing, and add: "When the materials are
-    final, say 'launch <name>'."
+- the state, which depends on the route (never a launch or publish question):
+  - **Ready:** say everything is ready on the staging theme, and give the Launch and Stop times from the plan.
+  - **Draft:** say everything is staged and list what's missing.
 
-**End the message with the preview link**, on its own last line, after everything else, so the owner sees exactly
-what to click. In a plain chat, put the numbered question above it. Nothing comes after the link (this applies to
-every message in this skill that has a preview link).
+**End the message with the preview link and "Your live store has not changed."**, on the last two lines, after
+everything else, so the owner sees exactly what to click. In a plain chat, put any numbered question above them.
+Nothing comes after them (this applies to every message in this skill that has a preview link).
 
 ## Step 5: Launch and Stop
 
-Read `references/launch-stop.md`.
-- **"Launch at <start>":** set up every scheduling layer available (store timers, one-time scheduled tasks, the
-  calendar file) and record each one in campaign.md.
-- **"Launch now":** run the drift check, then the owner publishes. With the CLI, Claude publishes only when the owner
-  says so in the chat. Confirm the discount is active, then schedule Stop.
-- **Stop:** at its scheduled time or whenever the owner asks. Mark campaign.md `Stopped <date>`.
+Read `references/launch-stop.md`. Launch and Stop both change the live site, so each is a go-live: it happens only
+when the owner asks in their own words in this chat, through the go-live gate (Ground rules above). Approving the
+plan, a calendar event or a scheduled task never counts.
+- **Reminders (after the plan's yes):** the calendar file always, and, where available, one-time scheduled tasks
+  that prepare Launch and Stop on staging, run the drift check and tell the owner. They never publish, merge or turn
+  anything on. Record each one in the plan artifact.
+- **The owner asks to launch** ("launch <name>"): run the gate. Its checks include the drift check and what ships,
+  which is everything on staging, not only this campaign. After both confirmations, publish the staging theme (or
+  merge, on a GitHub-connected store). If the connector can't publish, give the store-admin steps. Then confirm the
+  discount is active.
+- **Stop:** when the owner asks. Prepare it on staging and run the gate the same way. Mark campaign.md
+  `Stopped <date>`.
 
-Publishing replaces the live theme with the copy, so edits made to live after the copy was made are lost. If the
-owner edited live since, or more than a day has passed, make a fresh copy and re-apply instead of publishing an old
-one.
+Publishing staging replaces the live theme, so edits made to live since staging was last brought up to date would
+be lost. The gate's drift check stops that (`references/launch-stop.md` → Drift check).
 
 ## Hand-over: the plan artifact
 
@@ -308,17 +344,16 @@ It is the plan artifact (or `campaigns/<slug>/campaign.md` with no Artifact tool
 - the plan line;
 - the facts;
 - the before → after table;
-- the preview theme id and links;
+- the staging theme name, id and links;
 - each channel's state;
 - Launch and Stop: the time and how each happens;
 - the Stop steps.
 
 Then tell the owner briefly:
 - what changed (the table, not a diff);
-- their to-do: approve and publish, or tell you to; confirm the discount; upload media if needed; send the stub
-  drafts;
+- their to-do: check the preview; confirm the discount; upload media if needed; send the stub drafts;
 - what happens at the end: a countdown hides itself, and everything else stays until Stop;
-- last, on its own line: the preview link.
+- last: the preview link, then "Your live store has not changed."
 
 ## Quick path (one change, demo mode)
 
@@ -326,10 +361,11 @@ When the request is a single change to one surface ("change the announcement bar
 orders") rather than a new or changed campaign, skip Steps 1 and 2:
 1. Read only the files for that surface.
 2. Show the before → after for it and get the yes.
-3. Write it, read it back, and end the message with the preview link on its own last line.
+3. Write it to the staging theme, read it back, and end the message with the preview link and "Your live store has
+   not changed."
 
-That's about a minute of work. Everything else is an offer for later. If BRAND.md is missing, still say the copy
-hasn't been checked against a brand file.
+That's about a minute of work. Everything else is an offer for later. The brand files are still required (Ground
+rules above).
 
 ## Dry runs
 
@@ -338,7 +374,7 @@ the store and never create scheduled tasks.
 
 The plan still comes first, and you still wait for the yes. There's one exception: when the request itself already
 says to go ahead ("can you do it?", "go ahead", "just do it"), count that as the yes. Show the plan with your
-assumptions marked and carry on to Step 4. Either way, stop at the launch question.
+assumptions marked and carry on to Step 4. Either way, stop at the Step 4 hand-over.
 
 ## Report format
 
@@ -351,8 +387,9 @@ Drafted, not sent: <email / SMS / ads: file>
 Offered, not done: <extras>
 Phases: <phase: date, one per line, if any>
 Links: <channel: tagged URL, one per line>
-Owner to do: <approve / publish / confirm discount / upload media / send drafts / before-launch checks>
+Owner to do: <check the preview / confirm discount / upload media / send drafts / before-launch checks>
 Launch: <date time> · <how>   Stop: <date time> · <how>
 Calendar: add-to-calendar links in the plan, and campaigns/<slug>/<slug>.ics · Plan: the plan artifact link
 Preview: <link>
+Your live store has not changed.
 ```

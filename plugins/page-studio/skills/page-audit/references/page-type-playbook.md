@@ -266,7 +266,7 @@ the Site Editor knows who acts; only theme rows can be picked for editing here.
 
 | Owner | Examples | What the skill does |
 |---|---|---|
-| This theme (templates, sections, CSS) | Section order, button link or label in a section setting, heading level, a new section | Can plan and edit on the draft theme |
+| This theme (templates, sections, CSS) | Section order, button link or label in a section setting, heading level, a new section | Can plan and edit on the staging theme |
 | Store admin content | Pages, products, navigation menus, metafields, policies | Point to the exact place in admin and the wording to change; do not edit unless the person asks |
 | Store settings | Consent banner behaviour, checkout, taxes and shipping, analytics | Report with the measured effect; the person or their admin changes it |
 | Third-party app or script | Pop-ups, review widgets, chat, booking widgets | Report with what it covers or breaks; the app's owner changes it |

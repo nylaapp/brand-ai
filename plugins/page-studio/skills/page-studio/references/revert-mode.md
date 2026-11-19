@@ -3,7 +3,7 @@
 Restore a theme to its baseline and prove it. Use when the person asks to undo changes, a ship
 failed, or verification of a pushed change found a regression that can't be fixed quickly.
 
-A revert is a push, so everything in `ship-to-draft.md` applies: scoped files only, no bare push, no live flag, and never the live theme: a revert happens on the draft the change was made on.
+A revert is a push, so everything in `ship-to-draft.md` applies: scoped files only, no bare push, no live flag, and never the live theme: a revert happens on the staging theme the change was made on.
 
 On the **connector route** (`connector-route.md`; no CLI, no local copy of the theme) a revert is a
 write too: the same guards apply (role read right before, explicit theme id, only the listed files),
@@ -28,7 +28,7 @@ Pull the files you would restore from the target theme and compare them with the
 the theme after the ship (often in the admin). Stop, show which files differ, and ask whether those
 edits should be kept, because restoring the baseline would erase them.
 
-**Connector route:** read those files from the draft and compare each one's `checksumMd5` (or body)
+**Connector route:** read those files from the staging theme and compare each one's `checksumMd5` (or body)
 with the md5 of the matching file in `work/`, which is what was written. Same rule if they differ.
 
 ## 3. Work out exactly what to restore

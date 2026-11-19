@@ -1,7 +1,9 @@
 # Reaching the store: connector first, CLI second, offline last
 
-Every theme change in this skill is the same four moves: **find the live theme, make or reuse an unpublished copy,
-read the files, write the changed files back to the copy**. Only the delivery differs. Pick the first that works:
+Every theme change in this skill is the same four moves: **find the live theme and the staging theme, read the
+files, write the changed files back to the staging theme, read them back**. Only the delivery differs. The staging
+theme is the store's one unpublished theme whose name contains "staging" (`theme-target.md`). Pick the first that
+works:
 
 | Situation | Use |
 |---|---|
@@ -14,8 +16,8 @@ user: the **store owner** (or a staff account with every permission the app asks
 connector settings; staff accounts often see "You need permission to update Shopify Claude Connector App".
 
 **Live theme connected to GitHub?** (its name looks like `<repo>/<branch>`, or THEME-SPECIFICS.md says so.) Then
-read `github-stores.md` first: work goes to the staging theme, and going live is a merge of `staging` into `main`.
-It replaces the copy-and-publish steps below. Never publish a copy on such a store.
+read `github-stores.md` first: the staging theme is the one connected to the `staging` branch, and going live is a
+merge of `staging` into the live branch, through the gate. Never publish a theme on such a store.
 
 ## Connector
 
@@ -28,15 +30,17 @@ never switch stores without the user asking (switching revokes the current store
    ```
    `role: MAIN` is live. Never write to it: the connector blocks it anyway ("Theme file writes against the live
    storefront are blocked").
-2. **Preview copy:** reuse an unpublished copy made for this work today if one exists and the live theme hasn't been
-   edited since (compare `updatedAt`). Otherwise duplicate live:
+2. **Staging theme:** use the remembered one (`theme-target.md` sections 2 and 5). It must still exist, and its
+   `role`, read right before every write, must not be `MAIN`. If none is remembered, settle it (`theme-target.md`
+   section 3). Duplicating live is only for creating the staging theme, named "<live theme name> staging", never a
+   copy per job:
    ```graphql
    mutation($id: ID!, $name: String) {
      themeDuplicate(id: $id, name: $name) { newTheme { id name role } userErrors { field message } }
    }
    ```
    If `themeDuplicate` is refused or errors, ask the owner to click **Online Store → Themes → (live theme) … →
-   Duplicate**, then use that copy. (Verified on 2026-11-09: reads, file writes to an unpublished theme, live writes
+   Duplicate**, then rename that copy to "<live theme name> staging" and use it. (Verified on 2026-11-09: reads, file writes to an unpublished theme, live writes
    refused. Not yet verified through the connector: `themeDuplicate`.)
 3. **Read files** (up to 50 names per call; theme JSON can be large, so ask only for what you need):
    ```graphql
@@ -69,15 +73,16 @@ never switch stores without the user asking (switching revokes the current store
    them; don't retry blindly or work around a block.
 7. **Preview:** `https://<store-domain>/?preview_theme_id=<numeric id>` (the number at the end of the theme gid).
    Editor: `https://admin.shopify.com/store/<handle>/themes/<numeric id>/editor`. Password-protected stores need the
-   storefront password to view the preview. The connector can't publish: the owner publishes in the admin.
+   storefront password to view the preview. Nothing here publishes: going live happens only when the owner asks,
+   through the gate (`theme-target.md` section 7).
 
 ## CLI
 
 ```bash
 shopify theme list --store <store>
-shopify theme duplicate --store <store> --theme <live-id> --name "<name>" --force --json
-shopify theme pull --store <store> --theme <copy-id> --path <work-folder> --no-color   # check it says "has been pulled"
-shopify theme push --store <store> --theme <copy-id> --path <work-folder> --only <file> [--only <file>]
+shopify theme duplicate --store <store> --theme <live-id> --name "<live theme name> staging" --force --json   # only to create the staging theme
+shopify theme pull --store <store> --theme <staging-id> --path <work-folder> --no-color   # check it says "has been pulled"
+shopify theme push --store <store> --theme <staging-id> --path <work-folder> --only <file> [--only <file>]
 ```
 
 Never `--live`, `--allow-live` or `--publish`; never a bare `shopify theme push` without `--theme`. `theme pull`

@@ -3,7 +3,7 @@
 One optional step for a new theme whose pre-built section templates still carry the theme's demo look. It is
 off unless the person said yes in the opening questions (Step 0 in `SKILL.md`) or asked for it in the
 request, and it is offered once, at the start, never later in the run. It works on the theme settled in
-Step 0 (`theme-target.md`): always a draft, never the live theme.
+Step 0 (`theme-target.md`): always the staging theme, never the live theme.
 
 It changes how the sections look, never what they say or show: no copy, no images, no section order or
 count. Those are other jobs (`page-edit-content` for words, images and links, `page-edit-design` for order

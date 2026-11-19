@@ -1,6 +1,6 @@
 ---
 name: site-reader
-description: "Read a web page's text, structure and visual layout quickly and with few tokens, without opening the browser pane or an extension. One command returns a short summary: what the page says (title, headings, copy, links, structured data), how it is laid out at desktop and mobile (sections top to bottom with height, what the first screen shows, calls to action, popups in the way, fonts and colours as measured, small tap targets, broken images, sideways overflow) and, for Shopify, which theme id the page reports. Pictures are saved only when asked. Read-only. Use whenever a skill or person needs to look at a live page, a draft theme preview or a competitor page: \"what does this page look like\", \"check the homepage\", \"read this page\", \"compare desktop and mobile\", \"which theme is this\", \"what is in the first screen\", \"is there a popup\". Not for logged-in pages, clicking through flows, or speed scores (use theme-audit)."
+description: "Read a web page's text, structure and visual layout quickly and with few tokens, without opening the browser pane or an extension. One command returns a short summary: what the page says (title, headings, copy, links, structured data), how it is laid out at desktop and mobile (sections top to bottom with height, what the first screen shows, calls to action, popups in the way, fonts and colours as measured, small tap targets, broken images, sideways overflow) and, for Shopify, which theme id the page reports. Pictures are saved only when asked. Read-only. Use whenever a skill or person needs to look at a live page, a staging theme preview or a competitor page: \"what does this page look like\", \"check the homepage\", \"read this page\", \"compare desktop and mobile\", \"which theme is this\", \"what is in the first screen\", \"is there a popup\". Not for logged-in pages, clicking through flows, or speed scores (use theme-audit)."
 ---
 
 # Site reader
@@ -11,6 +11,16 @@ Look at a page without driving a browser. One command, a short answer, the same 
 
 Short and direct. Start with the answer. Plain words, no technical terms without a few words of explanation.
 Say what you could not read ("Can't tell") instead of guessing.
+
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files: not used.**
+- **Read-only.** Changes nothing on the store, the theme or the repository, so it never asks for a staging theme
+  and never publishes. It may read any theme, the live one included. Fixes it suggests are made by a skill that
+  works on the staging theme.
 
 ## Run it
 
