@@ -78,7 +78,7 @@
       "name": "page-studio",
       "source": "./plugins/page-studio",
       "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to a draft theme, with the Shopify CLI or, without it, the Shopify connector.",
-      "version": "0.12.2"
+      "version": "0.12.3"
     },
     {
       "name": "analytics",
@@ -96,7 +96,7 @@
       "name": "shopify-storefront",
       "source": "./plugins/shopify-storefront",
       "description": "Plan and launch a campaign (website now; email, SMS and ads as stubs) with scheduled Launch and Stop, and match the site's colours to the style guide, and build a campaign landing page whose sections swap in the theme editor or by asking Claude (campaign-launcher, campaign-page, theme-editor).",
-      "version": "0.10.0"
+      "version": "0.10.1"
     },
     {
       "name": "site-reader",

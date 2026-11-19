@@ -40,6 +40,11 @@ stop and say what's blocking.
 - **The landing spot sells.** Wherever the buttons, ads and emails land, the first screen on a phone shows the
   offer in concrete terms ("25% off sitewide", never "Our biggest sale"), the end date, the code or "applied at
   checkout", and one button. It repeats what the ad or email said.
+- **The landing spot looks designed.** With no reference from the owner, it comes from a study of similar live pages
+  (a competitor, an inspiration brand and a same-industry brand doing the same kind of campaign) read against the
+  store's own design system, a layout recipe for the campaign type and the visual rules in `campaign-page` →
+  `references/visual-design.md`: no theme placeholder in the hero, uniform images, a clear hierarchy, and a screenshot
+  check at phone and desktop width taken after the fade-in settles.
 - **Only what was planned.** Extras (countdown, badges, sale colours) are offered as a short list, never added
   unasked.
 - **Nothing goes live without the owner.** The live theme is untouched until they publish, or, on a store whose
@@ -219,9 +224,10 @@ surface, decide: change, add or leave. Reuse what the owner built: an existing s
 6. **Product badges and per-product timers** (an extra): product tags or metafields are store data. List exactly which
    products would change, and record them so Stop can remove them.
 7. **Campaign page** (in the plan when the Link row says so, otherwise an extra): a landing page with one section
-   per region, each swappable in the theme editor or by asking Claude, or a design draft with 2 to 3 copy options
-   per region. Hand it to the `campaign-page` skill with the plan's facts, phases and shipping cutoff. Its
-   `references/effective-page.md` sets what the page must do: offer above the fold on mobile, curated products with
+   per region, each swappable in the theme editor or by asking Claude, or a design draft with 2 to 3 layouts and
+   copy options per region. Hand it to the `campaign-page` skill with the plan's facts, phases and shipping cutoff.
+   Its `references/visual-design.md` sets how it must look (design basis, layout recipe per campaign type, visual
+   rules, a screenshot check at 375, 768 and 1440 px), and its `references/effective-page.md` sets what the page must do: offer above the fold on mobile, curated products with
    the saving shown, trust near the button, FAQ, email signup, phases and one tagged URL per channel.
 
 **Copy rules, in order:**
