@@ -129,8 +129,11 @@ re-plan it: its materials may need a new version.
 format never varies. Where Python can't run, write it by hand in the same format.
 
 **The plan is one artifact.** Everything for the campaign lives in a single document that you create once and keep
-updating, never spread across several files or messages: an Artifact in a Claude chat or the desktop app, or
-`campaigns/<slug>/campaign.md` in a project folder (Claude Code, Cowork). Its sections, in order:
+updating, never spread across several files, tabs or messages. Where the Artifact tool exists (a Claude chat, the
+desktop app, Claude Code), create it as one Artifact page and republish the same one on every change, so the link
+never changes; load the artifact-design skill first. Only with no Artifact tool, keep one
+`campaigns/<slug>/campaign.md`. Email, SMS and ad drafts, the swap map and the hand-over are sections of it, never
+separate `email.md` or `ads.md` files unless the owner asks for files. Its sections, in order:
 1. **Brief:** written so the owner can forward it as is to whoever makes the creative or runs the ads: campaign,
    type, offer and how it applies, exact dates, channels and ad platforms, the core message, the recommended copy,
    which creative is needed in which shapes, and each platform's rules (for example a stricter TikTok set);
@@ -139,7 +142,7 @@ updating, never spread across several files or messages: an Artifact in a Claude
 4. **Copy:** the recommended lines and the alternatives;
 5. **Drafts:** one section per channel in the plan;
 6. **Links per channel**, **Before launch**, **Launch and Stop**;
-7. **Calendar:** the invite.
+7. **Calendar:** the invite, as add-to-calendar links and the `.ics` file (below).
 
 Show the plan lines in the chat as well, then ask the question below.
 
@@ -168,11 +171,19 @@ to store data (discounts, product tags or metafields). Each connector write stil
 **After the yes**, create the plan artifact (in a project folder, `campaigns/<slug>/campaign.md`). Use a short slug
 (`autumn-stroll`): Windows refuses paths over 260 characters.
 
-**Always make the calendar invite, every campaign, never skipped.** With Python, run
-`scripts/campaign_calendar.py ... --slug <slug> --out campaigns/<slug>/<slug>.ics`. Without Python (a plain chat
-where scripts can't run), write the `.ics` by hand from `references/launch-stop.md` → Calendar invite. Give it to
-the owner as a file ("open it to add the campaign, Launch and Stop to your calendar") and list it in the plan's
-Calendar section. If the plan changes later, make it again.
+**Always generate the calendar invite, every campaign, never skipped, as soon as the dates are agreed.** With Python,
+run `scripts/campaign_calendar.py ... --slug <slug> --plan-ref <the plan artifact's link> --links --out
+campaigns/<slug>/<slug>.ics`. It writes the `.ics` (campaign, Launch and Stop, with reminders) and prints an
+add-to-calendar link for each of the three events plus a link for the file. Put those in the artifact's Calendar
+section as buttons ("Add campaign", "Add Launch", "Add Stop", "Download .ics"), so the owner adds them from the
+plan itself. The three Google links are the reliable route (they are plain links). For "Download .ics", declare the
+artifact's `downloads` capability (`capabilities: {downloads: true}`; load the artifact-capabilities skill first),
+embed the `.ics` text in the page, and have the button call `downloads.save({filename: "<slug>.ics", data})`, hiding
+the button where `claude.use("downloads")` returns null. A bare `data:` link is only a fallback: a sandboxed
+artifact may block it, and it was not verified to download. Without Python (a plain chat
+where scripts can't run), write the `.ics` by hand from `references/launch-stop.md` → Calendar invite. Also give
+the file ("open it to add the campaign, Launch and Stop to your calendar"). If the plan changes later, make it again
+and update the links.
 
 ## Step 3: Get every channel as ready as it can be
 
@@ -254,7 +265,7 @@ stale headline.
 
 ### 3b. Email, SMS and ads (stubs)
 
-Follow `references/channels.md`: a short draft for each channel in the plan, in the plan artifact's Drafts section,
+Follow `references/channels.md`: a short draft for each channel in the plan, in the plan artifact's Drafts section (no separate files),
 the same facts and voice as the website, marked "not sent". Nothing is sent or scheduled on these channels in this version.
 
 ## Step 4: Come back with it ready
@@ -291,9 +302,9 @@ Publishing replaces the live theme with the copy, so edits made to live after th
 owner edited live since, or more than a day has passed, make a fresh copy and re-apply instead of publishing an old
 one.
 
-## Hand-over: campaigns/<slug>/campaign.md
+## Hand-over: the plan artifact
 
-Write it, or give the same content in the chat if there's no folder. It holds:
+It is the plan artifact (or `campaigns/<slug>/campaign.md` with no Artifact tool). Keep the same one up to date; if there's neither, give the same content in the chat. It holds:
 - the plan line;
 - the facts;
 - the before → after table;
@@ -342,6 +353,6 @@ Phases: <phase: date, one per line, if any>
 Links: <channel: tagged URL, one per line>
 Owner to do: <approve / publish / confirm discount / upload media / send drafts / before-launch checks>
 Launch: <date time> · <how>   Stop: <date time> · <how>
-Calendar: campaigns/<slug>/<slug>.ics · Plan: campaigns/<slug>/campaign.md (or the plan artifact)
+Calendar: add-to-calendar links in the plan, and campaigns/<slug>/<slug>.ics · Plan: the plan artifact link
 Preview: <link>
 ```

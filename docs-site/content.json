@@ -593,11 +593,11 @@
       "name": "shopify-storefront",
       "group": "storefront",
       "tagline": "Plan and launch a campaign, build its landing page, and match the theme to the brand guide.",
-      "what": "Three skills for a busy founder who wants results without touching theme settings, all working through the Shopify connector in a normal chat (no terminal) or the Shopify CLI, and always on an unpublished preview copy. campaign-launcher plans a time-boxed campaign from one sentence or your materials, readies the website, drafts email, SMS and ads as stubs, and schedules Launch and Stop. campaign-page builds a landing page that sells, whose sections swap in the theme editor or by asking Claude. theme-editor makes the theme's colours (and fonts if asked) match the brand guide, with a contrast check.",
+      "what": "Three skills for a busy founder who wants results without touching theme settings, all working through the Shopify connector in a normal chat (no terminal) or the Shopify CLI, and always on an unpublished preview copy. campaign-launcher plans a time-boxed campaign from one sentence or your materials, keeps the whole plan in one artifact, generates the calendar invite, readies the website, drafts email, SMS and ads as stubs, and schedules Launch and Stop. campaign-page generates a landing page template that sells, in which every part (hero, trust row, countdown, products, FAQ, signup, closing banner) is its own section with ready alternates you swap with one switch in the theme editor or by asking Claude. theme-editor makes the theme's colours (and fonts if asked) match the brand guide, with a contrast check.",
       "skills": [
         {
           "name": "campaign-launcher",
-          "tagline": "One-line plan, calendar file, website on a preview copy, channel drafts, scheduled Launch and Stop.",
+          "tagline": "One-line plan, one plan artifact, calendar invite with add-to-calendar links, website on a preview copy, channel drafts, scheduled Launch and Stop.",
           "prompts": [
             "New campaign",
             "Put the sale on the homepage",
@@ -607,7 +607,7 @@
         },
         {
           "name": "campaign-page",
-          "tagline": "A campaign landing page that sells, with swappable sections and phases from coming soon to ended.",
+          "tagline": "A campaign landing page template that sells: one section per part, ready alternates switched off, one-switch swaps, phases from coming soon to ended.",
           "prompts": [
             "Make a campaign landing page",
             "Swap the hero",
@@ -631,15 +631,15 @@
         "Make the site match our brand guide"
       ],
       "steps": [
-        "Describe the campaign in a sentence and drop in anything you have (a brief, copy, images, a video, links). campaign-launcher shows one plan line: name, type, exact dates with time zone, and channels, plus a calendar file. You say yes once.",
-        "It readies the announcement bar, homepage hero and an optional countdown, and a landing page, on an unpublished preview copy, in the brand's voice. Email, SMS and ads are drafted as stubs for you to send.",
+        "Describe the campaign in a sentence and drop in anything you have (a brief, copy, images, a video, links). campaign-launcher shows one plan line: name, type, exact dates with time zone, and channels, plus a calendar invite. You say yes once.",
+        "It readies the announcement bar, homepage hero and an optional countdown, and a landing page, on an unpublished preview copy, in the brand's voice. The landing page template is generated from your theme's own sections: each part (hero, trust row, products, FAQ, signup, closing banner) is its own section with ready alternates switched off. Swap one with the eye icon in the theme editor, or say \"swap the hero to the video hero\". The generator checks every section, block and setting against your theme first, and lists any placeholder text still to replace. Email, SMS and ads are drafted as stubs for you to send.",
         "It schedules Launch and Stop. Stop puts the site back exactly as it was. Nothing goes live without you publishing the preview.",
         "For brand colours, give theme-editor your brand guide or hex codes. It shows a before and after table, checks every text and background pair for readable contrast, and delivers it on the preview copy."
       ],
       "produces": [
-        "A one-line campaign plan, a plan document and a calendar file",
+        "A one-line campaign plan, the whole plan in one artifact (brief, plan, website, copy, drafts, links, launch steps), and a calendar invite: add-to-calendar links for the campaign, Launch and Stop, plus a .ics file",
         "A preview theme with the campaign on it and a preview link",
-        "A landing page with ready alternates for each section, and a design draft with two or three copy options",
+        "A landing page template with ready alternates for each section and a swap map (swap in the editor's eye icon or by asking Claude), and a design draft with two or three copy options",
         "A before and after table for brand colours and fonts, with contrast results"
       ],
       "requires": [
@@ -650,7 +650,8 @@
         "Never edits the live theme: all work is on an unpublished copy, and publishing is your step.",
         "For a store whose live theme is connected to GitHub, work goes to the staging theme and going live is a merge you approve.",
         "Email, SMS and ads are drafts only; only the website is connected.",
-        "Extras (countdown, badges, sale colours) are offered, never added unasked."
+        "Extras (countdown, badges, sale colours) are offered, never added unasked.",
+        "The editor swap is proven on a real preview copy only once; until then the hand-over says it is left for you to check."
       ],
       "next": [
         "brand-voice",
