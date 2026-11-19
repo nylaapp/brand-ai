@@ -606,7 +606,9 @@ def main():
     if a.expect_theme_id:
         seen = {str((v.get('themeId'))) for v in (result.get("layout") or {}).values() if v.get("themeId")}
         ft = (result.get("fetch") or {}).get("shopify_theme") or {}
-        if ft.get("id"): seen.add(str(ft["id"]))
+        if ft.get("id") and seen and str(ft["id"]) not in seen:
+            result["notes"].append(f"The plain text read (fetch) is theme {ft['id']}: a preview link needs a browser cookie, so the text layer shows the live theme. The layout layer is the one that reports theme {sorted(seen)}.")
+        if not seen and ft.get("id"): seen.add(str(ft["id"]))
         if not seen:
             result["notes"].append("Theme id: can't tell (the page didn't report one).")
         elif seen != {str(a.expect_theme_id)}:

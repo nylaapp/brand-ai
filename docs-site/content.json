@@ -1,18 +1,49 @@
 {
   "marketplace": "nylaapp/brand-ai",
   "groups": [
-    {"id": "foundation", "title": "Brand foundation", "blurb": "Run these first. Every other skill reads what they write."},
-    {"id": "content", "title": "Blog and content", "blurb": "Write, rewrite, check and measure blog posts."},
-    {"id": "pages", "title": "Pages and theme", "blurb": "Audit pages, change them, and keep the theme accessible."},
-    {"id": "analytics", "title": "Analytics", "blurb": "Audit, fix and protect tracking."},
-    {"id": "research", "title": "Customer research", "blurb": "Learn from what customers already say."}
+    {
+      "id": "foundation",
+      "title": "Brand foundation",
+      "blurb": "Run these first. Every other skill reads what they write."
+    },
+    {
+      "id": "content",
+      "title": "Blog and content",
+      "blurb": "Write, rewrite, check and measure blog posts."
+    },
+    {
+      "id": "pages",
+      "title": "Pages and theme",
+      "blurb": "Audit pages, change them, and keep the theme accessible."
+    },
+    {
+      "id": "storefront",
+      "title": "Campaigns and brand theme",
+      "blurb": "Launch a campaign, build its landing page and match the site to the brand guide."
+    },
+    {
+      "id": "analytics",
+      "title": "Analytics",
+      "blurb": "Audit, fix and protect tracking."
+    },
+    {
+      "id": "research",
+      "title": "Customer research",
+      "blurb": "Learn from what customers already say."
+    }
   ],
   "plugins": [
     {
-      "name": "brand-capture", "group": "foundation",
+      "name": "brand-capture",
+      "group": "foundation",
       "tagline": "One-time brand setup. Scans a site and writes the brand files every other skill reads.",
       "what": "Builds BRAND.md once, when a client is set up, so no skill has to ask about the brand again. It scans the public website (about and story pages, products and prices, colors, fonts, blog style, social links, disclaimers) and reads any brand book you give it. It asks four short questions a website can't answer, then writes the brand files.",
-      "prompts": ["Capture the brand for example.com", "Set up the brand file", "Create BRAND.md", "Onboard a new client"],
+      "prompts": [
+        "Capture the brand for example.com",
+        "Set up the brand file",
+        "Create BRAND.md",
+        "Onboard a new client"
+      ],
       "steps": [
         "It asks whether the brand has an existing store or website and a brand book, and which draft theme should hold the brand files.",
         "It scans the website and reads the brand book if you provided one.",
@@ -20,47 +51,103 @@
         "It studies each inspiration brand and records in BRAND.md what the brand can learn from it.",
         "It writes the files and asks at most four follow-up questions for anything the scan could not settle."
       ],
-      "produces": ["BRAND.md (brand identity, the source of truth)", "BRAND-VOICE.md (how the brand sounds)", "design.md (a complete visual guide: palette, the full H1 to H6 type scale, spacing, corners, components, imagery and a value for every Shopify theme setting; gaps the sources leave are filled with clearly labelled proposed values)", "BRAND.html (a readable copy for the client)", "BRAND-QUESTIONS.md (open follow-up questions)"],
-      "requires": ["Nothing. Start here."],
-      "guardrails": ["Scans public pages only.", "Optional shared copy of the non-confidential files for the team."],
-      "next": ["competitor-research", "styles-builder", "blog-generator"]
+      "produces": [
+        "BRAND.md (brand identity, the source of truth)",
+        "BRAND-VOICE.md (how the brand sounds)",
+        "design.md (a complete visual guide: palette, the full H1 to H6 type scale, spacing, corners, components, imagery and a value for every Shopify theme setting; gaps the sources leave are filled with clearly labelled proposed values)",
+        "BRAND.html (a readable copy for the client)",
+        "BRAND-QUESTIONS.md (open follow-up questions)"
+      ],
+      "requires": [
+        "Nothing. Start here."
+      ],
+      "guardrails": [
+        "Scans public pages only.",
+        "Optional shared copy of the non-confidential files for the team."
+      ],
+      "next": [
+        "brand-voice",
+        "competitor-research",
+        "styles-builder",
+        "blog-generator"
+      ]
     },
     {
-      "name": "competitor-research", "group": "foundation",
+      "name": "competitor-research",
+      "group": "foundation",
       "tagline": "Dated research on the top 3 competitors named in BRAND.md.",
       "what": "Turns the client's top 3 competitors into COMPETITORS.md. Inspiration brands are not covered here; brand-capture asks for and studies them. For each competitor it compares where they operate against the client, what they sell and at what price, pricing model (flat, packages, memberships, subscriptions), offers and referral programs, how often they publish and who writes it, and how they position themselves. It ends with concrete openings for the client.",
-      "prompts": ["Research the competitors", "Competitor analysis", "Build COMPETITORS.md", "Refresh the competitor research"],
+      "prompts": [
+        "Research the competitors",
+        "Competitor analysis",
+        "Build COMPETITORS.md",
+        "Refresh the competitor research"
+      ],
       "steps": [
         "It takes the top 3 competitors from BRAND.md. If none are listed, it asks you for your top 3.",
         "It researches each competitor and compares it with the client.",
         "It writes COMPETITORS.md next to BRAND.md and lists openings for the client."
       ],
-      "produces": ["COMPETITORS.md (dated, re-run every few months)"],
-      "requires": ["brand-capture (BRAND.md)"],
-      "guardrails": ["Never changes BRAND.md."],
-      "next": ["blog-generator"]
+      "produces": [
+        "COMPETITORS.md (dated, re-run every few months)"
+      ],
+      "requires": [
+        "brand-capture (BRAND.md)"
+      ],
+      "guardrails": [
+        "Never changes BRAND.md."
+      ],
+      "next": [
+        "blog-generator"
+      ]
     },
     {
-      "name": "styles-builder", "group": "foundation",
+      "name": "styles-builder",
+      "group": "foundation",
       "tagline": "Turn a brand book or reference store into design tokens and apply them to the theme.",
-      "what": "Creates or deepens design.md (typography, color schemes, spacing, corner radius, shadows, buttons, component states) and applies those tokens into the theme's settings_schema.json and settings_data.json. It also sets up what a new theme needs before pages get built: logo and favicon, motion, input fields, and variant pickers and swatches. Optionally it brands the starter section templates.",
-      "prompts": ["Generate design tokens", "Create design.md", "Set up the brand's colors and fonts in the theme", "Match the reference store's look", "Get the theme ready to build on"],
+      "what": "Creates or deepens design.md (typography, color schemes, spacing, corner radius, shadows, buttons, component states) and applies those tokens into the theme's settings_schema.json and settings_data.json. It also sets up what a new theme needs before pages get built: logo and favicon, motion, input fields, and variant pickers and swatches. Optionally it brands the starter section templates. When a brand font is not free in Shopify's font library and its files are not already in your working folder, it asks you once for the font files (woff2 preferred, with the licence), instead of guessing or swapping in a lookalike.",
+      "prompts": [
+        "Generate design tokens",
+        "Create design.md",
+        "Set up the brand's colors and fonts in the theme",
+        "Match the reference store's look",
+        "Get the theme ready to build on"
+      ],
       "steps": [
         "If BRAND.md or design.md are missing, it runs brand-capture first and waits for it to finish.",
         "It builds the full token set from your brand book or a reference store, and fills any gap with a labelled proposed value so every theme setting gets one.",
+        "It checks each font. If a font is not free in Shopify's library and its files are not in your folder, it asks you for the files once, before changing the theme.",
         "It applies the tokens into the theme settings and sets up the starter essentials.",
         "If you opted in at the start, it brands the starter section templates."
       ],
-      "produces": ["design.md", "Updated settings_schema.json and settings_data.json", "Logo, favicon, motion, input and variant picker setup"],
-      "requires": ["brand-capture"],
-      "guardrails": ["Starter section styling only happens if you opt in when it starts."],
-      "next": ["page-studio"]
+      "produces": [
+        "design.md",
+        "Updated settings_schema.json and settings_data.json",
+        "Logo, favicon, motion, input and variant picker setup"
+      ],
+      "requires": [
+        "brand-capture"
+      ],
+      "guardrails": [
+        "Starter section styling only happens if you opt in when it starts.",
+        "Never swaps a lookalike font silently, and never downloads or uploads a font file without your yes naming the file, source, size and licence."
+      ],
+      "next": [
+        "page-studio",
+        "shopify-storefront"
+      ]
     },
     {
-      "name": "blog-generator", "group": "content",
+      "name": "blog-generator",
+      "group": "content",
       "tagline": "Research and write SEO and AEO blog posts, delivered as hidden Shopify drafts.",
       "what": "Writes blog posts meant to be found in Google and cited by AI answer engines. It asks intent, media, delivery, mode and topic once, reads BRAND.md and COMPETITORS.md instead of re-asking about the brand, researches what changes each time, and shows the outline for approval before writing.",
-      "prompts": ["Write a post for my store", "Write a buying guide for X", "Make a how-to article about X", "I need a blog post for better SEO"],
+      "prompts": [
+        "Write a post for my store",
+        "Write a buying guide for X",
+        "Make a how-to article about X",
+        "I need a blog post for better SEO"
+      ],
       "steps": [
         "It checks what it needs first (web search, your brand files, Shopify connected for a hidden draft) and walks you through setting up anything missing, in plain steps.",
         "Answer the setup questions once: intent, media, delivery, mode, topic.",
@@ -68,16 +155,35 @@
         "You approve the outline.",
         "It delivers a hidden Shopify draft, or paste-ready HTML, with SEO fields, images, schema and internal links."
       ],
-      "produces": ["A hidden Shopify draft (via connector or browser), or paste-ready HTML", "SEO fields, images, schema, internal links"],
-      "requires": ["brand-capture (BRAND.md). competitor-research is optional but used when present.", "Web search in Claude. Recommended: Shopify connected (connector or a signed-in browser) for a hidden draft instead of HTML, Python 3 for the QA check, and fact-check installed.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
-      "guardrails": ["Posts land as hidden drafts for a human to review.", "Guided mode or fully automated mode. Also runs from blog-autopilot."],
-      "next": ["fact-check", "seo-audit"]
+      "produces": [
+        "A hidden Shopify draft (via connector or browser), or paste-ready HTML",
+        "SEO fields, images, schema, internal links"
+      ],
+      "requires": [
+        "brand-capture (BRAND.md). competitor-research is optional but used when present.",
+        "Web search in Claude. Recommended: Shopify connected (connector or a signed-in browser) for a hidden draft instead of HTML, Python 3 for the QA check, and fact-check installed.",
+        "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."
+      ],
+      "guardrails": [
+        "Posts land as hidden drafts for a human to review.",
+        "Guided mode or fully automated mode. Also runs from blog-autopilot."
+      ],
+      "next": [
+        "fact-check",
+        "seo-audit"
+      ]
     },
     {
-      "name": "blog-rewriter", "group": "content",
+      "name": "blog-rewriter",
+      "group": "content",
       "tagline": "Rewrite an existing article in the store's brand voice and post it as a hidden draft.",
       "what": "Takes a finished article written by someone else (a URL, Google Doc, .docx, .txt or .md file, or pasted text) and rewrites it in the store's voice. It is a voice transplant: facts and claims never change, only wording, tone, rhythm and terminology. Four depths are available: Match, Reword, Restructure and Reimagine.",
-      "prompts": ["Rewrite this doc for the blog", "Put this article in our voice", "Make this guest post on brand", "Clean this up and post it as a draft"],
+      "prompts": [
+        "Rewrite this doc for the blog",
+        "Put this article in our voice",
+        "Make this guest post on brand",
+        "Clean this up and post it as a draft"
+      ],
       "steps": [
         "It checks what it needs first (web search, your brand files, blog-generator, Shopify connected, and Google Drive or a Word reader for those sources) and walks you through setting up anything missing, in plain steps.",
         "Give it the article and choose a rewrite depth.",
@@ -85,16 +191,34 @@
         "It posts a hidden draft with SEO fields and a preview link.",
         "If Shopify is unavailable or not signed in, it returns paste-ready HTML and a fields sheet and says why."
       ],
-      "produces": ["A hidden Shopify draft with SEO fields and a preview link", "Fallback: paste-ready HTML and a fields sheet"],
-      "requires": ["blog-generator", "brand-capture (BRAND.md)", "Web search in Claude. Recommended: Shopify connected and Python 3 (required for series and image transfer). Google Drive connected for Google Doc sources.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
-      "guardrails": ["Never quietly changes a claim. Anything changed is flagged.", "Posts are hidden drafts only."],
-      "next": ["seo-audit"]
+      "produces": [
+        "A hidden Shopify draft with SEO fields and a preview link",
+        "Fallback: paste-ready HTML and a fields sheet"
+      ],
+      "requires": [
+        "blog-generator",
+        "brand-capture (BRAND.md)",
+        "Web search in Claude. Recommended: Shopify connected and Python 3 (required for series and image transfer). Google Drive connected for Google Doc sources.",
+        "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."
+      ],
+      "guardrails": [
+        "Never quietly changes a claim. Anything changed is flagged.",
+        "Posts are hidden drafts only."
+      ],
+      "next": [
+        "seo-audit"
+      ]
     },
     {
-      "name": "blog-autopilot", "group": "content",
+      "name": "blog-autopilot",
+      "group": "content",
       "tagline": "Decides when a store should blog and what to cover, then hands off to the writer.",
       "what": "The editor-in-chief. It scans store events (new products, restocks, rising sellers), Search Console exports, review and helpdesk exports, competitor blog feeds, trends and an occasion calendar, scores the opportunities, and applies guardrails: dedupe, cannibalization, cooldowns and a weekly cap. It never writes the post itself.",
-      "prompts": ["What should we blog about this week?", "Set up blogging on a schedule", "Is anything worth a new post right now?"],
+      "prompts": [
+        "What should we blog about this week?",
+        "Set up blogging on a schedule",
+        "Is anything worth a new post right now?"
+      ],
       "steps": [
         "It checks what it needs first (a folder, Shopify connected, Python, Search Console and review exports) and walks you through setting up anything missing, in plain steps.",
         "It runs a weekly scan and scores opportunities.",
@@ -102,16 +226,35 @@
         "It hands the brief to blog-generator, which writes a hidden draft.",
         "Optional: turn on auto-draft."
       ],
-      "produces": ["A ranked list of post opportunities", "A brief handed to blog-generator"],
-      "requires": ["blog-generator", "brand-capture", "The Claude desktop app with a folder, Shopify connected, Python 3, and the computer awake with Claude open for the weekly check-in. Recommended: Search Console, review and helpdesk exports.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
-      "guardrails": ["Check-in first, draft only after approval, unless auto-draft is on.", "Each brand keeps its own profile."],
-      "next": ["blog-generator"]
+      "produces": [
+        "A ranked list of post opportunities",
+        "A brief handed to blog-generator"
+      ],
+      "requires": [
+        "blog-generator",
+        "brand-capture",
+        "The Claude desktop app with a folder, Shopify connected, Python 3, and the computer awake with Claude open for the weekly check-in. Recommended: Search Console, review and helpdesk exports.",
+        "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."
+      ],
+      "guardrails": [
+        "Check-in first, draft only after approval, unless auto-draft is on.",
+        "Each brand keeps its own profile."
+      ],
+      "next": [
+        "blog-generator"
+      ]
     },
     {
-      "name": "fact-check", "group": "content",
+      "name": "fact-check",
+      "group": "content",
       "tagline": "Independent fact-check for blog and marketing copy, with guardrails for regulated claims.",
       "what": "Pulls out every factual claim, flags the risky ones (FDA and other regulatory status, medical and treatment claims, ingredient facts, pregnancy and safety statements, clinically proven, statistics), checks them against primary sources, and returns a claim-by-claim report with verdicts, citations and safer rewrites.",
-      "prompts": ["Fact-check this post", "Check the FDA wording in this copy", "Is this accurate?", "Check this before we publish"],
+      "prompts": [
+        "Fact-check this post",
+        "Check the FDA wording in this copy",
+        "Is this accurate?",
+        "Check this before we publish"
+      ],
       "steps": [
         "It checks what it needs first (web search, and your brand files if you have them) and walks you through setting up anything missing, in plain steps.",
         "Give it pasted text, a file, a URL or a Shopify article.",
@@ -119,97 +262,435 @@
         "It verifies against authoritative sources.",
         "You get verdicts, citations and safer wording."
       ],
-      "produces": ["A claim-by-claim report with verdicts, citations and safer rewrites"],
-      "requires": ["Web search in Claude. Works on its own or after blog-generator. Brand files and Python 3 recommended.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
-      "guardrails": ["It flags and verifies. It never approves.", "Regulated claims still need a qualified human or legal review."],
-      "next": ["blog-rewriter"]
+      "produces": [
+        "A claim-by-claim report with verdicts, citations and safer rewrites"
+      ],
+      "requires": [
+        "Web search in Claude. Works on its own or after blog-generator. Brand files and Python 3 recommended.",
+        "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."
+      ],
+      "guardrails": [
+        "It flags and verifies. It never approves.",
+        "Regulated claims still need a qualified human or legal review."
+      ],
+      "next": [
+        "blog-rewriter"
+      ]
     },
     {
-      "name": "seo-audit", "group": "content",
+      "name": "seo-audit",
+      "group": "content",
       "tagline": "Check a blog post after it goes live, then track real Search Console rankings.",
       "what": "Audits the live page with Google's own tools: structured data and Rich Results, PageSpeed Insights, title, meta, H1, leftover placeholders and indexing. About two and four weeks later it follows the post's real ranking numbers from Search Console.",
-      "prompts": ["I published the post", "Check my new blog post", "Audit the live post", "Did the post get indexed?", "How is the blog post doing in Google?"],
+      "prompts": [
+        "I published the post",
+        "Check my new blog post",
+        "Audit the live post",
+        "Did the post get indexed?",
+        "How is the blog post doing in Google?"
+      ],
       "steps": [
         "It checks what it needs first (a browser, Search Console access, an optional free PageSpeed key) and walks you through setting up anything missing, in plain steps.",
         "Run it on publish day to check the live page.",
         "Run it again around week 2 and week 4 for ranking numbers.",
         "It can also run from a scheduled daily blog check."
       ],
-      "produces": ["A live-page audit and ranking follow-ups at 2 and 4 weeks"],
-      "requires": ["A browser Claude can use, and Search Console access for the ranking checks. Recommended: Shopify connected and a free PageSpeed API key. Pairs with blog-generator.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
-      "guardrails": ["Read-only. It checks the post and changes nothing."],
+      "produces": [
+        "A live-page audit and ranking follow-ups at 2 and 4 weeks"
+      ],
+      "requires": [
+        "A browser Claude can use, and Search Console access for the ranking checks. Recommended: Shopify connected and a free PageSpeed API key. Pairs with blog-generator.",
+        "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."
+      ],
+      "guardrails": [
+        "Read-only. It checks the post and changes nothing."
+      ],
       "next": []
     },
     {
-      "name": "page-studio", "group": "pages",
-      "tagline": "Audit a page, then change it or build a new one on a draft theme.",
-      "what": "Two skills that work together. page-audit is read-only: it checks a page against what its type should do and ranks the fixes. page-studio makes a named change (copy, image, link, section settings or order) or builds a new page, and can act on the recommendations an audit picked. It is built for the Site Editor, for marketing and ops people who aren't developers.",
+      "name": "page-studio",
+      "group": "pages",
+      "tagline": "Audit a page, suggest what to change or refresh, then change it or build a new one on a draft theme.",
+      "what": "Five skills behind one front door. page-audit is read-only: it checks a page against what its type should do, ranks the fixes, and also suggests content and layout refreshes so the page feels current, not only fixed. page-create builds a new page, section or section type. page-edit-content changes words, images and links. page-edit-design changes layout, order, spacing, colour and style, and also offers a layout refresh. page-studio is the front door that picks the right one and chains them. Every visual check is done at both desktop and mobile. It is built for the Site Editor, for marketing and ops people who aren't developers.",
       "skills": [
-        {"name": "page-audit", "tagline": "Read-only gap analysis, ranked, with an owner for every fix.", "prompts": ["What should we improve on the homepage?", "Audit the about page", "Where does this page fall short?"]},
-        {"name": "page-studio", "tagline": "Make a named change or build a page on a draft theme.", "prompts": ["Swap the image on the homepage hero", "Move this section up", "Make a landing page for X", "Recreate this page from the live site"]}
+        {
+          "name": "page-audit",
+          "tagline": "Read-only gap analysis, ranked, with an owner for every fix and fresh content and layout ideas.",
+          "prompts": [
+            "What should we improve on the homepage?",
+            "Audit the about page",
+            "Where does this page fall short?",
+            "How could this page feel fresher?"
+          ]
+        },
+        {
+          "name": "page-create",
+          "tagline": "Build a new page, a section, or a section type on a draft theme.",
+          "prompts": [
+            "Make a landing page for X",
+            "Add a testimonials section to the homepage",
+            "Recreate this page from the live site"
+          ]
+        },
+        {
+          "name": "page-edit-content",
+          "tagline": "Change the words, images and links of an existing page.",
+          "prompts": [
+            "Change the headline to ...",
+            "Swap the image on the homepage hero",
+            "Update the button label"
+          ]
+        },
+        {
+          "name": "page-edit-design",
+          "tagline": "Change layout, order, spacing, colour or style of an existing page.",
+          "prompts": [
+            "Move this section up",
+            "Make the hero shorter on mobile",
+            "Restyle this button"
+          ]
+        },
+        {
+          "name": "page-studio",
+          "tagline": "The front door: picks the right skill and chains them.",
+          "prompts": [
+            "Improve the homepage and apply the top fixes",
+            "Check the change I just made",
+            "Revert the last change"
+          ]
+        }
       ],
-      "prompts": ["Audit the about page", "Swap the image on the homepage hero", "Make a landing page for X"],
+      "prompts": [
+        "Audit the about page",
+        "How could the homepage feel fresher?",
+        "Make a landing page for X"
+      ],
       "steps": [
         "Each skill first checks what it needs (a browser, your brand files, and a way to reach your theme: the Shopify CLI, or your Shopify connection if it is allowed to change themes) and, if anything is missing, walks you through setting it up in plain steps.",
         "Start with page-audit. Say what the page is for: book, sell, promote, build trust, inform or fix.",
-        "It checks the rendered page at desktop and mobile against a playbook for its type, and names who owns each fix (this theme, store admin, store settings, a third-party app, or an off-site page).",
-        "It writes a ranked report and a living PAGE-AUDIT.md.",
-        "Ask page-studio to apply the recommendations you pick, or name any change or new page directly."
+        "It checks the rendered page at both desktop and mobile against a playbook for its type, and names who owns each fix (this theme, store admin, store settings, a third-party app, or an off-site page). If the site-reader plugin is installed, it reads the page with it first, which is faster and uses fewer steps.",
+        "It writes a ranked report and a living PAGE-AUDIT.md, with the fixes first and, separately, ideas to make the page feel fresh: new content, a different layout, a redesign of a section. These are suggestions, never applied unless you pick them.",
+        "Ask page-edit-content, page-edit-design or page-create to apply the rows you pick, or name any change or new page directly. The front door chains them when a request needs more than one."
       ],
-      "produces": ["A client-ready audit report and PAGE-AUDIT.md", "Changes or new pages on a draft theme"],
-      "requires": ["brand-capture (BRAND.md, BRAND-VOICE.md, design.md) for new or rewritten words.", "To change pages, one of two ways to reach your theme: Node.js and the Shopify CLI signed in to your store with theme access, or, with nothing to install, your Shopify connection when Shopify has approved it to change themes (the check finds out, and falls back to the CLI steps when it isn't). Also a browser Claude can use and a folder on your computer for notes and file backups. On the connection route the change is checked on the private draft right after it is written, and Theme Check can't run. page-audit needs only a browser and the page address.", "No need to set these up in advance: each skill checks them first and walks you through anything missing, step by step."],
-      "guardrails": ["page-audit never edits a theme or store.", "Changes go only to a draft theme (asked for or created). The live theme is never edited."],
-      "next": ["theme-audit"]
+      "produces": [
+        "A client-ready audit report and PAGE-AUDIT.md (fixes and refresh ideas)",
+        "Changes or new pages on a draft theme, each checked at desktop and mobile"
+      ],
+      "requires": [
+        "brand-capture (BRAND.md, BRAND-VOICE.md, design.md) for new or rewritten words.",
+        "To change pages, one of two ways to reach your theme: Node.js and the Shopify CLI signed in to your store with theme access, or, with nothing to install, your Shopify connection when Shopify has approved it to change themes (the check finds out, and falls back to the CLI steps when it isn't). Also a browser Claude can use and a folder on your computer for notes and file backups. On the connection route the change is checked on the private draft right after it is written, and Theme Check can't run. page-audit needs only a browser and the page address.",
+        "No need to set these up in advance: each skill checks them first and walks you through anything missing, step by step."
+      ],
+      "guardrails": [
+        "page-audit never edits a theme or store.",
+        "Changes go only to a draft theme (asked for or created). The live theme is never edited."
+      ],
+      "next": [
+        "theme-audit",
+        "site-reader"
+      ]
     },
     {
-      "name": "theme-audit", "group": "pages",
+      "name": "theme-audit",
+      "group": "pages",
       "tagline": "The full Lighthouse suite, Shopify's Theme Inspector and Theme Check, read out in plain words, with safe fixes on a draft theme.",
       "what": "Scores a page with the full Lighthouse suite from the command line (speed, accessibility, best practices and SEO, on phone and desktop, several runs each, with the HTML reports saved). It also runs Shopify's Theme Inspector, which shows which theme files take the server longest, and Theme Check, Shopify's own checker for theme code. The result is a plain-language readout like the CRO audit's: a headline, a scorecard, and the first things to fix, each with who owns it (this theme, an app, the store's own content or Shopify). It can run read-only on any live page, or fix what the theme owns on a draft theme after your approval and prove nothing visible changed. Accessibility is fixed to 1.00; speed is reported as a middle value with real-visitor data where Google has it, with no 100 target. It never removes apps, changes words or moves layout. Replaces accessibility-audit, which it includes.",
-      "prompts": ["Audit the homepage", "Run Lighthouse on the product page", "Why is the site slow?", "Run theme check", "Accessibility audit on the product page", "Get this to 100%"],
-      "steps": ["It checks what it needs (Node.js, the Shopify CLI, Chrome, Lighthouse) and walks you through setting up anything missing.", "It says whether this is an audit only (read-only, no draft needed) or an audit with fixes (it asks once which draft theme to use; the live theme is never edited).", "It runs the full Lighthouse suite three times on phone and desktop, the Theme Inspector on the page, Theme Check on the theme, and reads Google's real-visitor data.", "It gives you a short readout: headline, scorecard, the first things to fix with who owns each, quick wins, and what is not the theme's to fix.", "If you choose fixes, it applies the safe ones on a draft theme, checks the page looks and works the same, and re-scores."],
-      "produces": ["A plain-language readout in chat and at the top of THEME-AUDIT.md", "Lighthouse HTML and JSON reports for every run", "Server timing by theme file, and a theme code check summary", "Approved fixes on a draft theme (fix mode only)"],
-      "requires": ["Node.js, the Shopify CLI signed in to your store with theme access, Google Chrome, Lighthouse (downloads itself), a browser Claude can use, and a folder on your computer for the theme copy.", "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."],
-      "guardrails": ["Audit-only mode changes nothing: no theme, store, app or content is edited.", "Never edits the live theme: fixes go to a draft theme, asked for or created.", "Never removes or turns off apps and never changes store content; it reports their cost and owner.", "Roughly 30 to 60 minutes per page template for every check, 15 to 40 for accessibility alone. These are estimates."],
+      "prompts": [
+        "Audit the homepage",
+        "Run Lighthouse on the product page",
+        "Why is the site slow?",
+        "Run theme check",
+        "Accessibility audit on the product page",
+        "Get this to 100%"
+      ],
+      "steps": [
+        "It checks what it needs (Node.js, the Shopify CLI, Chrome, Lighthouse) and walks you through setting up anything missing.",
+        "It says whether this is an audit only (read-only, no draft needed) or an audit with fixes (it asks once which draft theme to use; the live theme is never edited).",
+        "It runs the full Lighthouse suite three times on phone and desktop, the Theme Inspector on the page, Theme Check on the theme, and reads Google's real-visitor data.",
+        "It gives you a short readout: headline, scorecard, the first things to fix with who owns each, quick wins, and what is not the theme's to fix.",
+        "If you choose fixes, it applies the safe ones on a draft theme, checks the page looks and works the same, and re-scores."
+      ],
+      "produces": [
+        "A plain-language readout in chat and at the top of THEME-AUDIT.md",
+        "Lighthouse HTML and JSON reports for every run",
+        "Server timing by theme file, and a theme code check summary",
+        "Approved fixes on a draft theme (fix mode only)"
+      ],
+      "requires": [
+        "Node.js, the Shopify CLI signed in to your store with theme access, Google Chrome, Lighthouse (downloads itself), a browser Claude can use, and a folder on your computer for the theme copy.",
+        "No need to set these up in advance: it checks them first and walks you through anything missing, step by step."
+      ],
+      "guardrails": [
+        "Audit-only mode changes nothing: no theme, store, app or content is edited.",
+        "Never edits the live theme: fixes go to a draft theme, asked for or created.",
+        "Never removes or turns off apps and never changes store content; it reports their cost and owner.",
+        "Roughly 30 to 60 minutes per page template for every check, 15 to 40 for accessibility alone. These are estimates."
+      ],
       "next": []
     },
     {
-      "name": "analytics", "group": "analytics",
+      "name": "analytics",
+      "group": "analytics",
       "tagline": "Audit tagging, get tracking working, clean up tags and keep it from breaking.",
       "what": "Four skills sharing one ANALYTICS.md per client site. Analytics is only useful if the numbers can be trusted, and most breakages are silent: a duplicated tag, a renamed button, a consent banner that never reports the visitor's choice. Shopify-first, also WordPress and custom sites.",
       "skills": [
-        {"name": "analytics-audit", "tagline": "Tagging audit and full audit across privacy states. Changes nothing.", "prompts": ["Audit our tagging", "Is our analytics set up correctly?", "Why is tracking double counting?"]},
-        {"name": "analytics-setup", "tagline": "From the client's issue list to approved, verified fixes.", "prompts": ["Fix our analytics", "Get tracking working", "Set up GA4", "Conversions aren't showing in Google"]},
-        {"name": "analytics-cleanup", "tagline": "Quick cleanup of dead tags, or zero-based deep tag cleanup.", "prompts": ["Clean up our tags", "Our site is slow because of tags", "Remove unused pixels"]},
-        {"name": "analytics-guardrails", "tagline": "Dependency register, change checks and drift watch.", "prompts": ["Will this change break tracking?", "Check analytics impact before this theme change", "Watch for tracking drift"]}
+        {
+          "name": "analytics-audit",
+          "tagline": "Tagging audit and full audit across privacy states. Changes nothing.",
+          "prompts": [
+            "Audit our tagging",
+            "Is our analytics set up correctly?",
+            "Why is tracking double counting?"
+          ]
+        },
+        {
+          "name": "analytics-setup",
+          "tagline": "From the client's issue list to approved, verified fixes.",
+          "prompts": [
+            "Fix our analytics",
+            "Get tracking working",
+            "Set up GA4",
+            "Conversions aren't showing in Google"
+          ]
+        },
+        {
+          "name": "analytics-cleanup",
+          "tagline": "Quick cleanup of dead tags, or zero-based deep tag cleanup.",
+          "prompts": [
+            "Clean up our tags",
+            "Our site is slow because of tags",
+            "Remove unused pixels"
+          ]
+        },
+        {
+          "name": "analytics-guardrails",
+          "tagline": "Dependency register, change checks and drift watch.",
+          "prompts": [
+            "Will this change break tracking?",
+            "Check analytics impact before this theme change",
+            "Watch for tracking drift"
+          ]
+        }
       ],
-      "prompts": ["Audit our tagging", "Fix our analytics", "Will this change break tracking?"],
+      "prompts": [
+        "Audit our tagging",
+        "Fix our analytics",
+        "Will this change break tracking?"
+      ],
       "steps": [
         "Audit first: it inventories what is installed, what it sends and what should change, with evidence.",
         "Setup runs the full path: issue list, tracking plan, audit, prioritised actions for approval, one fix at a time with a rollback ready, then re-test every core event.",
         "Cleanup removes dead weight, then makes every remaining tag earn its place.",
         "Guardrails checks every later site change against a register of what tracking depends on."
       ],
-      "produces": ["ANALYTICS.md (tracking plan, stack inventory, consent setup, dependency register, findings, changelog)"],
-      "requires": ["Python 3 for the scripts. The privacy matrix needs Node and Playwright. The cost benchmark needs Node and Chrome. GA4 checks can use Google's Analytics MCP server."],
-      "guardrails": ["Audit changes nothing.", "Setup never skips the approval or the test."],
+      "produces": [
+        "ANALYTICS.md (tracking plan, stack inventory, consent setup, dependency register, findings, changelog)"
+      ],
+      "requires": [
+        "Python 3 for the scripts. The privacy matrix needs Node and Playwright. The cost benchmark needs Node and Chrome. GA4 checks can use Google's Analytics MCP server."
+      ],
+      "guardrails": [
+        "Audit changes nothing.",
+        "Setup never skips the approval or the test."
+      ],
       "next": []
     },
     {
-      "name": "cro-audit", "group": "research",
+      "name": "cro-audit",
+      "group": "research",
       "tagline": "Find what is costing conversions, say how sure we are, and plan what to fix and test.",
       "what": "A quick first-pass audit or the full research suite CRO agencies run, with no integrations required. It reviews the live page (technical, speed, mobile, heuristics, competitors), reads the store's Shopify Analytics read-only through the Shopify CLI (or numbers you supply), checks the data can be trusted (tracking breaks, orders by channel, bots), then lays out the funnel stage by stage (each stage's rate by device, channel and entry page, against your targets or the store's own average, with a plain verdict), shows each key problem on a screenshot of the real page with numbered boxes, reviews heatmaps and recordings you bring, mines reviews and support text, writes survey questions and user-test scripts and analyses the results. Every finding is labelled by the kind of evidence behind it and how confident we are. It then sorts issues into just do it, instrument, investigate, test or hypothesize, scores them, and plans experiments with a hypothesis, metrics, sample size and duration. It also checks A/B test results, including whether the traffic split was valid.",
-      "prompts": ["Run a CRO audit on the homepage", "Run the full CRO research suite", "Here are our funnel numbers, where is the leak?", "Plan an A/B test for the booking button", "How many visitors do we need for this test?", "Read these A/B results"],
+      "prompts": [
+        "Run a CRO audit on the homepage",
+        "Run the full CRO research suite",
+        "Here are our funnel numbers, where is the leak?",
+        "Plan an A/B test for the booking button",
+        "How many visitors do we need for this test?",
+        "Read these A/B results"
+      ],
       "steps": [
         "Choose a quick audit (about an hour, needs nothing from you) or the full audit.",
         "It reviews the live page at desktop and phone width and measures speed.",
         "If the Shopify CLI is authorised for the store it reads the analytics itself, read-only; otherwise bring funnel numbers. Also bring heatmaps or recordings, reviews or support text, past test results if you have them.",
         "It prepares the survey questions and user-test script if you want them, and analyses the answers when they come back.",
-        "Give it your target rates per stage if you or your agency have them; otherwise it compares the store with itself, or with a published benchmark it names.", "It gives you a plain-language summary in chat (where visitors stop, the top five fixes in a table, quick wins, what to test, what it couldn't check) and writes CRO-AUDIT.md: one block per funnel stage with pictures of the page and numbered changes, then every finding, its evidence and the experiment plans."
+        "Give it your target rates per stage if you or your agency have them; otherwise it compares the store with itself, or with a published benchmark it names.",
+        "It gives you a plain-language summary in chat (where visitors stop, the top five fixes in a table, quick wins, what to test, what it couldn't check) and writes CRO-AUDIT.md: one block per funnel stage with pictures of the page and numbered changes, then every finding, its evidence and the experiment plans."
       ],
-      "produces": ["CRO-AUDIT.md (funnel by stage with verdicts, ranked findings with evidence and confidence, buckets, scores, experiment plans, open questions)", "cro-evidence/: screenshots of the page sections behind each problem, on phone or desktop, with numbered boxes", "Survey questions and a user-test script, on request", "A slide deck or web page of the same report, only when you ask for one"],
-      "requires": ["Nothing for a quick audit (Chrome or Chromium on the computer gives it the screenshots). For analytics: the Shopify CLI authorised for the store with read_reports and read_orders (you grant it yourself), or exported numbers. Uses REVIEW-MINING.md, COMPETITORS.md and BRAND.md if they exist."],
-      "guardrails": ["Strictly read-only: never changes store settings, setup, themes, content or apps, even with access that would allow it, and never submits forms or answers the cookie banner.", "Screenshots only load and scroll the page in a fresh private browser; they never click, type or submit.", "No invented benchmarks or lift predictions: every target names its source and date.", "Small samples are flagged as directional.", "It prepares surveys and tests but does not run them; you collect that data."],
-      "next": ["page-studio"]
+      "produces": [
+        "CRO-AUDIT.md (funnel by stage with verdicts, ranked findings with evidence and confidence, buckets, scores, experiment plans, open questions)",
+        "cro-evidence/: screenshots of the page sections behind each problem, on phone or desktop, with numbered boxes",
+        "Survey questions and a user-test script, on request",
+        "A slide deck or web page of the same report, only when you ask for one"
+      ],
+      "requires": [
+        "Nothing for a quick audit (Chrome or Chromium on the computer gives it the screenshots). For analytics: the Shopify CLI authorised for the store with read_reports and read_orders (you grant it yourself), or exported numbers. Uses REVIEW-MINING.md, COMPETITORS.md and BRAND.md if they exist."
+      ],
+      "guardrails": [
+        "Strictly read-only: never changes store settings, setup, themes, content or apps, even with access that would allow it, and never submits forms or answers the cookie banner.",
+        "Screenshots only load and scroll the page in a fresh private browser; they never click, type or submit.",
+        "No invented benchmarks or lift predictions: every target names its source and date.",
+        "Small samples are flagged as directional.",
+        "It prepares surveys and tests but does not run them; you collect that data."
+      ],
+      "next": [
+        "page-studio"
+      ]
+    },
+    {
+      "name": "brand-voice",
+      "group": "foundation",
+      "tagline": "Build the brand's voice, then write on-brand copy with it.",
+      "what": "Two skills. voice-builder is a short guided wizard (10 to 15 minutes, one multiple-choice question at a time) that comes right after brand-capture and refines BRAND-VOICE.md: one default voice with the channel exceptions under it, built from your own words, the brand's best-performing ads and a pick-the-one test. copywriter then writes specific, on-brand copy for store sections, emails, captions, interface text and campaigns, checked against the voice and the brand's claim limits.",
+      "skills": [
+        {
+          "name": "voice-builder",
+          "tagline": "A guided wizard that builds or refines BRAND-VOICE.md.",
+          "prompts": [
+            "Set up the brand voice",
+            "Refine BRAND-VOICE.md",
+            "Make it sound like me"
+          ]
+        },
+        {
+          "name": "copywriter",
+          "tagline": "Writes on-brand copy for the site, email, captions, microcopy and campaigns.",
+          "prompts": [
+            "Write the hero copy",
+            "Write the campaign copy",
+            "The copy is too generic"
+          ]
+        }
+      ],
+      "prompts": [
+        "Set up the brand voice",
+        "Write the hero copy",
+        "The copy is too generic"
+      ],
+      "steps": [
+        "Run voice-builder after brand-capture. It asks how much material to use (Minimal, Regular or Maximal) and finds the brand's best-performing ads even when you name none.",
+        "It asks what the brand never says and what makes AI copy feel wrong, sets one default voice with channel exceptions, and runs a pick-the-one test: your picks write the rules.",
+        "It records who approves brand decisions and who approves copy, then shows three examples in the new voice beside the old so you can finalize or rework.",
+        "Ask copywriter for any piece of copy. It researches the customer's own words first, gives every piece one job, and writes three directions where there is a real choice."
+      ],
+      "produces": [
+        "BRAND-VOICE.md (default voice, channel exceptions, approvers)",
+        "Copy for store sections, emails, captions, interface text and campaigns, in three directions where it matters"
+      ],
+      "requires": [
+        "brand-capture (BRAND.md and BRAND-VOICE.md). If BRAND-VOICE.md is thin or missing, copywriter offers voice-builder first."
+      ],
+      "guardrails": [
+        "Copy never goes beyond the claim limits in BRAND.md, and regulated or numeric claims are flagged for fact-check.",
+        "You pick the voice: nothing is finalized without your picks."
+      ],
+      "next": [
+        "shopify-storefront",
+        "fact-check",
+        "blog-generator"
+      ]
+    },
+    {
+      "name": "shopify-storefront",
+      "group": "storefront",
+      "tagline": "Plan and launch a campaign, build its landing page, and match the theme to the brand guide.",
+      "what": "Three skills for a busy founder who wants results without touching theme settings, all working through the Shopify connector in a normal chat (no terminal) or the Shopify CLI, and always on an unpublished preview copy. campaign-launcher plans a time-boxed campaign from one sentence or your materials, readies the website, drafts email, SMS and ads as stubs, and schedules Launch and Stop. campaign-page builds a landing page that sells, whose sections swap in the theme editor or by asking Claude. theme-editor makes the theme's colours (and fonts if asked) match the brand guide, with a contrast check.",
+      "skills": [
+        {
+          "name": "campaign-launcher",
+          "tagline": "One-line plan, calendar file, website on a preview copy, channel drafts, scheduled Launch and Stop.",
+          "prompts": [
+            "New campaign",
+            "Put the sale on the homepage",
+            "We're launching a new product",
+            "Take the sale down"
+          ]
+        },
+        {
+          "name": "campaign-page",
+          "tagline": "A campaign landing page that sells, with swappable sections and phases from coming soon to ended.",
+          "prompts": [
+            "Make a campaign landing page",
+            "Swap the hero",
+            "Show me options for the page",
+            "A page for the Black Friday sale"
+          ]
+        },
+        {
+          "name": "theme-editor",
+          "tagline": "Make the theme match the brand guide, with a before and after table and a contrast check.",
+          "prompts": [
+            "Make the site match our brand guide",
+            "Change the brand colors on the website",
+            "Update the fonts"
+          ]
+        }
+      ],
+      "prompts": [
+        "New campaign",
+        "Make a campaign landing page",
+        "Make the site match our brand guide"
+      ],
+      "steps": [
+        "Describe the campaign in a sentence and drop in anything you have (a brief, copy, images, a video, links). campaign-launcher shows one plan line: name, type, exact dates with time zone, and channels, plus a calendar file. You say yes once.",
+        "It readies the announcement bar, homepage hero and an optional countdown, and a landing page, on an unpublished preview copy, in the brand's voice. Email, SMS and ads are drafted as stubs for you to send.",
+        "It schedules Launch and Stop. Stop puts the site back exactly as it was. Nothing goes live without you publishing the preview.",
+        "For brand colours, give theme-editor your brand guide or hex codes. It shows a before and after table, checks every text and background pair for readable contrast, and delivers it on the preview copy."
+      ],
+      "produces": [
+        "A one-line campaign plan, a plan document and a calendar file",
+        "A preview theme with the campaign on it and a preview link",
+        "A landing page with ready alternates for each section, and a design draft with two or three copy options",
+        "A before and after table for brand colours and fonts, with contrast results"
+      ],
+      "requires": [
+        "The Shopify connector signed in to the store (the store owner connects it once), or the Shopify CLI.",
+        "BRAND.md and BRAND-VOICE.md from brand-capture and voice-builder help; without them, copy is not checked against a brand file."
+      ],
+      "guardrails": [
+        "Never edits the live theme: all work is on an unpublished copy, and publishing is your step.",
+        "For a store whose live theme is connected to GitHub, work goes to the staging theme and going live is a merge you approve.",
+        "Email, SMS and ads are drafts only; only the website is connected.",
+        "Extras (countdown, badges, sale colours) are offered, never added unasked."
+      ],
+      "next": [
+        "brand-voice",
+        "page-studio",
+        "theme-audit"
+      ]
+    },
+    {
+      "name": "site-reader",
+      "group": "pages",
+      "tagline": "Read a page's text and layout at desktop and mobile without opening a browser.",
+      "what": "One command that returns a short summary of what a page says and how it is laid out, so other skills can look at a page quickly and with few steps. A plain text read gives the title, headings, copy, links, structured data and, on Shopify, the theme id. A second read, using the Chrome already on the computer in the background, measures sections top to bottom, the first screen, calls to action, popups in the way, fonts and colours, small tap targets, broken images and sideways overflow, at desktop and mobile. Pictures are saved only when you ask.",
+      "prompts": [
+        "What does the homepage look like at desktop and mobile?",
+        "Is there a popup on the first screen?",
+        "Which theme is this page using?"
+      ],
+      "steps": [
+        "Give it a page address. It reads the text first, then the layout at desktop (1440x900) and mobile (375x812).",
+        "You get a short summary: sections with positions and heights, a line where the first screen ends, calls to action, anything covering the screen, type and colours as measured.",
+        "Ask for pictures (a small first-screen image or a shrunk full-page image per device) only when the numbers aren't enough.",
+        "For a Shopify preview, it can check that the page reports the theme you meant."
+      ],
+      "produces": [
+        "A short text summary (about a thousand tokens) and a saved report.json",
+        "Optional small pictures and a wireframe per device"
+      ],
+      "requires": [
+        "Python 3 and Chrome or Chromium on the computer (nothing to install). Without Chrome it still reads the text and says what it could not see."
+      ],
+      "guardrails": [
+        "Read-only: it loads and scrolls, and never clicks, types or submits.",
+        "It never types a password: a locked store is reported as blocked.",
+        "Anything about how a page looks is read at both desktop and mobile; what it can't read is marked Can't tell."
+      ],
+      "next": [
+        "page-studio",
+        "cro-audit",
+        "theme-audit"
+      ]
     }
   ],
   "videos": {}
