@@ -26,11 +26,12 @@ Reading the source you just wrote is not verification; loading the rendered page
 When `setup-check.md` chose the connector route (`connector-route.md`: no Shopify CLI, no local
 copy of the theme), the rules above still hold, and three things differ.
 
-**1. The rendered checks run after the write, on the draft.** There is nothing to render on this
-computer first. The order is: pre-write checks (below), write to the draft (`ship-to-draft.md`),
-then every check in section 3 on the draft's preview address. A draft is private, so visitors never
-see the change while it is checked. "Verified before the push" cannot hold for the rendered checks
-on this route, so don't say it: say "checked on the draft after it was written."
+**1. The rendered checks run after the write, on the staging theme.** There is nothing to render on
+this computer first. The order is: pre-write checks (below), write to the staging theme
+(`ship-to-draft.md`), then every check in section 3 on its preview address. The staging theme is
+private, so visitors never see the change while it is checked. "Verified before the push" cannot
+hold for the rendered checks on this route, so don't say it: say "checked on the staging theme
+after it was written."
 
 **2. Pre-write checks are source checks, and they are not verification.** Run them on the files in
 `work/` before anything is written, and record them as one line ("Pre-write checks: ...") in the
@@ -52,7 +53,7 @@ Shopify's own refusal of a bad file (the `userErrors` of the write) and the pre-
 checks cover part of what it would have caught; say that it is only part. A baseline captured
 without the checker can't prove the count didn't grow, so never write "theme check unchanged".
 
-A failed rendered check means the draft is **not ready**: fix it with the same guards or revert
+A failed rendered check means the change is **not ready**: fix it with the same guards or revert
 (`revert-mode.md`). The live theme was never touched.
 
 ## 1. Load the change pack
@@ -97,8 +98,8 @@ Write section 5 of the change pack: each check, its result, number and viewport.
 plain words:
 
 - **Verdict:** safe to put on the target theme, or not, and why. (Connector route: it is already
-  on the draft; "safe" means ready to leave there and offer for publishing, "not safe" means fix
-  or revert.)
+  on the staging theme; "safe" means ready to leave there and hand over with the preview link,
+  "not safe" means fix or revert.)
 - **The numbers:** before and after for the changed thing, the section inventory result, the
   `theme check` count, and anything "Can't tell" with its reason.
 - **What it does not prove:** that the change will improve results, and anything not observable
@@ -111,6 +112,6 @@ step. Never ship a change whose verdict is not safe.
 
 | Verdict | Next |
 |---|---|
-| Every check passed, or "Can't tell" with a reason the person accepted | Ship to the target theme (`ship-to-draft.md`). Connector route: the files are already on the draft, so go on to the log (`ship-to-draft.md` section 7) |
+| Every check passed, or "Can't tell" with a reason the person accepted | Ship to the target theme (`ship-to-draft.md`). Connector route: the files are already on the staging theme, so go on to the log (`ship-to-draft.md` section 7) |
 | A check failed | Back to the editing step with the failing check and numbers |
 | The baseline is stale, or the theme was edited in the admin | Re-capture the baseline, then verify again |

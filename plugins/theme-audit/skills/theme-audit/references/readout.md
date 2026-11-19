@@ -67,7 +67,7 @@ Use these labels as short bold lines. Skip a part that has nothing in it.
 9. **What I couldn't check.** One or two lines, every lane marked "not run" with its reason.
 10. **Close.** The link to `THEME-AUDIT.md` and the folder of HTML reports (one per run, the person
     can open them in a browser), then one question offering the next step, such as applying the
-    safe fixes on a draft theme.
+    safe fixes on the staging theme.
 
 ## Writing rules
 

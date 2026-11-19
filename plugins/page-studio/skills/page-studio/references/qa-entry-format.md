@@ -37,7 +37,7 @@ page in one entry).
 ### Deviations (new page with a reference only)
 - <property>: <difference>. Reason: <base-theme breakpoint | accessibility minimum | merchant content>
 
-final result: <pushed to draft | reverted to baseline (see below) | blocked (name
+final result: <pushed to staging | reverted to baseline (see below) | blocked (name
 the tool and why)>
 
 For a revert, add: `- revert: <what was undone, why, baseline used (change pack, git commit or saved pull), proof (whole theme pulled back and compared), not restored: <...>`.
@@ -45,10 +45,12 @@ For a revert, add: `- revert: <what was undone, why, baseline used (change pack,
 
 Rules:
 
-- `pushed to draft` needs the before/after (or reference/build) table
+- `pushed to staging` needs the before/after (or reference/build) table
   filled with *measured* values -- actual text read from the rendered DOM, actual computed
   style, actual setting value -- not "looks right" or "matches."
-- There is no `pushed live` result: these skills never push to or publish the live theme.
+- There is no `pushed live` result: these skills never push to the live theme. Publishing the staging
+  theme happens only through the go-live gate (`theme-target.md` section 7) and is recorded in
+  `THEME-TARGET.md` History.
 - A visible difference noticed but not addressed counts as a defect unless it's listed
   under "out of scope / flagged."
 - `blocked` only when no browser/render path is truly available. Say which tool failed.

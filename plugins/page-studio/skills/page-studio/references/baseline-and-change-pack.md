@@ -28,7 +28,7 @@ slow scroll, overlays noted). Capture at desktop (1440x900) and mobile (375x812)
 
 | Item | How | Why it is needed later |
 |---|---|---|
-| Theme id, name and role (draft, preview or live) | The theme list and the id the page reports | Proves the right theme was changed |
+| Theme id, name and role (unpublished staging, or live) | The theme list and the id the page reports | Proves the right theme was changed |
 | Section inventory: id, top, height, first words | Section snippet in the recipes | Proves nothing else moved |
 | Total page height | `document.body.scrollHeight` | A quick whole-page check |
 | `theme check` offense count for the working copy | `theme check`. Connector route: it can't run; record "Can't tell: the code checker needs the Shopify CLI" | The count must not grow (connector route: not provable; `verify.md`) |
@@ -51,7 +51,7 @@ change_pack_schema: 1.0
 page: <homepage | about | ...>
 rows: [<PAGE-AUDIT row IDs, or "none (named change)">]
 target_theme: <id, name, role>
-live_theme: <id, name>   # reference only: never edited, pushed to or published by these skills
+live_theme: <id, name>   # reference only: never edited or pushed to by these skills
 created: <YYYY-MM-DD>
 skill: page-create | page-edit-content | page-edit-design
 route: cli | connector   # which way files are read and written (setup-check.md section 2)
@@ -81,8 +81,8 @@ Pre-write checks (connector route only): <the source checks in `verify.md`, "On 
 - Pushed: <date, files, theme id>. Pulled back and diffed: <identical | differences>.
   Connector route: written with `themeFilesUpsert`; read back and compared (checksum or body):
   <identical | differences>; whole-theme manifest compared: <only the section 4 files differ | differences>.
-- Theme: <draft or preview name and id; never the live theme>.
-- Published: no. The person publishes in the store admin.
+- Theme: <staging theme name and id; never the live theme>.
+- Published: no. Going live happens only when the person asks (`theme-target.md` section 7).
 - QA log entry: <path or "in chat">.
 ```
 
@@ -92,7 +92,7 @@ Pre-write checks (connector route only): <the source checks in `verify.md`, "On 
 - The verify step writes section 5 and never edits a theme file.
 - The ship step reads sections 1 to 5, writes section 6, and updates audit row status.
 - Connector route: the order is reversed for sections 5 and 6. The ship step writes the files to
-  the draft first and fills section 6; the verify step then fills section 5 on the draft. The ship
+  the staging theme first and fills section 6; the verify step then fills section 5 there. The ship
   step reads sections 1 to 4 and the pre-write checks line in section 3.
 - If sections 3 and 4 disagree with the files in the working copy, stop: the pack is stale.
   Re-capture or ask the person.
@@ -105,5 +105,5 @@ Pre-write checks (connector route only): <the source checks in `verify.md`, "On 
 A change is verified only when the verify step loaded the rendered page on the target theme at
 desktop and mobile and every check in its section 5 table passed or is marked "Can't tell" with
 a reason that the person accepted. A source diff is never verification. On the connector route the
-page can only be loaded on the draft after the files are written, so "verified" there means
-checked on the draft after the write; the pre-write checks are not verification.
+page can only be loaded on the staging theme after the files are written, so "verified" there
+means checked on the staging theme after the write; the pre-write checks are not verification.

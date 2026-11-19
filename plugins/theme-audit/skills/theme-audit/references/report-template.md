@@ -10,7 +10,7 @@ Write "not run" for anything that wasn't run, never a guess.
 ## Entry template
 
 ```markdown
-## <YYYY-MM-DD>: <pages in scope>, theme "<theme name>" (<theme id>, <live or draft>)
+## <YYYY-MM-DD>: <pages in scope>, theme "<theme name>" (<theme id>, <live or staging>)
 
 ### Read this first
 

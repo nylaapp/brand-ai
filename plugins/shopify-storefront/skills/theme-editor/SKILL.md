@@ -1,6 +1,6 @@
 ---
 name: theme-editor
-description: Make a Shopify store's theme match its brand guide. Maps the palette, gradients and (when asked) typography in BRAND.md or a brand book onto the theme's colour settings, fonts and the colours set on individual sections, checks every text/background pair for readable contrast, and delivers it on an unpublished preview copy with a before/after table. Works through the Shopify connector in a normal Claude chat (no terminal), or the Shopify CLI. Use whenever someone says "change the brand colors on the website", "make the site match our brand guide / style guide", "update the fonts", "apply the new branding", "our site doesn't look on brand", "rebrand the store", or sends hex codes, a palette or a brand book and wants the website updated, even if they don't say "theme".
+description: Make a Shopify store's theme match its brand guide. Maps the palette, gradients and (when asked) typography in BRAND.md and design.md (both required; a brand book the person sends can be turned into them first) onto the theme's colour settings, fonts and the colours set on individual sections, checks every text/background pair for readable contrast, and delivers it on the store's staging theme with a before/after table. Works through the Shopify connector in a normal Claude chat (no terminal), or the Shopify CLI. Use whenever someone says "change the brand colors on the website", "make the site match our brand guide / style guide", "update the fonts", "apply the new branding", "our site doesn't look on brand", "rebrand the store", or sends hex codes, a palette or a brand book and wants the website updated, even if they don't say "theme".
 ---
 
 # Shopify brand theme
@@ -8,6 +8,25 @@ description: Make a Shopify store's theme match its brand guide. Maps the palett
 Bring a live store in line with its brand guide without breaking readability or the owner's layout. The owner is
 usually a busy founder who customised a paid theme by hand: they want the site to look like the brand book, and they
 need a preview and a short before → after list, not settings.
+
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md and design.md).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing.
+- **Staging only.** Every change goes to the store's staging theme (an unpublished theme whose name contains
+  "staging"), and to the `staging` branch when the theme is in a git repository. If none is remembered, settle
+  it before the first change, offering to create "<live theme name> staging" (`references/theme-target.md` sections 3
+  and 4). Never edit, push to or commit for the live theme.
+- **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
+  their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `references/theme-target.md` section 7):
+  checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
+  store has not changed."
 
 ## Effort
 
@@ -33,17 +52,22 @@ not measured). Past 15 minutes, stop and say what's blocking.
   site's main colour.)
 - Every text-on-background pair passes WCAG AA (4.5:1 body text, 3:1 large text and UI). Fix failures by changing
   the pairing, not the brand colour.
-- One approval before writing; delivered on an unpublished copy with a preview link; the live theme is untouched.
+- One approval before writing; delivered on the staging theme with a preview link; the live theme is never edited.
 
 ## Step 0: Read the brand and the theme
 
 1. **Files:** `AGENTS.md` / `CLAUDE.md`, `BRAND.md` (Visual identity: palette and roles, gradients, typography,
-   logo), `THEME-SPECIFICS.md` and `BRAND-REQUESTS.md` (open visual requests, such as "orange is the main colour"),
-   in the project folder, the chat project's files, or attached. No BRAND.md: use the brand book the user gave you
-   and offer the brand-capture skill.
+   logo), `design.md` (palette, type scale, theme settings), `THEME-SPECIFICS.md` and `BRAND-REQUESTS.md` (open
+   visual requests, such as "orange is the main colour"), in the project folder, the chat project's files, or
+   attached. BRAND.md and design.md are required. If either is missing or belongs to another store, stop and ask
+   once: create it now or tell me where it is. A brand book, palette or hex codes the person sends are input, not a
+   stand-in: offer to make BRAND.md and design.md from them with brand-capture (then styles-builder if design.md
+   needs more), and continue once both exist. An unattended run stops and reports what is missing.
 2. Note values the brand file marks unconfirmed ("possible colors", `[[CLIENT TO CONFIRM]]`): build the preview
    anyway, but tell the owner which values are unconfirmed.
-3. **Store access:** `references/store-access.md` (connector, CLI or offline). Say which in one line.
+3. **Store access:** `references/store-access.md` (connector, CLI or offline). Say which in one line. Find the
+   staging theme (`references/theme-target.md` sections 2 and 5) and say "Using the staging theme <name> (<id>)". If
+   none is remembered, settle it before the first change (section 3).
 4. **Theme:** `theme_info` in `config/settings_schema.json`. Honey → `references/honey.md`; others →
    `references/other-themes.md`. THEME-SPECIFICS.md wins where it's more specific (it reflects this store today).
 
@@ -101,7 +125,7 @@ nothing until they say yes.
 1. Edit `config/settings_data.json` → `current` and the section JSON values from the plan. Keep `/* ... */` headers
    and ids; change only planned values. Validate: JSON parses, setting ids exist in the schema, colours are `#rrggbb`,
    font handles are real library handles.
-2. Write to the unpublished copy (`references/store-access.md`; section code before templates). Read back and confirm
+2. Write to the staging theme (`references/store-access.md`; section code before templates). Read back and confirm
    only the planned values changed.
 3. **Look at it on desktop and mobile:** with a browser tool, open the preview home page, a product page, a collection
    and the cart drawer at about 390 and 1440 pixels wide (and 1920 for the home page). Check the header, buttons,
@@ -111,16 +135,16 @@ nothing until they say yes.
 ## Step 5: Hand over
 
 Tell the owner briefly: the before → after table, what's sitewide, contrast (all pass, or which pairing changed),
-what's unconfirmed and what needs their licence, and the next step (approve, then publish themselves or tell you
-to; if they edited live since the duplicate, re-duplicate and re-apply instead. On a store whose live theme is
-connected to GitHub there's no publishing: the work is on the staging theme and going live is a merge of `staging`
-into `main`, see `references/github-stores.md`). **End the message with the preview
-link on its own last line**, after any question, so the owner sees exactly what to click. Nothing comes after it. Save the
+what's unconfirmed and what needs their licence. Say nothing about publishing unless they ask; if they do, follow
+`references/theme-target.md` section 6 (on a store whose live theme is connected to GitHub, see
+`references/github-stores.md`). **End the message with the preview link and "Your live store has not changed."**,
+on the last two lines, after any question, so the owner sees exactly what to click. Nothing comes after them. Save the
 table as `brand-theme-<YYYY-MM-DD>.md` in the project root (or give it in chat), and add to `THEME-SPECIFICS.md` any
 colour-group facts you learned.
 
 ## Quick path (demo mode)
 
-BRAND.md exists and a fresh preview copy exists: for a single request ("make the buttons our orange", "use our dark
-green on the newsletter band"), read only the files involved, show before → after with the contrast result, get the
-yes, write, read back, and end with the preview link on its own last line. About a minute of work.
+BRAND.md and design.md exist and the staging theme is settled: for a single request ("make the buttons our orange",
+"use our dark green on the newsletter band"), read only the files involved, show before → after with the contrast
+result, get the yes, write to staging, read back, and end with the preview link and "Your live store has not
+changed." About a minute of work.

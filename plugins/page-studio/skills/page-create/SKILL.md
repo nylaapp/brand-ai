@@ -6,10 +6,10 @@ description: >-
   section type built to the theme's own rules. Plans it from what its page type needs (the
   playbook's must-haves, primary action in the first screen), reuses existing sections before
   building anything new, shows a plain-language plan for a yes, then builds it (in a local working
-  copy with the Shopify CLI, or, without the CLI, directly on the draft through the Shopify
+  copy with the Shopify CLI, or, without the CLI, directly on the staging theme through the Shopify
   connector when it can change themes), verifies it on the rendered page including the theme
   editor's controls, and sends only the new and touched files to the theme the person chose (always
-  a draft, never the live theme). Can recreate a page from a live reference URL by capturing
+  the staging theme, never the live theme). Can recreate a page from a live reference URL by capturing
   measured values, never from a text-only fetch.
   Brand-agnostic, written for the Site Editor. Use for "build a page for X", "make a landing page
   for the new treatment", "create a region page", "add a testimonials section to the homepage",
@@ -24,7 +24,7 @@ description: >-
 Make something **new**: a page, a section on a page, or a new kind of section. It is planned from
 what that kind of page needs, built from existing pieces first, and made in a local working copy.
 The skill proves the result on the rendered page and puts only the new and touched files on the
-theme the person chose (always a draft, never the live theme). The live theme is never edited: work goes to a draft theme, created if there isn't one.
+store's staging theme (never the live theme). The live theme is never edited: work goes to the staging theme, created as "<live theme name> staging" if there isn't one.
 
 It works one of two ways, chosen by the setup check: with the Shopify CLI and a local working copy
 (the default), or, when the CLI isn't installed and the Shopify connector can change themes, through
@@ -59,14 +59,33 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md, BRAND-VOICE.md and design.md).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing.
+- **Staging only.** Every change goes to the store's staging theme (an unpublished theme whose name contains
+  "staging"), and to the `staging` branch when the theme is in a git repository. If none is remembered, settle
+  it before the first change, offering to create "<live theme name> staging" (`../page-studio/references/theme-target.md` sections 3
+  and 4). Never edit, push to or commit for the live theme.
+- **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
+  their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `../page-studio/references/theme-target.md` section 7):
+  checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
+  store has not changed."
+
 ## Rules
 
 - **Desktop and mobile, always.** Every check of how something looks (a page, section, draft, style or screenshot) is done at both desktop (1440x900) and mobile (375x812), never one alone. Name the viewport beside each visual result. If one can't be loaded, mark that check "Can't tell" and say so; never assume one view from the other.
-- **Working copy first, on the theme the person chose.** Never push from the working copy except
+- **Working copy first, on the staging theme.** Never push from the working copy except
   through the ship step (connector route: no copy of the whole theme; build in `work/` and write
-  nothing except through the ship step). The theme is asked once and remembered (`theme-target.md`); it is always a draft or unpublished theme, never the live theme (if there is none, `theme-target.md` asks for one or creates one) (`theme-target.md`, `ship-to-draft.md`).
+  nothing except through the ship step). The staging theme is settled once and remembered (`theme-target.md` sections 3 and 5); it is always an unpublished theme, never the live theme (if there is none, `theme-target.md` section 3 offers to create one) (`theme-target.md`, `ship-to-draft.md`).
 - **The connector route changes the order, not the rules.** With no Shopify CLI, nothing can be
-  rendered before the files are written, so the rendered checks run on the private draft right after
+  rendered before the files are written, so the rendered checks run on the private staging theme right after
   the write (the live theme is never touched), and `theme check` can't run. Say both in the plan and
   get the person's agreement once. The calls and guards are in
   `../page-studio/references/connector-route.md`.
@@ -95,8 +114,8 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 ## Who this is for
 
 A Site Editor on the marketing, content or operations side. Plain language, explain a term once,
-narrate before acting, flag trade-offs in plain terms, and explain draft versus live the first time
-it comes up: on a draft, nothing visitors see changes until they say go; these skills never edit the live theme, because edits there show to visitors at once.
+narrate before acting, flag trade-offs in plain terms, and explain staging versus live the first time
+it comes up: on the staging theme, nothing visitors see changes, and nothing goes live unless the person asks for it; these skills never edit the live theme, because edits there show to visitors at once.
 
 ## 0. Setup check
 
@@ -113,14 +132,15 @@ off). Nothing else starts until the required items pass.
 
 **Theme first.** Before anything else, settle which theme this runs on, with
 `../page-studio/references/theme-target.md`: use the theme already chosen in this
-conversation or remembered in `THEME-TARGET.md` and say so in one line, or settle one with that file (an existing draft, or a new draft copy; never the live theme) and remember it for every other skill. Don't ask again unless the
-person names a different theme. If the person names the live theme, that file applies: it is refused and a draft is used.
+conversation or remembered in `THEME-TARGET.md` and say so in one line, or settle one with that file's section 3 (an existing staging theme, or a new "<live theme name> staging"; never the live theme) and remember it for every other skill. When the theme is in a git repository, settle the `staging` branch too (section 4). Don't ask again unless the
+person names a different theme. If the person names the live theme, that file applies: it is refused and the staging theme is used.
 
 Follow section 1 of `../page-audit/references/intake.md`: resolve the brand files and `design.md`,
 handle a partial set, and read the store repo's own rules (`AGENTS.md` or `CLAUDE.md`), including how
-sections and blocks are named, structured, scoped and registered. With no brand files, structure can be
-planned but copy waits for brand-capture. Visual values come from `design.md`, else the store repo's
-visual spec or the theme's settings; never invent a hex, font, size or radius.
+sections and blocks are named, structured, scoped and registered. If a required brand file is
+missing, stop and ask once (create it now, or tell me where it is; `references/ground-rules.md`
+section 1); nothing is planned without it. Visual values come from `design.md` and the theme settings
+set from it; never invent a hex, font, size or radius.
 
 ## 2. Understand what is being created
 
@@ -203,7 +223,7 @@ For each region choose from the reuse order in the rules. Show the person a plai
 region, which section it will use, whether it needs a new setting or a new section, and why. When
 recreating a reference, add what the reference does there and every place the brand guidelines replace
 the reference's value (step 3). Get a
-yes before building. The plan names the draft theme (name and id) it will be built on.
+yes before building. The plan names the staging theme (name and id) it will be built on.
 
 **If a new section type is needed**, plan it explicitly and follow the store repo's rules for adding one:
 
@@ -245,24 +265,27 @@ reorder and duplicate controls work and empty fields and long headings don't bre
 other breakpoints and colour schemes hold (check 6), values come from the spec (check 12), and nothing
 that already existed moved (check 2). Any failure goes back to step 6; nothing ships on a failed check.
 Never say a page "matches" a reference without a measured parity table. **Connector route:** step 8
-comes first (the pre-write checks, then the write to the draft), and this step runs on the draft
-right after it. Nothing renders before the write; a failed check means the draft is not ready, so
+comes first (the pre-write checks, then the write to the staging theme), and this step runs there
+right after it. Nothing renders before the write; a failed check means the change is not ready, so
 fix it or revert.
 
-## 8. Ship to the chosen theme
+## 8. Ship to the staging theme
 
 Run `../page-studio/references/ship-to-draft.md`: check nobody edited the touched files
-since the baseline, push only the new and touched files to the chosen theme, pull them back as
+since the baseline, push only the new and touched files to the staging theme (and commit them on the `staging` branch
+when the theme is in a git repository), pull them back as
 proof, re-check the preview, write the QA entry
-(`../page-studio/references/qa-entry-format.md`), and set any audit rows to `done`. Connector route: the calls are in `connector-route.md`, and the proof is a read-back, not a pull-back. Never push to the live theme. Publishing a draft is done by the person in the store admin; say where (`ship-to-draft.md` section 8). To undo, use
+(`../page-studio/references/qa-entry-format.md`), and set any audit rows to `done`. Connector route: the calls are in `connector-route.md`, and the proof is a read-back, not a pull-back. Never push to the live theme, and never suggest publishing; if the person asks to go live, follow `ship-to-draft.md` section 8. To undo, use
 `../page-studio/references/revert-mode.md`.
 
 ## 9. Hand back
 
-Give a short, plain summary: what now exists and where it can be seen on the draft, what was verified
-with the numbers, and what the person still has to supply or do (images, final copy, creating the page
-in the store admin and choosing the template, publishing). Say whether it is on the draft only or live.
-On the connector route, say that the code checker (`theme check`) could not run.
+Give a short, plain summary: what now exists and where it can be seen on the staging theme, what was
+verified with the numbers, and what the person still has to supply or do (images, final copy, creating
+the page in the store admin and choosing the template). On the connector route, say that the code
+checker (`theme check`) could not run. End with the hand-over line (`theme-target.md` section 6):
+"Done on the staging theme <name> (<id>). Preview: <link>. Your live store has not changed." Say
+nothing about publishing unless the person asks.
 
 ## Checklist before finishing
 
@@ -275,7 +298,7 @@ On the connector route, say that the code checker (`theme check`) could not run.
 - [ ] Baseline captured before the first edit; change pack started
 - [ ] No hardcoded colours, fonts or text; numbers inside schema ranges; images blank where unconfirmed; placeholders obvious
 - [ ] Verified at desktop and mobile including the editor controls; nothing existing moved
-- [ ] Theme settled once (remembered or asked); pushed only to it, only the new and touched files, pulled back
+- [ ] Staging theme settled once (remembered or created); pushed only to it, only the new and touched files, pulled back
       (connector route: read back) identical; never the live theme
-- [ ] Connector route only: route and its two differences (checked on the draft after the write; no `theme check`) said in the plan and agreed
+- [ ] Connector route only: route and its two differences (checked on the staging theme after the write; no `theme check`) said in the plan and agreed
 - [ ] No credential typed; the person knows what they still must supply

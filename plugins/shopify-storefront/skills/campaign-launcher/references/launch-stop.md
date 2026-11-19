@@ -9,12 +9,17 @@ Owners say it many ways, and all of them mean Launch or Stop:
 We say Launch and Stop, not activate and deactivate, because they match the skill's name and the way owners talk
 about a sale.
 
+**Both change the live site, so both are a go-live.** Each happens only when the owner asks in their own words in
+this chat, through the go-live gate (`ground-rules.md` section 3, `theme-target.md` section 7): checks first, then
+two confirmations, the second typed. Approving the plan, a calendar event, a scheduled task or a line in campaign.md
+never counts. If the words are unclear ("looks good", "ship it"), ask what they mean.
+
 ## What Launch does
 
 | Channel | Launch | Who does it |
 |---|---|---|
-| Website | Publish the campaign's preview theme, after the drift check below | The owner, in Online Store → Themes → Publish. The connector can't publish. With the CLI, Claude publishes only when the owner says so in the chat, or when they pre-approved an automatic launch (below) |
-| Discount | Active, with start and end set to the campaign dates | Shopify, on its own, once the dates are set. Creating or changing a discount is a store write: ask first |
+| Website | Publish the staging theme, after the gate's checks (drift check below, and what ships: everything on staging, not only this campaign) | The owner, in Online Store → Themes → the staging theme's … menu → Publish. Or Claude, only when the owner asks in this chat and the gate passes (with the CLI; the connector may not be able to publish) |
+| Discount | Active, with start and end set to the campaign dates | Shopify, on its own, once the dates are set. A discount that turns itself on at a date is a scheduled go-live: create or change it only when the owner asks for it, and run the gate first, naming the date it starts |
 | Countdown | Shows as soon as the theme is live, and hides itself at its end time | The theme |
 | Email, SMS, Ads (stubs) | The owner sends or schedules the drafts in their own platform | The owner |
 
@@ -22,8 +27,8 @@ about a sale.
 
 | Channel | Stop |
 |---|---|
-| Campaign page | A one-off page: unpublish it (the owner's call, ask first). A recurring page with a handle that has no year (`/pages/black-friday`): switch it to its Ended alternate and keep it published, so it keeps its search ranking and can open a Coming soon phase next year |
-| Website | Put the "before" values back on a fresh copy of the theme that's live at that point. Preview it, then the owner publishes. **Shortcut:** if nobody edited the live theme during the campaign and the campaign copy held only campaign changes, publishing the previous theme again is a clean Stop. It's still in the theme library |
+| Campaign page | A one-off page: unpublish it (only when the owner asks, through the gate). A recurring page with a handle that has no year (`/pages/black-friday`): switch it to its Ended alternate and keep it published, so it keeps its search ranking and can open a Coming soon phase next year |
+| Website | Put the "before" values back on the staging theme, brought up to date with what's live at that point. Preview it. It reaches live like Launch: the owner publishes it, or asks Claude and the gate passes. **Shortcut:** if nobody edited the live theme during the campaign and the published staging theme held only campaign changes, publishing the previous live theme again is a clean Stop. It's still in the theme library. That is a go-live too: only on request, through the gate |
 | Discount | It ends itself at its end date: confirm it did |
 | Countdown | Already hidden |
 | Product tags or metafields the campaign added | Remove them. Ask first: they're store data |
@@ -35,9 +40,11 @@ Keep anything the owner changed since the campaign began, and everything in THEM
 ## Phases
 
 When the plan has phases (coming soon, early access, live, last chance, ended), each one is a dated swap of the bar,
-the hero and the countdown on the same URL. Schedule each swap like Launch, with a `<slug>-<phase>` task and a
-calendar event, and record it in campaign.md. The Ended swap always happens: an expired offer left on the site is a
-broken promise. Without phases, Stop does that job.
+the hero and the countdown on the same URL. Plan each swap like Launch: a date, a calendar reminder and, where
+available, a `<slug>-<phase>` task that prepares it on staging and tells the owner. Record it in campaign.md. A swap
+that changes the live site goes live like Launch: only when the owner asks, through the gate. The Ended swap is
+always prepared and always in the reminders: an expired offer left on the site is a broken promise. Without phases,
+Stop does that job.
 
 ## Before launch (owner's checks, in the hand-over)
 
@@ -50,16 +57,20 @@ At least a week before the start, the owner (or Claude, where it can) checks:
 - **Speed:** the campaign page has no new apps or scripts, and its hero media is compressed. For a big expected
   spike, the owner can ask Shopify support. Shopify's checkout scales, but heavy apps and media slow the page.
 
-**GitHub-connected store:** Launch and Stop are merges of `staging` into `main`, not publishes
-(`github-stores.md`). The drift check still runs, between the staging theme and live.
+**GitHub-connected store:** Launch and Stop are merges of `staging` into the live branch, not publishes, through
+the same gate (`github-stores.md`). The drift check still runs, between the staging theme and live.
 
-## Drift check (before every publish)
+## Drift check (inside the gate, and before a scheduled run reports)
 
-Publishing replaces the live theme with the copy, so edits made to live after the copy was made are lost.
-1. Compare the live theme's `updatedAt` with the time the copy was made.
-2. If live changed since then (the owner edited it in Customize), don't publish the old copy.
-3. Instead, duplicate live again and re-apply the campaign changes from the before → after table.
-4. Read the files back and preview them, then publish.
+Publishing the staging theme replaces the live theme, so edits made to live after staging was made or last brought up
+to date would be lost.
+1. Compare the live theme's `updatedAt` with when staging was made or last brought up to date (with git: commits on
+   the live branch that `staging` lacks).
+2. If live changed since then (the owner edited it in Customize), don't go live. Say what changed.
+3. Offer to bring staging up to date first (`theme-target.md` sections 4 and 7): with git, merge the live branch into
+   `staging`; without git, re-apply the changes on a fresh copy of live from the before → after table and the change
+   log, named "<live theme name> staging" and recorded as the new staging theme.
+4. Read the files back, preview them, and restart the gate.
 
 The same check applies at Stop.
 
@@ -67,18 +78,19 @@ The same check applies at Stop.
 
 Use every one of these that's available; they stack.
 
-1. **The store's own timers (always).** The Shopify discount's start and end dates, and the countdown's end time.
-   They run without Claude or the owner.
+1. **The store's own timers.** The countdown's end time, and the discount's end date. They run without Claude or
+   the owner once they are live. A discount start date is a scheduled go-live: set it only when the owner asks, after
+   the gate.
 2. **One-time scheduled tasks (only where this Claude has them).** In the Claude desktop app (Cowork or Claude
    Code), use `create_scheduled_task`. Load it with ToolSearch if it's only listed by name.
    - **First:** list the existing tasks, to avoid duplicates.
    - **Two tasks:** `<slug>-launch` and `<slug>-stop`. Each has `fireAt` set to the Launch or Stop time, as ISO 8601
      with the store's UTC offset.
    - **Prompt:** each run starts with no memory, so the prompt names the store, the project folder and
-     `campaigns/<slug>/campaign.md`, then says: "Use the campaign-launcher skill to <Launch | Stop> the <name>
-     campaign. Do the drift check and prepare the website on an unpublished copy. Read it back, then send the owner
-     the preview link and the one step left (publish). Publish only if campaign.md records that the owner
-     pre-approved an automatic <launch | stop> with the CLI."
+     `campaigns/<slug>/campaign.md`, then says: "Use the campaign-launcher skill to prepare the <Launch | Stop> of
+     the <name> campaign on the staging theme. Do the drift check, read it back, then tell the owner it is ready,
+     with the preview link and the drift check result. This run is unattended: never publish, merge or turn on a
+     discount. The owner goes live by saying '<launch | stop> <name>' in a chat, or in the store admin."
    - **Tell the owner:** the task runs on their computer, so Claude has to be open at that time. If it's closed,
      the task runs the next time Claude opens.
    - **A plain claude.ai chat has no scheduled tasks.** Say so, and rely on 1 and 3.
@@ -97,12 +109,9 @@ Use every one of these that's available; they stack.
 morning at 9:00 for the steps a person has to do. The discount and the countdown still end on time. Offer this as
 an option, never silently.
 
-**Automatic publish (CLI only, opt-in).** Only when the owner explicitly asks for it ("publish it automatically at
-launch"):
-- Record it in campaign.md: `Auto-publish: <launch | stop>, approved by <name> on <date>`.
-- The scheduled run still does the drift check. If live changed, it doesn't publish: it sends the owner a message
-  instead.
-- Never automatically through the connector (it can't publish), and never without that line in campaign.md.
+**No automatic publish.** A scheduled or unattended run never publishes or merges, even if the owner asks for it
+ahead of time. Going live needs the owner's own words in a chat at that moment, and the gate. If they ask for an
+automatic publish, say so in one line and set up the reminders instead.
 
 ## Calendar invite
 

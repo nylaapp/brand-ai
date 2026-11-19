@@ -38,6 +38,20 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md, BRAND-VOICE.md and design.md).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing.
+- **Read-only.** Changes nothing on the store, the theme or the repository, so it never asks for a staging theme
+  and never publishes. It may read any theme, the live one included. Fixes it suggests are made by a skill that
+  works on the staging theme.
+
 ## Who this is for
 
 Usually a Site Editor on the client's marketing, content or operations side: responsible for
@@ -71,8 +85,9 @@ is also on your contact page").
 ## 0. Setup check
 
 Before intake, run `../page-studio/references/setup-check.md` for the `page-audit` column: a
-browser and the page address are required; brand files and a way to read theme files (the Shopify CLI,
-or the Shopify connector, where read access is enough) are recommended. Assume
+browser, the page address and the brand files (`BRAND.md`, `BRAND-VOICE.md`, `design.md`) are
+required; a way to read theme files (the Shopify CLI, or the Shopify connector, where read access is
+enough) is recommended. Assume
 the person isn't technical: check silently yourself and walk them through anything missing one
 step at a time. If a recommended item is missing, say in one line what the audit will do without
 it and carry on. Skip it if it already passed in this conversation.
@@ -166,7 +181,7 @@ Then point to the next skill:
 | Words, images, links or alt text on an existing page, including a content refresh | `page-edit-content`, which reads the row from `PAGE-AUDIT.md` |
 | Layout, section order, spacing, colour, type or style of an existing page, including a relayout or redesign of a section | `page-edit-design`, which reads the row from `PAGE-AUDIT.md` |
 | A new page, a new section, or a section the audit says is missing | `page-create` |
-| Brand files missing, or copy needs brand approval | `brand-capture` |
+| Brand files thin, or copy needs brand approval | `brand-capture` (voice: `voice-builder`; visuals: `styles-builder`) |
 | Unsourced, numeric or regulated claims | `fact-check` |
 | Accessibility, speed or theme-code depth beyond the baseline | `theme-audit` |
 | Tracking, consent or tagging problems | `analytics-audit` |

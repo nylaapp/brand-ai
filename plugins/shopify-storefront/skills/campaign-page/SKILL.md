@@ -1,6 +1,6 @@
 ---
 name: campaign-page
-description: Generates a campaign landing page template for a Shopify store, built to sell, built to look designed (a design basis from the brand files or reference pages, a layout recipe per campaign type, visual rules and a screenshot check) and built so any part swaps in one switch. The offer, end date and one button sit in the first screen on mobile; urgency is real; products are curated with the saving shown; the shipping cutoff and FAQ sit near the button; it has an email signup and a tagged link per channel; phases from coming soon to ended run on one URL. Each part (hero, trust row, countdown, products, FAQ, signup, closing call to action) is its own section with ready alternates, swapped in the theme editor or by asking Claude. Uses only the theme's sections and the plan's facts, and can make a design draft with 2 or 3 copy options per section. Never the live theme. Use for "campaign landing page", "sale page", "BFCM page", "gift guide page", "swap the hero", "design draft" or "a page for the Black Friday sale".
+description: Generates a campaign landing page template for a Shopify store, built to sell, built to look designed (reference study, visual check) and built so any part swaps in one switch. The offer, end date and one button sit in the first screen on mobile; urgency is real; products are curated with the saving shown; the shipping cutoff and FAQ sit near the button; it has an email signup and a tagged link per channel; phases from coming soon to ended run on one URL. Each part (hero, trust row, countdown, products, FAQ, signup, closing call to action) is its own section with ready alternates, swapped in the theme editor or by asking Claude. Uses only the theme's sections and the plan's facts, and can make a design draft with 2 or 3 copy options per section. Built on the store's staging theme, never the live theme. Requires BRAND.md, BRAND-VOICE.md and design.md. Use for "campaign landing page", "sale page", "BFCM page", "gift guide page", "swap the hero", "design draft" or "a page for the Black Friday sale".
 ---
 
 # Campaign page
@@ -9,16 +9,36 @@ Make a landing page for a campaign out of parts the owner can swap in a click. T
 founder with ten minutes who edits in the Shopify theme editor, or asks Claude. Either way, changing the hero must
 mean changing one section, never rebuilding the page.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md, BRAND-VOICE.md and design.md).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing.
+- **Staging only.** Every change goes to the store's staging theme (an unpublished theme whose name contains
+  "staging"), and to the `staging` branch when the theme is in a git repository. If none is remembered, settle
+  it before the first change, offering to create "<live theme name> staging" (`references/theme-target.md` sections 3
+  and 4). Never edit, push to or commit for the live theme. The page itself is created unpublished.
+- **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
+  their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `references/theme-target.md` section 7):
+  checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
+  store has not changed."
+
 ## Where it fits
 
 - **`campaign-launcher`** plans the campaign (name, offer, exact dates, link) and calls this skill when a landing
   page is wanted or the button needs a destination. This skill reads the same `campaign.md`, so the page, the bar and
   the hero never disagree. With no `campaign.md`, ask for the four facts in one message.
 - **`page-studio:page-create`** is the builder. When it is available, hand it the region plan below and the swap rules,
-  and let it do the working copy, verification and shipping to a draft. This skill does not rebuild that machinery;
+  and let it do the working copy, verification and shipping to the staging theme. This skill does not rebuild that machinery;
   it adds the campaign preset on top: the region order, the alternates, the swap map and the design draft.
-- **`copywriter`** (brand-voice plugin) writes the words (`references/copywriting.md` there). If BRAND-VOICE.md is thin
-  or missing, say so before writing copy and offer `voice-builder` (same plugin) first.
+- **`copywriter`** (brand-voice plugin) writes the words (`references/copywriting.md` there). If BRAND-VOICE.md is
+  missing, stop and ask (Ground rules above). If it is thin, say so before writing copy and offer `voice-builder`
+  (same plugin) first.
 
 ## Rules
 
@@ -31,9 +51,10 @@ mean changing one section, never rebuilding the page.
    to action are separate sections. Blocks are only for repeated items inside a region (cards, questions).
 3. **Reuse before building.** Existing section, then the same section with one new setting, then a new section only
    when nothing produces the layout. No hardcoded colours, fonts or copy that a setting could hold.
-4. **Unpublished, always.** The page is created unpublished on a preview copy of the theme (on a store whose live
-   theme is connected to GitHub, that's the staging theme: `../campaign-launcher/references/github-stores.md`). Never edit the live theme,
-   and never link the page from the live site.
+4. **Unpublished, always.** The page is created unpublished, and its template goes on the staging theme (on a store
+   whose live theme is connected to GitHub, the theme connected to `staging`:
+   `../campaign-launcher/references/github-stores.md`). Never edit the live theme, and never link the page from the
+   live site.
 5. **Same facts everywhere.** Offer, exclusions, exact dates in shopper form ("Nov 27 to Dec 1") and link come from the
    plan and appear identically in every region.
 6. **Leave image pickers blank** when image rights aren't confirmed, then check the text still reads: a hero with
@@ -125,7 +146,7 @@ page and not by editing the last campaign's.
 ## Making each part swappable
 
 Do all three, so it works in the editor and through Claude. `scripts/build_template.py` does the mechanical part:
-describe the regions and their options in a small spec, run it with `--theme <preview copy> --slug <slug> --spec
+describe the regions and their options in a small spec, run it with `--theme <staging theme folder> --slug <slug> --spec
 spec.json`, and it checks every section type and setting id against the theme's own schemas (and number ranges),
 writes `templates/page.campaign-<slug>.json` with the first option of each region on and the rest off, and prints
 the swap map. `--list` shows the sections the theme has, `--dry-run` only checks. Swapping later is
@@ -172,7 +193,7 @@ from the live site and is deleted or kept unpublished.
 
 ## Check and hand over
 
-- Push to the preview copy and read the push result: "pushed with errors" means a setting was rejected, so find
+- Push to the staging theme and read the push result: "pushed with errors" means a setting was rejected, so find
   the file it names and fix it. Theme names are at most 50 characters.
 - If the Shopify page can't be created (connector not signed in), preview the template on any existing page with
   `?view=<slug>&preview_theme_id=<id>`, and say the real page is still to create.
@@ -201,9 +222,9 @@ from the live site and is deleted or kept unpublished.
   - the tagged link per channel;
   - the phase schedule;
   - the owner's pre-launch checks: a test order, stacking, stock, tracking events.
-- **At Stop** (in `campaign-launcher`), a one-off page is unpublished. A recurring page switches to its Ended
-  alternate and stays published.
+- **At Stop** (in `campaign-launcher`, only when the owner asks, through the go-live gate), a one-off page is
+  unpublished. A recurring page switches to its Ended alternate and stays published.
 - Anything unrelated spotted on the way (a hero height problem, an old colour) is one line in the hand-over for later,
   never offered inside the campaign.
-- The preview link is the very last line of the message.
+- The message ends with the preview link and "Your live store has not changed.", on the last two lines.
 

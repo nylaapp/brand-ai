@@ -189,14 +189,16 @@ def main():
     if a.preview:
         details.append(f"Website preview: {a.preview}")
     details.append(f"Campaign plan: {a.plan_ref or f'campaigns/{slug}/campaign.md'}")
-    launch_desc = ("Time to launch. Say to Claude: \"Launch the " + a.name + " campaign.\"\n"
-                   "Claude checks the live site hasn't changed since the preview was made, then you publish "
-                   "the preview theme (Online Store > Themes > Publish). The discount should start on its own "
-                   "if its start date is set in Shopify.\n\n" + "\n".join(details))
-    stop_desc = ("Time to stop. Say to Claude: \"Stop the " + a.name + " campaign.\"\n"
-                 "Claude puts the site back the way it was before the campaign, on a copy you approve and "
-                 "publish. A countdown hides itself; the bar and hero stay until this is done.\n\n"
-                 + "\n".join(details))
+    launch_desc = ("Your planned launch. When you want it live, say to Claude: \"Launch the " + a.name
+                   + " campaign.\"\n"
+                   "Claude checks the staging theme against the live site and shows you what will change; "
+                   "nothing goes live until you confirm twice. Or publish the staging theme yourself "
+                   "(Online Store > Themes > the staging theme's ... menu > Publish).\n\n" + "\n".join(details))
+    stop_desc = ("Your planned stop. When you want it done, say to Claude: \"Stop the " + a.name
+                 + " campaign.\"\n"
+                 "Claude puts the site back the way it was before the campaign on the staging theme, and "
+                 "nothing goes live until you confirm twice. A countdown hides itself; the bar and hero stay "
+                 "until this is done.\n\n" + "\n".join(details))
 
     lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Nyla//campaign-launcher//EN", "CALSCALE:GREGORIAN",
              "METHOD:PUBLISH"]

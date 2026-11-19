@@ -16,7 +16,7 @@ The Chrome extension and the command line do the same job. This skill uses the c
   stop: this lane is "not run: the Shopify CLI isn't signed in to this store", and the person
   signs in themselves (setup check section F). Never sign in for them.
 - A theme id. **Always pass `--theme <id>` and name the role in the report.** Profiling only reads,
-  so the live theme is allowed in audit-only mode. In fix mode, profile the draft.
+  so the live theme is allowed in audit-only mode. In fix mode, profile the staging theme.
 - Nothing else. It doesn't change the theme, the store or the page.
 
 ## 2. Run it: three times, same page

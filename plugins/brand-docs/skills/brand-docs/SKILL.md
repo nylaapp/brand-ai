@@ -29,6 +29,15 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files: not used.**
+- **Read-only.** It opens the documentation and changes nothing. When it explains the workflow, it says: brand files
+  first, every change on the staging theme, and nothing goes live unless the person asks (`references/ground-rules.md`).
+
 ## Open it
 
 1. Find `assets/index.html` next to this SKILL.md.

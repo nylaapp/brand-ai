@@ -22,7 +22,7 @@ you through anything missing, one step at a time. This list is what it will look
 - [ ] **Use Claude Desktop (Cowork) for the full experience.** Chat can write a post, but saving drafts through your browser and scheduled runs need the desktop app.
 - [ ] **Shopify connection (recommended).** Connect the Shopify connector so Claude can save drafts straight into your store. Each person signs in to their own Shopify access.
 - [ ] **No connector?** Install Claude in Chrome and stay signed in to Shopify admin. The skill can fill in the blog editor for you. It never types your password.
-- [ ] **Your BRAND.md.** Set up the brand once with the **brand-capture** skill (about 10 to 25 minutes). It asks which draft theme of your store to keep the brand files in and saves `BRAND.md` in that theme's folder on your computer (with a short pointer to it in `~/.brand-ai/brands/<store>/`), where the skills find it. It holds your voice, audience, claim limits, competitors, inspiration brands and how your blog looks. Then run **competitor-research** to add `COMPETITORS.md`. The blog writer reads both and never asks about the brand again. Each store has its own folder and its own BRAND.md.
+- [ ] **Your BRAND.md and BRAND-VOICE.md (required).** Set up the brand once with the **brand-capture** skill (about 10 to 25 minutes). It asks which staging theme of your store to keep the brand files in and saves `BRAND.md` and `BRAND-VOICE.md` in that theme's folder on your computer (with a short pointer to it in `~/.brand-ai/brands/<store>/`), where the skills find it. It holds your voice, audience, claim limits, competitors, inspiration brands and how your blog looks. Then run **competitor-research** to add `COMPETITORS.md`. The blog writer reads both and never asks about the brand again. Each store has its own folder and its own BRAND.md.
 
 ---
 
@@ -42,7 +42,7 @@ Claude asks a few quick questions first, once, before it starts:
    - **Guided:** you choose which open questions to answer (products and links, your own insights) and where to review (outline, images, final post). It never re-asks what your request, earlier answers or your BRAND.md already say, such as voice, author, topic or keywords.
 5. **Should it match your existing blog posts?** Match them, match the layout but go deeper for search ranking, or use best-practice format. (Asked only if your blog has at least 3 posts.)
 
-It never asks about your competitors, inspiration brands, claim limits, voice or author: those come from BRAND.md. If something is missing it adds a line to `BRAND-REQUESTS.md` for your brand owner. If there is no BRAND.md yet, it offers to run brand-capture first.
+It never asks about your competitors, inspiration brands, claim limits, voice or author: those come from BRAND.md. If something is missing it adds a line to `BRAND-REQUESTS.md` for your brand owner. If BRAND.md or BRAND-VOICE.md is missing, it stops and asks once: create it now, or tell it where the file is. It never writes without them.
 
 Then wait a few minutes. You get the post, with title, SEO title, meta description, URL handle, excerpt, tags, images, schema code and internal links, plus a short summary with a **list of placeholders** to fill.
 
@@ -55,7 +55,7 @@ Then wait a few minutes. You get the post, with title, SEO title, meta descripti
 - **Fill the placeholders.** Anything like `[[BRAND TO ADD: ...]]` is something only you know (a founder quote, care-label facts, real customer data). The skill never invents these.
 - **Fact-check it.** If the post makes health, treatment, ingredient, pregnancy or regulatory claims, run **fact-check** on it (the writer offers or runs it for you). It flags and verifies; it doesn't approve. A person should still review regulated claims.
 - **Look at the images.** Check each stock photo fits, or add your own where slots are marked.
-- **Drafts are always hidden.** Nothing goes live until you publish it in Shopify admin (Online Store > Blog posts).
+- **Drafts are always hidden.** Nothing goes live until you make it visible yourself in Shopify admin (Online Store > Blog posts), or ask Claude to. Claude then runs final checks and asks you to confirm twice.
 - **Check links and facts.** Click the product links and skim the cited sources.
 
 ---
@@ -119,5 +119,5 @@ Nothing is written until you answer. A week with no good idea is a quiet week wi
 - **Add a skill for everyone:** Add > Upload a skill (a .zip with a SKILL.md). It's available to all members straight away, on by default, and members can switch it off.
 - **Only some teams:** on Enterprise, bundle the skills in a plugin and assign it to a group.
 - **Connectors:** enabling one makes it available to everyone in the organization.
-- **Brand file:** one `BRAND.md` per store, written by brand-capture, read by every other skill. Keep each store in its own folder. It lives in the folder of a draft theme you choose. Lookup order: project root, your home directory, the central brand directory (which points to the draft theme's folder), then memory and connected knowledge (see brand-capture `references/brand-context.md`).
+- **Brand file:** one `BRAND.md` per store, written by brand-capture, read by every other skill. Keep each store in its own folder. It lives in the folder of the staging theme you choose. Lookup order: project root, your home directory, the central brand directory (which points to the staging theme's folder), then connected knowledge sources (see brand-capture `references/brand-context.md`). Memory can add facts but never replaces a missing brand file.
 - **Updates:** re-upload a skill to update it for everyone.

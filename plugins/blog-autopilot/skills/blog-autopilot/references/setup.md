@@ -11,12 +11,12 @@ The profile and ledger must live somewhere that persists between runs.
 
 ## 2. Discover the profile
 
-First look for the brand's brand file through the fallback chain in brand-capture `references/brand-context.md`: project root, user local environment, central brand directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then memory, CLAUDE.md and connected knowledge. Only if none is found, offer brand-capture and save its output to the central brand directory. If one exists, take identity, voice, competitors, inspiration brands and claim limits from it and set `brand.knowledge_file`; don't scan or ask again. Then copy `assets/brand-profile.template.yaml` to `brand-profile.yaml` and fill in what you can find:
+First find the brand's `BRAND.md` and `BRAND-VOICE.md` (both required) through the lookup in brand-capture `references/brand-context.md`: project root, user local environment, central brand directory (`$BRAND_AI_HOME/brands/<slug>/`, default `~/.brand-ai/brands/<slug>/`), then connected knowledge sources. Memory and `CLAUDE.md` never stand in for a missing file. If either is missing, stop setup and ask once: "Create it now (Recommended)" (brand-capture; voice-builder for BRAND-VOICE.md), then continue setup; or "I will tell you where it is". When both are found, take identity, voice, competitors, inspiration brands and claim limits from them and set `brand.knowledge_file`; don't scan or ask again. Then copy `assets/brand-profile.template.yaml` to `brand-profile.yaml` and fill in what you can find:
 
 | Field | How to find it |
 |---|---|
 | brand.name, store_url | `get-shop-info` or `shop { name primaryDomain { url } }` |
-| one_liner, voice | Homepage and about page (web fetch). Write the one-liner as a plain fact |
+| one_liner, voice | BRAND.md (one-liner, written as a plain fact) and BRAND-VOICE.md (voice). Never taken from the homepage instead |
 | categories | Top collections by product count, merged into 3–8 topic clusters |
 | shopify.blog_handle | `blogs(first:20)`. With several blogs, pick the one with the most articles and note that |
 | default_collection_handle | The main or all-products collection |

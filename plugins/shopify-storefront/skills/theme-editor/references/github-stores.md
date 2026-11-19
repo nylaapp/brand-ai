@@ -1,7 +1,9 @@
 # Stores whose live theme is connected to GitHub
 
-Read this before any theme work when the live theme is connected to a GitHub repository. On these stores it replaces
-"make a copy, then publish it": publishing a copy would replace the connected theme and cut the site off from the repo.
+Read this before any theme work when the live theme is connected to a GitHub repository. It is the short version of
+`theme-target.md` sections 4 (the staging branch) and 7 (going live) for these stores; where they differ,
+`theme-target.md` wins. On these stores, publishing a theme would replace the connected theme and cut the live site
+off from the repository, so a theme is never published here: going live is a merge.
 
 ## How to tell
 
@@ -9,40 +11,49 @@ Read this before any theme work when the live theme is connected to a GitHub rep
   integration names connected themes that way.
 - Or `THEME-SPECIFICS.md` / `AGENTS.md` says the store is connected to GitHub.
 
-## The staging gate
+The branch in the live theme's name is the **live branch** (usually `main`). Skills never commit to it, push to it or
+merge into it outside the go-live gate.
 
-Every connected store has a **`staging` branch** in the same repository, connected to its own unpublished theme
-(named `<repo>/staging`). That theme is where all work happens and where every preview link points.
+## The staging theme and branch
+
+The staging theme is the theme connected to the **`staging` branch** of the same repository (named
+`<repo>/staging`). All work happens there, and every preview link points to it.
 
 | Step | What happens |
 |---|---|
-| Work | Write changes to the **staging theme** only (connector writes or `shopify theme push --theme <staging-id>`). Never make a separate copy, never touch the live theme |
+| Work | Write changes to the staging theme only (connector writes, `shopify theme push --theme <staging-id>`, or commits on `staging`). Never make a separate copy per job, never touch the live theme or the live branch |
 | Record | Shopify commits each change made on the staging theme back to the `staging` branch, so the branch history is the change log |
+| Push | Push the `staging` branch only (`git push origin staging`). Ask before the first push in a project, then record it in `THEME-TARGET.md` (`theme-target.md` section 4) |
 | Preview | `https://<store-domain>/?preview_theme_id=<staging-id>` |
-| Go live | Merge `staging` into `main` with a pull request. Shopify then updates the live theme from `main`, usually within a minute or two. The owner or the agency approves the merge; Claude never merges without that OK in the chat |
-| Undo | Put the "before" values back on the staging theme and merge again, or revert the merge on `main` |
+| Go live | Only when the person asks in their own words in this chat, through the go-live gate (`theme-target.md` section 7). Open a pull request from `staging` into the live branch and merge it, never with an admin override. If the repository requires reviews or checks, stop at the open pull request and give its link; the reviewers merge it. Shopify then updates the live theme from the live branch, usually within a minute or two |
+| Undo | Revert the merge commit on the live branch, which is also a go-live (on request, through the gate) |
 
-## Before every piece of work: staging must match live
+## Before every piece of work: bring staging up to date with live
 
-The owner can still edit the live theme in the theme editor, and Shopify commits those edits to `main`. So staging
-can fall behind:
-1. Compare the staging theme with the live theme for the files you'll touch (read both, as in the drift check).
-2. If live has changes staging doesn't, `staging` needs `main` merged into it first. With access to the repository,
-   do that merge (it touches only the `staging` branch). Without access, stop and ask whoever owns the repository.
+The owner can still edit the live theme in the theme editor, and Shopify commits those edits to the live branch. So
+`staging` can fall behind:
+1. Check whether the live branch has commits that `staging` lacks. Without the repository, compare the staging theme
+   with the live theme for the files you'll touch.
+2. If it does, merge the live branch into `staging` first (`git merge origin/<live branch>` with `staging` checked
+   out). This changes only `staging`. On a conflict, stop and ask. Without access to the repository, stop and ask
+   whoever owns it.
 3. Never start new work on a staging branch that still holds someone else's unmerged changes without saying so: a
-   merge to `main` ships everything on `staging`, not just your part.
+   merge into the live branch ships everything on `staging`, not just your part.
 
 ## When there's no staging theme yet
 
-Say so, and ask the owner or agency to connect one, once: in Shopify, **Online Store → Themes → Add theme → Connect
-from GitHub**, choose the repository and the `staging` branch. If the `staging` branch doesn't exist yet, it's made
-from `main` first. Until it's connected, you may build a preview on an unpublished copy to show the idea, but never
-publish that copy.
+Say so, and give the person numbered steps to connect one, once: in Shopify, **Online Store → Themes → Add theme →
+Connect from GitHub**, choose the repository and the `staging` branch. If the `staging` branch doesn't exist yet,
+offer to create it from the live branch first (`theme-target.md` section 4; pushing it is a separate yes). Until it's
+connected, an unpublished copy may hold a preview to show the idea, but on these stores a copy is never published.
 
 ## Notes
 
-- One piece of work at a time on `staging`. Parallel work needs its own branch (`staging-<slug>`) and its own
-  connected theme: ask first.
-- Files outside the theme folders (AGENTS.md, BRAND.md, THEME-SPECIFICS.md) can live at the repository root.
-- The connector can't merge on GitHub. The person with repository access does the merge, or Claude does it where it
-  has GitHub access and the OK.
+- One piece of work at a time on `staging`. Parallel or larger work gets its own branch (`staging-<slug>`), merged
+  into `staging` with a pull request, and may get its own connected theme whose name still contains "staging": ask
+  first.
+- Files outside the theme folders (AGENTS.md, BRAND.md, THEME-SPECIFICS.md) can live at the repository root. Commit
+  brand files only if the person wants them in the repository.
+- Never force-push, rebase or reset a shared branch, delete a branch, or change branch protection.
+- The connector can't merge on GitHub. The person with repository access merges, or Claude does it where it has
+  GitHub access, only through the gate.

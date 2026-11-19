@@ -27,6 +27,24 @@ text) follows the brand's own voice from `BRAND-VOICE.md`.
 - **Not intimidating.** Do not list everything that could go wrong. When something fails, say what
   happened and what to do next.
 
+## Ground rules (every run)
+
+These come before every step below. The full text is `references/ground-rules.md`; where it and a step below disagree, the
+stricter rule wins.
+
+- **Brand files first (required: BRAND.md and BRAND-VOICE.md).** Read them before any work and follow them: words follow
+  BRAND-VOICE.md and stay inside BRAND.md's claim limits; visuals use design.md's values. If one is missing or
+  belongs to another store, stop and ask once: create it now (brand-capture, voice-builder or styles-builder,
+  `references/ground-rules.md` section 1) or tell me where it is. Never work from memory or the live site instead, and
+  never carry on without it. With no person present, stop and report what is missing. The brief it hands to blog-generator names
+  the files it found.
+- **Hidden first.** Everything this skill creates in the store is saved hidden (`isPublished: false`), so the
+  person can preview it before customers see it. Any theme change goes to the staging theme, never the live one.
+- **Visible only when the person asks.** Never suggest, offer or schedule making a post visible, and never do it
+  in an automated run. Only when the person asks in their own words in this chat, run the go-live gate
+  (`references/ground-rules.md` section 3): checks (fact-check and review checklist done, preview seen), then two
+  confirmations, the second typed.
+
 ## Effort (read before starting)
 
 Weekly check-in: about 5 to 10 minutes and $1 to $2 with the deep web sources, under $0.50 without them (store events, ledger and occasions only). Drafting a post adds the blog writer's own effort. Estimate, not yet measured. Stop and report if a scan passes 20 minutes or $4.
@@ -62,7 +80,7 @@ Read each one when you reach the step that needs it.
 ## Operating rules
 
 - **Ask first by default.** Unless the profile says `approval: auto_draft`, never start writing from a scheduled run. Send the check-in and wait for a yes. A quiet week is a good outcome, and unnecessary runs cost the user credits.
-- **Hidden drafts only.** Every post is created unpublished (`isPublished: false`). Publishing is always the human's decision. Never publish, even if QA passes.
+- **Hidden drafts only.** Every post is created unpublished (`isPublished: false`). This skill never publishes or makes a post visible, even if QA passes, and never schedules it. If the person asks how a post goes live, explain both ways in one line each: they set it to Visible themselves in Shopify admin, or they ask Claude to do it outside the autopilot run, which runs the go-live gate (`references/ground-rules.md` section 3).
 - **Every draft ships with a human review checklist.** The writer saves `<handle>-review-checklist.md` and tags the draft `needs-review`. A draft that passed QA has not been reviewed: surface the checklist in every report and summary, and never describe a draft as ready to publish.
 - **Never modify a live article.** A "refresh" becomes a new hidden draft titled `[REFRESH] <original title>` with a note pointing to the original, so the user can compare and swap.
 - **Brand-agnostic skill, brand-specific profile.** Everything about a particular store (competitors, occasions, markets, excluded topics, thresholds) lives in that brand's `brand-profile.yaml`, never in this skill. When you learn something durable about the brand, write it to the profile, not to memory.
@@ -72,7 +90,7 @@ Read each one when you reach the step that needs it.
 
 ## Setup check (before Step 1)
 
-Run `references/setup-check.md` for the `blog-autopilot` column: a folder on this computer, web search, brand files, blog-generator installed, Shopify connected, Python 3 and, for the weekly check-in, the computer awake with Claude open, are required; competitor research, Search Console exports and review or helpdesk exports are recommended, because they are where the best post ideas come from. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback and list what's missing under "Needs your attention". When handing off to `blog-generator`, say in the brief that the check passed.
+Run `references/setup-check.md` for the `blog-autopilot` column: a folder on this computer, web search, brand files, blog-generator installed, Shopify connected, Python 3 and, for the weekly check-in, the computer awake with Claude open, are required; competitor research, Search Console exports and review or helpdesk exports are recommended, because they are where the best post ideas come from. Assume the person isn't technical: check silently yourself, then walk them through anything missing one step at a time, in plain words, and check again after each step. Required items block the run; recommended ones are offered once, with what they add, and can be skipped. Skip the check if it already passed in this conversation. With nobody there (a scheduled or fully automated run), never ask: use the fallback for recommended items and list what's missing under "Needs your attention". A missing BRAND.md or BRAND-VOICE.md has no fallback: write the run report with `stopped: missing <file>` and stop. When handing off to `blog-generator`, say in the brief that the check passed.
 
 ## Step 1 — Load the brand profile
 
@@ -90,7 +108,7 @@ blog-autopilot/<brand-slug>/
 ```
 
 - **Profile found:** load it and `ledger.json` (create an empty ledger if it's missing).
-- **Central brand file:** also look for the brand's brand file: `brand.knowledge_file` in the profile if set, else the fallback chain in brand-capture `references/brand-context.md` (project root, user local environment, central brand directory `$BRAND_AI_HOME/brands/<slug>/` or `~/.brand-ai/brands/<slug>/`, then memory, CLAUDE.md and connected knowledge), before asking the user anything. If generated, it is saved to the central brand directory and `brand.knowledge_file` is set to that path. It is the source of truth for identity, voice, competitors, inspiration brands and claim limits; the profile's copies of those are only a fallback. Don't re-research the brand; read the file. Competitors and inspiration brands are asked or scanned once, saved there, and refreshed only when the user asks.
+- **Brand files (required):** also find the brand's `BRAND.md` and `BRAND-VOICE.md`: `brand.knowledge_file` in the profile if set, else the lookup in brand-capture `references/brand-context.md` (project root, user local environment, central brand directory `$BRAND_AI_HOME/brands/<slug>/` or `~/.brand-ai/brands/<slug>/`, then connected knowledge sources), before asking the user anything. They are the source of truth for identity, voice, competitors, inspiration brands and claim limits. The profile's copies, memory and `CLAUDE.md` never stand in for a missing file. If either file is missing or is for another store: with a person present, stop and ask once, "Create it now (Recommended)" (brand-capture; voice-builder for BRAND-VOICE.md) or "I will tell you where it is"; on a scheduled run, write the run report with `stopped: missing <file>` and the places checked, and stop. Don't re-research the brand; read the file. Competitors and inspiration brands are asked or scanned once, saved there, and refreshed only when the user asks.
 - **Several brands found and the request doesn't say which:** a scheduled task always names its brand. Interactively, ask once.
 - **No profile, or no folder connected:** run setup (`references/setup.md`). Setup discovers most of the profile from the store itself and asks only for what it can't find. If there's no user present (a scheduled run), don't guess a setup. Write a run report saying setup is needed and stop.
 
@@ -192,7 +210,7 @@ Update `ledger.json`: the run entry, topics written (keyword, cluster, handle, a
 <each trigger family: ok / no data / not configured / error, with a one-line note>
 
 ## Needs your attention
-1. Review each draft with its checklist (accuracy, placeholders and links, voice and first-hand detail, images, SEO fields, compliance) before setting it to Visible. Remove the `needs-review` tag when done.
+1. Review each draft with its checklist (accuracy, placeholders and links, voice and first-hand detail, images, SEO fields, compliance). Remove the `needs-review` tag when done. The drafts stay hidden; your live store has not changed.
 2. <placeholders to fill in drafts, missing exports, stale GSC data, profile suggestions>
 ```
 

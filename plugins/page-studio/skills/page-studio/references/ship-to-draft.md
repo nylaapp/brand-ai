@@ -1,27 +1,27 @@
-# Ship to the chosen theme
+# Ship to the staging theme
 
 The shared delivery step. `page-create`, `page-edit-content` and `page-edit-design` run it
 themselves after a change is verified, and the front door runs it when someone only wants an
-already-made change pushed. It puts exactly the verified files on the theme the person chose (a draft
-or preview, never the live theme), proves they landed, logs it, and holds the gates that
+already-made change pushed. It puts exactly the verified files on the staging theme (never the live
+theme), proves they landed, logs it, and holds the gates that
 protect the live site. These rules are the same whichever skill runs them; this file is their single
 source. The file keeps its original name so existing links keep working.
 
 Which theme to use, and how the live theme is protected, are set in `theme-target.md`. Read it first.
 
 **Two routes.** The **CLI route** (the Shopify CLI, a local working copy) is the default and is
-written out below. The **connector route** (no CLI: the Shopify connector changes the draft's files
+written out below. The **connector route** (no CLI: the Shopify connector changes the staging theme's files
 directly) is chosen by `setup-check.md` only when the CLI isn't ready and the connector can change
 themes. Its calls and guards are in `connector-route.md`; the paragraphs marked **Connector route**
 below say what changes. Every rule is the same on both routes.
 
 ## Rules
 
-- **The target is the theme the person chose**: named earlier in the conversation or remembered in
+- **The target is the staging theme the person chose**: named earlier in the conversation or remembered in
   `THEME-TARGET.md` (`theme-target.md`). Never switch themes silently.
 - **Never the live theme.** Re-read the target's role from the store right before every pull, edit and
-  push. If it is live, stop: do not edit, push or publish it, whatever the person says. Use or create a
-  draft (`theme-target.md`). Never use a flag that allows a live push (`--allow-live`). On the
+  push. If it is live, stop: never edit or push to it, whatever the person says. Settle a staging
+  theme instead (`theme-target.md` section 3). Never use a flag that allows a live push (`--allow-live`). On the
   connector route, write only when the role read now is `UNPUBLISHED` or `DEVELOPMENT`, with the
   theme id passed explicitly in every call (`connector-route.md` section 3).
 - **Push only what the change pack lists.** Name each file with `--only`; never a bare push that
@@ -29,9 +29,9 @@ below say what changes. Every rule is the same on both routes.
   deletes a file. On the connector route, an explicit file list in every write is the same thing,
   and only `themeFilesUpsert` writes (it never deletes).
 - **Verified first.** Push only a change `verify.md` passed. If the person insists on pushing an
-  unverified change to a **draft**, explain the risk once; then it is their call. Record "pushed
+  unverified change to the **staging theme**, explain the risk once; then it is their call. Record "pushed
   unverified at <name>'s request". On the connector route nothing can be rendered before the write,
-  so the order is: pre-write checks, write to the draft, then the rendered verification on the draft
+  so the order is: pre-write checks, write to the staging theme, then the rendered verification there
   (`verify.md`, "On the connector route"). The person is told the work is ready only after that
   verification passed.
 - **A success message is not proof.** The proof is the pulled-back files matching the working copy.
@@ -39,9 +39,10 @@ below say what changes. Every rule is the same on both routes.
   sent.
 - **Never overwrite someone else's edits.** If the touched files changed on the theme since the
   baseline, stop.
-- **These skills never publish a theme.** Publishing a draft over the live theme is a live change the
-  person makes themselves in the store admin (section 8).
-- **Don't touch git remotes.** Don't commit or push a repository for the person unless they ask.
+- **Never suggest publishing.** The staging theme is published only when the person asks in their own
+  words in this chat, through the go-live gate (section 8).
+- **Git: the staging branch only.** When the theme is in a git repository, commit on the `staging` branch
+  and push only that branch (`theme-target.md` section 4). Never commit, push or merge to the live branch.
 - **Never type a password or credential** for the person.
 
 ## 1. Read the change pack
@@ -57,21 +58,20 @@ to 4 are filled in, the files in `work/` match section 4, and the pre-write chec
 ## 2. Confirm the target
 
 Name the target theme by id and role, and the live theme by id. Re-read the target's role from the
-store now: a draft that has been published since is live. (Connector route: the `theme` query in
+store now: a staging theme that has been published since is live. (Connector route: the `theme` query in
 `connector-route.md` section 2; continue only for `UNPUBLISHED` or `DEVELOPMENT`, and the store
 domain still matches.)
 
-- **Draft or preview:** continue.
-- **Live:** stop. Say "This is the LIVE theme, so I won't edit it." Go to `theme-target.md` to use or
-  create a draft; the change pack carries over to it.
+- **Unpublished (the staging theme):** continue.
+- **Live:** stop. Say "This is the LIVE theme, so I won't edit it." Settle a staging theme
+  (`theme-target.md` section 3); the change pack carries over to it.
 
 ## 3. Check nobody edited since the baseline
 
 Pull the touched files from the target theme into a scratch folder and compare each with the
 baseline copy in the change pack. Identical: continue. Different: stop. Someone edited the theme
 (often in the admin) after the baseline, and pushing would overwrite it. Tell the person which
-files differ and re-capture the baseline or reconcile the edits first. On the live theme, keep the
-baseline copies: they are the backup that makes a revert exact.
+files differ and re-capture the baseline or reconcile the edits first. Keep the baseline copies: they are the backup that makes a revert exact.
 
 **Connector route:** read the touched files from the target (`connector-route.md` section 2) and
 compare each one's `checksumMd5` (or, if there is none, its body) with the baseline copy. A file the
@@ -84,6 +84,10 @@ section 4 of the change pack, and `--nodelete` unless the change deletes a file.
 Never use the live-theme flag (`--allow-live`). If
 the store repo's workflow names a different command, follow it. Record the exact command (without
 any credentials) and the result.
+
+**Git:** when the theme is in a repository, bring the staging branch up to date with the live branch
+first, then commit only the touched files on `staging` and push only `staging` (`theme-target.md`
+section 4). On a GitHub-connected store, that push is how the change reaches the staging theme.
 
 **Connector route:** send `themeFilesUpsert` with the target theme id and exactly the files in
 section 4 of the change pack, whole files, at most 50 per call, files a template refers to before
@@ -106,14 +110,14 @@ differ. The exact steps are in `connector-route.md` section 4. Any difference is
 
 ## 6. Re-check the page
 
-Load the page on the target theme (the draft's preview) and confirm the changed thing and the key baseline numbers hold (section inventory, total
+Load the page on the target theme (the staging theme's preview) and confirm the changed thing and the key baseline numbers hold (section inventory, total
 height, tracked links). Expect small differences from local (the preview bar, third-party scripts);
 confirm rather than assume. If something is off, treat it as a failed ship and offer revert mode
 (`revert-mode.md`).
 
 **Connector route:** this is the first time the change is rendered, so run the whole of
-`verify.md` here, on the draft's preview address (`connector-route.md` section 5), not only a
-re-check. The change pack's section 5 is written now. A failed check means the draft is not ready:
+`verify.md` here, on the staging theme's preview address (`connector-route.md` section 5), not only a
+re-check. The change pack's section 5 is written now. A failed check means the change is not ready:
 fix it with the same guards (steps 2 to 5 again for the files that change) or offer revert mode.
 Visitors are never affected; the live theme was not touched.
 
@@ -125,18 +129,23 @@ still has to do, and the goal and baseline if the change came from an audit. Fil
 change pack. If the change came from `PAGE-AUDIT.md` rows, set each of those rows to `done` and add
 a changelog line; change nothing else in that file.
 
-## 8. Going live is the person's step
+## 8. Going live: only when the person asks
 
-These skills never publish a theme. If the person asks to publish the draft, or to go live with the
-work, say in one line that they do it themselves, and give the steps: in the store admin, Online Store
-> Themes, open the draft's menu and choose **Publish** (or ask whoever manages the store). Suggest
-checking the draft's preview first and offer the QA entry and change pack as the checklist. Do not run
-a publish command. Once they publish, that theme is live and is no longer a target: the next job
-starts from a fresh draft (`theme-target.md` section 3).
+Never suggest, offer or schedule publishing. The summary (section 9) ends with the preview link and
+"Your live store has not changed." If the person asks how to go live, explain both ways
+(`theme-target.md` section 6): they publish it themselves in the store admin (Online Store > Themes >
+the staging theme's "..." menu > **Publish**), or they ask Claude to do it. Suggest checking the
+preview at desktop and mobile first, and offer the QA entry and change pack as the checklist.
+
+Only when the person asks in their own words in this chat to publish the staging theme or merge the
+staging branch, run the go-live gate in `theme-target.md` section 7, every step. Never run a publish
+command outside it. Once the staging theme is published, it is live and no longer a target
+(`theme-target.md` section 7, step 7).
 
 ## 9. Summary
 
 Short and plain: what was pushed and where, how it was proved (pulled back and identical; on the
 connector route, read back and identical), what the page shows, what was logged, anything flagged
-but not done (on the connector route, always that `theme check` could not run), that it is on a
-draft only (publishing is theirs to do), and what to re-check and when.
+but not done (on the connector route, always that `theme check` could not run), what to re-check and when, and
+the hand-over line: "Done on the staging theme <name> (<id>). Preview: <link>. Your live store has not
+changed." (`theme-target.md` section 6).

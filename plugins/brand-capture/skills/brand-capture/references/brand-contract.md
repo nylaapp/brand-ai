@@ -43,9 +43,11 @@ competitor"), append one line to `BRAND-REQUESTS.md` next to BRAND.md (create it
 `- YYYY-MM-DD | <skill or person> | <BRAND.md section; "Voice" for anything in BRAND-VOICE.md> | <the change and why> | <evidence or "said by <name>"> | open`
 
 ## 6. If BRAND.md is missing
-With a person present: offer to run brand-capture first. Unattended: don't create one. Stop if your task can't be
-done without brand facts; otherwise use the minimum from the live store (name, URL, what it sells), list every
-assumption at the top of your output and add a BRAND-REQUESTS.md line.
+BRAND.md is required (`ground-rules.md` section 1). With a person present: stop before any work and ask once:
+"Create it now (Recommended)", which runs brand-capture and then returns to your task, or "I will tell you where it
+is". There is no option to carry on without it; the live store, memory or `CLAUDE.md` can add supporting facts, but
+they never stand in for BRAND.md. Unattended: don't create one and don't guess; stop and report
+`stopped: missing BRAND.md` with the places checked (`brand-context.md` section 3).
 
 ## 7. Cite the revision
 Every brief, report or summary you produce records `Brand facts: BRAND.md rev <revision> (<status>, <last_updated>)`,

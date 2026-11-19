@@ -33,16 +33,17 @@ Read `loadingExperience.metrics` (this page) and, when it is missing, `originLoa
 - Field data takes 28 days to reflect a change. Say that in the report; don't promise a field
   improvement from a lab number.
 
-### 1b. Lab data on the draft theme's preview (the before and after)
+### 1b. Lab data on the staging theme's preview (the before and after)
 
 The local dev server is slow and uncached, so its speed numbers don't reflect the real site. Score
-speed on the draft's preview address, which Shopify serves from its real servers:
+speed on the staging theme's preview address, which Shopify serves from its real servers:
 
-`https://<store>.myshopify.com/<path>?preview_theme_id=<draft theme id>`
+`https://<store>.myshopify.com/<path>?preview_theme_id=<staging theme id>`
 
 Run the same address on the live theme too (drop `preview_theme_id`) for a reference: before any
-fix, the draft (a copy of live) should score within the run-to-run spread of live. A big gap means
-the draft isn't a fair copy; say so before going on.
+fix, the staging theme should score within the run-to-run spread of live. A big gap means staging
+differs from live in more than this job (other work on staging, or live changed since); say so
+before going on.
 
 Shopify's preview bar adds a small, constant cost. It is the same before and after, so the
 comparison holds; never chase it.
