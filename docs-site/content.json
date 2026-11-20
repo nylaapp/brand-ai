@@ -105,7 +105,7 @@
       "name": "styles-builder",
       "group": "foundation",
       "tagline": "Turn a brand book or reference store into design tokens and apply them to the theme.",
-      "what": "Creates or deepens design.md (typography, color schemes, spacing, corner radius, shadows, buttons, component states) and applies those tokens into the theme's settings_schema.json and settings_data.json. It also sets up what a new theme needs before pages get built: logo and favicon, motion, input fields, and variant pickers and swatches. Optionally it brands the starter section templates. When a brand font is not free in Shopify's font library and its files are not already in your working folder, it asks you once for the font files (woff2 preferred, with the licence), instead of guessing or swapping in a lookalike.",
+      "what": "Creates or deepens design.md (typography, color schemes, spacing, corner radius, shadows, buttons, component states) and applies those tokens into the theme's settings_schema.json and settings_data.json. It also sets up what a new theme needs before pages get built: logo and favicon, motion, input fields, and variant pickers and swatches. Optionally it brands the starter section templates. When a brand font is not free in Shopify's font library and its files are not already in your working folder, it asks you once for the font files (woff2 preferred, with the licence), instead of guessing or swapping in a lookalike. It never overwrites a brand look that already exists and runs once: on a fresh theme it applies the whole look (settings, custom CSS, fonts); on a theme that already has a look it only finds the holes (low contrast, inconsistent fonts, colours or spacing, weak line spacing) and fixes those, and once it has finished it does not run again until you ask.",
       "prompts": [
         "Generate design tokens",
         "Create design.md",
@@ -115,20 +115,25 @@
       ],
       "steps": [
         "If BRAND.md or design.md are missing, it runs brand-capture first and waits for it to finish.",
-        "It builds the full token set from your brand book or a reference store, and fills any gap with a labelled proposed value so every theme setting gets one.",
+        "It reads your theme and decides: fresh (still the theme's own look), established (a brand look is already there) or already done. If it already ran, it stops and says so.",
+        "Fresh theme: it builds the full token set from your brand book or a reference store, and fills any gap with a labelled proposed value so every theme setting gets one.",
         "It checks each font. If a font is not free in Shopify's library and its files are not in your folder, it asks you for the files once, before changing the theme.",
-        "It applies the tokens into the theme settings and sets up the starter essentials.",
+        "Fresh theme: it applies the tokens into the theme settings and the brand stylesheet and sets up the starter essentials. Established theme: it measures the gaps instead, shows a table (where, now, proposed, why) and changes only the rows you approve, leaving everything else and your own custom CSS as they are.",
+        "It records that it ran, so it does not run again unless you ask (a rebrand or new brand book counts as asking).",
         "If you opted in at the start, it brands the starter section templates."
       ],
       "produces": [
         "design.md",
         "Updated settings_schema.json and settings_data.json",
-        "Logo, favicon, motion, input and variant picker setup"
+        "Logo, favicon, motion, input and variant picker setup (fresh theme)",
+        "A gap table with before and after for each fix (established theme)"
       ],
       "requires": [
         "brand-capture"
       ],
       "guardrails": [
+        "Never overwrites an existing brand look: on an established theme it changes only the gaps you approve.",
+        "Runs once. After it finishes, it only runs again when you say so.",
         "Starter section styling only happens if you opt in when it starts.",
         "Never swaps a lookalike font silently, and never downloads or uploads a font file without your yes naming the file, source, size and licence."
       ],
