@@ -181,7 +181,7 @@ Then point to the next skill:
 | Words, images, links or alt text on an existing page, including a content refresh | `page-edit-content`, which reads the row from `PAGE-AUDIT.md` |
 | Layout, section order, spacing, colour, type or style of an existing page, including a relayout or redesign of a section | `page-edit-design`, which reads the row from `PAGE-AUDIT.md` |
 | A new page, a new section, or a section the audit says is missing | `page-create` |
-| Brand files thin, or copy needs brand approval | `brand-capture` (voice: `voice-builder`; visuals: `styles-builder`, only if it has never run on this theme; after that, only when the user asks) |
+| Brand files thin, or copy needs brand approval | `brand-capture` (voice: `voice-builder`; visuals: `styles-builder`, when the style is not built yet or the audit measured an inconsistency; not when it is built and consistent) |
 | Unsourced, numeric or regulated claims | `fact-check` |
 | Accessibility, speed or theme-code depth beyond the baseline | `theme-audit` |
 | Tracking, consent or tagging problems | `analytics-audit` |

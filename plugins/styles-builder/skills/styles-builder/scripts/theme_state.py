@@ -4,7 +4,8 @@
   python theme_state.py detect <theme-folder> [--design design.md]
   python theme_state.py gaps   <theme-folder> [--design design.md]
 
-detect  -> verdict: "completed" (styles-builder already ran), "fresh" (styling is still the theme's own
+detect  -> verdict: "completed" (styles-builder already ran; the gap count then says whether anything needs
+           refining), "fresh" (styling is still the theme's own
            defaults), "established" (a brand look is already set) or "ambiguous", with the evidence.
 gaps    -> only for an established theme: what falls short, found by measuring, never by taste:
            contrast below 4.5:1, more font families than the brand names, line heights outside a
@@ -189,6 +190,16 @@ def detect(theme, design_arg):
         "run_marker": {"design_md": marker, "file": marker_file, "css_files": css_marks},
         "design_md": design,
     }
+    if verdict in ("completed", "established"):
+        n = gap_count(gaps(theme, design_arg))
+        out["gaps_found"] = n
+        out["next"] = ("nothing to refine: built and consistent, change nothing" if n == 0 else
+                       "show the gap table and ask which rows to fix") if verdict == "completed" else \
+                      "established look: show the gap table and ask which rows to fix"
+    elif verdict == "fresh":
+        out["next"] = "not built yet: build everything"
+    else:
+        out["next"] = "ask one question: build everything or fill gaps only"
     print(json.dumps(out, indent=2))
     return out
 
@@ -307,7 +318,17 @@ def gaps(theme, design_arg):
             hard.append({"file": os.path.relpath(p, theme), "hardcoded_font_families": f, "hardcoded_hex_colours": c})
     found["hardcoded_in_section_code"] = sorted(hard, key=lambda h: -(h["hardcoded_font_families"] * 5
                                                                        + h["hardcoded_hex_colours"]))[:12]
-    print(json.dumps(found, indent=2))
+    return found
+
+
+def gap_count(found):
+    """Hard, measured gaps only. Uneven padding and hardcoded values in the starting theme's own code are
+    review items: reported, never counted, because a stock theme has both and they are not the brand's fault."""
+    n = len(found["contrast_below_4_5"]) + len(found["line_height_outside_range"]) + len(found["near_duplicate_colours"])
+    cn = found["colours_not_in_design_md"]
+    n += len(cn) if isinstance(cn, list) else 0
+    n += 1 if found["font_family_count"] > 3 else 0
+    return n
 
 
 def main():
@@ -318,7 +339,10 @@ def main():
     a = ap.parse_args()
     if not os.path.isdir(a.theme):
         fail(f"no folder {a.theme}")
-    (detect if a.mode == "detect" else gaps)(a.theme, a.design)
+    if a.mode == "gaps":
+        print(json.dumps(gaps(a.theme, a.design), indent=2))
+        return
+    out = detect(a.theme, a.design)
 
 
 if __name__ == "__main__":

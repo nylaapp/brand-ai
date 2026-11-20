@@ -7,13 +7,13 @@ description: >-
   built on it: typography, color schemes, spacing, corner radius, shadows, buttons and component
   states. It also sets up the essentials a new theme needs to start building: logo and favicon,
   motion, input fields, variant pickers and swatches, and, if you opt in when it starts, brand
-  styling on the starting theme's section templates. Non-destructive and run once: on a fresh theme it applies the whole
+  styling on the starting theme's section templates. Non-destructive and only when needed: on a fresh theme it applies the whole
   brand look; on a theme that already has one it finds only the gaps (contrast, inconsistent fonts, colours or spacing,
-  weak line spacing) and changes only those; once done it does not run again until the user asks. If BRAND.md or design.md aren't available yet, it asks once to create them now with brand-capture (or to be told where they are), runs it, and waits for it to finish. Use whenever the user
+  weak line spacing) and changes only those; once the theme is built and consistent it does nothing until the user asks. If BRAND.md or design.md aren't available yet, it asks once to create them now with brand-capture (or to be told where they are), runs it, and waits for it to finish. Use whenever the user
   says "generate design tokens", "create design.md", "set up the brand's colors and fonts in the
   theme", "match the reference store's look", "build a style guide from this brand book", "what do
   we need before building pages", "set up the logo and favicon", "get the theme ready to build
-  on", or when design.md is missing and styles-builder has never run on this theme. It does not start by itself after a finished run, nor because another skill finds design.md thin; then only the user asking starts it.
+  on", or when the style is not built yet (design.md missing, theme still the starter's) or built but inconsistent. Built and consistent means nothing to do. A thin design.md alone does not start it.
 ---
 
 # Styles Builder (brand agnostic)
@@ -66,8 +66,9 @@ stricter rule wins.
 - **Never overwrite a brand look that already exists.** Read the theme first (`references/modes.md`): a fresh theme
   gets the full build; an established one gets only the gaps found by measuring, shown as a table and approved before
   any write. When unsure, treat it as established.
-- **Run once.** After a finished run, do not run again, and do not let another skill start it, unless the person asks
-  in their own words in this chat. Say it already ran on <date> and carry on without it.
+- **Run only when needed.** It runs when the style is not built yet, or is built but inconsistent (a measured gap).
+  When it is built and consistent, change nothing and say so. A thin design.md or a passing mention is not a reason
+  to run (`references/modes.md`).
 - **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
   their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `references/theme-target.md` section 7):
   checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
@@ -82,8 +83,8 @@ stricter rule wins.
   components.
 - **Not a ClickUp workflow.** This is theme-repo and staging-theme work only.
 - **Not ongoing page editing.** Once `design.md` exists, `page-studio` and `page-audit`
-  read it for every subsequent build. This skill runs once per client: after a finished run it does not run again
-  until the user asks (a rebrand or a new brand book counts as asking). See `references/modes.md`.
+  read it for every subsequent build. This skill runs when the style is not built yet or is inconsistent, and stops once it is built and consistent (a
+  rebrand or a new brand book counts as a new request). See `references/modes.md`.
 
 ## How this fits with brand-capture
 
@@ -196,9 +197,8 @@ in the theme repo (for example `DESIGN.md`) counts as the client's `design.md`: 
 tell brand-capture about it so it adopts that file, and never create a second one. Note each file's
 path and where it was found.
 
-**Check the run marker now.** If `design.md` has a `styles_built:` line, styles-builder already ran: skip the opening questions and
-the rest of Step 0, say so in one line with the date (`references/modes.md`, "Run once"), and stop unless the person asked in their own
-words to run it again (then it is established mode).
+**Check the run marker now.** If `design.md` has a `styles_built:` line, styles-builder already ran: the look was built before. Run `theme_state.py detect` (Step 0g): if it says nothing to refine, skip the
+opening questions and the rest of Step 0, say so in one line with the date, and stop; if it counts gaps, carry on in established mode.
 
 ### 0b Decide
 
@@ -283,9 +283,9 @@ Read `references/modes.md` and run `python scripts/theme_state.py detect <stagin
 The mode is measured from the staging theme, not asked (only "ambiguous" is asked, with "fill gaps only" first).
 Say it in one line with the evidence, then:
 
-- **completed** (a `styles_built` line in `design.md` or a styles-builder marker in the brand stylesheet): stop. Say
-  styles-builder already ran on that date and runs again only if the person asks. If another skill or a thin-looking
-  design.md prompted this run, that is not a request: carry on with the original task without it.
+- **completed** (a `styles_built` line in `design.md` or a styles-builder marker in the brand stylesheet): the look was
+  built before. The script counts the measured gaps. None: stop, say it is built and consistent (with the date), change nothing.
+  Some: established mode on those gaps only. A thin-looking design.md alone is not a gap; carry on with the original task without this skill.
 - **fresh:** do the full build below, Steps 0.5 to 6 (every token into the settings, plus the brand stylesheet for custom CSS and
   fonts, with the font-file ask).
 - **established:** do not apply `design.md` over the theme. Find gaps only (`modes.md` section "Established mode"):
@@ -614,8 +614,8 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
   live theme. When the theme is in a git repository, commit only those files on the `staging` branch and
   push only that branch. Same rule as every other theme-affecting skill in this roster
   (`references/theme-target.md` sections 1 and 4).
-- **Write the run marker** (`references/modes.md`, "Run once"): `styles_built: <date> (theme <id>, mode <mode>)` in `design.md`'s
-  front matter and the `styles-builder: completed` comment at the top of the brand stylesheet. This is what stops the skill running again by itself.
+- **Write the run marker** (`references/modes.md`, "When it runs, and when it stops"), only if this run changed something: `styles_built: <date> (theme <id>, mode <mode>)` in `design.md`'s
+  front matter and the `styles-builder: completed` comment at the top of the brand stylesheet. It records that the look was built; whether to refine it is decided by measuring, not by the marker.
 - Log an entry in the repo's QA log if one exists, noting the source (brand book file name, or reference
   store URL) and what was applied vs. only documented.
 - Final summary, short: what `design.md` now contains, what was and wasn't applied to the staging theme's settings, anything left `unconfirmed` that the user should resolve, any contrast issues found and how
@@ -629,7 +629,7 @@ Only if the person said yes to it in the opening questions (or asked for it in t
 
 ## Never
 
-Do not overwrite a brand look that already exists: on an established theme, change only the gap rows the person approved, add rather than replace, and leave on-brand, consistent values and the person's own custom CSS as they are. Do not guess a theme is fresh; when unsure, treat it as established. Do not run again after a finished run, and do not let another skill start it, unless the person asks in their own words. Do not skip writing the run marker.
+Do not overwrite a brand look that already exists: on an established theme, change only the gap rows the person approved, add rather than replace, and leave on-brand, consistent values and the person's own custom CSS as they are. Do not guess a theme is fresh; when unsure, treat it as established. Do not run when the theme is built and consistent: change nothing and say so. Do not start because design.md looks thin. Do not skip writing the run marker after a run that changed something.
 Do not leave a theme setting without a value because the sources are silent: fill it with a labelled `(proposed)`
 value and its reason. Do not present a proposal as a brand fact, propose a colour outside the brand's palette or a
 font family the brand didn't name, or propose a licence, logo or font file — those stay `unconfirmed`. Do not start, or write a `design.md` of your own, when `BRAND.md` or brand-capture's `design.md` is

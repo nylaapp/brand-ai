@@ -1,6 +1,6 @@
 # Modes: fresh, established, completed
 
-This skill never overwrites a brand look that already exists, and it runs once. Before any change, settle
+This skill never overwrites a brand look that already exists, and it runs only when the style is not built yet or is inconsistent. Before any change, settle
 which of three modes the theme is in. The mode is found by measuring the staging theme, not asked, and it
 decides everything after.
 
@@ -13,7 +13,7 @@ settings, and the run marker below.
 
 | Verdict | What it means | What the run does |
 |---|---|---|
-| **completed** | A run marker exists | Stop. See "Run once". |
+| **completed** | A run marker exists: the look was built before | Count the gaps: none means stop, change nothing; some means established mode on them. See "When it runs, and when it stops". |
 | **fresh** | Styling settings are still the theme's own defaults (under 10 percent changed), no brand files, no custom CSS | Build everything: "Fresh mode". |
 | **established** | A brand look is already set (25 percent or more of the styling settings changed, or brand files, or custom CSS) | Fill gaps only: "Established mode". |
 | **ambiguous** | In between | Ask one question with both modes as options, "Fill gaps only (Recommended)" first. Never guess toward "fresh": a wrong "fresh" overwrites someone's work. |
@@ -63,24 +63,34 @@ rename, reorder or delete anything, and do not touch anything that is on-brand a
    items needing the person's call. The optional section styling (Step 7) is skipped in this mode unless the
    person asks for it by name.
 
-## Run once
+## When it runs, and when it stops
 
-When a run finishes (Step 6), write the marker so the skill does not run again by itself:
+It runs in exactly two situations, and otherwise leaves the theme alone:
 
-- In `design.md`'s front matter: `styles_built: <date> (theme <id>, mode <fresh | established>)`. This is a flat
-  line like the others there.
-- At the top of the brand stylesheet: `/* styles-builder: completed <date>, mode <mode> */`.
+1. **Not built yet:** the theme has no brand look. Fresh mode builds it.
+2. **Built, but inconsistent:** a brand look exists and a measurement finds a gap (contrast, colours off the palette
+   or near-duplicates, an extra font family, line height outside a readable range, a missing state). Established
+   mode refines only those.
 
-Either marker alone means **completed**. Then:
+When it is built **and** consistent, it does nothing: it says so in one line and changes nothing. That is the
+usual end state, so the skill is not something to run again and again.
 
-- **Never run again on its own.** Another skill asking for it (page-studio or page-audit finding design.md thin,
-  brand-capture finishing) is not a request. Say in one line that styles-builder already ran on `<date>` and
-  that you will run it again only if the person asks for it, then carry on with what was asked without it.
-  A "thin design.md" is brand-capture's add-design mode, not this skill.
-- **Run again only when the user says so,** in their own words in this chat ("run the styles builder again",
-  "rebrand the theme", "redo the styling"). Then use **established mode** (gaps only), because the theme now
-  has a brand look. Only a clear "start over" or "reset the styling" in their words (confirm it once, naming
-  what will be replaced) uses fresh mode, and it still never touches the live theme.
-- A new brand book or a new brand (a rebrand) is a new source the person supplies: it counts as a request to
-  run again, with the same rules.
-- Update the marker's date and mode when it runs again.
+**The marker.** When a run finishes (Step 6), write it: `styles_built: <date> (theme <id>, mode <mode>)` in
+`design.md`'s front matter and `/* styles-builder: completed <date>, mode <mode> */` at the top of the brand
+stylesheet. Either one means the look is **built**. It does not mean "never run again": `theme_state.py detect`
+still counts the measured gaps. `next: nothing to refine` means stop; a gap count above 0 means show the gap
+table and let the person pick rows.
+
+**What starts it.**
+- The person asks, in their own words ("run the styles builder", "fix the inconsistent styling", "refine the
+  theme styles"). A rebrand or a new brand book is also a request.
+- Another skill that has measured an inconsistency (page-audit, theme-audit, an editor skill) may hand it over
+  with the gap named. The gap table is still shown and every row still needs the person's yes.
+- It is not started by a passing mention, by `design.md` looking thin (that is brand-capture's add-design mode),
+  or by a built and consistent theme.
+
+**Full rebuild** (fresh mode on a theme that already has a look) only on a clear "start over" or "reset the
+styling" in the person's words, confirmed once, naming what will be replaced. It never touches the live theme.
+
+Update the marker's date and mode each time it makes changes. When there was nothing to refine, change nothing,
+the marker included.
