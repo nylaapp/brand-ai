@@ -7,11 +7,13 @@ description: >-
   built on it: typography, color schemes, spacing, corner radius, shadows, buttons and component
   states. It also sets up the essentials a new theme needs to start building: logo and favicon,
   motion, input fields, variant pickers and swatches, and, if you opt in when it starts, brand
-  styling on the starting theme's section templates. If BRAND.md or design.md aren't available yet, it asks once to create them now with brand-capture (or to be told where they are), runs it, and waits for it to finish. Use whenever the user
+  styling on the starting theme's section templates. Non-destructive and only when needed: on a fresh theme it applies the whole
+  brand look; on a theme that already has one it finds only the gaps (contrast, inconsistent fonts, colours or spacing,
+  weak line spacing) and changes only those; once the theme is built and consistent it does nothing until the user asks. If BRAND.md or design.md aren't available yet, it asks once to create them now with brand-capture (or to be told where they are), runs it, and waits for it to finish. Use whenever the user
   says "generate design tokens", "create design.md", "set up the brand's colors and fonts in the
   theme", "match the reference store's look", "build a style guide from this brand book", "what do
   we need before building pages", "set up the logo and favicon", "get the theme ready to build
-  on", or when page-studio or page-audit finds design.md missing or too thin.
+  on", or when the style is not built yet (design.md missing, theme still the starter's) or built but inconsistent. Built and consistent means nothing to do. A thin design.md alone does not start it.
 ---
 
 # Styles Builder (brand agnostic)
@@ -61,6 +63,12 @@ stricter rule wins.
   "staging"), and to the `staging` branch when the theme is in a git repository. If none is remembered, settle
   it before the first change, offering to create "<live theme name> staging" (`references/theme-target.md` sections 3
   and 4). Never edit, push to or commit for the live theme.
+- **Never overwrite a brand look that already exists.** Read the theme first (`references/modes.md`): a fresh theme
+  gets the full build; an established one gets only the gaps found by measuring, shown as a table and approved before
+  any write. When unsure, treat it as established.
+- **Run only when needed.** It runs when the style is not built yet, or is built but inconsistent (a measured gap).
+  When it is built and consistent, change nothing and say so. A thin design.md or a passing mention is not a reason
+  to run (`references/modes.md`).
 - **Live only when the person asks.** Never suggest, offer or schedule publishing. Only when the person asks in
   their own words in this chat, run the go-live gate (`references/ground-rules.md` section 3; `references/theme-target.md` section 7):
   checks first, then two confirmations, the second typed. End every change with the preview link and "Your live
@@ -75,8 +83,8 @@ stricter rule wins.
   components.
 - **Not a ClickUp workflow.** This is theme-repo and staging-theme work only.
 - **Not ongoing page editing.** Once `design.md` exists, `page-studio` and `page-audit`
-  read it for every subsequent build — this skill is run once per client (or once per rebrand), and again
-  only when the source material changes.
+  read it for every subsequent build. This skill runs when the style is not built yet or is inconsistent, and stops once it is built and consistent (a
+  rebrand or a new brand book counts as a new request). See `references/modes.md`.
 
 ## How this fits with brand-capture
 
@@ -189,6 +197,9 @@ in the theme repo (for example `DESIGN.md`) counts as the client's `design.md`: 
 tell brand-capture about it so it adopts that file, and never create a second one. Note each file's
 path and where it was found.
 
+**Check the run marker now.** If `design.md` has a `styles_built:` line, styles-builder already ran: the look was built before. Run `theme_state.py detect` (Step 0g): if it says nothing to refine, skip the
+opening questions and the rest of Step 0, say so in one line with the date, and stop; if it counts gaps, carry on in established mode.
+
 ### 0b Decide
 
 | BRAND.md | design.md | What to do |
@@ -254,7 +265,9 @@ measures only the missing items); don't ask the person whether to deepen `design
 1. A `design.md` now exists and is already deep: read it first and go straight to the next step. Change
    it only for a new source the person gave in this run (a brand book or a reference store): show what would
    change, wait for a yes, and only touch the sections that source affects. Update it where it lives.
-2. Carry out the answer to the opening question on the theme, and note its repo and staging branch: either
+2. **Settle the mode first (Step 0g, `references/modes.md`).** Carry out the answer to the opening question
+   on the theme in **fresh** mode only; in established mode it is the gap fixes the person approves. Note the repo and staging
+   branch. Fresh mode: either
    apply the tokens into `config/settings_schema.json` and `config/settings_data.json` on the staging theme
    (the default; never the live theme) through the theme's settings and the brand stylesheet, never by editing a
    base file, because a `design.md` with no theme applied recreates the gap this skill exists to close, or,
@@ -263,6 +276,22 @@ measures only the missing items); don't ask the person whether to deepen `design
    whether the optional brand styling of the existing section templates runs (Step 7) and on which
    templates, or that it wasn't chosen. Don't offer it now: if it wasn't chosen it is skipped, and a run with
    no opening answers (nobody present) skips it.
+
+## Step 0g: Settle the mode (fresh, established or completed)
+
+Read `references/modes.md` and run `python scripts/theme_state.py detect <staging theme folder> --design <design.md>`.
+The mode is measured from the staging theme, not asked (only "ambiguous" is asked, with "fill gaps only" first).
+Say it in one line with the evidence, then:
+
+- **completed** (a `styles_built` line in `design.md` or a styles-builder marker in the brand stylesheet): the look was
+  built before. The script counts the measured gaps. None: stop, say it is built and consistent (with the date), change nothing.
+  Some: established mode on those gaps only. A thin-looking design.md alone is not a gap; carry on with the original task without this skill.
+- **fresh:** do the full build below, Steps 0.5 to 6 (every token into the settings, plus the brand stylesheet for custom CSS and
+  fonts, with the font-file ask).
+- **established:** do not apply `design.md` over the theme. Find gaps only (`modes.md` section "Established mode"):
+  measure with `theme_state.py gaps` and the rendered theme at desktop and mobile, show the gap table (gap, where, now, proposed, why),
+  wait for a yes, change only the approved rows in the lightest layer, prove nothing else moved. Steps 0.5 to 3 become the
+  checklist the gaps are measured against, not a to-do list; Step 4 applies only the approved rows; Step 7 is skipped unless asked for.
 
 ## Step 0.5: The initial token set — what "ready to build on" means
 
@@ -405,7 +434,7 @@ as the source for every visual value, so write it the way brand-capture's `desig
 
 Front matter: the same flat `key: value` lines brand-capture's `design.md` uses (no nesting, no quotes):
 `brand`, `parent_doc: BRAND.md`, `status` (draft or approved, same as `BRAND.md`), `revision` (+1 on every
-write), `last_updated`, `measured` (date and viewports, or "not measured"), and `source` (the brand book
+write), `last_updated`, `measured` (date and viewports, or "not measured"), `styles_built` (written at the end of a run: date, theme id and mode), and `source` (the brand book
 file or reference store URL). Label a value `(from site)` when measured on a live store, `(inferred)` when
 concluded from the sources, and `(proposed)` (with its reason) when it fills a gap; values taken as stated from a
 brand book are labelled `(from brand book)`. Leave any `(client)` line
@@ -414,6 +443,7 @@ as the user wrote it. Keep brand identity content (voice, claims, competitor nam
 
 ## Step 4: Apply to the theme
 
+In **established** mode this step applies only the gap rows the person approved, never the whole token set (`references/modes.md`); every rule below still applies to each change.
 Read this whole step before writing anything. Shopify's settings system has specific shapes for each
 kind of token, and treating them all the same way is the most common way this step goes wrong.
 
@@ -584,6 +614,8 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
   live theme. When the theme is in a git repository, commit only those files on the `staging` branch and
   push only that branch. Same rule as every other theme-affecting skill in this roster
   (`references/theme-target.md` sections 1 and 4).
+- **Write the run marker** (`references/modes.md`, "When it runs, and when it stops"), only if this run changed something: `styles_built: <date> (theme <id>, mode <mode>)` in `design.md`'s
+  front matter and the `styles-builder: completed` comment at the top of the brand stylesheet. It records that the look was built; whether to refine it is decided by measuring, not by the marker.
 - Log an entry in the repo's QA log if one exists, noting the source (brand book file name, or reference
   store URL) and what was applied vs. only documented.
 - Final summary, short: what `design.md` now contains, what was and wasn't applied to the staging theme's settings, anything left `unconfirmed` that the user should resolve, any contrast issues found and how
@@ -593,10 +625,11 @@ Follow the repo's own font steps in `AGENTS.md` first; where it is silent:
 
 ## Step 7 (optional): Brand styling on the existing section templates
 
-Only if the person said yes to it in the opening questions (or asked for it in the request); it is never offered later. Follow `references/section-styling.md`: apply the brand's spacing, colour schemes, radius and padding to the existing section templates. It runs on the staging theme settled in Step 0 (never the live theme; `references/theme-target.md`), is limited to the templates the user named, shows a table first, and verifies against a baseline. It changes how the sections look, never what they say or show: copy and images are `page-edit-content`'s job, and section order is `page-edit-design`'s. Template JSON is written by the theme editor too: follow `references/theme-code-standards.md` before changing it.
+Only if the person said yes to it in the opening questions (or asked for it in the request); it is never offered later. Fresh mode only, unless the person asks for it by name in established mode. Follow `references/section-styling.md`: apply the brand's spacing, colour schemes, radius and padding to the existing section templates. It runs on the staging theme settled in Step 0 (never the live theme; `references/theme-target.md`), is limited to the templates the user named, shows a table first, and verifies against a baseline. It changes how the sections look, never what they say or show: copy and images are `page-edit-content`'s job, and section order is `page-edit-design`'s. Template JSON is written by the theme editor too: follow `references/theme-code-standards.md` before changing it.
 
 ## Never
 
+Do not overwrite a brand look that already exists: on an established theme, change only the gap rows the person approved, add rather than replace, and leave on-brand, consistent values and the person's own custom CSS as they are. Do not guess a theme is fresh; when unsure, treat it as established. Do not run when the theme is built and consistent: change nothing and say so. Do not start because design.md looks thin. Do not skip writing the run marker after a run that changed something.
 Do not leave a theme setting without a value because the sources are silent: fill it with a labelled `(proposed)`
 value and its reason. Do not present a proposal as a brand fact, propose a colour outside the brand's palette or a
 font family the brand didn't name, or propose a licence, logo or font file — those stay `unconfirmed`. Do not start, or write a `design.md` of your own, when `BRAND.md` or brand-capture's `design.md` is

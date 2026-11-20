@@ -41,8 +41,8 @@
     {
       "name": "styles-builder",
       "source": "./plugins/styles-builder",
-      "description": "Generate design.md from a brand book or reference store, apply it and the starter setup (logo, favicon, motion, inputs, variant pickers) into the theme's settings, and optionally brand the starter section templates.",
-      "version": "0.8.0"
+      "description": "Generate design.md from a brand book or reference store and apply it to a fresh theme (settings, custom CSS, fonts, logo, favicon, motion, inputs, variant pickers); on a theme that already has a brand look it only finds and fixes the gaps, and it runs once.",
+      "version": "0.9.0"
     },
     {
       "name": "competitor-research",
@@ -78,7 +78,7 @@
       "name": "page-studio",
       "source": "./plugins/page-studio",
       "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to the staging theme (never live; publishing only when asked, with two confirmations), with the Shopify CLI or, without it, the Shopify connector.",
-      "version": "0.13.1"
+      "version": "0.13.2"
     },
     {
       "name": "analytics",
@@ -90,7 +90,7 @@
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.2.0"
+      "version": "0.2.1"
     },
     {
       "name": "shopify-storefront",
