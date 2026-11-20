@@ -13,7 +13,7 @@ description: >-
   says "generate design tokens", "create design.md", "set up the brand's colors and fonts in the
   theme", "match the reference store's look", "build a style guide from this brand book", "what do
   we need before building pages", "set up the logo and favicon", "get the theme ready to build
-  on", or when page-studio or page-audit finds design.md missing or too thin.
+  on", or when design.md is missing and styles-builder has never run on this theme. It does not start by itself after a finished run, nor because another skill finds design.md thin; then only the user asking starts it.
 ---
 
 # Styles Builder (brand agnostic)
