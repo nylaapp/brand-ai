@@ -30,13 +30,13 @@
       "name": "brand-capture",
       "source": "./plugins/brand-capture",
       "description": "One-time brand setup: scans a site, reads any brand book, and writes BRAND.md, BRAND-VOICE.md, a complete design.md and BRAND-QUESTIONS.md in the staging theme's folder (asked, or created, at the start of the project), where every other skill reads them.",
-      "version": "0.8.0"
+      "version": "0.8.1"
     },
     {
       "name": "brand-voice",
       "source": "./plugins/brand-voice",
       "description": "Two skills: voice-builder, a guided wizard that builds BRAND-VOICE.md (one default voice plus channel exceptions) from the owner's words, best-performing ads and picks; and copywriter, which writes effective on-brand copy for store sections, interface text and campaigns.",
-      "version": "0.3.0"
+      "version": "0.4.0"
     },
     {
       "name": "styles-builder",
@@ -78,7 +78,7 @@
       "name": "page-studio",
       "source": "./plugins/page-studio",
       "description": "Page work in focused skills: audit (read-only), create (new pages and sections), edit content (words, images, links) and edit design (layout, order, style), each verifying and pushing only to the staging theme (never live; publishing only when asked, with two confirmations), with the Shopify CLI or, without it, the Shopify connector.",
-      "version": "0.13.1"
+      "version": "0.14.0"
     },
     {
       "name": "analytics",
@@ -90,13 +90,13 @@
       "name": "brand-docs",
       "source": "./plugins/brand-docs",
       "description": "Open the Brand AI documentation (every plugin, skill, example prompt and workflow) straight from Claude, no link needed.",
-      "version": "0.2.0"
+      "version": "0.2.1"
     },
     {
       "name": "shopify-storefront",
       "source": "./plugins/shopify-storefront",
       "description": "Plan and launch a campaign (website now; email, SMS and ads as stubs) with scheduled Launch and Stop, and match the site's colours to the style guide, and build a campaign landing page whose sections swap in the theme editor or by asking Claude (campaign-launcher, campaign-page, theme-editor).",
-      "version": "0.11.1"
+      "version": "0.12.0"
     },
     {
       "name": "site-reader",
