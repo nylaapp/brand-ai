@@ -325,11 +325,12 @@
         },
         {
           "name": "page-create",
-          "tagline": "Build a new page, a section, or a section type on your staging theme.",
+          "tagline": "Build a new page, a section, or a section type on your staging theme: brief first, research of inspiration brands, competitors and current design trends, two or three scored options, and a conversion, UX and design check before hand-over.",
           "prompts": [
             "Make a landing page for X",
             "Add a testimonials section to the homepage",
-            "Recreate this page from the live site"
+            "Recreate this page from the live site",
+            "Build the best landing page for the new product"
           ]
         },
         {
@@ -544,11 +545,12 @@
       "skills": [
         {
           "name": "voice-builder",
-          "tagline": "A guided wizard that builds or refines BRAND-VOICE.md.",
+          "tagline": "A guided wizard that builds or refines BRAND-VOICE.md, from your answers, your best ads or a meeting transcript, with your audience, market and reference brands.",
           "prompts": [
             "Set up the brand voice",
             "Refine BRAND-VOICE.md",
-            "Make it sound like me"
+            "Make it sound like me",
+            "Update the brand voice from this call transcript"
           ]
         },
         {
@@ -607,7 +609,7 @@
         },
         {
           "name": "campaign-page",
-          "tagline": "A campaign landing page template that sells: one section per part, ready alternates switched off, one-switch swaps, phases from coming soon to ended.",
+          "tagline": "A campaign landing page template that sells: researched against competitors, inspiration brands and current trend leaders, one section per part (a new one when a proven pattern needs it), ready alternates switched off, one-switch swaps, phases from coming soon to ended.",
           "prompts": [
             "Make a campaign landing page",
             "Swap the hero",

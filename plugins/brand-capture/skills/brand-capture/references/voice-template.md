@@ -8,8 +8,10 @@ exactly: `scripts/validate_brand.py` checks the front-matter keys and the `##` h
 **What goes here, and what doesn't.** Tone only: how the brand sounds and what it avoids saying. Naming and
 compliance rules stay in BRAND.md because other skills read them on their own: **Terminology** (which names and
 spellings to use), **Claim limits** (what can never be promised or said, disclaimers, the client's never-say list),
-**Brand architecture** (which name goes where) and **Inspiration brands**. Where this file and BRAND.md disagree,
-BRAND.md wins.
+**Brand architecture** (which name goes where) and **Inspiration brands** (the list itself). Where this file and
+BRAND.md disagree, BRAND.md wins. Two sections here lean on BRAND.md without repeating it: **Who we're talking to**
+is the reader as a writer needs them (what they already get, what copy has to answer), not the full Audience
+section; **Tone references** keeps only the writing lesson from each reference brand and how far to push toward it.
 
 **Origin labels** are the same as in BRAND.md: `(from site)`, `(repo)`, `(client)`, `(inferred)`, `(suggested)`. A
 `(client)` line is never overwritten by a scan. Unlike BRAND.md, this file holds **no** `[[CLIENT TO CONFIRM]]`
@@ -22,7 +24,10 @@ makes the most sense in general, written under How it sounds, which every writer
 departures from it are listed under Where it changes, one line per surface ("Instagram: far less formal, one short
 wink"). A surface not listed there uses the default. Never write a separate voice per channel.
 
-**Budget:** aim for 40 to 70 lines. The validator warns above 90 lines or 1,200 words and fails above 140 lines or
+**Optional sections:** Who we're talking to and Tone references (added in brand-capture 0.8.1 and voice-builder
+0.4.0). Leave a section out when there is nothing from the owner or evidence to put in it; never pad it.
+
+**Budget:** aim for 40 to 80 lines. The validator warns above 90 lines or 1,500 words and fails above 140 lines or
 2,000 words. Never copy from the site at length: short verbatim quotes only, each from a saved page.
 
 **Status and revision** follow BRAND.md: `draft` until the client approves both files together, and `revision`
@@ -53,6 +58,12 @@ source: <where it came from, e.g. "brand-capture 1.3.0 scan of https://example.c
 <adjective, adjective, adjective> *three a copywriter can act on ("plain, confident, warm"), never vague ones
 ("premium, quality")*
 
+## Who we're talking to
+*Optional. The reader a writer pitches every line to, in the owner's words where possible. Three to five bullets.*
+- <who: age range, life stage, work, how they live; where they are>
+- <what they understand at first glance, and what copy has to explain or prove (their doubts, in their words)>
+- <the words they use for the product, beside the brand's own names>
+
 ## How it sounds
 *The default voice: what makes the most sense for the brand in general, on any surface not listed below. Four to
 six bullets.*
@@ -67,6 +78,14 @@ far ("Instagram: far less formal; one short wink per caption"). A platform that 
 line here and its hard rules in BRAND.md's Claim limits. At most 6 lines; with no real exceptions, write "None: the
 default applies everywhere".*
 - <surface>: <what changes from the default>
+
+## Tone references
+*Optional. Where the voice is heading and how far, then the brands that show it: what to borrow in writing (one
+pattern and one short quote each) and what never to take. Rejected brands too, with the owner's reason. Style only,
+never copy their lines. Three to six bullets.*
+- Direction: <where the voice is moving from and to, how far, and what stays fixed>
+- Toward <brand>: <the writing pattern to borrow>, e.g. "<short quote>" · Not: <what would clash>
+- Never like <brand>: <the owner's reason>
 
 ## Signature phrases
 "<verbatim>", "<verbatim>", "<verbatim>" (from site) *two to five, each quoted exactly from a saved page*
@@ -86,7 +105,7 @@ Word choice that is a naming or compliance rule, not a matter of tone, is kept i
 - **Terminology:** <one line on what it covers for this brand>
 - **Claim limits:** <one line: what can never be promised or said, the approved disclaimers, the client's never-say list>
 - **Brand architecture:** <one line: which brand name to use on which page>
-- **Inspiration brands:** <one line: style references only, never to copy; name the one that bears on voice, if any>
+- **Inspiration brands:** <one line: the list lives in BRAND.md; their writing lessons are under Tone references>
 
 ## Change log
 | Rev | Date | Requested by | Summary |

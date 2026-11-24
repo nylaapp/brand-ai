@@ -11,15 +11,19 @@ settings, and the plan says which (the design basis, below).
 
 **The rule.** When the owner gives no Figma file, mockup or reference link, never design from the skill's defaults
 alone. Always study similar pages first: a competitor, an inspiration brand and a brand in a similar industry
-running the same kind of campaign. Read their content and their layout, then read the store's own design system and
+running the same kind of campaign, plus a current trend leader. Read their content and their layout, then read the store's own design system and
 branding, and only then choose sections. If the owner did give a reference, use it (it wins) and skip to step 4.
 
-### 1. Choose three to five pages to study
+### 1. Choose four to six pages to study
 Take them from these sources, in this order, and write down the URL and the date you looked:
 1. **Competitors:** `COMPETITORS.md`, or BRAND.md → Competitors. At least one.
 2. **Inspiration brands:** BRAND.md → Inspiration brands, the ones suggested for style. At least one.
 3. **The same industry or product type:** brands that sell something similar to a similar audience, found by
    search, plus the matching pages in `examples.md` (dated, so open them live).
+4. **Trend leaders:** one or two notable brands in the same or a neighbouring industry (similar customer, price point
+   or kind of purchase), praised now for their design or growing fast, preferably redesigned in the last 18 months.
+   Say how each was found. BRAND-VOICE.md's Tone references, when present, name brands the owner already admires:
+   start there.
 
 Pick the page that does the same job as the one being built: their gift guide for a gift guide, their sale page for
 a sale, their launch page for a launch. A homepage is a second choice. A page that is not live now (last year's
@@ -37,11 +41,19 @@ from a search snippet.
 | **Content** | What the hero says and in what order (offer, date, button); how the offer, proof and objections are ordered; how products are named and priced; the labels on buttons; how long the copy is; what trust and FAQ items appear |
 | **Layout** | Section order and count; hero type (full-bleed image, split, type only, video); how the backgrounds alternate; product grid columns and card style; how dense it is; what the first screen at 375 px shows |
 | **Design system and branding** | Their fonts, palette, spacing, corners, button style and imagery style, read only to understand why the page feels as it does. Then read the store's own `design.md` and theme settings, and note where they agree or differ |
+| **Works / doesn't** | What makes the page clear and easy to act on (offer read in one glance, proof at the button, the action in the mobile first screen, light media), and what costs clarity or speed (a heavy hero, a first-screen popup, styling that hides the price or the button, competing buttons) |
+
+**Durable trend or fad.** Across all the pages, list the patterns that repeat in three or more. Mark each one durable
+(it helps clarity, trust or speed and fits the brand: product in use, plain terms, on-page FAQs, photo reviews, a
+sticky mobile button) or a fad (mostly decoration, slows the page or clashes with the brand: heavy scroll animation,
+cursor effects, autoplay with sound). Borrow durable ones only. A more stylised page can sell less than a plainer one,
+so no pattern may hide the offer, the price or the button.
 
 ### 4. Decide, then record it
-Add a **Reference study** table to the plan artifact (Website section), one row per page: brand, URL, date, what we
-borrow, what we leave. Under it, one line: "Design basis: <patterns borrowed> built in <store>'s design system".
-Then map each borrowed pattern to a section the theme actually has.
+Add a **Reference study** table to the plan artifact (Website section), one row per page: brand, URL, date, source
+type, what we borrow, what we leave and why. Under it, one line: "Design basis: <patterns borrowed> built in
+<store>'s design system", and one line naming the durable trends used. Then map each borrowed pattern to a section
+the theme actually has, or, when none can produce it, to a recommended new section (`SKILL.md` → Rules, rule 3).
 
 - **Borrow structure and patterns, never the look.** Order of bands, what each holds, grid shape, how the offer and
   proof are staged. Never copy their words, images, logo or typefaces, and never hotlink their files.

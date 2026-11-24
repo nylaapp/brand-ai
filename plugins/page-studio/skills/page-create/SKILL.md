@@ -3,9 +3,14 @@ name: page-create
 description: >-
   Create something new on a Shopify theme: a new page (landing page, campaign page, service or
   treatment page, region or location page), a new section added to an existing page, or a new
-  section type built to the theme's own rules. Plans it from what its page type needs (the
-  playbook's must-haves, primary action in the first screen), reuses existing sections before
-  building anything new, shows a plain-language plan for a yes, then builds it (in a local working
+  section type built to the theme's own rules. Starts from a short brief (goal, traffic source,
+  offer, the reader's doubts, proof), researches the brand's inspiration brands, its competitors and
+  the current design trends of notable brands in similar industries (what works, what doesn't, what
+  is a fad), scores two or three page options for conversion, brand fit, UX, speed and build cost,
+  and recommends the best. Plans it from what its page type needs (the playbook's must-haves, primary
+  action in the first screen), takes each section from the theme's existing pool first and
+  recommends a new section only when a proven pattern needs one, shows a plain-language plan for a
+  yes, then builds it (in a local working
   copy with the Shopify CLI, or, without the CLI, directly on the staging theme through the Shopify
   connector when it can change themes), verifies it on the rendered page including the theme
   editor's controls, and sends only the new and touched files to the theme the person chose (always
@@ -32,10 +37,13 @@ that connector (`../page-studio/references/connector-route.md`). The rules and t
 same; the steps below say where the connector route differs.
 
 ```
-0. Setup check -> 1. Context -> 2. Understand what is being created -> 3. Reference or playbook ->
-4. Plan (approval) -> 5. Capture the baseline -> 6. Build in the working copy ->
-7. Verify -> 8. Ship to the theme -> 9. Hand back
+0. Setup check -> 1. Context -> 2. Understand what is being created -> 2b. Brief ->
+3. Reference or research -> 4. Options and plan (approval) -> 5. Capture the baseline ->
+6. Build in the working copy -> 7. Verify, then look, score, fix once -> 8. Ship to the theme -> 9. Hand back
 ```
+
+`references/page-quality.md` holds the brief, the research and trend scan, the option scoring, where each section
+comes from, and the conversion, UX and visual rules every new page is scored against. Read it at step 2b.
 
 ## How to reply (every message)
 
@@ -89,9 +97,13 @@ stricter rule wins.
   the write (the live theme is never touched), and `theme check` can't run. Say both in the plan and
   get the person's agreement once. The calls and guards are in
   `../page-studio/references/connector-route.md`.
-- **Reuse first.** For every region choose, in order: an existing section that fits; the same section
-  with one small new setting; a native base-theme section or block; a new section only when the layout
-  is genuinely different. One section per visual region; blocks are for repeated items inside a region.
+- **Reuse first, build when it pays.** For every region choose, in order: an existing section that fits; the same
+  section with one small new setting; a native base-theme section or block; a new section when the layout is
+  genuinely different, or when the research shows a pattern that works and no existing section can produce it
+  (`references/page-quality.md` section 4). Say in the plan which one each region uses and why. One section per
+  visual region; blocks are for repeated items inside a region.
+- **Built to convert, not only to exist.** Every new page meets the conversion, UX and visual rules in
+  `references/page-quality.md` sections 5 to 7 and is scored against them before it ships.
 - **Get a yes on the plan before building.**
 - **No hardcoded colours, fonts or text** that a setting could hold. Check every number against the
   schema's min and max, since a bad value can reject the whole push.
@@ -161,7 +173,15 @@ set from it; never invent a hex, font, size or radius.
 `../page-audit/references/audit-file.md`), read the rows marked `picked` that call for something new and
 are owned by this theme. Work only on those and carry each row's baseline number.
 
-## 3. Reference or playbook
+## 2b. Brief
+
+For a new page, settle the brief in `references/page-quality.md` section 1: the goal, the traffic source and its
+promise, the offer, the reader and their doubts (from BRAND-VOICE.md's Who we're talking to), and the proof the page
+can show. Take each one from the brand files and the request first, and ask only what is missing, one question at a
+time. For a single new section, the goal and the reader are enough. The brief decides what the research looks for
+and what the page is scored on.
+
+## 3. Reference or research
 
 **With a reference URL:** capture desktop and mobile widths, scrolling slowly so lazy content loads;
 list every section top to bottom including ones with no text; read computed values (container, padding,
@@ -190,14 +210,16 @@ for this page; when they do, theirs win and the plan says which rule they replac
    heading size, the brand's pill buttons instead of square ones. Record each one in the parity table as
    an intended difference with the brand rule it follows, so it isn't counted as a mismatch.
 
-**Without one (no Figma file, mockup or link): study similar pages first, always.** Don't design from
-the playbook alone.
+**Without one (no Figma file, mockup or link): research first, always.** Don't design from
+the playbook alone. The full method is `references/page-quality.md` section 2; in short:
 
-1. **Choose three to five live pages** that do the same job as this page: at least one competitor
-   (`COMPETITORS.md` or BRAND.md → Competitors), at least one inspiration brand (BRAND.md → Inspiration
-   brands) and one or two brands in a similar industry or with similar products found by search. Record
-   each URL and the date you looked.
-2. **Read each at desktop and mobile** with `site-reader` or the browser, scrolling so lazy content loads
+1. **Choose five to eight live pages:** at least two inspiration brands (BRAND.md → Inspiration brands and
+   BRAND-VOICE.md → Tone references), at least one competitor (`COMPETITORS.md` or BRAND.md → Competitors),
+   and two or three **trend leaders**: notable brands in the same or a neighbouring industry, praised now
+   for their design, preferably redesigned in the last 18 months. Prefer pages that do the same job as this
+   page. Record each URL and the date you looked.
+2. **Read each at desktop and mobile** with `site-reader` first (the browser only for what it can't do, after
+   checking the window really resized), scrolling so lazy content loads
    (the capture rules above apply). If a page can't be rendered, say so and pick another. Never describe a
    page from memory or a snippet.
 3. **Study three lenses** and write them down: *content* (what the first screen says, how offer, proof and
@@ -205,9 +227,11 @@ the playbook alone.
    order and count, hero type, how backgrounds alternate, grid columns, density, the mobile first screen);
    *design system and branding* (their fonts, palette, spacing, corners, buttons and imagery, read to
    understand why the page feels as it does), then the store's own `design.md` and theme settings, noting
-   where they agree or differ.
-4. **Decide and record.** Put a Reference study table (brand, URL, date, what we borrow, what we leave) and
-   a one-line design basis in the plan. The "Recreating a page from a reference" rules above then apply to
+   where they agree or differ. For each page also note **what works and what doesn't** (clarity, proof,
+   speed, mobile), and across all of them which repeated patterns are **durable trends** and which are
+   **fads** (`page-quality.md` sections 2.2 and 2.3). Borrow durable ones only.
+4. **Decide and record.** Put a Reference study table (brand, URL, date, source type, what we borrow, what
+   we leave and why), a one-line design basis and the durable trends used in the plan. The "Recreating a page from a reference" rules above then apply to
    what you borrow: structure and patterns yes, words, images, logos and typefaces never, and the store's
    design system wins every conflict. Show the person two or three borrowed patterns with a link each
    before building.
@@ -217,10 +241,18 @@ the playbook alone.
 
 If nothing similar can be read, say the design basis is the brand files and the playbook only, and flag it.
 
-## 4. Plan
+## 4. Options and plan
+
+**Options first (new pages).** Build two or three page options from the design basis, each a different
+section order, not three wordings of one layout. Score each for conversion, brand fit, UX, speed and build
+cost, and recommend the best (`references/page-quality.md` section 3). Show them with the recommendation
+first; the person's pick wins. Copy for the chosen option is written with `copywriter` when it is installed
+(`page-quality.md` section 5, rule 8).
 
 For each region choose from the reuse order in the rules. Show the person a plain-language table:
-region, which section it will use, whether it needs a new setting or a new section, and why. When
+region, which section it will use (existing as is, one new setting, base-theme, or a recommended new
+section), and why. A recommended new section names the pattern, the reference page that shows it and what
+the page gains (`page-quality.md` section 4). When
 recreating a reference, add what the reference does there and every place the brand guidelines replace
 the reference's value (step 3). Get a
 yes before building. The plan names the staging theme (name and id) it will be built on.
@@ -264,6 +296,10 @@ that matter most are: it exists and reads as planned (checks 1 and 5), the theme
 reorder and duplicate controls work and empty fields and long headings don't break layout (check 10),
 other breakpoints and colour schemes hold (check 6), values come from the spec (check 12), and nothing
 that already existed moved (check 2). Any failure goes back to step 6; nothing ships on a failed check.
+Then **look, score, fix once** (`references/page-quality.md` section 8): full-page captures at 375 and
+1440 px, one line per check (first screen, one goal, doubts answered, proof at the button, terms, FAQs,
+mobile, rhythm and type, no placeholders, media weight), fix what the page can, capture again, and list what
+needs the person.
 Never say a page "matches" a reference without a measured parity table. **Connector route:** step 8
 comes first (the pre-write checks, then the write to the staging theme), and this step runs there
 right after it. Nothing renders before the write; a failed check means the change is not ready, so
@@ -281,8 +317,10 @@ proof, re-check the preview, write the QA entry
 ## 9. Hand back
 
 Give a short, plain summary: what now exists and where it can be seen on the staging theme, what was
-verified with the numbers, and what the person still has to supply or do (images, final copy, creating
-the page in the store admin and choosing the template). On the connector route, say that the code
+verified with the numbers, the page score from step 7, and what the person still has to supply or do
+(images, final copy, creating the page in the store admin and choosing the template). For a new page, add
+the measurement list (`references/page-quality.md` section 9): a tagged link per traffic source, the
+conversion event to watch, and what to compare after two to four weeks. On the connector route, say that the code
 checker (`theme check`) could not run. End with the hand-over line (`theme-target.md` section 6):
 "Done on the staging theme <name> (<id>). Preview: <link>. Your live store has not changed." Say
 nothing about publishing unless the person asks.
@@ -291,9 +329,13 @@ nothing about publishing unless the person asks.
 
 - [ ] Setup check passed (or already passed this conversation); anything missing was explained and fixed step by step
 - [ ] Page, section or section type settled; name and handle checked for clashes
+- [ ] Brief settled (goal, traffic source, offer, reader's doubts, proof)
 - [ ] Plan built from the reference's measured values, or (with no reference) from a Reference study of
-      similar pages (competitor, inspiration brand, same industry) plus the playbook's must-haves
-- [ ] Existing sections reused first; any new section type called out, approved and built to the repo's rules
+      five to eight pages (inspiration brands, competitor, trend leaders) with what works, what doesn't and
+      durable trends versus fads, plus the playbook's must-haves
+- [ ] Two or three options scored (conversion, brand fit, UX, speed, build cost); recommendation shown first
+- [ ] Existing sections reused first; any new section type called out with its reason, approved and built to the repo's rules
+- [ ] Look, score, fix once done at 375 and 1440 px; measurement list in the hand-back
 - [ ] Plan table agreed before building
 - [ ] Baseline captured before the first edit; change pack started
 - [ ] No hardcoded colours, fonts or text; numbers inside schema ranges; images blank where unconfirmed; placeholders obvious

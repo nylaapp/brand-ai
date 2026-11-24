@@ -37,12 +37,15 @@ HEADINGS = ["Quick reference", "Identity", "Brand architecture", "Story", "Audie
             "Channels", "Author", "Sources", "Change log"]
 NO_PENDING_WHEN_APPROVED = ["Brand architecture", "Claim limits"]
 VOICE_KEYS = ["brand", "parent_doc", "status", "revision", "last_updated", "source"]
-VOICE_HEADINGS = ["In three words", "How it sounds", "Where it changes", "Signature phrases", "Do / don't",
-                  "Words and habits to avoid", "Rules that stay in BRAND.md", "Change log"]
-VOICE_OPTIONAL = {"Where it changes"}               # files written before brand-capture 0.7.0 may lack it
+VOICE_HEADINGS = ["In three words", "Who we're talking to", "How it sounds", "Where it changes", "Tone references",
+                  "Signature phrases", "Do / don't", "Words and habits to avoid", "Rules that stay in BRAND.md",
+                  "Change log"]
+# Where it changes: files written before brand-capture 0.7.0 may lack it.
+# Who we're talking to, Tone references: optional, added in 0.8.1 (voice-builder 0.4.0).
+VOICE_OPTIONAL = {"Where it changes", "Who we're talking to", "Tone references"}
 VOICE_FILE = re.compile(r"[A-Za-z0-9._-]+\.md")   # a plain file name next to BRAND.md, never a path
 VOICE_POINTER_MAX = 8                              # non-empty lines allowed in BRAND.md's Voice when voice_doc is set
-VOICE_LINES_WARN, VOICE_LINES_FAIL, VOICE_WORDS_WARN, VOICE_WORDS_FAIL = 90, 140, 1200, 2000
+VOICE_LINES_WARN, VOICE_LINES_FAIL, VOICE_WORDS_WARN, VOICE_WORDS_FAIL = 90, 140, 1500, 2000
 DO_DONT = re.compile(r"^\s*-\s*Do:.*Don't:", re.M)
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 PLACEHOLDER_ANY = re.compile(r"\[\[CLIENT TO CONFIRM[^\]]*\]\]")

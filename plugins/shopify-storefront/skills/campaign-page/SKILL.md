@@ -1,6 +1,6 @@
 ---
 name: campaign-page
-description: Generates a campaign landing page template for a Shopify store, built to sell, built to look designed (reference study, visual check) and built so any part swaps in one switch. The offer, end date and one button sit in the first screen on mobile; urgency is real; products are curated with the saving shown; the shipping cutoff and FAQ sit near the button; it has an email signup and a tagged link per channel; phases from coming soon to ended run on one URL. Each part (hero, trust row, countdown, products, FAQ, signup, closing call to action) is its own section with ready alternates, swapped in the theme editor or by asking Claude. Uses only the theme's sections and the plan's facts, and can make a design draft with 2 or 3 copy options per section. Built on the store's staging theme, never the live theme. Requires BRAND.md, BRAND-VOICE.md and design.md. Use for "campaign landing page", "sale page", "BFCM page", "gift guide page", "swap the hero", "design draft" or "a page for the Black Friday sale".
+description: Generates a campaign landing page template for a Shopify store, built to sell, built to look designed (reference study of competitors, inspiration brands and current trend leaders, with what works and what is a fad; visual check) and built so any part swaps in one switch. The offer, end date and one button sit in the first screen on mobile; urgency is real; products are curated with the saving shown; the shipping cutoff and FAQ sit near the button; it has an email signup and a tagged link per channel; phases from coming soon to ended run on one URL. Each part (hero, trust row, countdown, products, FAQ, signup, closing call to action) is its own section with ready alternates, swapped in the theme editor or by asking Claude. Uses the theme's own sections first, recommends a new section only when a proven pattern needs one, uses only the plan's facts, and can make a design draft with 2 or 3 copy options per section. Built on the store's staging theme, never the live theme. Requires BRAND.md, BRAND-VOICE.md and design.md. Use for "campaign landing page", "sale page", "BFCM page", "gift guide page", "swap the hero", "design draft" or "a page for the Black Friday sale".
 ---
 
 # Campaign page
@@ -49,8 +49,11 @@ stricter rule wins.
    rich text, email signup and more). Other themes pick a colour scheme.
 2. **One section per region.** Hero, trust row, countdown, products, gifting, reviews, FAQ, signup and closing call
    to action are separate sections. Blocks are only for repeated items inside a region (cards, questions).
-3. **Reuse before building.** Existing section, then the same section with one new setting, then a new section only
-   when nothing produces the layout. No hardcoded colours, fonts or copy that a setting could hold.
+3. **Reuse before building, build when it pays.** Existing section, then the same section with one new setting, then
+   a new section when nothing produces the layout, or when the reference study shows a pattern that works (a sticky
+   mobile buy bar, a "why this price" band, a reviews strip with photos) and no theme section can produce it. A
+   recommended new section is named in the plan with the reference page that shows it and what the page gains, and
+   built only after the plan's yes. No hardcoded colours, fonts or copy that a setting could hold.
 4. **Unpublished, always.** The page is created unpublished, and its template goes on the staging theme (on a store
    whose live theme is connected to GitHub, the theme connected to `staging`:
    `../campaign-launcher/references/github-stores.md`). Never edit the live theme, and never link the page from the
@@ -74,9 +77,10 @@ stricter rule wins.
 
 A page that sells but looks like a stack of default sections fails the owner as much as one with weak copy. Read
 `references/visual-design.md` before choosing any section, and again before the hand-over. It sets:
-- **A reference study before any layout.** With no Figma, mockup or link from the owner, study three to five similar
-  live pages first: a competitor, an inspiration brand (both from BRAND.md or `COMPETITORS.md`) and a brand in a
-  similar industry, each doing the same kind of campaign. Read their content and layout at 375 and 1440 px, then the
+- **A reference study before any layout.** With no Figma, mockup or link from the owner, study four to six similar
+  live pages first: a competitor, an inspiration brand (both from BRAND.md or `COMPETITORS.md`), a brand in a
+  similar industry and a current trend leader, each doing the same kind of campaign. Note what works, what doesn't,
+  and which repeated patterns are durable rather than fads. Read their content and layout at 375 and 1440 px, then the
   store's own `design.md` and theme settings. Record a Reference study table and a one-line design basis in the plan.
   Borrow structure, never words, images or the look; the store's brand wins every conflict. If `design.md` is missing,
   offer `brand-capture` or `styles-builder` first.
