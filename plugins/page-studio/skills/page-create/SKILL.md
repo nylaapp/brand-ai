@@ -218,7 +218,8 @@ the playbook alone. The full method is `references/page-quality.md` section 2; i
    and two or three **trend leaders**: notable brands in the same or a neighbouring industry, praised now
    for their design, preferably redesigned in the last 18 months. Prefer pages that do the same job as this
    page. Record each URL and the date you looked.
-2. **Read each at desktop and mobile** with `site-reader` or the browser, scrolling so lazy content loads
+2. **Read each at desktop and mobile** with `site-reader` first (the browser only for what it can't do, after
+   checking the window really resized), scrolling so lazy content loads
    (the capture rules above apply). If a page can't be rendered, say so and pick another. Never describe a
    page from memory or a snippet.
 3. **Study three lenses** and write them down: *content* (what the first screen says, how offer, proof and

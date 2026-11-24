@@ -24,9 +24,11 @@ A page with no single goal is not a landing page. Say so and ask which goal wins
 
 ## 2. Research (step 3)
 
-Read each page live at 375 and 1440 px with `site-reader` or the browser, scrolling so lazy content loads, and record
-the URL and the date. Never describe a page from memory or from a search snippet. A page that can't be read is
-replaced by another, and the replacement is noted.
+Read each page live at 375 and 1440 px, scrolling so lazy content loads, and record the URL and the date. Use
+`site-reader` first: it sets both viewports exactly and saves first-screen and full-page pictures. Use the browser only
+for what site-reader can't do, and check the window really changed size before trusting a mobile read (a browser
+window can refuse to resize). Never describe a page from memory or from a search snippet. A page that can't be read
+is replaced by another, and the replacement is noted.
 
 ### 2.1 The sources (five to eight pages in all)
 
@@ -106,6 +108,16 @@ For every region, take the first that works, and say which in the plan:
 Never force a region into a section that changes its layout, and never build a new section for something an existing
 one already does.
 
+**Check the schema can show the region.** Before a section is put in the plan, read its schema for what the region
+needs: a section heading, a button, a colour band behind the whole section. Many card and column sections have no
+section heading setting, so a region planned as "Why it's worth $25" shows only its cards. When the section lacks
+something, say so in the plan and either choose another section, carry the point in the blocks themselves (the first
+card's title), or add a heading band only when the page still stays within the density rule.
+
+**A reused section is checked against this brief.** A section copied from another template (a hero, a closing band)
+was written for that page's brief. Check it still answers this page's main doubt and promise; if not, change its
+words or say in the plan why it stays.
+
 ## 5. Conversion rules
 
 Each rule names the playbook check it serves. Every one is scored in section 8.
@@ -147,7 +159,9 @@ Each rule names the playbook check it serves. Every one is scored in section 8.
 2. **Image-led.** The brand's own photography carries the page. Products are shown in use where the store has those
    images. Every card uses the same aspect ratio and crop.
 3. **Background rhythm.** At most three of the brand's colour groups. Neighbouring sections only share one when they
-   are one idea. Open and close on the strongest one. Check the real hex of each group, not its name.
+   are one idea. Open and close on the strongest one. Check the real hex of each group, not its name. Judge it on the
+   render, not the settings: on some sections the colour group paints only a card or the text box (media with text,
+   feature cards), so the band around it stays the page colour.
 4. **One spacing scale.** Three padding steps from the theme's range, reused: small, medium, large.
 5. **Type hierarchy.** One H1 of at most eight words and two lines at 375 px; region headings one size down,
    consistent across the page.
